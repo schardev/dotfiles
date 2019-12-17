@@ -17,3 +17,16 @@ set tabstop=4               " The width of a TAB is set to 4.
                             " Vim will interpret it to be having
                             " a width of 4.
 set softtabstop=4           " Sets the number of columns for a TAB
+
+" highlight trailing whitespace in red
+hi ExtraWhitespace ctermbg=darkred
+match ExtraWhitespace /\s\+$/
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+
+" highlight tabs in yellow
+hi Tabs ctermbg=yellow
+call matchadd('Tabs', '\t')
+au BufWinEnter * call matchadd('Tabs', '\t')
+if version >= 702
+  au BufWinLeave * call clearmatches()
+endif
