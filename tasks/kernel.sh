@@ -49,32 +49,32 @@ ARGS+="-j$(nproc --all) O=out \
 	CROSS_COMPILE=$GCC_PATH/aarch64-linux-android- \
 	CROSS_COMPILE_ARM32=$GCC_32_PATH/arm-linux-androideabi- "
 
+# Prints a formatted header to point out what is being done to the user
+header() {
+    BORDER="====$(for _ in $(seq ${#1}); do printf '='; done)===="
+    printf '\n%b%s\n%s\n%s%b\n\n' "${2:-${LGR}}" "${BORDER}" "    ${1}    " "${BORDER}" "${NOR}"
+}
+
 # functions
 makeClean(){
-echo -e $LGR "===========================================" $NOR
-echo -e $LGR "               Making Clean...             " $NOR
-echo -e $LGR "===========================================" $NOR
+    header "Making Clean..."
     make $ARGS clean
     make $ARGS mrproper
-echo -e $BLU "Cleaned!" $NOR
+    echo -e $BLU "Cleaned!" $NOR
 }
 
 makeDefconfig(){
-echo -e $LGR "===========================================" $NOR
-echo -e $LGR "          Renegrating defconfig...         " $NOR
-echo -e $LGR "===========================================" $NOR
+    header "Regenerating defconfig..."
     make $ARGS $DEFCONFIG
     mv out/.config arch/arm64/configs/X00T_defconfig
-echo -e $BLU "Renerating defconfig done!" $NOR
+    echo -e $BLU "Renerating defconfig done!" $NOR
 }
 
 makeKernel(){
-echo -e $LGR "===========================================" $NOR
-echo -e $LGR "             Building Kernel...            " $NOR
-echo -e $LGR "===========================================" $NOR
+    header "Building kernel..."
     make $ARGS $DEFCONFIG
     make $ARGS
-echo -e $BLU "Kernel image built!" $NOR
+    echo -e $BLU "Kernel image built!" $NOR
 }
 
 makeZip(){
@@ -82,10 +82,7 @@ makeZip(){
 if [ $? -ne 0 ]; then
     echo -e $RED "Build Failed!" $NOR
 else
-    echo -e $LGR "===========================================" $NOR
-    echo -e $LGR "            Making Flashable Zip...        " $NOR
-    echo -e $LGR "===========================================" $NOR
-
+    header "Making Flashable Zip..."
     cp -f $ZIMAGE $ANYKERNEL
     cd $ANYKERNEL
     find . -name "*.zip" -type f -delete
