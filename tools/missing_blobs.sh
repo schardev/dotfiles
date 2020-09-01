@@ -32,7 +32,7 @@ BLOBS_PATH="
     system/apex/com.android.runtime.release/* \
     system/apex/com.android.runtime.release/*/*"
 
-java -jar $SCRIPT_PATH/bin/MissingBlobs.jar \
+java -jar $SCRIPT_PATH/../bin/MissingBlobs.jar \
 $BLOBS_PATH > missing_blobs.txt
 
 # I don't want to see "Path is not a directory" so chop it off
