@@ -5,6 +5,9 @@
 # Copyright (C) 2020 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 
+SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+TERMUX_STYLE="$SCRIPT_PATH/../modules/termux-style"
+
 # packages to install
 pkg install -y \
     git \
@@ -16,9 +19,10 @@ pkg install -y \
     wget \
     tsu
 
-# add custom buttons layout
+# add custom buttons layout and theme
 mkdir ~/.termux && touch ~/.termux/termux.properties
 echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" > ~/.termux/termux.properties
+setupTheme
 
 # parse git branch to show in prompt style
 # kanged from https://github.com/krasCGQ/scripts
@@ -52,3 +56,10 @@ alias la='ls -al'
 # override default prompt style
 export PS1='\[\e[1;36m\]\w\[\e[1;34m\]$(parseGitBranch) ❯\[\e[0m\] '
 EOF
+
+setupTheme() {
+    # use Dracula color scheme & Hack font by default
+    # can be changed after installing termux-style anyway
+    cp "$TERMUX_STYLE"/colors/dracula.properties "$HOME"/.termux/colors.properties
+    cp "$TERMUX_STYLE"/fonts/Hack.ttf "$HOME"/.termux/font.ttf
+}
