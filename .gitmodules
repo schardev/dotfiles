@@ -1,0 +1,3 @@
+[submodule "modules/termux-style"]
+	path = modules/termux-style
+	url = https://github.com/adi1090x/termux-style
