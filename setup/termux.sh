@@ -16,13 +16,12 @@ pkg install -y \
     openssh \
     gnupg \
     binutils \
-    wget \
-    tsu
+    wget
 
 # add custom buttons layout and theme
 mkdir ~/.termux && touch ~/.termux/termux.properties
 echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" > ~/.termux/termux.properties
-setupTheme
+[[ -d "$TERMUX_STYLE" ]] && setupTheme
 
 # parse git branch to show in prompt style
 # kanged from https://github.com/krasCGQ/scripts
