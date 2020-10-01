@@ -5,15 +5,19 @@
 # Copyright (C) 2020 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 
-# set compiler paths
+# Set clang version and android tag
+CLANG_VER="r399163"
+ANDROID_TAG="android-11.0.0_r3"
+
+# Set compiler paths
 COMPILER_PATH="$HOME/compiler"
-CLANG_PATH="$COMPILER_PATH/clang/clang-r370808/bin"
+CLANG_PATH="$COMPILER_PATH/clang/clang-${CLANG_VER}/bin"
 GCC_PATH="$COMPILER_PATH/gcc/bin"
 GCC_32_PATH="$COMPILER_PATH/gcc32/bin"
 
 # Kernel specific
 DEFCONFIG="X00T_defconfig"
-ANYKERNEL=flasher/anykernel
+ANYKERNEL=flasher
 ZIMAGE=out/arch/arm64/boot/Image.gz-dtb
 KERNEL_NAME="ARAGOTO"
 ZIP_NAME="${KERNEL_NAME}-$(date +"%d%m%Y")-$(date +%H:%M).zip"
@@ -22,7 +26,7 @@ export KBUILD_BUILD_USER="SaurabhCharde"
 export KBUILD_BUILD_HOST="ProjectWeeb"
 
 # Colors
-NOR='\033[0m'
+RST='\033[0m'
 RED='\033[0;31m'
 LGR='\033[1;32m'
 YEL='\033[1;33m'
@@ -33,15 +37,15 @@ BLU='\033[1;34m'
 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master $COMPILER_PATH/clang
 
 [[ ! -d $GCC_PATH ]] && \
-git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b android-10.0.0_r40 $COMPILER_PATH/gcc
+git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc
 
 [[ ! -d $GCC_32_PATH ]] && \
-git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b android-10.0.0_r40 $COMPILER_PATH/gcc32
+git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc32
 
 [[ ! -d $ANYKERNEL ]] && \
-git clone https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO $ANYKERNEL
+git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO $ANYKERNEL
 
-# arguments
+# Arguments
 ARGS+="-j$(nproc --all) O=out \
 	ARCH=arm64 \
 	CC=$CLANG_PATH/clang \
@@ -52,35 +56,35 @@ ARGS+="-j$(nproc --all) O=out \
 # Prints a formatted header to point out what is being done to the user
 header() {
     BORDER="====$(for _ in $(seq ${#1}); do printf '='; done)===="
-    printf '\n%b%s\n%s\n%s%b\n\n' "${2:-${LGR}}" "${BORDER}" "    ${1}    " "${BORDER}" "${NOR}"
+    printf '\n%b%s\n%s\n%s%b\n\n' "${2:-${LGR}}" "${BORDER}" "    ${1}    " "${BORDER}" "${RST}"
 }
 
-# functions
+# Functions
 makeClean(){
     header "Making Clean..."
     make $ARGS clean
     make $ARGS mrproper
-    echo -e $BLU "Cleaned!" $NOR
+    echo -e $BLU "Cleaned!" $RST
 }
 
 makeDefconfig(){
     header "Regenerating defconfig..."
     make $ARGS $DEFCONFIG
     mv out/.config arch/arm64/configs/X00T_defconfig
-    echo -e $BLU "Renerating defconfig done!" $NOR
+    echo -e $BLU "Renerating defconfig done!" $RST
 }
 
 makeKernel(){
     header "Building kernel..."
     make $ARGS $DEFCONFIG
     make $ARGS
-    echo -e $BLU "Kernel image built!" $NOR
+    echo -e $BLU "Kernel image built!" $RST
 }
 
 makeZip(){
 # Fail build if previous command isn't a success
 if [ $? -ne 0 ]; then
-    echo -e $RED "Build Failed!" $NOR
+    echo -e $RED "Build Failed!" $RST
 else
     header "Making Flashable Zip..."
     cp -f $ZIMAGE $ANYKERNEL
@@ -89,10 +93,10 @@ else
     zip -r $ZIP_NAME *
 fi
     DURATION=$(($END - $START))
-    echo -e $YEL "Build completed in $(($DURATION/60)) mins and $(($DURATION % 60)) secs" $NOR
+    echo -e $YEL "Build completed in $(($DURATION/60)) mins and $(($DURATION % 60)) secs" $RST
 }
 
-# add built parameters
+# Add built parameters
 while ((${#})); do
     case ${1} in
         -r | --regendef)
