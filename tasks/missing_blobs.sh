@@ -12,28 +12,28 @@
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
 if [ -z "$ANDROID_PRODUCT_OUT" ]; then
-    echo "Run after you build successfully for your device!"
+    echo "Run after lunching your device!"
+    return 1
 fi
 
-cd "$ANDROID_PRODUCT_OUT" || return 1
+cd "$ANDROID_PRODUCT_OUT"
 
 # Add paths to check for blobs
 BLOBS_PATH="
     system/lib \
     system/lib64 \
-    system/lib/vndk* \
-    system/lib64/vndk* \
+    system/lib/vndk-29 \
+    system/lib/vndk-sp-29 \
+    system/lib64/vndk-29 \
+    system/lib64/vndk-sp-29 \
     system/product/lib \
     system/product/lib64 \
     vendor/lib \
     vendor/lib64 \
     vendor/bin/hw \
     system/bin/hw \
-    system/apex/com.android.runtime.release/* \
-    system/apex/com.android.runtime.release/*/*"
+    system/apex/*/* \
+    vendor/apex/*/* "
 
-java -jar $SCRIPT_PATH/../bin/MissingBlobs.jar \
+java -jar "$SCRIPT_PATH"/../bin/MissingBlobs.jar \
 $BLOBS_PATH > missing_blobs.txt
-
-# I don't want to see "Path is not a directory" so chop it off
-sed -i '/^Path/d' missing_blobs.txt
