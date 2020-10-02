@@ -8,6 +8,8 @@
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 TERMUX_STYLE="$SCRIPT_PATH/../modules/termux-style"
 
+source "$SCRIPT_PATH"/git
+
 # Packages to install
 pkg install -y \
     nano \
@@ -25,12 +27,12 @@ setupTheme() {
     cp "$TERMUX_STYLE"/fonts/Hack.ttf "$HOME"/.termux/font.ttf
 }
 
-# Add custom buttons layout and theme
+# Settings I use for moi setup
 mkdir ~/.termux && touch ~/.termux/termux.properties
 echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" > ~/.termux/termux.properties
 [[ -d "$TERMUX_STYLE" ]] && setupTheme
+git_setup
 
-# Settings I use for moi setup
 cat >> "$HOME"/.bashrc <<'EOF'
 # vim FTW
 export EDITOR=vim
