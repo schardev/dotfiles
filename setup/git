@@ -34,6 +34,7 @@ function git_aliases() { (
 
     git config --global alias.aa 'add --all'
     git config --global alias.ac "commit${GPG_SIGN} --all --signoff --verbose" # add and commit
+    git config --global alias.aca "commit${GPG_SIGN} --all --amend --signoff --verbose" # add, amend and commit
     git config --global alias.ama 'am --abort'
     git config --global alias.amc 'am --continue'
     git config --global alias.ams "am${GPG_SIGN} --signoff" # am signoff
