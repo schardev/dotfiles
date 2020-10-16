@@ -17,7 +17,7 @@ function gpg_key_usable() {
 function git_setup() { (
     git config --global user.name "Saurabh Charde"
     git config --global user.email "saurabhchardereal@gmail.com"
-
+    git config --global credential.helper 'cache --timeout=3600'
     git config --global pull.rebase false
 
     if type -f gpg_key_usable &>/dev/null && gpg_key_usable; then
