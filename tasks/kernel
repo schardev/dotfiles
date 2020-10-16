@@ -33,17 +33,17 @@ YEL='\033[1;33m'
 BLU='\033[1;34m'
 
 # Clone compilers if does not exist
-[[ ! -d $CLANG_PATH ]] && \
-git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master $COMPILER_PATH/clang
+[[ ! -d $CLANG_PATH ]] &&
+    git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master $COMPILER_PATH/clang
 
-[[ ! -d $GCC_PATH ]] && \
-git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc
+[[ ! -d $GCC_PATH ]] &&
+    git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc
 
-[[ ! -d $GCC_32_PATH ]] && \
-git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc32
+[[ ! -d $GCC_32_PATH ]] &&
+    git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc32
 
-[[ ! -d $ANYKERNEL ]] && \
-git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO $ANYKERNEL
+[[ ! -d $ANYKERNEL ]] &&
+    git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO $ANYKERNEL
 
 # Arguments
 ARGS+="-j$(nproc --all) O=out \
@@ -60,54 +60,54 @@ header() {
 }
 
 # Functions
-makeClean(){
+makeClean() {
     header "Making Clean..."
     make $ARGS clean
     make $ARGS mrproper
     echo -e $BLU "Cleaned!" $RST
 }
 
-makeDefconfig(){
+makeDefconfig() {
     header "Regenerating defconfig..."
     make $ARGS $DEFCONFIG
     mv out/.config arch/arm64/configs/X00T_defconfig
     echo -e $BLU "Renerating defconfig done!" $RST
 }
 
-makeKernel(){
+makeKernel() {
     header "Building kernel..."
     make $ARGS $DEFCONFIG
     make $ARGS
     echo -e $BLU "Kernel image built!" $RST
 }
 
-makeZip(){
-# Fail build if previous command isn't a success
-if [ $? -ne 0 ]; then
-    echo -e $RED "Build Failed!" $RST
-else
-    header "Making Flashable Zip..."
-    cp -f $ZIMAGE $ANYKERNEL
-    cd $ANYKERNEL
-    find . -name "*.zip" -type f -delete
-    zip -r $ZIP_NAME *
-fi
+makeZip() {
+    # Fail build if previous command isn't a success
+    if [ $? -ne 0 ]; then
+        echo -e $RED "Build Failed!" $RST
+    else
+        header "Making Flashable Zip..."
+        cp -f $ZIMAGE $ANYKERNEL
+        cd $ANYKERNEL
+        find . -name "*.zip" -type f -delete
+        zip -r $ZIP_NAME *
+    fi
     DURATION=$(($END - $START))
-    echo -e $YEL "Build completed in $(($DURATION/60)) mins and $(($DURATION % 60)) secs" $RST
+    echo -e $YEL "Build completed in $(($DURATION / 60)) mins and $(($DURATION % 60)) secs" $RST
 }
 
 # Add built parameters
 while ((${#})); do
     case ${1} in
-        -r | --regendef)
-		makeDefconfig;
-		;;
+    -r | --regendef)
+        makeDefconfig
+        ;;
 
-        -c | --clean)
-		makeClean;
-		;;
+    -c | --clean)
+        makeClean
+        ;;
     esac
-shift
+    shift
 done
 
 # Build kernel

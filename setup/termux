@@ -29,11 +29,11 @@ setupTheme() {
 
 # Settings I use for moi setup
 mkdir ~/.termux && touch ~/.termux/termux.properties
-echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" > ~/.termux/termux.properties
+echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" >~/.termux/termux.properties
 [[ -d "$TERMUX_STYLE" ]] && setupTheme
 git_setup
 
-cat >> "$HOME"/.bashrc <<'EOF'
+cat >>"$HOME"/.bashrc <<'EOF'
 # vim FTW
 export EDITOR=vim
 
@@ -67,4 +67,3 @@ parseGitBranch() {
 # override default prompt style
 export PS1='\[\e[1;36m\]\w\[\e[1;34m\]$(parseGitBranch) ❯\[\e[0m\] '
 EOF
-

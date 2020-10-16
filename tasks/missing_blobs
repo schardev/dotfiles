@@ -36,4 +36,4 @@ BLOBS_PATH="
     vendor/apex/*/* "
 
 java -jar "$SCRIPT_PATH"/../bin/MissingBlobs.jar \
-$BLOBS_PATH > missing_blobs.txt
+    $BLOBS_PATH >missing_blobs.txt
