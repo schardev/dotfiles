@@ -30,3 +30,19 @@ au BufWinEnter * call matchadd('Tabs', '\t')
 if version >= 702
   au BufWinLeave * call clearmatches()
 endif
+
+" plugins
+" TODO: seperate out vim plugins/misc settings and source from there
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent call system('mkdir -p ~/.vim/autoload')
+  silent call system('curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  execute 'source  ~/.vim/autoload/plug.vim'
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'z0mbix/vim-shfmt'
+
+call plug#end()
+
+let g:shfmt_extra_args = '-i 4' " use 4 spaces as default indent style
