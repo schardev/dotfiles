@@ -32,26 +32,8 @@ LGR='\033[1;32m'
 YEL='\033[1;33m'
 BLU='\033[1;34m'
 
-# Clone compilers if does not exist
-[[ ! -d $CLANG_PATH ]] &&
-    git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master $COMPILER_PATH/clang
-
-[[ ! -d $GCC_PATH ]] &&
-    git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc
-
-[[ ! -d $GCC_32_PATH ]] &&
-    git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc32
-
-[[ ! -d $ANYKERNEL ]] &&
-    git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO $ANYKERNEL
-
 # Arguments
-ARGS+="-j$(nproc --all) O=out \
-	ARCH=arm64 \
-	CC=$CLANG_PATH/clang \
-	CLANG_TRIPLE=aarch64-linux-gnu- \
-	CROSS_COMPILE=$GCC_PATH/aarch64-linux-android- \
-	CROSS_COMPILE_ARM32=$GCC_32_PATH/arm-linux-androideabi- "
+ARGS="-j$(nproc --all) O=out ARCH=arm64 "
 
 # Prints a formatted header to point out what is being done to the user
 header() {
@@ -60,7 +42,23 @@ header() {
 }
 
 # Functions
+checkDeps() {
+    # Clone compilers if does not exist
+    [[ ! -d "$CLANG_PATH" ]] &&
+        git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master $COMPILER_PATH/clang
+
+    [[ ! -d "$GCC_PATH" ]] &&
+        git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc
+
+    [[ ! -d "$GCC_32_PATH" ]] &&
+        git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b ${ANDROID_TAG} $COMPILER_PATH/gcc32
+
+    [[ ! -d "$ANYKERNEL" ]] &&
+        git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO $ANYKERNEL
+}
+
 makeClean() {
+    START=$(date +"%s")
     header "Making Clean..."
     make $ARGS clean
     make $ARGS mrproper
@@ -68,6 +66,7 @@ makeClean() {
 }
 
 makeDefconfig() {
+    START=$(date +"%s")
     header "Regenerating defconfig..."
     make $ARGS $DEFCONFIG
     mv out/.config arch/arm64/configs/X00T_defconfig
@@ -75,10 +74,15 @@ makeDefconfig() {
 }
 
 makeKernel() {
+    START=$(date +"%s")
     header "Building kernel..."
-    make $ARGS $DEFCONFIG
+    checkDeps
+    ARGS+="CC=$CLANG_PATH/clang \
+    CLANG_TRIPLE=aarch64-linux-gnu- \
+    CROSS_COMPILE=$GCC_PATH/aarch64-linux-android- \
+    CROSS_COMPILE_ARM32=$GCC_32_PATH/arm-linux-androideabi- "
     make $ARGS
-    echo -e $BLU "Kernel image built!" $RST
+    echo -e $BLU "Kernel image build completed!" $RST
 }
 
 makeZip() {
@@ -92,8 +96,6 @@ makeZip() {
         find . -name "*.zip" -type f -delete
         zip -r $ZIP_NAME *
     fi
-    DURATION=$(($END - $START))
-    echo -e $YEL "Build completed in $(($DURATION / 60)) mins and $(($DURATION % 60)) secs" $RST
 }
 
 # Add built parameters
@@ -106,12 +108,15 @@ while ((${#})); do
     -c | --clean)
         makeClean
         ;;
+
+    -m | --make)
+        makeKernel
+        makeZip
+        ;;
     esac
     shift
 done
 
-# Build kernel
-START=$(date +"%s")
-makeKernel
-END=$(date +"%s")
-makeZip
+# Print build time
+DURATION=$(($(date +"%s") - START))
+echo -e $YEL "Build completed in $((DURATION / 60)) mins and $((DURATION % 60)) secs" $RST
