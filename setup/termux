@@ -11,7 +11,7 @@ TERMUX_STYLE="$SCRIPT_PATH/../modules/termux-style"
 source "$SCRIPT_PATH"/git
 
 # Packages to install
-pkg install -y \
+pkg install --no-install-recommends -y \
     nano \
     vim \
     openssh \
@@ -34,16 +34,16 @@ echo "extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT'
 git_setup
 
 cat >>"$HOME"/.bashrc <<'EOF'
-# vim FTW
+# VIM FTW
 export EDITOR=vim
 
-# for gpg signature
+# For gpg signature
 export GPG_TTY=$(tty)
 
-# aliases
+# Aliases
 alias l='ls'
 alias ll='ls -l'
-alias la='ls -al'
+alias la='ls -a'
 alias c='clear'
 alias ..='cd ../'
 alias ...='cd ../../'
@@ -64,6 +64,6 @@ parseGitBranch() {
 }
 
 
-# override default prompt style
+# Override default prompt style
 export PS1='\[\e[1;36m\]\w\[\e[1;34m\]$(parseGitBranch) ❯\[\e[0m\] '
 EOF
