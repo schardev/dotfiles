@@ -12,6 +12,7 @@ source "$SCRIPT_PATH"/git
 
 # Packages to install
 pkg install --no-install-recommends -y \
+    antibody \
     nano \
     vim \
     openssh \
