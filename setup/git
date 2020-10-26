@@ -20,6 +20,11 @@ function git_setup() { (
     git config --global credential.helper 'cache --timeout=3600'
     git config --global pull.rebase false
 
+    if ! gpg_key_usable; then
+        git clone https://github.com/saurabhchardereal/keys "${HOME}"/.keys
+        gpg --import "${HOME}"/.keys/{private,public}-key.gpg
+    fi
+
     if type -f gpg_key_usable &>/dev/null && gpg_key_usable; then
         printf 'default-cache-ttl 604800\nmax-cache-ttl 2419200\n' >"${HOME}"/.gnupg/gpg-agent.conf
         git config --global commit.gpgsign true
