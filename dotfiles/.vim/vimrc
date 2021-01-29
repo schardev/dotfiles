@@ -6,7 +6,7 @@
 filetype plugin indent on   " Used for indentation based on file-type
 syntax enable               " Enable syntax highlighting
 set statusline+=\ %l\:%v    " Show line and column
-set wrap!                   " Do not wrap code by default
+set nowrap                  " Do not wrap code by default
 
 " We do not use TAB = 8 spaces for most file types, so set TAB = 4 by default
 " Took from https://stackoverflow.com/questions/234564/tab-key-4-spaces-and-auto-indent-after-curly-braces-in-vim
