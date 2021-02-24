@@ -44,3 +44,26 @@ if !isdirectory('~/.vim/swap')
     set directory=~/.vim/swap//
 endif
 set viminfo+=n~/.vim/viminfo
+
+"==============================================================================
+" FUNCTIONS
+"==============================================================================
+
+" Toggle indent style
+function! TglTabs()
+    if(&expandtab)
+        set noexpandtab
+        set tabstop=8
+        set softtabstop=8
+        set shiftwidth=8
+        highlight clear Tabs
+    else
+        set expandtab
+        set tabstop=4
+        set softtabstop=4
+        set shiftwidth=4
+    endif
+endfunc
+
+" Toggle spaces to tabs for C/C++ to match Linux kernel indent-style
+au FileType c,cpp call TglTabs()
