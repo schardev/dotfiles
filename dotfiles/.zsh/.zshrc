@@ -34,7 +34,7 @@ done
 unset PLUGINS
 
 # Aliases
-alias c='clear'
+source ${ZDOTDIR}/.aliases
 
 # History
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
