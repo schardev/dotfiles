@@ -34,13 +34,19 @@ call plug#end()
 " PLUGIN CONFIGURATIONS
 "==============================================================================
 
+" Default list of ALE 'linters' for respective file-type
+let g:ale_linters = {
+\   'sh': ['shellcheck'],
+\   'c': ['clangtidy'],
+\   'cpp': ['clangtidy'],
+\}
+
 " Default list of ALE 'fixers' for respective file-type
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'c': ['clang-format', 'clangtidy'],
-\   'cpp': ['clang-format', 'clangtidy'],
-\   'sh': ['shfmt', 'shellcheck'],
+\   'c': ['clang-format'],
+\   'cpp': ['clang-format'],
+\   'sh': ['shfmt'],
 \}
 
 " Fix file on save
