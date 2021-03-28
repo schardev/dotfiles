@@ -3,6 +3,7 @@
 # Copyright (C) 2021 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 # Lint scripts using shellcheck and shfmt
+set -e
 
 # TODO: Find a better way to find executables and add them to lint list below
 # maybe `fd -t x` or `find -executable`
