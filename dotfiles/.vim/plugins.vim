@@ -50,7 +50,7 @@ let g:ale_fixers = {
 \}
 
 " Fix file on save
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
 
 " Disable ALE provided LSP features (we are using coc.nvim)
 let g:ale_disable_lsp = 1
