@@ -175,7 +175,7 @@ make_kernel() {
     [[ $? != 0 ]] && exit 1
 
     if [[ -n ${MAKE_ZIP} ]]; then
-        ZIMAGE=$(find "${OUTPUT_DIR}" -name Image.gz-dtb)
+        ZIMAGE=$(find "${OUTPUT_DIR}"/arch/"${ARCH}" -name Image.gz-dtb)
         if [[ -n ${ZIMAGE} ]]; then
             header "Making Flashable Zip..."
             ZIP_NAME="ARAGOTO-$(date +"%d%m%Y")-$(date +%H:%M).zip"
