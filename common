@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# Copyright (C) 2020 Saurabh Charde <saurabhchardereal@gmail.com>
+# Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 # Helper functions
 
@@ -21,9 +21,15 @@ RED='\033[0;31m'
 LGR='\033[1;32m'
 YEL='\033[1;33m'
 BLU='\033[1;34m'
+CYN='\033[1;36m'
+
+# Directories
+ANDROID_TOOLCHAINS=${HOME}/android/compiler
+export ANDROID_TOOLCHAINS
 
 # Print formatted message with colors
 pr_info() { echo -e "${BLU}" "≡≡≡ $* ≡≡≡" "${RST}"; }
+pr_info2() { echo -e "${CYN}" "$*" "${CYN}"; }
 pr_warn() { echo -e "${YEL}" "■ $* ■" "${RST}"; }
 pr_succ() { echo -e "${LGR}" "▓▒░ $* ░▒▓" "${RST}"; }
 pr_err() { echo -e "${RED}" "!!! $* !!!" "${RST}" >&2; }

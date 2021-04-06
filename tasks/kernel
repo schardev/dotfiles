@@ -2,142 +2,315 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# Copyright (C) 2020 Saurabh Charde <saurabhchardereal@gmail.com>
-#
+# Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
+
+# The = in 'MAKE' array is literal, quote it? No thanks, ShellCheck :)
+# shellcheck disable=SC2191
 
 # Source common helper
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source "${SCRIPT_PATH}"/../common
+source "${SCRIPT_DIR}"/funcs/kernel-funcs.sh
 
 # Exit if not a kernel repository
 [[ ! -f Makefile ]] && pr_err "Run from within kernel directory!" && exit 1
-KERN_DIR=${PWD}
 
-# Set compiler paths
-COMPILER_PATH=${HOME}/compiler
-AOSP_TC=${COMPILER_PATH}/aosp_tc
-PROTON_CLANG=${COMPILER_PATH}/proton_clang
-
-# Kernel specific
-DEFCONFIG="X00T_defconfig"
-
+# Global kernel specific variables
 export KBUILD_BUILD_USER="SaurabhCharde"
 export KBUILD_BUILD_HOST="ProjectWeeb"
+ARCH="arm64"
+CUSTOM_CC=""
+DEFCONFIG="X00T_defconfig"
+OUTPUT_DIR=out
+ANYKERNEL_PATH="${OUTPUT_DIR}"/flasher
+COMPILER="aosp-clang"
+CC_PATH=${ANDROID_TOOLCHAINS}
 
-# Add toolchains to $PATH
-PATH=${AOSP_TC}/gcc/bin:${AOSP_TC}/gcc32/bin:$PATH
+# Helper functions
+check_dependencies() {
+    header "Checking dependencies ..."
 
-# Common arguments
-# shellcheck disable=SC2191
-MAKE_ARGS=(-j"$(nproc --all)" O=out ARCH=arm64)
+    # TODO: Find a better way to do this. And get rid of this shit!
+    case "${COMPILER}" in
+        'aosp-clang')
+            pr_info "Checking for AOSP clang ..."
+            if [[ -d "${CC_PATH}"/clang ]]; then
+                # get latest clang prebuilt directory
+                # shellcheck disable=SC2011
+                CLANG_VER=$(ls -d "${CC_PATH}"/clang/clang-r* | xargs -n1 basename | tail -n1)
+                pr_info2 "$(get_cc_version "${CC_PATH}"/clang/"${CLANG_VER}"/bin/clang) found!"
+            elif [[ -n "${CLONE_DEPS}" ]]; then
+                pr_info2 "AOSP Clang not found! Cloning ..."
+                git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master "${CC_PATH}"/clang
+            else
+                pr_err "AOSP Clang not found! Use --clone-deps"
+                exit 1
+            fi
 
-# Check for dependencies
-check_toolchains() {
-    [[ ! -d "$AOSP_TC/clang" ]] &&
-        git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master "${AOSP_TC}"/clang
+            pr_info "Checking for AOSP binutils..."
+            if [[ -d "${CC_PATH}"/binutils ]]; then
+                # shellcheck disable=SC2211
+                BINUTILS_VER=$("${CC_PATH}"/binutils/bin/*android-ld -v | head -n1 | cut -d' ' -f4)
+                pr_info2 "Binutils version ${BINUTILS_VER} found!"
+            elif [[ -n "${CLONE_DEPS}" ]]; then
+                pr_info2 "Binutils not found! Cloning ..."
+                git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b master "${CC_PATH}"/binutils
+                git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b master "${CC_PATH}"/binutils32
+            else
+                pr_err "Binutils not found! Use --clone-deps"
+                exit 1
+            fi
+            ;;
 
-    [[ ! -d "$AOSP_TC/gcc" ]] &&
-        git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b master "${AOSP_TC}"/gcc
+        'custom')
+            pr_info "Checking for custom compiler ..."
+            pr_info2 "$(get_cc_version "${CUSTOM_CC}")" || exit 1
 
-    [[ ! -d "$AOSP_TC/gcc32" ]] &&
-        git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b master "${AOSP_TC}"/gcc32
+            pr_info "Checking for latest binutils ..."
+            if [[ -d "${CC_PATH}"/gcc_binutils ]]; then
+                # shellcheck disable=SC2211
+                BINUTILS_VER=$("${CC_PATH}"/gcc_binutils/bin/*gnu-ld -v | head -n1 | cut -d' ' -f4)
+                pr_info2 "Binutils version ${BINUTILS_VER} found!"
+            elif [[ -n "${CLONE_DEPS}" ]]; then
+                pr_info2 "Binutils not found! Cloning ..."
+                git clone --depth=1 https://github.com/saurabhchardereal/binutils.git -b main "${CC_PATH}"/gcc_binutils
+            else
+                pr_err "Binutils not found! Use --clone-deps"
+                exit 1
+            fi
+            ;;
 
-    [[ ! -d "$KERN_DIR/flasher" ]] &&
-        git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO "${KERN_DIR}"/flasher
+        'gcc')
+            pr_info "Checking for GCC compiler ..."
+            if [[ -d "${CC_PATH}/gcc" ]]; then
+                pr_info2 "$(get_cc_version "${CC_PATH}"/gcc/bin/*-gcc) found!"
+            elif [[ -n "${CLONE_DEPS}" ]]; then
+                pr_info2 "GCC compiler not found! Cloning ..."
+                git clone --depth=1 https://gitlab.com/saurabhchardereal/gcc -b main "${CC_PATH}"/gcc
+            else
+                pr_err "GCC compiler not found!"
+                exit 1
+            fi
+            ;;
+    esac
 
-    [[ ! -d "$PROTON_CLANG" ]] &&
-        git clone --depth=1 https://github.com/kdrag0n/proton-clang -b master "${PROTON_CLANG}"
-}
-
-# Set make arguments based on which Clang we use
-make_arguments() {
-    if [[ -n "$USE_AOSP_CLANG" ]]; then
-        # specify clang version
-        # shellcheck disable=SC2191
-        MAKE_ARGS+=(CC="$AOSP_TC"/clang/clang-stable/bin/clang
-            CLANG_TRIPLE=aarch64-linux-gnu-
-            CROSS_COMPILE=aarch64-linux-android-
-            CROSS_COMPILE_ARM32=arm-linux-androideabi-)
-    else
-        PATH=${PROTON_CLANG}/bin:$PATH
-        # shellcheck disable=SC2191
-        MAKE_ARGS+=(CC="${PROTON_CLANG}"/bin/clang
-            CROSS_COMPILE=aarch64-linux-gnu-
-            CROSS_COMPILE_ARM32=arm-linux-gnueabi-)
+    if [[ -n "${MAKE_ZIP}" ]]; then
+        pr_info "Checking for Anykernel3 since '--make-zip' is selected!"
+        if [[ -d ${ANYKERNEL_PATH} ]]; then
+            pr_info2 "Anykernel repo found!"
+        elif [[ -n "${CLONE_DEPS}" ]]; then
+            pr_info2 "AK3 not found! Cloning ..."
+            git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO "${ANYKERNEL_PATH}"
+        else
+            pr_err "Anykernel is required for flashable build type!"
+            exit 1
+        fi
     fi
 }
 
+# Set make arguments
+make_arguments() {
+
+    # Show build time only if make_arguments is invoked
+    # TODO: Rework time keeping
+    _running_make=1
+
+    # Common make arguments
+    MAKE=(make -j"$(nproc --all)" ARCH="${ARCH}" O="${OUTPUT_DIR}")
+
+    case "${COMPILER}" in
+        'aosp-clang')
+            MAKE+=(CC="${CC_PATH}"/clang/"${CLANG_VER}"/bin/clang
+                CLANG_TRIPLE=aarch64-linux-gnu-
+                CROSS_COMPILE="${CC_PATH}"/binutils/bin/aarch64-linux-android-
+                CROSS_COMPILE_ARM32="${CC_PATH}"/binutils32/bin/arm-linux-androideabi-)
+            ;;
+        'custom')
+            MAKE+=(CC="${CUSTOM_CC}"
+                CROSS_COMPILE="${CC_PATH}"/gcc_binutils/bin/aarch64-linux-
+                CROSS_COMPILE_ARM32="${CC_PATH}"/gcc_binutils/bin/arm-linux-gnueabi-)
+            ;;
+        'gcc')
+            MAKE+=(CC="${CC_PATH}"/gcc/bin/aarch64-linux-gcc
+                CROSS_COMPILE="${CC_PATH}"/gcc/bin/aarch64-linux-
+                CROSS_COMPILE_ARM32="${CC_PATH}"/gcc/bin/arm-linux-gnueabi-)
+            ;;
+    esac
+
+}
+
 make_clean() {
+    make_arguments
     header "Making Clean..."
-    make "${MAKE_ARGS[@]}" clean
+    make clean
     make mrproper
     pr_info "Cleaned!"
 }
 
 make_defconfig() {
-    header "Regenerating defconfig..."
-    make "${MAKE_ARGS[@]}" $DEFCONFIG
-    cp -f out/.config arch/arm64/configs/$DEFCONFIG
+    make_arguments
+    header "Regenerating defconfig: $DEFCONFIG"
+    "${MAKE[@]}" $DEFCONFIG
+    cp -f "${OUTPUT_DIR}"/.config arch/$ARCH/configs/$DEFCONFIG
     pr_info "Renerating defconfig done!"
 }
 
 make_kernel() {
-    header "Building kernel..."
-    check_toolchains
+    check_dependencies
     make_arguments
-    if [[ -f out/.config ]]; then
-        make "${MAKE_ARGS[@]}" oldconfig
+    header "Building kernel..."
+    if [[ -f "${OUTPUT_DIR}"/.config ]]; then
+        "${MAKE[@]}" oldconfig
     else
-        make "${MAKE_ARGS[@]}" $DEFCONFIG
+        "${MAKE[@]}" $DEFCONFIG
     fi
-    make "${MAKE_ARGS[@]}"
 
-    # Make flashable zip if not BUILD_ONLY
-    if [[ -z ${BUILD_ONLY} ]]; then
-        ZIMAGE=$(find out/arch/arm64 -name Image.gz-dtb)
-        { if [[ -n ${ZIMAGE} ]]; then
+    [[ "${WERROR}" == "true" ]] && pr_warn "Building with -Werror!" &&
+        ./scripts/config --file "${OUTPUT_DIR}"/.config -e CC_WERROR
+
+    "${MAKE[@]}" "$@"
+
+    # check previous command status before finding kernel image
+    # shellcheck disable=SC2181
+    [[ $? != 0 ]] && exit 1
+
+    if [[ -n ${MAKE_ZIP} ]]; then
+        ZIMAGE=$(find "${OUTPUT_DIR}" -name Image.gz-dtb)
+        if [[ -n ${ZIMAGE} ]]; then
             header "Making Flashable Zip..."
             ZIP_NAME="ARAGOTO-$(date +"%d%m%Y")-$(date +%H:%M).zip"
-            cp -f "${ZIMAGE}" "${KERN_DIR}"/flasher
-            find "${KERN_DIR}"/flasher -name "*.zip" -type f -delete
-            zip -r "$ZIP_NAME" -- "${KERN_DIR}"/flasher/*
+            cp -f "${ZIMAGE}" "${OUTPUT_DIR}"/flasher
+            find "${OUTPUT_DIR}"/flasher -name "*.zip" -type f -delete
+            # shellcheck disable=SC2164
+            cd "${OUTPUT_DIR}"/flasher
+            zip -r "$ZIP_NAME" -- *
         else
             pr_err "No kernel image found!"
-        fi; }
-    else
-        pr_info "Kernel image build completed!"
+        fi
     fi
 }
 
-# Add build parameters
-parse_build_params() {
-    START=$(date +"%s")
-    while ((${#})); do
-        case "${1}" in
-            --aosp-clang)
-                USE_AOSP_CLANG=true
-                ;;
+show_usage() {
+    cat <<EOF
+Usage: $(basename "${0}") [options] [-m]
 
-            -b | --build-only)
-                BUILD_ONLY=true
-                ;;
-
-            -r | --regendef)
-                make_defconfig
-                ;;
-
-            -c | --clean)
-                make_clean
-                ;;
-
-            -m | --make)
-                make_kernel
-                ;;
-        esac
-        shift
-    done
+-h, --help      -- Show this help message
+--arch          -- arch to build (default 'arm64')
+-c, --clean     -- Cleans output directory
+--custom-cc     -- Path to custom compiler (eg, --custom-cc=<path/to/cc>)
+                   Or just use '--custom-cc=<cc>' to use host cc
+--clone-deps    -- Clone dependencies recursively if they're not found
+--defconfig     -- Defconfig to build (default 'X00T_defconfig')
+--gcc           -- Compile using latest GCC compiler
+-m, --make      -- Build kernel (if you want to build something else - eg. foo - just run '--make=<foo>')
+-o              -- Sets output directory (default 'out')
+-r              -- Regenerate defconfig in-place
+-W, --Werror    -- Make with -Werror to turn compiler warnings into errors
+-z, --make-zip  -- Make flashable zip after build completes
+EOF
 }
 
-parse_build_params "${@}"
+# If no option provided show help
+[[ $# -eq 0 ]] && show_usage
+
+# Parse command-line arguments
+GETOPT=$(getopt -n "$(basename "${0}")" -o chm::o:rWz -l arch:,defconfig:,clean,clone-deps,custom-cc:,gcc,help,make::,make-zip,Werror -- "$@")
+eval set -- "$GETOPT"
+
+START=$(date +"%s")
+while true; do
+    case "${1}" in
+        --arch)
+            ARCH="${2}"
+            shift 2
+            continue
+            ;;
+
+        --defconfig)
+            DEFCONFIG="${2}"
+            shift 2
+            continue
+            ;;
+
+        --clone-deps)
+            CLONE_DEPS=true
+            shift
+            continue
+            ;;
+
+        -c | --clean)
+            make_clean
+            shift
+            continue
+            ;;
+
+        --custom-cc)
+            COMPILER=custom
+            CUSTOM_CC="${2}"
+            shift 2
+            continue
+            ;;
+
+        --gcc)
+            COMPILER=gcc
+            shift
+            continue
+            ;;
+
+        -m | --make)
+            case "${2}" in
+                '')
+                    make_kernel
+                    ;;
+                *)
+                    make_kernel "${2}"
+                    ;;
+            esac
+            shift 2
+            continue
+            ;;
+
+        -z | --make-zip)
+            MAKE_ZIP=true
+            shift
+            continue
+            ;;
+
+        -o)
+            OUTPUT_DIR="${2}"
+            shift 2
+            continue
+            ;;
+
+        -r)
+            make_defconfig
+            shift
+            continue
+            ;;
+
+        -W | --Werror)
+            WERROR=true
+            shift
+            continue
+            ;;
+
+        -h | --help)
+            show_usage
+            shift
+            continue
+            ;;
+        '--')
+            shift
+            break
+            ;;
+        *)
+            "Something gone horribly wrong!"
+            exit 1
+            ;;
+
+    esac
+    shift
+done
+
 DURATION=$(($(date +"%s") - START))
-pr_succ "Build completed in $((DURATION / 60)) mins and $((DURATION % 60)) secs"
+[[ -n $_running_make ]] && pr_succ "Build run for $((DURATION / 60)) mins and $((DURATION % 60)) secs"
