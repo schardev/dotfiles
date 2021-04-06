@@ -22,6 +22,11 @@ set incsearch               " Incrementally highlights search patterns
 set nobackup                " Disable backup
 set nowritebackup
 
+" Terminal supports termguicolors
+if (&term == 'xterm-256color')
+    set termguicolors
+endif
+
 " Highlight trailing whitespace in red
 hi ExtraWhitespace ctermbg=darkred
 match ExtraWhitespace /\s\+$/
