@@ -39,3 +39,5 @@ header() {
     BORDER="====$(for _ in $(seq ${#1}); do printf '='; done)===="
     printf '\n%b%s\n%s\n%s%b\n\n' "${2:-${LGR}}" "${BORDER}" "    ${1}    " "${BORDER}" "${RST}"
 }
+
+# vi: filetype=sh
