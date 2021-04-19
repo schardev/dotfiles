@@ -25,6 +25,9 @@ OUTPUT_DIR=out
 ANYKERNEL_PATH="${OUTPUT_DIR}"/flasher
 COMPILER="aosp-clang"
 CC_PATH=${ANDROID_TOOLCHAINS}
+# shellcheck disable=SC2034
+# ZIP appears unused is a false positive
+ZIP="ARAGOTO-$(date +"%d%m%Y")-$(date +%H-%M).zip"
 
 # Helper functions
 check_dependencies() {
@@ -178,12 +181,11 @@ make_kernel() {
         ZIMAGE=$(find "${OUTPUT_DIR}"/arch/"${ARCH}" -name Image.gz-dtb)
         if [[ -n ${ZIMAGE} ]]; then
             header "Making Flashable Zip..."
-            ZIP_NAME="ARAGOTO-$(date +"%d%m%Y")-$(date +%H:%M).zip"
             cp -f "${ZIMAGE}" "${OUTPUT_DIR}"/flasher
             find "${OUTPUT_DIR}"/flasher -name "*.zip" -type f -delete
             # shellcheck disable=SC2164
             cd "${OUTPUT_DIR}"/flasher
-            zip -r "$ZIP_NAME" -- *
+            zip -r "${ZIP_NAME:-ZIP}" -- *
         else
             pr_err "No kernel image found!"
         fi
