@@ -28,11 +28,17 @@ Plug 'godlygeek/tabular'
 " Sexy statusline
 Plug 'vim-airline/vim-airline'
 
+" Onedark colorscheme
+Plug 'joshdick/onedark.vim'
+
 call plug#end()
 
 "==============================================================================
 " PLUGIN CONFIGURATIONS
 "==============================================================================
+
+" Sexy colorscheme
+colorscheme onedark
 
 " Default list of ALE 'linters' for respective file-type
 let g:ale_linters = {
