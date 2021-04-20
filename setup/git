@@ -46,8 +46,12 @@ function git_aliases() { (
     git config --global alias.aca "commit${GPG_SIGN} --all --amend --signoff --verbose" # add, amend and commit
     git config --global alias.ama 'am --abort'
     git config --global alias.amc 'am --continue'
-    git config --global alias.ams "am${GPG_SIGN} --signoff" # am signoff
+    # shellcheck disable=SC2016
+    git config --global alias.aml '!bash -c "curl -sL ${1} | git am"' # am from patch url
+    git config --global alias.ams "am${GPG_SIGN} --signoff"           # am signoff
     git config --global alias.ap 'apply -3 -v'
+    # shellcheck disable=SC2016
+    git config --global alias.apl '!bash -c "curl -sL ${1} | git apply -v"' # apply from patch url
     git config --global alias.b 'branch --verbose'
     git config --global alias.bd 'branch --delete --force'
     git config --global alias.bn 'rev-parse --abbrev-ref HEAD' # branch name
