@@ -9,6 +9,9 @@ SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source "$SCRIPT_PATH"/../common
 source "$SCRIPT_PATH"/git
 
+# Update package lists and update packages
+pkg update -y && pkg upgrade -y
+
 # Packages to install
 pr_info "Installing packages ..."
 pkg install --no-install-recommends -y \
