@@ -115,6 +115,7 @@ function git_aliases() { (
     git config --global alias.shf 'show --first-parent --format=fuller'
     git config --global alias.shm 'show --no-patch'
     git config --global alias.shmf 'show --format=fuller --no-patch'
+    git config --global alias.sql 'show --format="Author: %aN <%ae> %nDate: %ad %n%n  %w(0,2,4)%B%n" --no-patch' # squash commit msg format
     git config --global alias.ss 'status --short --branch'
     git config --global alias.us 'reset HEAD'
 
