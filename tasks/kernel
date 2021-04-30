@@ -113,6 +113,7 @@ check_dependencies() {
 
 # Set make arguments
 make_arguments() {
+    check_dependencies
 
     # Show build time only if make_arguments is invoked
     # TODO: Rework time keeping
@@ -143,7 +144,6 @@ make_arguments() {
 }
 
 make_clean() {
-    make_arguments
     header "Making Clean..."
     make clean
     make mrproper
@@ -159,7 +159,6 @@ make_defconfig() {
 }
 
 make_kernel() {
-    check_dependencies
     make_arguments
     header "Building kernel..."
     if [[ -f "${OUTPUT_DIR}"/.config ]]; then
