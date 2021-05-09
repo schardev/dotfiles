@@ -22,6 +22,9 @@ set incsearch               " Incrementally highlights search patterns
 set nobackup                " Disable backup
 set nowritebackup
 
+" Load vim plugins
+so ~/.vim/plugins.vim
+
 " Terminal supports termguicolors
 if (&term == 'xterm-256color')
     set termguicolors
@@ -39,9 +42,6 @@ au BufWinEnter * call matchadd('Tabs', '\t')
 if version >= 702
   au BufWinLeave * call clearmatches()
 endif
-
-" Source plugins.vim to load vim plugins
-so ~/.vim/plugins.vim
 
 " Write {swap,viminfo} to ~/.vim/{swap,viminfo}
 " https://vi.stackexchange.com/a/20067
