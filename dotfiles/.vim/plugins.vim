@@ -38,7 +38,9 @@ call plug#end()
 "==============================================================================
 
 " Sexy colorscheme
+if !empty(glob('~/.vim/plugged/onedark.vim'))
 colorscheme onedark
+endif
 
 " Default list of ALE 'linters' for respective file-type
 let g:ale_linters = {
