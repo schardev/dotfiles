@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo snap install shfmt
+      - run: |
+          sudo snap install shfmt
+          sudo apt-get install fd-find
       - name: Run lint.sh
         run: bash lint.sh

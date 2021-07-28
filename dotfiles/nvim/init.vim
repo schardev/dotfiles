@@ -1,6 +1,6 @@
 " SPDX-License-Identifier: GPL-3.0-or-later
 "
-" Copyright (C) 2020 Saurabh Charde <saurabhchardereal@gmail.com>
+" Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 "
 
 "==============================================================================
@@ -18,17 +18,14 @@ set tabstop=4               " The width of a TAB is set to 4.
                             " a width of 4.
 set softtabstop=4           " Sets the number of columns for a TAB
 set shell=bash              " Set default shell to bash coz zsh isn't POSIX-compatible
-set incsearch               " Incrementally highlights search patterns 
+set incsearch               " Incrementally highlights search patterns
 set nobackup                " Disable backup
 set nowritebackup
+set termguicolors           " Term supports gui colors
+
 
 " Load vim plugins
-so ~/.vim/plugins.vim
-
-" Terminal supports termguicolors
-if (&term == 'xterm-256color')
-    set termguicolors
-endif
+so ~/.config/nvim/plugins.vim
 
 " Highlight trailing whitespace in red
 hi ExtraWhitespace ctermbg=darkred
@@ -42,14 +39,6 @@ au BufWinEnter * call matchadd('Tabs', '\t')
 if version >= 702
   au BufWinLeave * call clearmatches()
 endif
-
-" Write {swap,viminfo} to ~/.vim/{swap,viminfo}
-" https://vi.stackexchange.com/a/20067
-if !isdirectory('~/.vim/swap')
-    silent call system('mkdir -p ~/.vim/swap')
-    set directory=~/.vim/swap//
-endif
-set viminfo+=n~/.vim/viminfo
 
 "==============================================================================
 " FUNCTIONS

@@ -1,6 +1,6 @@
 " SPDX-License-Identifier: GPL-3.0-or-later
 "
-" Copyright (C) 2020 Saurabh Charde <saurabhchardereal@gmail.c
+" Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 "
 
 "==============================================================================
@@ -8,13 +8,13 @@
 "==============================================================================
 
 " Grab latest vim-plug from github
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent call system('mkdir -p ~/.vim/autoload')
-  silent call system('curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-  execute 'source  ~/.vim/autoload/plug.vim'
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent call system('mkdir -p ~/.config/nvim/autoload')
+  silent call system('curl -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  execute 'source  ~/.config/nvim/autoload/plug.vim'
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Awesome Git wrapper
 Plug 'tpope/vim-fugitive'
@@ -31,6 +31,15 @@ Plug 'vim-airline/vim-airline'
 " Onedark colorscheme
 Plug 'joshdick/onedark.vim'
 
+" Indent level
+Plug 'Yggdroot/indentLine'
+
+" Commentary stuff
+Plug 'tpope/vim-commentary'
+
+" Cool start menu
+Plug 'mhinz/vim-startify'
+
 call plug#end()
 
 "==============================================================================
@@ -38,7 +47,7 @@ call plug#end()
 "==============================================================================
 
 " Sexy colorscheme
-if !empty(glob('~/.vim/plugged/onedark.vim'))
+if !empty(glob('~/.config/nvim/plugged/onedark.vim'))
 colorscheme onedark
 endif
 

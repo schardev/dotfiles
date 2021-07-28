@@ -5,7 +5,8 @@
 # Lint scripts using shellcheck and shfmt
 set -e
 
-# TODO: Find a better way to find executables and add them to lint list below
-# maybe `fd -t x` or `find -executable`
-shellcheck -s bash -e SC1090 common $(find setup/* tasks/*)
-shfmt -d -ci -i 4 common $(find setup/* tasks/*)
+# Files to lint
+for i in $(fd -t x -E bin -E dotfiles); do
+    shellcheck -s bash -e SC1090,SC1091 "$i"
+    shfmt -d -ci -i 4 "$i"
+done

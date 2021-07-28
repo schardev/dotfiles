@@ -4,7 +4,7 @@
 #
 # Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 
-# The = in 'MAKE' array is literal, quote it? No thanks, ShellCheck :)
+# The = in `MAKE` array is literal
 # shellcheck disable=SC2191
 
 # Source common helper
@@ -41,9 +41,9 @@ check_dependencies() {
                 # get latest clang prebuilt directory
                 # shellcheck disable=SC2011
                 CLANG_VER=$(ls -d "${CC_PATH}"/clang/clang-r* | xargs -n1 basename | tail -n1)
-                pr_info2 "$(get_cc_version "${CC_PATH}"/clang/"${CLANG_VER}"/bin/clang) found!"
+                pr_info "$(get_cc_version "${CC_PATH}"/clang/"${CLANG_VER}"/bin/clang) found!" "$CYN"
             elif [[ -n "${CLONE_DEPS}" ]]; then
-                pr_info2 "AOSP Clang not found! Cloning ..."
+                pr_info "AOSP Clang not found! Cloning ..." "$CYN"
                 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 -b master "${CC_PATH}"/clang
             else
                 pr_err "AOSP Clang not found! Use --clone-deps"
@@ -54,9 +54,9 @@ check_dependencies() {
             if [[ -d "${CC_PATH}"/binutils ]]; then
                 # shellcheck disable=SC2211
                 BINUTILS_VER=$("${CC_PATH}"/binutils/bin/*android-ld -v | head -n1 | cut -d' ' -f4)
-                pr_info2 "Binutils version ${BINUTILS_VER} found!"
+                pr_info "Binutils version ${BINUTILS_VER} found!" "$CYN"
             elif [[ -n "${CLONE_DEPS}" ]]; then
-                pr_info2 "Binutils not found! Cloning ..."
+                pr_info "Binutils not found! Cloning ..." "$CYN"
                 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 -b master "${CC_PATH}"/binutils
                 git clone --depth=1 https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 -b master "${CC_PATH}"/binutils32
             else
@@ -67,15 +67,15 @@ check_dependencies() {
 
         'custom')
             pr_info "Checking for custom compiler ..."
-            pr_info2 "$(get_cc_version "${CUSTOM_CC}")" || exit 1
+            pr_info "$(get_cc_version "${CUSTOM_CC}")" "$CYN" || exit 1
 
             pr_info "Checking for latest binutils ..."
             if [[ -d "${CC_PATH}"/gcc_binutils ]]; then
                 # shellcheck disable=SC2211
                 BINUTILS_VER=$("${CC_PATH}"/gcc_binutils/bin/*gnu-ld -v | head -n1 | cut -d' ' -f4)
-                pr_info2 "Binutils version ${BINUTILS_VER} found!"
+                pr_info "Binutils version ${BINUTILS_VER} found!" "$CYN"
             elif [[ -n "${CLONE_DEPS}" ]]; then
-                pr_info2 "Binutils not found! Cloning ..."
+                pr_info "Binutils not found! Cloning ..." "$CYN"
                 git clone --depth=1 https://github.com/saurabhchardereal/binutils.git -b main "${CC_PATH}"/gcc_binutils
             else
                 pr_err "Binutils not found! Use --clone-deps"
@@ -86,9 +86,9 @@ check_dependencies() {
         'gcc')
             pr_info "Checking for GCC compiler ..."
             if [[ -d "${CC_PATH}/gcc" ]]; then
-                pr_info2 "$(get_cc_version "${CC_PATH}"/gcc/bin/*-gcc) found!"
+                pr_info "$(get_cc_version "${CC_PATH}"/gcc/bin/*-gcc) found!" "$CYN"
             elif [[ -n "${CLONE_DEPS}" ]]; then
-                pr_info2 "GCC compiler not found! Cloning ..."
+                pr_info "GCC compiler not found! Cloning ..." "$CYN"
                 git clone --depth=1 https://gitlab.com/saurabhchardereal/gcc -b main "${CC_PATH}"/gcc
             else
                 pr_err "GCC compiler not found!"
@@ -100,9 +100,9 @@ check_dependencies() {
     if [[ -n "${MAKE_ZIP}" ]]; then
         pr_info "Checking for Anykernel3 since '--make-zip' is selected!"
         if [[ -d ${ANYKERNEL_PATH} ]]; then
-            pr_info2 "Anykernel repo found!"
+            pr_info "Anykernel repo found!" "$CYN"
         elif [[ -n "${CLONE_DEPS}" ]]; then
-            pr_info2 "AK3 not found! Cloning ..."
+            pr_info "AK3 not found! Cloning ..." "$CYN"
             git clone --depth=1 https://github.com/saurabhchardereal/AnyKernel3 -b ARAGOTO "${ANYKERNEL_PATH}"
         else
             pr_err "Anykernel is required for flashable build type!"
