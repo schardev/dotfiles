@@ -9,9 +9,10 @@ fi
 eval "$(antibody init)"
 
 PLUGINS=(
-    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-autosuggestions
     zsh-users/zsh-completions
     zsh-users/zsh-history-substring-search
+    zdharma/fast-syntax-highlighting
     romkatv/powerlevel10k
 )
 
@@ -52,6 +53,9 @@ SAVEHIST=2000                   # Max commands to save in $HISTFILE
 setopt share_history            # Share history across terminals
 setopt inc_append_history       # Immediately append to the history file, not just when a term is killed
 setopt hist_expire_dups_first   # Trim duplicate entries first
+setopt hist_find_no_dups        # Don't show repeated commands
+setopt hist_ignore_all_dups     # Removes older entry if it dublicates the current
+setopt hist_ignore_dups         # Ignore current command if previously entered
 
 # Export GPG_TTY using $TTY (works even when stdin is redirected)
 export GPG_TTY=$TTY
