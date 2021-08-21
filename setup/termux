@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: MIT
 #
 # Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 #
@@ -39,9 +39,10 @@ setup_theme
 git_setup
 
 # Setup dotfiles
-echo "export ZDOTDIR=~/.zsh" >"${HOME}"/.zshenv
-ln -sf "$SCRIPT_DIR"/dotfiles/.zsh "${HOME}"
-ln -sf "$SCRIPT_DIR"/dotfiles/.vim "${HOME}"
+mkdir "${HOME}"/.config
+echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
+ln -sf "$SCRIPT_DIR"/dotfiles/zsh "${HOME}"/.config/zsh
+ln -sf "$SCRIPT_DIR"/dotfiles/nvim "${HOME}"/.config/nvim
 
 # Switch to zsh
 chsh -s zsh

@@ -1,0 +1,4 @@
+{
+    // Use ALE for displaying diagnostics
+    "diagnostic.displayByAle": true
+}

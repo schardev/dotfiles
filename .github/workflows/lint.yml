@@ -8,5 +8,9 @@ jobs:
       - run: |
           sudo snap install shfmt
           sudo apt-get install fd-find
-      - name: Run lint.sh
-        run: bash lint.sh
+      - name: Linting...
+        run: |
+          for i in $(fdfind -t x -E bin -E dotfiles); do
+            shellcheck -s bash -e SC1090,SC1091 "$i"
+            shfmt -d -ci -i 4 "$i"
+          done

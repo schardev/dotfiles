@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# SPDX-License-Identifier: GPL-3.0-or-later                   #
+# SPDX-License-Identifier: MIT
 #
 # Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 #
@@ -30,7 +30,7 @@ header "Setting up dotfiles and rest ..."
 git_setup
 
 # Setup configs
-ln -sf "${SCRIPT_DIR}"/dotfiles/.vim "${HOME}"
-ln -sf "${SCRIPT_DIR}"/dotfiles/.zsh/.aliases "${HOME}"/.bash_aliases
+ln -sf "${SCRIPT_DIR}"/dotfiles/nvim "${HOME}"
+ln -sf "${SCRIPT_DIR}"/dotfiles/zsh/.aliases "${HOME}"/.bash_aliases
 
 pr_succ "Server setup done!"
