@@ -18,6 +18,9 @@ else
     set signcolumn=yes
 endif
 
+" C-style comment highlighting for coc-settings.json
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -31,6 +34,10 @@ inoremap <silent> <expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Make <CR> to notify coc.nvim to format on enter
+inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>"
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.

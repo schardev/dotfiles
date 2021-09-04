@@ -16,6 +16,7 @@ nnoremap <silent> <Leader>t :call ToggleTabHighlight()<CR>
 " Toggle search highlighting
 nnoremap <silent> <Leader>s :set hlsearch!<CR>
 
-" Moving between buffers
+" Buffer management
 nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>p :bprevious<CR>
+nnoremap <silent> <C-d> :bdelete<CR>

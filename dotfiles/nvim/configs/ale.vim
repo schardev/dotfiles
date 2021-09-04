@@ -13,9 +13,13 @@ let g:ale_fixers = {
 \   'sh': ['shfmt'],
 \}
 
+" Enable below option to only trigger linters from `g:ale_linters` list
+" NOTE: ALE will enable as many linters as possible by default
+" let g:ale_linters_explicit = 1
+
 " Use better error/warning signs
 let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '--'
+let g:ale_sign_warning = '⚠'
 highlight ALEWarningSign guifg=#FFFF00
 
 " Mapping to quickly fix
@@ -33,3 +37,9 @@ let g:ale_sh_shfmt_options = '-ci -i 4'
 " SC1090 -- Can't follow non-constant source. Use a directive to specify location
 " SC1091 -- Almost the same reason as above
 let g:ale_sh_shellcheck_options = '-s bash -e SC1090,SC1091'
+
+" Set `-style=Google`
+let g:ale_c_clangformat_style_option = 'Google'
+
+" Enable below option to use local .clang-format file
+" let g:ale_c_clangformat_use_local_file = 1

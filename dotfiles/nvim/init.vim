@@ -47,10 +47,38 @@ Plug 'mhinz/vim-startify'
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+" Better syntax highlighting for C/C++
+Plug 'bfrg/vim-cpp-modern'
+
 call plug#end()
 
-" All one-liners plugin settings go below
+
+"== All one-liners plugin settings go below =="
+
+" char list for different indentation level
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" Center startify header
+let g:startify_custom_header =
+          \ 'startify#center(startify#fortune#cowsay())'
+
+" Ignore indent lines on these filetypes
+let g:indent_blankline_filetype_exclude = ['help', 'markdown', 'startify']
+
+" Bookmark init.vim on startify for quick edit
+let g:startify_bookmarks = [ {'0': '~/.config/nvim/init.vim'}, '~/.config/nvim' ]
+            \
+" Use a  darker backgroup for onedark
+let g:onedark_color_overrides = {
+\ "background": {"gui": "#1c1c1c", "cterm": "234", "cterm16": "0" },
+\}
+
+" Change colorscheme to onedark if installed
+" NOTE: Make sure to set colorscheme before setting any custom highlighting options
+if !empty(glob('$HOME/.config/nvim/plugged/onedark.vim'))
+    colorscheme onedark
+endif
+
 "}}}
 
 "==============================================================================
@@ -77,7 +105,6 @@ set cursorline              " Highlight current line number
 set mouse=ni                " Enable mouse support in normal and insert mode
 set hidden                  " Allow buffers to be hidden
 set cmdheight=2             " Set command panel height
-
 
 let mapleader = ","         " Set global <Leader> to `,`
 
