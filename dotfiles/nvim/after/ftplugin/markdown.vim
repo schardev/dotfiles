@@ -2,3 +2,4 @@
 " them but don't break them in the middle of a word (easier to read that way)
 setlocal wrap
 setlocal linebreak
+setlocal colorcolumn=

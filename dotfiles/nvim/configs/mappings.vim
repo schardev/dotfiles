@@ -18,5 +18,5 @@ nnoremap <silent> <Leader>s :set hlsearch!<CR>
 
 " Buffer management
 nnoremap <silent> <Leader>n :bnext<CR>
-nnoremap <silent> <Leader>p :bprevious<CR>
+nnoremap <silent> <Leader>N :bprevious<CR>
 nnoremap <silent> <C-d> :bdelete<CR>

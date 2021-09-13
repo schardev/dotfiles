@@ -9,13 +9,14 @@
 "{{{
 
 " Grab latest vim-plug from github
-if empty(glob('$HOME/.config/nvim/autoload/plug.vim'))
-  silent call system('mkdir -p $HOME/.config/nvim/autoload')
-  silent call system('curl -fLo $HOME/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-  execute 'source  $HOME/.config/nvim/autoload/plug.vim'
+let s:vim_root = expand('<sfile>:p:h')
+if empty(glob(s:vim_root . '/autoload/plug.vim'))
+  silent call system('mkdir -p ' . s:vim_root . '/autoload')
+  silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  execute 'source' s:vim_root . '/autoload/plug.vim'
 endif
 
-call plug#begin('$HOME/.config/nvim/plugged')
+call plug#begin(s:vim_root . '/plugged')
 
 " Awesome git wrapper
 Plug 'tpope/vim-fugitive'
@@ -50,6 +51,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " Better syntax highlighting for C/C++
 Plug 'bfrg/vim-cpp-modern'
 
+" CSS color preview
+Plug 'ap/vim-css-color'
+
 call plug#end()
 
 
@@ -59,23 +63,32 @@ call plug#end()
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " Center startify header
-let g:startify_custom_header =
-          \ 'startify#center(startify#fortune#cowsay())'
+let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
 
 " Ignore indent lines on these filetypes
 let g:indent_blankline_filetype_exclude = ['help', 'markdown', 'startify']
 
-" Bookmark init.vim on startify for quick edit
-let g:startify_bookmarks = [ {'0': '~/.config/nvim/init.vim'}, '~/.config/nvim' ]
-            \
-" Use a  darker backgroup for onedark
+" Bookmark $MYVIMRC on startify for quick edit
+let g:startify_bookmarks = [
+        \ {'0': '$MYVIMRC'},
+        \ {'1': '~/.config/nvim'}
+        \]
+
+let g:startify_commands = [
+        \ {'ps': ['Plugin Stats', ':PlugStatus']},
+        \ {'pu': ['Plugin Update', ':PlugUpdate | PlugUpgrade']},
+        \ {'pi': ['Plug Install', ':PlugInstall']},
+        \ {'ch': ['Check Health', ':checkhealth']},
+        \ ]
+
+" Use github dark background
 let g:onedark_color_overrides = {
-\ "background": {"gui": "#1c1c1c", "cterm": "234", "cterm16": "0" },
-\}
+        \ "background": {"gui": "#0D1117", "cterm": "234", "cterm16": "0" },
+        \}
 
 " Change colorscheme to onedark if installed
 " NOTE: Make sure to set colorscheme before setting any custom highlighting options
-if !empty(glob('$HOME/.config/nvim/plugged/onedark.vim'))
+if !empty(glob(s:vim_root . '/plugged/onedark.vim'))
     colorscheme onedark
 endif
 
@@ -105,11 +118,11 @@ set cursorline              " Highlight current line number
 set mouse=ni                " Enable mouse support in normal and insert mode
 set hidden                  " Allow buffers to be hidden
 set cmdheight=2             " Set command panel height
-
+set colorcolumn=80          " Highlight 80th column
 let mapleader = ","         " Set global <Leader> to `,`
 
 " Source all additional config files
-for additional_files in split(glob('$HOME/.config/nvim/configs/*.vim'), '\n')
+for additional_files in split(glob(s:vim_root . '/configs/*.vim'), '\n')
     execute 'source' additional_files
 endfor
 
@@ -125,4 +138,7 @@ call matchadd('Tabs', '\t')
 autocmd BufWinEnter * call matchadd('Tabs', '\t')
 autocmd BufWinLeave * call clearmatches()
 
+" Only highlight colorcolumn and cursorline on active window
+autocmd WinLeave * set nocursorline colorcolumn=
+autocmd WinEnter * set cursorline colorcolumn=80
 "}}}
