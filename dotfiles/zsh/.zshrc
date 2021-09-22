@@ -64,5 +64,15 @@ export GPG_TTY=$TTY
 # Source common script
 source ${HOME}/scripts/common
 
+# Start `ssh-agent` if not already and add keys (scripts/common)
+if [ -f "${SSH_ENV}" ]; then
+    source "${SSH_ENV}" >/dev/null
+    pgrep -g "${SSH_AGENT_PID}" >/dev/null || {
+        start_agent
+    }
+else
+    start_agent
+fi
+
 #To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh

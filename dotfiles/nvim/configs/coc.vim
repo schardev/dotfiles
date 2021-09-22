@@ -50,7 +50,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
+" Use D to show documentation in preview window.
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -61,8 +61,7 @@ function! s:show_documentation()
     endif
 endfunction
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
+nnoremap <silent> D :call <SID>show_documentation()<CR>
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')

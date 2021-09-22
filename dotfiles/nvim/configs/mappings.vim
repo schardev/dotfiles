@@ -20,3 +20,13 @@ nnoremap <silent> <Leader>s :set hlsearch!<CR>
 nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>N :bprevious<CR>
 nnoremap <silent> <C-d> :bdelete<CR>
+
+" Quick moving around
+nmap <silent> J <Plug>(SmoothieDownwards)
+nmap <silent> K <Plug>(SmoothieUpwards)
+
+" Quick edit/source init.vim/vimrc
+nnoremap <silent> <expr> <Leader>ev has('nvim') ?
+    \ ":call FloatingWindow('edit', '$MYVIMRC')<CR>" :
+    \ ":edit ~/.vim/init.vim<CR>"
+nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>

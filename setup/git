@@ -8,13 +8,13 @@
 # git functions
 
 # Check if my GPG key can be used
-function gpg_key_usable() {
+gpg_key_usable() {
     command -v gpg &>/dev/null || return 1
     gpg --list-secret-keys --keyid-format LONG | grep -q 5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
 }
 
 # Initial git config setup
-function git_setup() { (
+git_setup() { (
     git config --global user.name "Saurabh Charde"
     git config --global user.email "saurabhchardereal@gmail.com"
     git config --global credential.helper 'cache --timeout=3600'
@@ -38,7 +38,7 @@ function git_setup() { (
 ); }
 
 # Set git aliases
-function git_aliases() { (
+git_aliases() { (
     gpg_key_usable && GPG_SIGN=" --gpg-sign"
 
     git config --global alias.aa 'add --all'

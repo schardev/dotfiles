@@ -40,7 +40,7 @@ header() {
     printf '\n%b%s\n%s\n%s%b\n\n' "${2:-${LGR}}" "${BORDER}" "    ${1}    " "${BORDER}" "${RST}"
 }
 
-# Start `ssh-agent` if not already and add keys
+# SSH
 SSH_ENV="${HOME}/.ssh/ssh-env"
 function start_agent {
     echo "Initialising new SSH agent..."
@@ -52,15 +52,6 @@ function start_agent {
     export SSH_ASKPASS_REQUIRE=never
     ssh-add
 }
-
-if [ -f "${SSH_ENV}" ]; then
-    source "${SSH_ENV}" >/dev/null
-    pgrep -g "${SSH_AGENT_PID}" >/dev/null || {
-        start_agent
-    }
-else
-    start_agent
-fi
 
 # Use `bat` as manpager for colored man pages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"

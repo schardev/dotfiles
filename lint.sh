@@ -6,7 +6,7 @@
 set -e
 
 # Files to lint
-for i in $(fd -t x -E bin -E dotfiles); do
+for i in $(fd -t x -E etc -E dotfiles); do
     shellcheck -s bash -e SC1090,SC1091 "$i"
     shfmt -d -ci -i 4 "$i"
 done

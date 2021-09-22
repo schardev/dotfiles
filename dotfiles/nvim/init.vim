@@ -54,6 +54,9 @@ Plug 'bfrg/vim-cpp-modern'
 " CSS color preview
 Plug 'ap/vim-css-color'
 
+" Smoothie
+Plug 'psliwka/vim-smoothie'
+
 call plug#end()
 
 
@@ -62,24 +65,8 @@ call plug#end()
 " char list for different indentation level
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
-" Center startify header
-let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
-
 " Ignore indent lines on these filetypes
 let g:indent_blankline_filetype_exclude = ['help', 'markdown', 'startify']
-
-" Bookmark $MYVIMRC on startify for quick edit
-let g:startify_bookmarks = [
-        \ {'0': '$MYVIMRC'},
-        \ {'1': '~/.config/nvim'}
-        \]
-
-let g:startify_commands = [
-        \ {'ps': ['Plugin Stats', ':PlugStatus']},
-        \ {'pu': ['Plugin Update', ':PlugUpdate | PlugUpgrade']},
-        \ {'pi': ['Plug Install', ':PlugInstall']},
-        \ {'ch': ['Check Health', ':checkhealth']},
-        \ ]
 
 " Use github dark background
 let g:onedark_color_overrides = {
@@ -141,4 +128,8 @@ autocmd BufWinLeave * call clearmatches()
 " Only highlight colorcolumn and cursorline on active window
 autocmd WinLeave * set nocursorline colorcolumn=
 autocmd WinEnter * set cursorline colorcolumn=80
+
+" Define custom Help command that opens help in a floating window
+" (https://gist.github.com/wbthomason/5e249439b5fc5738cb4b44419e302f68)
+command! -complete=help -nargs=? Help call FloatingWindow('setlocal filetype=help buftype=help | help ', <q-args>)
 "}}}

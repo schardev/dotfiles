@@ -1,8 +1,8 @@
 # Aliases
-alias ..=../
-alias ...=../..
-alias ....=../../..
-alias .....=../../../..
+alias ..='cd ../'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias c='clear'
 alias diff='diff --color'
 alias egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
