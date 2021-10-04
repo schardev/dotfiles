@@ -50,10 +50,25 @@ ln -sf ~/env/dotfiles/nvim ~/.config/nvim
 nvim +PlugInstall
 ```
 If you're not comfortable using `neovim` for whatever reasons, you can use these configs with `vim` too. Just symlink the `~/env/dotfiles/nvim` to `~/.vim` and you're good to go (though I highly recommend using `neovim`).
+
+###### Slow scrolling?
+You may or may not face slow scrolling with my configs. Since I keep enabled a bunch of settings which are notorious with cursor/scrolling speed you may want to disable them if you noticed any lag on your system.
+
+```vim
+" Disable cursorline and colorcolumn highlight as it is (most of the time) the main
+" culprit in slowing down your scrolling
+set nocursorline colorcolumn=
+
+" Syntax highlighting can be heavy sometimes, set maximum column to read for syntax highlighting items
+" NOTE: (neo)vim will stop highlighting text after this column and following
+" lines may not be highlighted correctly
+set synmaxcol=190
+```
+
 ##### Plugins
   Plugin| Description
 -----------------------------------------------------|----------------
-[vim-fugitive](ihttps://github.com/tpope/vim-fugitive) | Awesome git plugin
+[vim-fugitive](https://github.com/tpope/vim-fugitive) | Awesome git plugin
 [ale](https://github.com/dense-analysis/ale) | Linter/Formarter/LSP
 [coc.nvim](https://github.com/neoclide/coc.nvim) | IDE features and LSP client
 [tabular](https://github.com/godlygeek/tabular) | Aligning text
@@ -73,6 +88,7 @@ If you're not comfortable using `neovim` for whatever reasons, you can use these
 ---
 Global Mappings      | What It Does
 -------------------- | -------------
+`;`                  | Mapped to `:` (no need to keep holding shift)
 `Ctrl + ↑`           | Moves window cursor up
 `Ctrl + ↓`           | Moves window cursor down
 `Ctrl + ←`           | Moves window cursor left
@@ -120,13 +136,13 @@ Plugin Mappings  | What It Does
 `<Space>k`       | CocPrev _`(coc`_)
 `<Space>p`       | CocListResume _`(coc`_)
 ---
+<!--
 _Buffer-specific mapping will only work for specific buffers/filetype ... duh._
 - _`(help)`_ - If the filetype is help
 
 Buffer Mappings | What It Does
 ------------------------ | -------------
-`n` & `N`| Go to next/previous match respectively (only works with `helpgrep`) _`(help)`_
-
+-->
 
 #### Termux
 When I'm not on my laptop (or just too lazy to boot it up) I'll use Termux to get my stuff done. It's pretty awesome!

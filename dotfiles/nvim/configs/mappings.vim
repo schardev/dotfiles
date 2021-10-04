@@ -1,3 +1,6 @@
+" No need to keep holding shift
+nnoremap ; :
+
 " Navigating between windows
 nnoremap <silent> <C-Up> :wincmd k<CR>
 nnoremap <silent> <C-Down> :wincmd j<CR>

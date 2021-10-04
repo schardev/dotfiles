@@ -25,7 +25,7 @@ CYN='\033[1;36m'
 export RST RED LGR YEL BLU CYN
 
 # Directories
-ANDROID_TOOLCHAINS=${HOME}/android/compiler
+ANDROID_TOOLCHAINS=${HOME}/workspace/android/compiler
 export ANDROID_TOOLCHAINS
 
 # Print formatted message with colors
@@ -52,8 +52,5 @@ function start_agent {
     export SSH_ASKPASS_REQUIRE=never
     ssh-add
 }
-
-# Use `bat` as manpager for colored man pages
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # vi: filetype=sh

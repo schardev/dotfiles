@@ -111,6 +111,8 @@ git_aliases() { (
     git config --global alias.ru 'remote update'
     git config --global alias.rv "revert${GPG_SIGN} --signoff"
     git config --global alias.s 'status'
+    # shellcheck disable=SC2016
+    git config --global alias.sc '!f() { git aa && git ac -m "${1}: sync changes [$(date '\''+%d-%m-%y %r'\'')]";}; f'  # add all and create commit msg with local time
     git config --global alias.sh 'show --first-parent'
     git config --global alias.shf 'show --first-parent --format=fuller'
     git config --global alias.shm 'show --no-patch'

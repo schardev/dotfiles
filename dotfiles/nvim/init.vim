@@ -18,47 +18,25 @@ endif
 
 call plug#begin(s:vim_root . '/plugged')
 
-" Awesome git wrapper
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'                               " Awesome git wrapper
+Plug 'dense-analysis/ale'                               " Powerful linting tool
+Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
+Plug 'godlygeek/tabular'                                " Text alignment
+Plug 'vim-airline/vim-airline'                          " Sexy statusline
+Plug 'joshdick/onedark.vim'                             " Onedark colorscheme
+Plug 'tpope/vim-commentary'                             " Commentary stuff
+Plug 'mhinz/vim-startify'                               " Cool start menu
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']} " Markdown preview
+Plug 'bfrg/vim-cpp-modern'                              " Better syntax highlighting for C/C++
+Plug 'ap/vim-css-color'                                 " CSS color preview
+Plug 'psliwka/vim-smoothie'                             " Smoothie
+Plug 'airblade/vim-gitgutter'                           " Shows modified lines in number column
 
-" Powerful linting tool
-Plug 'dense-analysis/ale'
-
-" Language server
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Text alignment
-Plug 'godlygeek/tabular'
-
-" Sexy statusline
-Plug 'vim-airline/vim-airline'
-
-" Onedark colorscheme
-Plug 'joshdick/onedark.vim'
-
-" Indent level
-Plug 'lukas-reineke/indent-blankline.nvim'
-
-" Commentary stuff
-Plug 'tpope/vim-commentary'
-
-" Cool start menu
-Plug 'mhinz/vim-startify'
-
-" Markdown preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-" Better syntax highlighting for C/C++
-Plug 'bfrg/vim-cpp-modern'
-
-" CSS color preview
-Plug 'ap/vim-css-color'
-
-" Smoothie
-Plug 'psliwka/vim-smoothie'
+if has('nvim')
+    Plug 'lukas-reineke/indent-blankline.nvim'          " Indent level
+endif
 
 call plug#end()
-
 
 "== All one-liners plugin settings go below =="
 
@@ -87,6 +65,7 @@ endif
 "{{{
 filetype plugin indent on   " Used for indentation based on file-type
 syntax enable               " Enable syntax highlighting
+set encoding=utf-8          " It's the default in nvim but vim sets it conditionally
 set nowrap                  " Do not wrap code by default
 set expandtab               " Expand TABs to spaces
 set shiftwidth=4            " Indents will have a width of 4
@@ -106,6 +85,11 @@ set mouse=ni                " Enable mouse support in normal and insert mode
 set hidden                  " Allow buffers to be hidden
 set cmdheight=2             " Set command panel height
 set colorcolumn=80          " Highlight 80th column
+set signcolumn=auto         " Show signcolumn seperately when there's a sign
+set lazyredraw              " Don't redrawn while executing macros
+set title                   " Set window title appropriately
+set fillchars+=vert:│,eob:. " Set vertical and empty lines chars
+set synmaxcol=190           " Don't even try to highlight stuff that's longer than 190 columns
 let mapleader = ","         " Set global <Leader> to `,`
 
 " Source all additional config files
@@ -124,12 +108,24 @@ highlight Tabs ctermbg=yellow guibg=#FFFF00
 call matchadd('Tabs', '\t')
 autocmd BufWinEnter * call matchadd('Tabs', '\t')
 autocmd BufWinLeave * call clearmatches()
+"}}}
+
+"==============================================================================
+" [AUTO]COMMANDS
+"==============================================================================
+"{{{
 
 " Only highlight colorcolumn and cursorline on active window
 autocmd WinLeave * set nocursorline colorcolumn=
 autocmd WinEnter * set cursorline colorcolumn=80
 
+" Need no line numbers in terminal
+if has('nvim')
+    autocmd TermOpen * setlocal nonumber
+endif
+
 " Define custom Help command that opens help in a floating window
 " (https://gist.github.com/wbthomason/5e249439b5fc5738cb4b44419e302f68)
 command! -complete=help -nargs=? Help call FloatingWindow('setlocal filetype=help buftype=help | help ', <q-args>)
+
 "}}}

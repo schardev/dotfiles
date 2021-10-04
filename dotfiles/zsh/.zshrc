@@ -62,9 +62,9 @@ setopt hist_ignore_dups         # Ignore current command if previously entered
 export GPG_TTY=$TTY
 
 # Source common script
-source ${HOME}/scripts/common
+source "${HOME}"/env/common
 
-# Start `ssh-agent` if not already and add keys (scripts/common)
+# Start `ssh-agent` if not already and add keys (env/common)
 if [ -f "${SSH_ENV}" ]; then
     source "${SSH_ENV}" >/dev/null
     pgrep -g "${SSH_AGENT_PID}" >/dev/null || {
@@ -73,6 +73,15 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent
 fi
+
+# Set bat as man pager (except for termux since it needs a wrapper for that)
+if ! [[ $PREFIX =~ com.termux ]]; then
+    # Use `bat` as manpager for colored man pages
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# Set global editor to neovim
+export EDITOR=nvim
 
 #To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
