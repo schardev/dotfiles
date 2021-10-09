@@ -1,4 +1,7 @@
 {
     // Use ALE for displaying diagnostics
-    "diagnostic.displayByAle": true
+    "diagnostic.displayByAle": true,
+
+    // Enable semantic highlighting
+    "coc.preferences.semanticTokensHighlights": true
 }

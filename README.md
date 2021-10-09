@@ -78,8 +78,8 @@ set synmaxcol=190
 [vim-commentary](https://github.com/tpope/vim-commentary) | Commenting .. uhh .. stuff
 [vim-startify](https://github.com/mhinz/vim-startify) | Start menu
 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown preview
-[vim-cpp-modern](https://github.com/bfrg/vim-cpp-modern) | Better syntax highlighting for C++
 [vim-css-color](https://github.com/ap/vim-css-color) | Color preview
+[vim-smoothie](https://github.com/psliwka/vim-smoothie) | Smooth scrolling
 
 
 ##### Key Bindings
@@ -101,21 +101,22 @@ Global Mappings      | What It Does
 `<Leader>t`          | Toggles tab highlighting
 `<Leader>s`          | Toggles search highlighting
 `<Leader>n`          | Go to next buffer
-`<Leader>N`          | Go to to previous buffer
+`<Leader>p`          | Go to to previous buffer
 `<Leader>ev`         | Edit init.vim/vimrc
+`<Leader>ed`         | Edit my dotfiles
 `<Leader>sv`         | source init.vim/vimrc
-`J`                  | Smoothly scroll downwards
-`K`                  | Smoothly scroll upwards
 ---
 
 _Make sure to read respective plugin documentation if you did not understand any plugin mapping. Even if you do understand them it's still recommended to read vim docs._
 
-- _`(coc)`_ - `coc.nvim` specific
-
 - _`(ale)`_ - `ALE` specific
+- _`(coc)`_ - `coc.nvim` specific
+- _`(smoothie)`_ - `vim-smoothie` specific
+
 
 Plugin Mappings  | What It Does
 ---------------- | -------------
+`<Leader>f`      | ALEFix _`(ale`_)
 `[g` & `]g`      | Navigate `coc.nvim` diagnostics _`(coc)`_
 `gd`             | Go to symbol/code definition _`(coc`_)
 `gy`             | Go to type definition _`(coc`_)
@@ -123,10 +124,9 @@ Plugin Mappings  | What It Does
 `gr`             | Go to references _`(coc`_)
 `D`              | Opens vim documentation for the keyword under cursor _`(coc`_)
 `<Leader>rn`     | Rename symbol/keyword _`(coc`_)
-`<Leader>f`      | Format selected code _`(coc`_)
+`<Leader>f`      | Format selected code _`(coc`_) (visual mode)
 `<Leader>a`      | Apply codeaction to selected region _`(coc`_)
 `<Leader>qf`     | Apply autofix to problem on the current line _`(coc`_)
-`<Leader>f`      | ALEFix _`(ale`_)
 `<Space>a`       | CocList diagnostics _`(coc`_)
 `<Space>e`       | CocList extensions _`(coc`_)
 `<Space>c`       | CocList commands _`(coc`_)
@@ -135,6 +135,8 @@ Plugin Mappings  | What It Does
 `<Space>j`       | CocNext _`(coc`_)
 `<Space>k`       | CocPrev _`(coc`_)
 `<Space>p`       | CocListResume _`(coc`_)
+`J`              | Smoothly scroll downwards _`(smoothie)`_
+`K`              | Smoothly scroll upwards _`(smoothie)`_
 ---
 <!--
 _Buffer-specific mapping will only work for specific buffers/filetype ... duh._

@@ -3,3 +3,6 @@
 setlocal wrap
 setlocal linebreak
 setlocal colorcolumn=
+
+" Disable coc.nvim
+let b:coc_enabled = 0

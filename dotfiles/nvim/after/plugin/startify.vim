@@ -16,7 +16,7 @@ let g:startify_commands = [
 
 " Open startify when there's no buffer left
 " https://github.com/mhinz/vim-startify/issues/424#issuecomment-704865423
-augroup startify
+augroup after_startify
     autocmd!
     autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
 augroup END

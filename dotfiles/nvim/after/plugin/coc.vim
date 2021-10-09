@@ -1,13 +1,34 @@
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
-set encoding=utf-8
-
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+
+" Semantic highlighting groups
+" let g:coc_default_semantic_highlight_groups = 1
+highlight! link CocSem_namespace Constant
+highlight! link CocSem_type Type
+highlight! link CocSem_class Structure
+highlight! link CocSem_enum Type
+highlight! link CocSem_interface Type
+highlight! link CocSem_struct Structure
+highlight! link CocSem_typeParameter Type
+highlight! link CocSem_variable Identifier
+highlight! link CocSem_property Normal
+highlight! link CocSem_enumMember Constant
+highlight! link CocSem_event Identifier
+highlight! link CocSem_function Function
+highlight! link CocSem_method Function
+highlight! link CocSem_macro Macro
+highlight! link CocSem_keyword Keyword
+highlight! link CocSem_modifier StorageClass
+highlight! link CocSem_comment Comment
+highlight! link CocSem_string String
+highlight! link CocSem_number Number
+highlight! link CocSem_regexp Normal
+highlight! link CocSem_operator Operator
+highlight CocSem_parameter ctermfg=white guifg=white
 
 " C-style comment highlighting for coc-settings.json
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -63,7 +84,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup after_coc
     autocmd!
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
