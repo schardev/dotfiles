@@ -1,7 +1,10 @@
 {
-    // Use ALE for displaying diagnostics
-    "diagnostic.displayByAle": true,
+    // Check extention update daily
+    "coc.preferences.extensionUpdateCheck": "weekly",
 
     // Enable semantic highlighting
-    "coc.preferences.semanticTokensHighlights": true
+    "coc.preferences.semanticTokensHighlights": true,
+
+    // Use ALE for displaying diagnostics
+    "diagnostic.displayByAle": true
 }

@@ -7,8 +7,8 @@
 # Server setup script
 
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source "$SCRIPT_PATH"/../common
-source "$SCRIPT_PATH"/git
+source "${SCRIPT_PATH}"/../funcs/common-funcs.sh
+source "${SCRIPT_PATH}"/../funcs/git-setup-funcs.sh
 
 header "Updating & Installing build packages ..."
 sudo apt-get update

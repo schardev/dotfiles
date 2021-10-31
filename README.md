@@ -1,5 +1,4 @@
 ## Environment Setup
-<img src="etc/current-setup.png" align="center">
 
 This repository contains my environment setup scripts and dotfiles, in case if anyone is interested in looking at them. There will be few other scripts in this repo too that I haven't documented yet, either because I don't use them anymore and/or I'll be removing/adding more to them them soon.
 
@@ -156,7 +155,7 @@ The script will setup termux to have [Dracula](https://github.com/dracula) color
 git clone https://github.com/saurabhchardereal/env ~/env
 
 # Run the script
-./env/setup/termux
+./env/scripts/termux
 ```
 ##### Packages Installed on Termux
 ```bash

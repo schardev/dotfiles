@@ -31,6 +31,8 @@ bindkey '^[[1;5C' forward-word
 
 
 # Completion settings
+WORDCHARS=${WORDCHARS:s:/:}                             # Remove '/' from wordchars
+
 zstyle ':completion:*:*:*:*:*' menu select
 
 eval "$(dircolors)"                                     # Source LS_COLORS and use them for
@@ -62,7 +64,7 @@ setopt hist_ignore_dups         # Ignore current command if previously entered
 export GPG_TTY=$TTY
 
 # Source common script
-source "${HOME}"/env/common
+source "${HOME}"/env/funcs/common-funcs.sh
 
 # Start `ssh-agent` if not already and add keys (env/common)
 if [ -f "${SSH_ENV}" ]; then

@@ -8,8 +8,7 @@
 # shellcheck disable=SC2191
 
 # Source common helper
-SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source "${SCRIPT_PATH}"/../common
+source "${SCRIPT_DIR}"/funcs/common-funcs.sh
 source "${SCRIPT_DIR}"/funcs/kernel-funcs.sh
 
 # Exit if not a kernel repository
@@ -85,15 +84,7 @@ check_dependencies() {
 
         'gcc')
             pr_info "Checking for GCC compiler ..."
-            if [[ -d "${CC_PATH}/gcc" ]]; then
-                pr_info "$(get_cc_version "${CC_PATH}"/gcc/bin/*-gcc) found!" "$CYN"
-            elif [[ -n "${CLONE_DEPS}" ]]; then
-                pr_info "GCC compiler not found! Cloning ..." "$CYN"
-                git clone --depth=1 https://gitlab.com/saurabhchardereal/gcc -b main "${CC_PATH}"/gcc
-            else
-                pr_err "GCC compiler not found!"
-                exit 1
-            fi
+            pr_info "$(get_cc_version 'gcc')" "$CYN" || exit 1
             ;;
     esac
 
@@ -135,9 +126,7 @@ make_arguments() {
                 CROSS_COMPILE_ARM32="${CC_PATH}"/gcc_binutils/bin/arm-linux-gnueabi-)
             ;;
         'gcc')
-            MAKE+=(CC="${CC_PATH}"/gcc/bin/aarch64-linux-gcc
-                CROSS_COMPILE="${CC_PATH}"/gcc/bin/aarch64-linux-
-                CROSS_COMPILE_ARM32="${CC_PATH}"/gcc/bin/arm-linux-gnueabi-)
+            MAKE+=()
             ;;
     esac
 
@@ -199,7 +188,7 @@ Usage: $(basename "${0}") [options] [-m]
 --arch          -- arch to build (default 'arm64')
 -c, --clean     -- Cleans output directory
 --custom-cc     -- Path to custom compiler (eg, --custom-cc=<path/to/cc>)
-                   Or just use '--custom-cc=<cc>' to use host cc
+                   or just use '--custom-cc=<cc>' to use host cc
 --clone-deps    -- Clone dependencies recursively if they're not found
 --defconfig     -- Defconfig to build (default 'X00T_defconfig')
 --gcc           -- Compile using latest GCC compiler

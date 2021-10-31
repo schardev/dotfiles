@@ -13,6 +13,7 @@ else
     echo "No known shell found! Exiting ..."
     sleep 3 && exit 1
 fi
+SCRIPT_DIR=$(dirname "${SCRIPT_DIR}")
 export SCRIPT_DIR
 
 # Colors

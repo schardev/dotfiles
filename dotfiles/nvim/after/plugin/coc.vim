@@ -5,6 +5,13 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+" Install these coc.nvim extensions by default
+let g:coc_global_extensions = [
+    \'coc-json',
+    \'coc-pyright',
+    \'coc-clangd',
+    \]
+
 " Semantic highlighting groups
 " let g:coc_default_semantic_highlight_groups = 1
 highlight! link CocSem_namespace Constant
@@ -41,11 +48,15 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-inoremap <silent> <expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent> <expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <silent> <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" :
+       \ <SID>check_back_space() ? "\<TAB>" :
+       \ coc#refresh()
 
 " Make <CR> to notify coc.nvim to format on enter
 inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>"

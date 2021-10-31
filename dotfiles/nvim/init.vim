@@ -48,6 +48,13 @@ if !empty(glob(s:vim_root . '/plugged/onedark.vim'))
     colorscheme onedark
 endif
 
+" Disable neovim providers
+let g:loaded_node_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_ruby_provider = 0
+let g:loaded_python_provider = 0
+let g:loaded_python3_provider = 0
+
 "}}}
 
 "==============================================================================
@@ -57,32 +64,39 @@ endif
 
 filetype plugin indent on   " Used for indentation based on file-type
 syntax enable               " Enable syntax highlighting
+let mapleader = ","         " Set global <Leader> to `,`
+set cmdheight=2             " Set command panel height
+set colorcolumn=80          " Highlight 80th column
+set cursorline              " Highlight current line number
 set encoding=utf-8          " It's the default in nvim but vim sets it conditionally
-set nowrap                  " Do not wrap code by default
 set expandtab               " Expand TABs to spaces
+set fillchars+=vert:│,eob:. " Set vertical and empty lines chars
+set hidden                  " Allow buffers to be hidden
+set ignorecase              " Ignore case for pattern matching by default
+set incsearch               " Incrementally highlights search patterns
+set lazyredraw              " Don't redrawn while executing macros
+set mouse=ni                " Enable mouse support in normal and insert mode
+set nobackup                " Disable backup
+set nowrap                  " Do not wrap code by default
+set nowritebackup
+set number                  " Show line numbers
+set shell=bash              " Set default shell to bash coz zsh isn't POSIX-compatible
 set shiftwidth=4            " Indents will have a width of 4
+set signcolumn=yes          " Always show signcolumn
+set smartcase               " Override `ignorecase` where possible
+set softtabstop=4           " Sets the number of columns for a TAB
+set synmaxcol=190           " Don't even try to highlight stuff that's longer than 190 columns
 set tabstop=4               " The width of a TAB is set to 4.
                             " Still it is a \t. It is just that
                             " vim will interpret it to be having
                             " a width of 4.
-set softtabstop=4           " Sets the number of columns for a TAB
-set shell=bash              " Set default shell to bash coz zsh isn't POSIX-compatible
-set incsearch               " Incrementally highlights search patterns
-set nobackup                " Disable backup
-set nowritebackup
 set termguicolors           " Term supports gui colors
-set number                  " Show line numbers
-set cursorline              " Highlight current line number
-set mouse=ni                " Enable mouse support in normal and insert mode
-set hidden                  " Allow buffers to be hidden
-set cmdheight=2             " Set command panel height
-set colorcolumn=80          " Highlight 80th column
-set signcolumn=auto         " Show signcolumn seperately when there's a sign
-set lazyredraw              " Don't redrawn while executing macros
+set textwidth=80            " Auto indent after this many column
 set title                   " Set window title appropriately
-set fillchars+=vert:│,eob:. " Set vertical and empty lines chars
-set synmaxcol=190           " Don't even try to highlight stuff that's longer than 190 columns
-let mapleader = ","         " Set global <Leader> to `,`
+
+if has('nvim')
+    set pumblend=20         " Enable a subtle transparency effect on pop-up menu
+endif
 
 " Highlight trailing whitespace in red
 highlight ExtraWhitespace ctermbg=darkred guibg=#FF0000
