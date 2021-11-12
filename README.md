@@ -65,7 +65,9 @@ set synmaxcol=190
 ```
 
 ##### Plugins
-  Plugin| Description
+>Few plugins will only work with `neovim` and have been marked accordingly.
+
+Plugin| Description
 -----------------------------------------------------|----------------
 [vim-fugitive](https://github.com/tpope/vim-fugitive) | Awesome git plugin
 [ale](https://github.com/dense-analysis/ale) | Linter/Formarter/LSP
@@ -73,16 +75,17 @@ set synmaxcol=190
 [tabular](https://github.com/godlygeek/tabular) | Aligning text
 [vim-airline](https://github.com/vim-airline/vim-airline) | Sexy AF statusline
 [onedark.vim](https://github.com/joshdick/onedark.vim) | Onedark colorscheme
-[indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Shows indentation level like VSCode
+[indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Shows indentation level like VSCode _`(neovim)`_
 [vim-commentary](https://github.com/tpope/vim-commentary) | Commenting .. uhh .. stuff
 [vim-startify](https://github.com/mhinz/vim-startify) | Start menu
 [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) | Markdown preview
 [vim-css-color](https://github.com/ap/vim-css-color) | Color preview
 [vim-smoothie](https://github.com/psliwka/vim-smoothie) | Smooth scrolling
-
+[nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) | Lua fork of NERDTree _`(neovim)`_
+[bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Sax bufferline _`(neovim)`_
 
 ##### Key Bindings
-`<Leader>` is basically prefixing mapping commands with our desired character. I've set my `<Leader>` character to `,` (comma). So whenever you see `<Leader>` replace it with `,` (to change leader character see `init.vim`)
+>`<Leader>` is basically prefixing mapping commands with our desired character. I've set my `<Leader>` character to `,` (comma). So whenever you see `<Leader>` replace it with `,` (to change leader character see `init.vim`)
 
 ---
 Global Mappings      | What It Does
@@ -158,11 +161,9 @@ git clone https://github.com/saurabhchardereal/env ~/env
 ./env/scripts/termux
 ```
 ##### Packages Installed on Termux
-```bash
-antibody    # Nice plugin manager for zsh
-nodejs      # coc.nvim dependency (but a lot more)
-nvim        # I don't know what this is but it's good
-openssh     # SSH
-gnupg       # GPG
-zsh         # ZSH itself
-```
+- antibody
+- nodejs
+- nvim
+- openssh
+- gnupg
+- zsh

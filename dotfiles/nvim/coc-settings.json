@@ -6,5 +6,11 @@
     "coc.preferences.semanticTokensHighlights": true,
 
     // Use ALE for displaying diagnostics
-    "diagnostic.displayByAle": true
+    "diagnostic.displayByAle": true,
+
+    // Use `black` for formatting python files
+    "python.formatting.provider": "black",
+
+    // Use Pylint for linting
+    "python.linting.pylintEnabled": true
 }

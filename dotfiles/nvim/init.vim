@@ -11,8 +11,9 @@
 " Grab latest vim-plug from github
 let s:vim_root = expand('<sfile>:p:h')
 if empty(glob(s:vim_root . '/autoload/plug.vim'))
-  silent call system('mkdir -p ' . s:vim_root . '/autoload')
-  silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    silent call system('mkdir -p ' . s:vim_root . '/autoload')
+    silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim ' .
+            \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   execute 'source' s:vim_root . '/autoload/plug.vim'
 endif
 
@@ -31,16 +32,18 @@ Plug 'ap/vim-css-color'                                 " CSS color preview
 Plug 'psliwka/vim-smoothie'                             " Smoothie
 Plug 'airblade/vim-gitgutter'                           " Shows modified lines in number column
 
+
 if has('nvim')
+    Plug 'akinsho/bufferline.nvim'                      " Sax bufferline
+    Plug 'kyazdani42/nvim-tree.lua'                     " Lua fork of Nerdtree
+    Plug 'kyazdani42/nvim-web-devicons'                 " File icons
     Plug 'lukas-reineke/indent-blankline.nvim'          " Indent level
 endif
 
 call plug#end()
 
 " Use github dark background
-let g:onedark_color_overrides = {
-        \ "background": {"gui": "#0D1117", "cterm": "234", "cterm16": "0" },
-        \}
+autocmd ColorScheme onedark highlight Normal guibg=#0D1117
 
 " Change colorscheme to onedark if installed
 " NOTE: Make sure to set colorscheme before setting any custom highlighting options
@@ -91,7 +94,6 @@ set tabstop=4               " The width of a TAB is set to 4.
                             " vim will interpret it to be having
                             " a width of 4.
 set termguicolors           " Term supports gui colors
-set textwidth=80            " Auto indent after this many column
 set title                   " Set window title appropriately
 
 if has('nvim')
@@ -136,6 +138,10 @@ nnoremap <silent> <C-S-Down> :wincmd J<CR>
 nnoremap <silent> <C-S-Left> :wincmd H<CR>
 nnoremap <silent> <C-S-Right> :wincmd L<CR>
 
+" Quick moving around while keeping the cursor fixed in middle
+nnoremap <silent> <S-Down> 5jzz
+nnoremap <silent> <S-Up> 5kzz
+
 " Toggle tab highlighting
 nnoremap <silent> <Leader>t :call ToggleTabHighlight()<CR>
 
@@ -158,6 +164,13 @@ nnoremap <silent> <expr> <Leader>ed has('nvim') ?
     \ ":call FloatingWindow('edit', '~/env/dotfiles')<CR>" :
     \ ":edit ~/env/dotfiles<CR>"
 
+if has('nvim')
+
+    " Make <Esc> to actually escape from terminal mode
+    tnoremap <silent> <Esc> <C-\><C-n>
+
+endif
+
 "}}}
 
 "==============================================================================
@@ -170,74 +183,84 @@ function! ToggleTabHighlight()
     if g:tab_highlight == 1
         hi clear Tabs
         let g:tab_highlight = 0
-    elseif g:tab_highlight == 0
+    else
         hi Tabs ctermbg=yellow guibg=#FFFF00
         let g:tab_highlight = 1
     endif
 endfunc
 
-" Creates a bordered floating window
-" NOTE: Only works with nvim!
-function! CreateCenteredFloatingWindow(title) abort
-    " Define size of the float window
-    let width = min([&columns - 4, max([80, &columns - 20])])
-    let height = min([&lines - 4, max([20, &lines - 10])])
-    let top = ((&lines - height) / 2) - 1
-    let left = (&columns - width) / 2
-    let opts = {
-      \ 'relative': 'editor',
-      \ 'row': top,
-      \ 'col': left,
-      \ 'width': width,
-      \ 'height': height,
-      \ 'style': 'minimal',
-      \ 'focusable': v:false
-    \ }
+if has('nvim')
+    " Creates a bordered floating window
+    " NOTE: Only works with nvim!
+    function! CreateCenteredFloatingWindow(title) abort
+        " Define size of the float window
+        let width = min([&columns - 4, max([80, &columns - 20])])
+        let height = min([&lines - 4, max([20, &lines - 10])])
+        let top = ((&lines - height) / 2) - 1
+        let left = (&columns - width) / 2
+        let opts = {
+          \ 'relative': 'editor',
+          \ 'row': top,
+          \ 'col': left,
+          \ 'width': width,
+          \ 'height': height,
+          \ 'style': 'minimal',
+          \ 'focusable': v:false
+          \ }
 
-    " Create a 'bordered' window
-    let top = "╭" . repeat("─", width - 2) . "╮"
-    let mid = "│" . repeat(" ", width - 2) . "│"
-    let bot = "╰─" . a:title . repeat("─", width - strlen(a:title) - 3) . "╯"
-    let lines = [top] + repeat([mid], height - 2) + [bot]
-    let border_bufnr = nvim_create_buf(v:false, v:true)
-    call nvim_buf_set_lines(border_bufnr, 0, -1, v:true, lines)
+        " Create a 'bordered' window
+        let top = "╭" . repeat("─", width - 2) . "╮"
+        let mid = "│" . repeat(" ", width - 2) . "│"
+        let bot = "╰─" . a:title . repeat("─", width - strlen(a:title) - 3) . "╯"
+        let lines = [top] + repeat([mid], height - 2) + [bot]
+        let border_bufnr = nvim_create_buf(v:false, v:true)
+        call nvim_buf_set_lines(border_bufnr, 0, -1, v:true, lines)
 
-    let s:border_winid = nvim_open_win(border_bufnr, v:true, opts)
-    set winhl=Normal:Floating
-    let opts.row += 1
-    let opts.height -= 2
-    let opts.col += 2
-    let opts.width -= 4
-    let opts.focusable = v:true
-    let text_bufnr = nvim_create_buf(v:false, v:true)
-    call nvim_open_win(text_bufnr, v:true, opts)
-    autocmd WinClosed * ++once :bdelete | call nvim_win_close(s:border_winid, v:true)
-    return text_bufnr
-endfunction
+        let s:border_winid = nvim_open_win(border_bufnr, v:true, opts)
+        set winhl=Normal:Floating
+        let opts.row += 1
+        let opts.height -= 2
+        let opts.col += 2
+        let opts.width -= 4
+        let opts.focusable = v:true
+        let text_bufnr = nvim_create_buf(v:false, v:true)
+        call nvim_open_win(text_bufnr, v:true, opts)
+        autocmd WinClosed * ++once :bdelete | call nvim_win_close(s:border_winid, v:true)
+        return text_bufnr
+    endfunction
 
-function! FloatingWindow(command, argument) abort
-    let l:buf = CreateCenteredFloatingWindow(a:argument)
-    execute a:command . a:argument
-endfunction
+    function! FloatingWindow(command, argument) abort
+        let l:buf = CreateCenteredFloatingWindow(a:argument)
+        execute a:command . a:argument
+    endfunction
+endif   " endif has('nvim')
 
 "}}}
-"
+
 "==============================================================================
 " [AUTO]COMMANDS
 "==============================================================================
 "{{{
 
-" Only highlight colorcolumn and cursorline on active window
-autocmd WinLeave * set nocursorline colorcolumn=
-autocmd WinEnter * set cursorline colorcolumn=80
+" Wrap global autocmds in group
+augroup my_init_augroup
+    autocmd!
 
-" Need no line numbers in terminal
+    " Only highlight colorcolumn and cursorline on active window
+    autocmd WinLeave * set nocursorline colorcolumn=
+    autocmd WinEnter * set cursorline colorcolumn=80
+
+    if has('nvim')
+        " Need no numbers in terminal
+        autocmd TermOpen * set nonumber
+    endif
+
+augroup END
+
 if has('nvim')
-    autocmd TermOpen * setlocal nonumber
+    " Define custom Help command that opens help in a floating window
+    " (https://gist.github.com/wbthomason/5e249439b5fc5738cb4b44419e302f68)
+    command! -complete=help -nargs=? Help call FloatingWindow('setlocal filetype=help buftype=help | help ', <q-args>)
 endif
-
-" Define custom Help command that opens help in a floating window
-" (https://gist.github.com/wbthomason/5e249439b5fc5738cb4b44419e302f68)
-command! -complete=help -nargs=? Help call FloatingWindow('setlocal filetype=help buftype=help | help ', <q-args>)
 
 "}}}
