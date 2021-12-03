@@ -1,0 +1,165 @@
+{
+    //=========================================================================
+    //  THEMING
+    //=========================================================================
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "oneDarkPro.editorTheme": "One Dark Pro Darker",
+    "workbench.colorCustomizations": {
+        "[One Dark Pro Darker]": {
+            "editor.background": "#0d1117",
+            "terminal.background": "#0d1117",
+            "tab.activeBackground": "#0d1117",
+            "activityBar.background": "#0d1117",
+            "sideBar.background": "#0d1117",
+            "sideBar.border": "#282c34"
+        }
+    },
+    //=========================================================================
+    // LANGUAGE SPECIFIC
+    //=========================================================================
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "html.format.wrapLineLength": 80,
+    //=========================================================================
+    // VIM
+    //=========================================================================
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.ignorecase": true,
+    "vim.smartcase": true,
+    "vim.useCtrlKeys": false,
+    "vim.searchHighlightColor": "yellow",
+    "vim.leader": ",",
+    // nnoremap mappings
+    "vim.normalModeKeyBindingsNonRecursive": [
+        /* show command palette */
+        {
+            "before": [
+                ":"
+            ],
+            "commands": [
+                "workbench.action.showCommands",
+            ]
+        },
+        /* enter vim mode */
+        {
+            "before": [
+                ";"
+            ],
+            "after": [
+                ":"
+            ]
+        },
+        /* quick up by 5 lines  */
+        {
+            "before": [
+                "J"
+            ],
+            "after": [
+                "5",
+                "j",
+                "zz"
+            ]
+        },
+        /* quick down by 5 lines  */
+        {
+            "before": [
+                "K"
+            ],
+            "after": [
+                "5",
+                "k",
+                "zz"
+            ]
+        },
+        /* toggle highlight search  */
+        {
+            "before": [
+                "<leader>",
+                "s"
+            ],
+            "commands": [
+                ":set hlsearch!"
+            ]
+        },
+        /* opens settings json  */
+        {
+            "before": [
+                "<leader>",
+                "e",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.openSettingsJson"
+            ]
+        },
+        /* format code */
+        {
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "commands": [
+                "editor.action.format"
+            ]
+        },
+        /* show doc/info */
+        {
+            "before": [
+                "D"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        /* rename symbol */
+        {
+            "before": [
+                "<leader>",
+                "r",
+                "n"
+            ],
+            "commands": [
+                "editor.action.rename"
+            ]
+        },
+        /* match my vim buffer movement */
+        {
+            "before": [
+                "<leader>",
+                "n"
+            ],
+            "commands": [
+                "workbench.action.nextEditorInGroup"
+            ]
+        },
+    ],
+    // xnoremap mappings
+    "vim.visualModeKeyBindingsNonRecursive": [
+        /* wrapping text with emmet tags */
+        {
+            "before": [
+                "<leader>",
+                "s"
+            ],
+            "commands": [
+                "editor.emmet.action.wrapWithAbbreviation"
+            ]
+        },
+    ],
+    //=========================================================================
+    // VSCODE
+    //=========================================================================
+    "editor.codeLensFontSize": 20,
+    "editor.formatOnPaste": true,
+    "editor.fontSize": 15,
+    "editor.renderWhitespace": "none",
+    "editor.wordWrap": "off",
+    "explorer.confirmDelete": false,
+    "redhat.telemetry.enabled": false,
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 1,
+    "telemetry.telemetryLevel": "off",
+    "editor.minimap.enabled": false,
+}

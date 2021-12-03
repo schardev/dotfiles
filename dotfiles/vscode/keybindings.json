@@ -1,0 +1,17 @@
+[
+    /* saner 'default' for moving around */
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup",
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup",
+    },
+    /* toggle minimap */
+    {
+        "key": "ctrl+m",
+        "command": "editor.action.toggleMinimap",
+        "when": "editorTextFocus"
+    },
+]
