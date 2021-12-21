@@ -1,17 +1,46 @@
 [
-    /* saner 'default' for moving around */
-    {
-        "key": "ctrl+tab",
-        "command": "workbench.action.nextEditorInGroup",
-    },
-    {
-        "key": "ctrl+shift+tab",
-        "command": "workbench.action.previousEditorInGroup",
-    },
-    /* toggle minimap */
-    {
-        "key": "ctrl+m",
-        "command": "editor.action.toggleMinimap",
-        "when": "editorTextFocus"
-    },
+  /* saner 'default' for moving around */
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditorInGroup"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditorInGroup"
+  },
+  /* toggle minimap */
+  {
+    "key": "ctrl+m",
+    "command": "editor.action.toggleMinimap",
+    "when": "editorTextFocus"
+  },
+  /* match my vim suggestion behaviour */
+  // <Tab> - go to next suggestion if pop-up is visible
+  // <S-Tab> - trigger suggestion
+  // <S-Tab> - go to prev suggestion if pop-up is visible
+  {
+    "key": "tab",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "editor.action.triggerSuggest",
+    "when": "!suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+
+  /* map F1 to toggle side menu */
+  {
+    "key": "f1",
+    "command": "-workbench.action.showCommands"
+  },
+  {
+    "key": "f1",
+    "command": "workbench.action.toggleSidebarVisibility"
+  }
 ]

@@ -9,6 +9,7 @@ let g:startify_bookmarks = [
 
 let g:startify_commands = [
         \ {'ch': ['Check Health', ':checkhealth']},
+        \ {'pc': ['Plug clean', ':PlugClean']},
         \ {'pi': ['Plug Install', ':PlugInstall']},
         \ {'ps': ['Plugin Stats', ':PlugStatus']},
         \ {'pu': ['Plugin Update', ':PlugUpdate | PlugUpgrade']},

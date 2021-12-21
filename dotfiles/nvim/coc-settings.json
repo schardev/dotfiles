@@ -1,16 +1,29 @@
 {
-    // Check extention update daily
-    "coc.preferences.extensionUpdateCheck": "weekly",
+  //=========================================================================
+  // COC.NVIM
+  //=========================================================================
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "html",
+    "json",
+    "jsonc",
+    "python",
+    "scss"
+  ],
+  "coc.preferences.semanticTokensHighlights": true,
+  "diagnostic.displayByAle": true,
 
-    // Enable semantic highlighting
-    "coc.preferences.semanticTokensHighlights": true,
+  //=========================================================================
+  // LANGAUGE SPECIFIC
+  //=========================================================================
+  /* html & css/sass */
+  "css.lint.duplicateProperties": "warning",
+  "scss.lint.duplicateProperties": "warning",
+  "html.format.wrapLineLength": 80,
 
-    // Use ALE for displaying diagnostics
-    "diagnostic.displayByAle": true,
-
-    // Use `black` for formatting python files
-    "python.formatting.provider": "black",
-
-    // Use Pylint for linting
-    "python.linting.pylintEnabled": true
+  /* python */
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true
 }

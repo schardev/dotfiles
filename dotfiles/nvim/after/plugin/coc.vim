@@ -7,9 +7,13 @@ set shortmess+=c
 
 " Install these coc.nvim extensions by default
 let g:coc_global_extensions = [
+    \'coc-clangd',
+    \'coc-css',
+    \'coc-emmet',
+    \'coc-html',
+    \'coc-html-css-support',
     \'coc-json',
     \'coc-pyright',
-    \'coc-clangd',
     \]
 
 " Semantic highlighting groups
@@ -36,9 +40,6 @@ highlight! link CocSem_number Number
 highlight! link CocSem_regexp Normal
 highlight! link CocSem_operator Operator
 highlight CocSem_parameter ctermfg=white guifg=white
-
-" C-style comment highlighting for coc-settings.json
-autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -123,6 +124,15 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
+
+" Multicursor
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(b:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')

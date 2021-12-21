@@ -99,7 +99,7 @@ Global Mappings      | What It Does
 `Ctrl + Shift + ↓`   | Moves current window down
 `Ctrl + Shift + ←`   | Moves current window left
 `Ctrl + Shift + →`   | Moves current window right
-`Ctrl + d`           | Delete current buffer
+`Ctrl + w`           | Delete current buffer
 `<Leader>t`          | Toggles tab highlighting
 `<Leader>s`          | Toggles search highlighting
 `<Leader>n`          | Go to next buffer
@@ -118,25 +118,25 @@ _Make sure to read respective plugin documentation if you did not understand any
 
 Plugin Mappings  | What It Does
 ---------------- | -------------
-`<Leader>f`      | ALEFix _`(ale`_)
+`<Leader>f`      | ALEFix & Format _`(ale)`_
 `[g` & `]g`      | Navigate `coc.nvim` diagnostics _`(coc)`_
-`gd`             | Go to symbol/code definition _`(coc`_)
-`gy`             | Go to type definition _`(coc`_)
-`gi`             | Go to implementation _`(coc`_)
-`gr`             | Go to references _`(coc`_)
-`D`              | Opens vim documentation for the keyword under cursor _`(coc`_)
-`<Leader>rn`     | Rename symbol/keyword _`(coc`_)
-`<Leader>f`      | Format selected code _`(coc`_) (visual mode)
-`<Leader>a`      | Apply codeaction to selected region _`(coc`_)
-`<Leader>qf`     | Apply autofix to problem on the current line _`(coc`_)
-`<Space>a`       | CocList diagnostics _`(coc`_)
-`<Space>e`       | CocList extensions _`(coc`_)
-`<Space>c`       | CocList commands _`(coc`_)
-`<Space>o`       | CocList outline _`(coc`_)
-`<Space>s`       | CocList -I symbols _`(coc`_)
-`<Space>j`       | CocNext _`(coc`_)
-`<Space>k`       | CocPrev _`(coc`_)
-`<Space>p`       | CocListResume _`(coc`_)
+`gd`             | Go to symbol/code definition _`(coc`)_
+`gy`             | Go to type definition _`(coc)`_
+`gi`             | Go to implementation _`(coc)`_
+`gr`             | Go to references _`(coc)`_
+`D`              | Opens vim documentation for the keyword under cursor _`(coc)`_
+`<Leader>rn`     | Rename symbol/keyword _`(coc)`_
+`<Leader>f`      | Format selected code _`(coc)`_ (visual mode)
+`<Leader>a`      | Apply codeaction to selected region _`(coc)`_
+`<Leader>qf`     | Apply autofix to problem on the current line _`(coc)`_
+`<Space>a`       | CocList diagnostics _`(coc)`_
+`<Space>e`       | CocList extensions _`(coc)`_
+`<Space>c`       | CocList commands _`(coc)`_
+`<Space>o`       | CocList outline _`(coc)`_
+`<Space>s`       | CocList -I symbols _`(coc)`_
+`<Space>j`       | CocNext _`(coc)`_
+`<Space>k`       | CocPrev _`(coc)`_
+`<Space>p`       | CocListResume _`(coc)`_
 `J`              | Smoothly scroll downwards _`(smoothie)`_
 `K`              | Smoothly scroll upwards _`(smoothie)`_
 ---
@@ -144,7 +144,7 @@ Plugin Mappings  | What It Does
 _Buffer-specific mapping will only work for specific buffers/filetype ... duh._
 - _`(help)`_ - If the filetype is help
 
-Buffer Mappings | What It Does
+Buffer Mappings          | What It Does
 ------------------------ | -------------
 -->
 

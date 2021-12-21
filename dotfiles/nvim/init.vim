@@ -19,19 +19,19 @@ endif
 
 call plug#begin(s:vim_root . '/plugged')
 
-Plug 'tpope/vim-fugitive'                               " Awesome git wrapper
-Plug 'dense-analysis/ale'                               " Powerful linting tool
-Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
-Plug 'godlygeek/tabular'                                " Text alignment
-Plug 'vim-airline/vim-airline'                          " Sexy statusline
-Plug 'joshdick/onedark.vim'                             " Onedark colorscheme
-Plug 'tpope/vim-commentary'                             " Commentary stuff
-Plug 'mhinz/vim-startify'                               " Cool start menu
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']} " Markdown preview
-Plug 'ap/vim-css-color'                                 " CSS color preview
-Plug 'psliwka/vim-smoothie'                             " Smoothie
 Plug 'airblade/vim-gitgutter'                           " Shows modified lines in number column
-
+Plug 'ap/vim-css-color'                                 " CSS color preview
+Plug 'dense-analysis/ale'                               " Powerful linting tool
+Plug 'godlygeek/tabular'                                " Text alignment
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']} " Markdown preview
+Plug 'joshdick/onedark.vim'                             " Onedark colorscheme
+Plug 'mattn/emmet-vim'                                  " Emmet
+Plug 'mhinz/vim-startify'                               " Cool start menu
+Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
+Plug 'psliwka/vim-smoothie'                             " Smoothie
+Plug 'tpope/vim-commentary'                             " Commentary stuff
+Plug 'tpope/vim-fugitive'                               " Awesome git wrapper
+Plug 'vim-airline/vim-airline'                          " Sexy statusline
 
 if has('nvim')
     Plug 'akinsho/bufferline.nvim'                      " Sax bufferline
@@ -56,7 +56,7 @@ let g:loaded_node_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_python_provider = 0
-let g:loaded_python3_provider = 0
+" let g:loaded_python3_provider = 0
 
 "}}}
 
@@ -151,7 +151,7 @@ nnoremap <silent> <Leader>s :set hlsearch!<CR>
 " Buffer management
 nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>p :bprevious<CR>
-nnoremap <silent> <C-d> :bdelete<CR>
+nnoremap <silent> <C-w> :bdelete<CR>
 
 " Quick edit/source init.vim/vimrc
 nnoremap <silent> <expr> <Leader>ev has('nvim') ?
@@ -160,9 +160,7 @@ nnoremap <silent> <expr> <Leader>ev has('nvim') ?
 nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
 
 " Quick edit my dotfiles
-nnoremap <silent> <expr> <Leader>ed has('nvim') ?
-    \ ":call FloatingWindow('edit', '~/env/dotfiles')<CR>" :
-    \ ":edit ~/env/dotfiles<CR>"
+nnoremap <silent> <Leader>ed :edit ~/env/dotfiles<CR>
 
 if has('nvim')
 
