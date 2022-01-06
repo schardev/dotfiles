@@ -7,12 +7,12 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorCustomizations": {
     "[One Dark Pro Darker]": {
-      "editor.background": "#0d1117",
-      "terminal.background": "#0d1117",
-      "tab.activeBackground": "#0d1117",
       "activityBar.background": "#0d1117",
+      "editor.background": "#0d1117",
       "sideBar.background": "#0d1117",
-      "sideBar.border": "#282c34"
+      "sideBar.border": "#282c34",
+      "tab.activeBackground": "#0d1117",
+      "terminal.background": "#0d1117"
     }
   },
 
@@ -21,7 +21,9 @@
   //=========================================================================
 
   /* html & css/sass */
+  "css.lint.compatibleVendorPrefixes": "warning",
   "css.lint.duplicateProperties": "warning",
+  "scss.lint.compatibleVendorPrefixes": "warning",
   "scss.lint.duplicateProperties": "warning",
   "html.format.wrapLineLength": 80,
 
@@ -61,13 +63,13 @@
     /* quick up by 5 lines  */
     {
       "before": ["J"],
-      "after": ["5", "j", "zz"]
+      "after": ["5", "j", "z", "z"]
     },
 
     /* quick down by 5 lines  */
     {
       "before": ["K"],
-      "after": ["5", "k", "zz"]
+      "after": ["5", "k", "z", "z"]
     },
 
     /* toggle highlight search  */
@@ -109,6 +111,18 @@
 
   // xnoremap mappings
   "vim.visualModeKeyBindingsNonRecursive": [
+    /* show command palette */
+    {
+      "before": [":"],
+      "commands": ["workbench.action.showCommands"]
+    },
+
+    /* enter vim mode */
+    {
+      "before": [";"],
+      "after": [":"]
+    },
+
     /* wrapping text with emmet tags */
     {
       "before": ["<leader>", "s"],
@@ -124,12 +138,13 @@
   "editor.fontSize": 15,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
   "editor.renderWhitespace": "none",
+  "editor.smoothScrolling": true,
   "editor.wordWrap": "off",
   "explorer.confirmDelete": true,
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off",
   "window.zoomLevel": 1,
-  "workbench.startupEditor": "none",
-  "editor.minimap.enabled": false
+  "workbench.startupEditor": "none"
 }

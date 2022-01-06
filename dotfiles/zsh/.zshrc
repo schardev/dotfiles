@@ -5,6 +5,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Shout out loud if running on termux
+if [[ $PREFIX =~ com.termux ]]; then
+    export IS_TERMUX=1 # exporting value to `1` instead of `true` because vim
+                       # does't treat "every" string as truthy
+fi
+
 # Initialize antibody and install plugins
 eval "$(antibody init)"
 
@@ -77,7 +83,7 @@ else
 fi
 
 # Set bat as man pager (except for termux since it needs a wrapper for that)
-if ! [[ $PREFIX =~ com.termux ]]; then
+if [ -z "$IS_TERMUX" ]; then
     # Use `bat` as manpager for colored man pages
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi

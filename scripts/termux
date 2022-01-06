@@ -17,7 +17,7 @@ pr_info "Installing packages ..."
 pkg install --no-install-recommends -y \
     antibody \
     nodejs \
-    nvim \
+    neovim \
     openssh \
     gnupg \
     zsh

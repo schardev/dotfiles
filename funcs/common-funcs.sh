@@ -54,4 +54,4 @@ function start_agent {
     ssh-add
 }
 
-# vi: filetype=sh
+# vim: filetype=sh

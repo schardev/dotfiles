@@ -13,29 +13,27 @@ gpg_key_usable() {
     gpg --list-secret-keys --keyid-format LONG | grep -q 5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
 }
 
-# Initial git config setup
-git_setup() { (
-    git config --global user.name "Saurabh Charde"
-    git config --global user.email "saurabhchardereal@gmail.com"
-    git config --global credential.helper 'cache --timeout=3600'
-    git config --global pull.rebase false
-    git config --global init.defaultBranch main
-
+# Main gpg setup
+gpg_setup() {
     if ! gpg_key_usable; then
-        git clone https://github.com/saurabhchardereal/keys "${HOME}"/.keys
-        gpg --import "${HOME}"/.keys/{private,public}-key.gpg
+        # clone keys repo and import (if not already)
+        if ! [ -d "${HOME}/.keys" ]; then
+            trap 'rm -rf ${HOME}/.keys' EXIT
+            git clone https://github.com/saurabhchardereal/keys "${HOME}"/.keys
+            gpg --import "${HOME}"/.keys/{private,public}-key.gpg
+        fi
+
         # shellcheck disable=SC2016
         [[ -n $BASH ]] && printf 'export GPG_TTY=$(tty)\n' >>"${HOME}"/.bashrc
-        rm -rf "${HOME}"/.keys
 
         # cache gpg credential
         printf 'default-cache-ttl 604800\nmax-cache-ttl 2419200\n' >"${HOME}"/.gnupg/gpg-agent.conf
+
+        # enable signing commits
         git config --global commit.gpgsign true
         git config --global user.signkey 5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
     fi
-
-    git_aliases
-); }
+}
 
 # Set git aliases
 git_aliases() { (
@@ -127,4 +125,16 @@ git_aliases() { (
     git config --global alias.ml "merge${GPG_SIGN}${SIGNOFF} --log=500"
     git config --global alias.pl "pull${GPG_SIGN}${SIGNOFF}"
     git config --global alias.pll "pull${GPG_SIGN}${SIGNOFF} --log=500"
+); }
+
+# Initial git config setup
+git_setup() { (
+    git config --global user.name "Saurabh Charde"
+    git config --global user.email "saurabhchardereal@gmail.com"
+    git config --global credential.helper 'cache --timeout=3600'
+    git config --global pull.rebase false
+    git config --global init.defaultBranch main
+
+    gpg_setup
+    git_aliases
 ); }
