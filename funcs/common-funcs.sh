@@ -25,10 +25,6 @@ BLU='\033[1;34m'
 CYN='\033[1;36m'
 export RST RED LGR YEL BLU CYN
 
-# Directories
-ANDROID_TOOLCHAINS=${HOME}/workspace/android/compiler
-export ANDROID_TOOLCHAINS
-
 # Print formatted message with colors
 pr_info() { echo -e "${2:-${BLU}}" "≡≡≡ ${1} ≡≡≡" "${RST}"; }
 pr_warn() { echo -e "${YEL}" "■ ${1} ■" "${RST}"; }

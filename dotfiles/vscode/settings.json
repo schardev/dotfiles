@@ -145,6 +145,10 @@
   "explorer.confirmDelete": true,
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off",
-  "window.zoomLevel": 1,
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "keyboard.dispatch": "keyCode",
+  "editor.rulers": [
+    80
+  ],
+  "window.zoomLevel": 1
 }

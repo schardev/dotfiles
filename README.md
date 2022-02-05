@@ -9,7 +9,8 @@ This repository contains my environment setup scripts and dotfiles, in case if a
 ---
 #### ZSH
 ##### Installation
-Make sure you have [antibody](https://github.com/getantibody/antibody) plugin manager installed in your system.
+Make sure you have [sheldon](https://github.com/rossmacarthur/sheldon) plugin manager installed in your system.
+
 ```bash
 # Clone the repo
 git clone https://github.com/saurabhchardereal/env ~/env
@@ -21,13 +22,20 @@ echo 'export ZDOTDIR=$HOME/.config/zsh' > ${HOME}/.zshenv
 # Either symlink the zsh directory to your $HOME/.config or copy the file
 # (I'll just symlink them here as I'd like it to be versioned controlled by git)
 ln -sf ~/env/dotfiles/zsh ~/.config/zsh
+
+# Create sheldon plugin file symlink
+mkdir ~/.config/sheldon && ln -sf ~/env/dotfiles/zsh/plugins.toml ~/.config/sheldon
+
+# restart shell/terminal
 ```
+
 ##### Plugins
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish shell like autosuggestions
 - [zsh-completions](https://github.com/zsh-users/zsh-completions) - Additional completion definitions for Zsh.
 -  [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - ZSH port of Fish history search (up arrow)
-- [fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting) - Better (customisable) syntax highlighting for ZSH
+- [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) - Better (customisable) syntax highlighting for ZSH
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k) - Awesome ZSH prompt
+- [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) - ZSH plugin that reminds you to use existing aliases
 
 #### Neovim
 ##### Requirements
@@ -83,6 +91,7 @@ Plugin| Description
 [vim-smoothie](https://github.com/psliwka/vim-smoothie) | Smooth scrolling
 [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) | Lua fork of NERDTree _`(neovim)`_
 [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Sax bufferline _`(neovim)`_
+[vim-surround](https://github.com/tpope/vim-surround) | Surrounding stuff
 
 ##### Key Bindings
 >`<Leader>` is basically prefixing mapping commands with our desired character. I've set my `<Leader>` character to `,` (comma). So whenever you see `<Leader>` replace it with `,` (to change leader character see `init.vim`)

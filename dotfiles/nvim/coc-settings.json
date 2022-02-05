@@ -6,19 +6,22 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "html",
+    "javascript",
     "json",
     "jsonc",
     "python",
     "scss"
   ],
-  "coc.preferences.semanticTokensHighlights": true,
   "diagnostic.displayByAle": true,
+  // "semanticTokens.filetypes": ["c", "cpp", "javascript"],
 
   //=========================================================================
   // LANGAUGE SPECIFIC
   //=========================================================================
   /* html & css/sass */
+  "css.lint.compatibleVendorPrefixes": "warning",
   "css.lint.duplicateProperties": "warning",
+  "scss.lint.compatibleVendorPrefixes": "warning",
   "scss.lint.duplicateProperties": "warning",
   "html.format.wrapLineLength": 80,
 

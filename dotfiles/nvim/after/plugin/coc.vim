@@ -14,32 +14,11 @@ let g:coc_global_extensions = [
     \'coc-html-css-support',
     \'coc-json',
     \'coc-pyright',
+    \'coc-pairs',
+    \'coc-prettier',
+    \'coc-tsserver',
+    \'coc-vimlsp'
     \]
-
-" Semantic highlighting groups
-" let g:coc_default_semantic_highlight_groups = 1
-highlight! link CocSem_namespace Constant
-highlight! link CocSem_type Type
-highlight! link CocSem_class Structure
-highlight! link CocSem_enum Type
-highlight! link CocSem_interface Type
-highlight! link CocSem_struct Structure
-highlight! link CocSem_typeParameter Type
-highlight! link CocSem_variable Identifier
-highlight! link CocSem_property Normal
-highlight! link CocSem_enumMember Constant
-highlight! link CocSem_event Identifier
-highlight! link CocSem_function Function
-highlight! link CocSem_method Function
-highlight! link CocSem_macro Macro
-highlight! link CocSem_keyword Keyword
-highlight! link CocSem_modifier StorageClass
-highlight! link CocSem_comment Comment
-highlight! link CocSem_string String
-highlight! link CocSem_number Number
-highlight! link CocSem_regexp Normal
-highlight! link CocSem_operator Operator
-highlight CocSem_parameter ctermfg=white guifg=white
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by

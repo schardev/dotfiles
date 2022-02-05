@@ -1,0 +1,33 @@
+# `sheldon` configuration file
+shell = "zsh"
+
+[plugins]
+
+# Source local plugins
+[plugins.local-plugins]
+local = "~/.config/zsh/plugins"
+
+# Additional completion definitions for Zsh
+[plugins.zsh-completions]
+github = 'zsh-users/zsh-completions'
+
+# Fish shell like autosuggestions
+[plugins.zsh-autosuggestions]
+github = 'zsh-users/zsh-autosuggestions'
+use = ["{{ name }}.zsh"]
+
+# ZSH port of Fish history search (up arrow)
+[plugins.zsh-history-substring-search]
+github = 'zsh-users/zsh-history-substring-search'
+
+# Better (customisable) syntax highlighting for ZSH
+[plugins.fast-syntax-highlighting]
+github = 'zdharma-continuum/fast-syntax-highlighting'
+
+# Awesome ZSH prompt
+[plugins.powerlevel10k]
+github = 'romkatv/powerlevel10k'
+
+# ZSH plugin that reminds you to use existing aliases
+[plugins.zsh-you-should-use]
+github = 'MichaelAquilina/zsh-you-should-use'

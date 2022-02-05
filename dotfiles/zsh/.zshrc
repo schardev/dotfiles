@@ -5,27 +5,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Initialize sheldon
+eval "$(sheldon source)"
+
 # Shout out loud if running on termux
 if [[ $PREFIX =~ com.termux ]]; then
     export IS_TERMUX=1 # exporting value to `1` instead of `true` because vim
                        # does't treat "every" string as truthy
 fi
 
-# Initialize antibody and install plugins
-eval "$(antibody init)"
-
-PLUGINS=(
-    zsh-users/zsh-autosuggestions
-    zsh-users/zsh-completions
-    zsh-users/zsh-history-substring-search
-    zdharma-continuum/fast-syntax-highlighting
-    romkatv/powerlevel10k
-)
-
-for PLUGIN in "${PLUGINS[@]}"; do
-    antibody bundle "${PLUGIN}"
-done
-unset PLUGINS
 
 # Configure plugins
 unset HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND
@@ -40,31 +28,14 @@ bindkey '^[[1;5C' forward-word
 WORDCHARS=${WORDCHARS:s:/:}                             # Remove '/' from wordchars
 
 zstyle ':completion:*:*:*:*:*' menu select
-
 eval "$(dircolors)"                                     # Source LS_COLORS and use them for
 zstyle ':completion:*' list-colors “${(s.:.)LS_COLORS}” # tab completions
-
 zstyle ':completion:*' use-cache yes                    # Use caching so that commands like
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR        # apt and dpkg complete are useable
-
 zstyle ':completion:*' special-dirs true                # Autocomplete . and .. special dirs
 
 # Initialize completion stuff
-autoload -U compinit && compinit
-
-# Aliases
-source ${ZDOTDIR:-$HOME}/.aliases
-
-# History
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
-HISTSIZE=1000                   # History loaded into memory
-SAVEHIST=2000                   # Max commands to save in $HISTFILE
-setopt share_history            # Share history across terminals
-setopt inc_append_history       # Immediately append to the history file, not just when a term is killed
-setopt hist_expire_dups_first   # Trim duplicate entries first
-setopt hist_find_no_dups        # Don't show repeated commands
-setopt hist_ignore_all_dups     # Removes older entry if it dublicates the current
-setopt hist_ignore_dups         # Ignore current command if previously entered
+autoload -Uz compinit && compinit
 
 # Export GPG_TTY using $TTY (works even when stdin is redirected)
 export GPG_TTY=$TTY

@@ -30,6 +30,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
 Plug 'psliwka/vim-smoothie'                             " Smoothie
 Plug 'tpope/vim-commentary'                             " Commentary stuff
 Plug 'tpope/vim-fugitive'                               " Awesome git wrapper
+Plug 'tpope/vim-surround'                               " Surrounding stuff
 Plug 'vim-airline/vim-airline'                          " Sexy statusline
 
 if has('nvim')
@@ -55,7 +56,7 @@ let g:loaded_node_provider = 0
 let g:loaded_perl_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_python_provider = 0
-" let g:loaded_python3_provider = 0
+let g:loaded_python3_provider = 0
 
 "}}}
 
