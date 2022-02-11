@@ -18,7 +18,6 @@ endif
 
 call plug#begin(s:vim_root . '/plugged')
 
-Plug 'airblade/vim-gitgutter'                           " Shows modified lines in number column
 Plug 'ap/vim-css-color'                                 " CSS color preview
 Plug 'dense-analysis/ale'                               " Powerful linting tool
 Plug 'godlygeek/tabular'                                " Text alignment
@@ -83,6 +82,7 @@ set nobackup                " Disable backup
 set nowrap                  " Do not wrap code by default
 set nowritebackup
 set number                  " Show line numbers
+set relativenumber          " Shows line number relative to the current line
 set shell=bash              " Set default shell to bash coz zsh isn't POSIX-compatible
 set shiftwidth=4            " Indents will have a width of 4
 set signcolumn=yes          " Always show signcolumn

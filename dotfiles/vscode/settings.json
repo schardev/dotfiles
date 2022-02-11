@@ -147,8 +147,6 @@
   "telemetry.telemetryLevel": "off",
   "workbench.startupEditor": "none",
   "keyboard.dispatch": "keyCode",
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80],
   "window.zoomLevel": 1
 }

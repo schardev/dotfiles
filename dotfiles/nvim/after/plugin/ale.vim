@@ -1,25 +1,32 @@
 " Default list of ALE 'linters' for respective file-type
 let g:ale_linters = {
-\   'sh': ['shellcheck'],
-\   'c': ['clangtidy'],
-\   'cpp': ['clangtidy'],
-\}
-
-" Default list of ALE 'fixers' for respective file-type
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'c': ['clang-format'],
-\   'cpp': ['clang-format'],
-\   'sh': ['shfmt'],
-\}
+    \ 'sh': ['shellcheck'],
+    \ 'c': ['clangtidy'],
+    \ 'cpp': ['clangtidy'],
+    \ }
 
 " Enable below option to only trigger linters from `g:ale_linters` list
 " NOTE: ALE will enable as many linters as possible by default
 " let g:ale_linters_explicit = 1
 
+" Default list of ALE 'fixers' for respective file-type
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'c': ['clang-format'],
+    \ 'cpp': ['clang-format'],
+    \ 'sh': ['shfmt'],
+    \ }
+
+" Fix all files on save, excluding few specfic
+let g:ale_fix_on_save = 1
+let g:ale_fix_on_save_ignore = {
+    \ 'c': ['clang-format'],
+    \ 'cpp': ['clang-format']
+    \ }
+
 " Use better error/warning signs
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 highlight ALEWarningSign guifg=#FFFF00
 
 " Mapping to quickly fix

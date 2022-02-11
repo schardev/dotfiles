@@ -12,6 +12,17 @@ require'nvim-tree'.setup {
     filters = {
         dotfiles = true,
     },
+
+    -- Show files ignored by .gitignore
+    git = {
+        ignore = false,
+
+    },
+
+    -- Keeps cursor on the first letter of the filename when navigating tree
+    hijack_cursor = true,
+
+    -- Auto-resize on opening file
     view = {
         auto_resize = true,
     },

@@ -5,17 +5,22 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+" Set popup highlight color
+highlight Pmenu guibg=#181a1f
+
 " Install these coc.nvim extensions by default
 let g:coc_global_extensions = [
     \'coc-clangd',
     \'coc-css',
     \'coc-emmet',
+    \'coc-git',
     \'coc-html',
     \'coc-html-css-support',
     \'coc-json',
     \'coc-pyright',
     \'coc-pairs',
     \'coc-prettier',
+    \'coc-snippets',
     \'coc-tsserver',
     \'coc-vimlsp'
     \]
@@ -28,15 +33,14 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" inoremap <silent> <expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 inoremap <silent> <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" :
        \ <SID>check_back_space() ? "\<TAB>" :
        \ coc#refresh()
+
+" Use <TAB> and <S-TAB> to navigate snippets
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
 
 " Make <CR> to notify coc.nvim to format on enter
 inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>"
