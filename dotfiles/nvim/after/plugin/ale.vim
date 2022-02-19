@@ -5,9 +5,9 @@ let g:ale_linters = {
     \ 'cpp': ['clangtidy'],
     \ }
 
-" Enable below option to only trigger linters from `g:ale_linters` list
+" Only trigger linters from `g:ale_linters` list
 " NOTE: ALE will enable as many linters as possible by default
-" let g:ale_linters_explicit = 1
+let g:ale_linters_explicit = 1
 
 " Default list of ALE 'fixers' for respective file-type
 let g:ale_fixers = {
