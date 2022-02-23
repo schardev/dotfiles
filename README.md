@@ -40,10 +40,12 @@ mkdir ~/.config/sheldon && ln -sf ~/env/dotfiles/zsh/plugins.toml ~/.config/shel
 ### Neovim
 #### Requirements
 - patched font (eg. [Powerline Fonts](https://github.com/powerline/fonts) or [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts))
+- `clang` or `gcc` - For nvim-treesitter
 - `nodejs` - For coc.nvim
 - `shfmt` - _(optional)_ For formatting shell scripts
 - `shellcheck` - _(optional)_ For linting shell scripts
 - `clang-tools` - _(optional)_ for linting c/c++ files
+
 #### Installation
 
 ```bash
@@ -171,8 +173,11 @@ git clone https://github.com/saurabhchardereal/env ~/env
 ```
 #### Packages Installed on Termux
 - antibody
+- clang
+- gnupg
+- ncurses-utils
 - nodejs
 - nvim
 - openssh
-- gnupg
+- sheldon
 - zsh

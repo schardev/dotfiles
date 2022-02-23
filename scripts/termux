@@ -16,7 +16,9 @@ pkg update -y && pkg upgrade -y
 pr_info "Installing packages ..."
 pkg install --no-install-recommends -y \
     antibody \
+    clang \
     nodejs \
+    ncurses-utils \
     neovim \
     openssh \
     gnupg \
@@ -38,11 +40,11 @@ git_setup
 
 # Setup dotfiles
 pr_info "Setting up dotfiles ..."
-mkdir "${HOME}"/.config/{,sheldon}
+mkdir "${HOME}"/{.config,.sheldon}
 echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
 ln -sf "$SCRIPT_DIR"/dotfiles/zsh "${HOME}"/.config/zsh
 ln -sf "$SCRIPT_DIR"/dotfiles/nvim "${HOME}"/.config/nvim
-ln -sf "$SCRIPT_DIR"/dotfiles/zsh/plugins.toml "${HOME}"/.config/sheldon
+ln -sf "$SCRIPT_DIR"/dotfiles/zsh/plugins.toml "${HOME}"/.sheldon
 
 # Switch to zsh
 chsh -s zsh
