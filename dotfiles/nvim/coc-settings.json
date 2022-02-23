@@ -13,9 +13,25 @@
     "scss"
   ],
 
+  "coc.preferences.rootPatterns": [
+    "package.json",
+    ".git",
+    ".hg",
+    ".projections.json"
+  ],
+
   // "semanticTokens.filetypes": ["c", "cpp", "javascript"],
 
-  "diagnostic.displayByAle": true,
+  // Diagnostic
+  // "diagnostic.displayByAle": true,
+  "diagnostic.enable": true,
+  "diagnostic.errorSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.separateRelatedInformationAsDiagnostics": true,
   "diagnostic.floatConfig": {
     "border": true
   },
@@ -34,9 +50,9 @@
 
   // git
   "git.enableGutters": true,
-  "git.addedSign.text": "┃",
-  "git.changedSign.text": "┃",
-  "git.removedSign.text": "┃",
+  "git.addedSign.text": "┃ ",
+  "git.changedSign.text": "┃ ",
+  "git.removedSign.text": "┃ ",
   "git.topRemovedSign.text": "─",
   "git.changeRemovedSign.text": "▂",
   "git.addedSign.hlGroup": "GitGutterAdd",
@@ -91,5 +107,9 @@
   /* python */
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": true,
+
+  /* lua */
+  "Lua.diagnostics.globals": ["vim"],
+  "Lua.telemetry.enable": false
 }

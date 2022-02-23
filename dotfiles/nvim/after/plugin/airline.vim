@@ -1,5 +1,15 @@
+" Only enable required extensions
+let g:airline_extensions = [
+    \ 'ale',
+    \ 'branch',
+    \ 'coc',
+    \ 'fugitiveline',
+    \ 'whitespace'
+    \ ]
+
+" Enable tabline extension on vim only
 if !has('nvim')
-    " Enable tabline extension on vim only
+    let g:airline_extensions += ['tabline']
     let g:airline#extensions#tabline#enabled = 1
 
     " Only show file name in bufferline
@@ -25,9 +35,6 @@ if !has('nvim')
     autocmd VimEnter * highlight airline_tabmod guibg=#E06C75
     autocmd VimEnter * highlight airline_tabmod_unsel guifg=#E06C75
 endif
-
-" Disable git-gutter hunks
-let g:airline#extensions#hunks#enabled = 0
 
 " Less cluttered Z section
 let g:airline_section_z = "%l/%L:%c"

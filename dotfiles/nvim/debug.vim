@@ -1,26 +1,14 @@
 " THIS FILE IS ONLY FOR DEBUGGING MY VIM ENVIRONMENT!!
-
 let s:vim_root = expand('<sfile>:p:h')
 if empty(glob(s:vim_root . '/autoload/plug.vim'))
-  silent call system('mkdir -p ' . s:vim_root . '/autoload')
-  silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-  execute 'source' s:vim_root . '/autoload/plug.vim'
+    silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim --create-dirs ' .
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin(s:vim_root . '/plugged')
-
-Plug 'joshdick/onedark.vim'
-Plug 'mhinz/vim-startify'
-
+    Plug 'mhinz/vim-startify'
 call plug#end()
-
-let g:onedark_color_overrides = {
-        \ "background": {"gui": "#0D1117", "cterm": "234", "cterm16": "0" },
-        \}
-
-if !empty(glob(s:vim_root . '/plugged/onedark.vim'))
-    colorscheme onedark
-endif
 
 filetype plugin indent on
 syntax enable
@@ -51,5 +39,3 @@ nnoremap <silent> <C-S-Right> :wincmd L<CR>
 nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>N :bprevious<CR>
 nnoremap <silent> <C-d> :bdelete<CR>
-autocmd BufEnter * if line2byte('.') == -1 && len(tabpagebuflist()) == 1 && empty(bufname()) | Startify | endif
-"

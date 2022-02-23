@@ -3,6 +3,7 @@ let g:ale_linters = {
     \ 'sh': ['shellcheck'],
     \ 'c': ['clangtidy'],
     \ 'cpp': ['clangtidy'],
+    \ 'javascript': [],
     \ }
 
 " Only trigger linters from `g:ale_linters` list
@@ -27,7 +28,7 @@ let g:ale_fix_on_save_ignore = {
 " Use better error/warning signs
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
-highlight ALEWarningSign guifg=#FFFF00
+let g:ale_sign_info = ''
 
 " Mapping to quickly fix
 nnoremap <silent> <Leader>f :ALEFix<CR>

@@ -1,8 +1,17 @@
+local installed, _ = pcall(require, "nvim-tree")
+
+if not installed then
+    return
+end
+
 -- Enable highligting for folders and both file icons and names
 vim.g.nvim_tree_highlight_opened_files = 3
 
+-- Enable indent marker
+vim.g.nvim_tree_indent_markers = 1
+
 -- Main setup
-require'nvim-tree'.setup {
+require("nvim-tree").setup {
     auto_close = true,
     disable_netrw = false,
     diagnostics = {

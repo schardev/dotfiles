@@ -5,9 +5,6 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-" Set popup highlight color
-highlight Pmenu guibg=#181a1f
-
 " Install these coc.nvim extensions by default
 let g:coc_global_extensions = [
     \'coc-clangd',
@@ -87,6 +84,7 @@ augroup after_coc
     autocmd!
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+
     " Update signature help on jump placeholder.
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end

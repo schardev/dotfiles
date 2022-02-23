@@ -10,23 +10,21 @@
 " Grab latest vim-plug from github
 let s:vim_root = expand('<sfile>:p:h')
 if empty(glob(s:vim_root . '/autoload/plug.vim'))
-    silent call system('mkdir -p ' . s:vim_root . '/autoload')
-    silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim ' .
-            \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-  execute 'source' s:vim_root . '/autoload/plug.vim'
+    silent call system('curl -fLo ' . s:vim_root . '/autoload/plug.vim --create-dirs ' .
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin(s:vim_root . '/plugged')
 
 Plug 'ap/vim-css-color'                                 " CSS color preview
 Plug 'dense-analysis/ale'                               " Powerful linting tool
-Plug 'godlygeek/tabular'                                " Text alignment
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']} " Markdown preview
-Plug 'joshdick/onedark.vim'                             " Onedark colorscheme
+" Plug 'dstein64/vim-startuptime'                       " Shows human friendly startuptime
+Plug 'godlygeek/tabular', {'for': 'markdown'}           " Text alignment
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' } " Markdown preview
 Plug 'mattn/emmet-vim'                                  " Emmet
 Plug 'mhinz/vim-startify'                               " Cool start menu
 Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
-Plug 'psliwka/vim-smoothie'                             " Smoothie
 Plug 'tpope/vim-commentary'                             " Commentary stuff
 Plug 'tpope/vim-fugitive'                               " Awesome git wrapper
 Plug 'tpope/vim-surround'                               " Surrounding stuff
@@ -37,18 +35,14 @@ if has('nvim')
     Plug 'kyazdani42/nvim-tree.lua'                     " Lua fork of Nerdtree
     Plug 'kyazdani42/nvim-web-devicons'                 " File icons
     Plug 'lukas-reineke/indent-blankline.nvim'          " Indent level
+    Plug 'navarasu/onedark.nvim'                        " Lua fork of onedark colorscheme
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
+    " Plug 'nvim-treesitter/playground'                 " treesitter querying
+else
+    Plug 'joshdick/onedark.vim'                         " Onedark colorscheme
 endif
 
 call plug#end()
-
-" Use github dark background
-autocmd ColorScheme onedark highlight Normal guibg=#0D1117
-
-" Change colorscheme to onedark if installed
-" NOTE: Make sure to set colorscheme before setting any custom highlighting options
-if !empty(glob(s:vim_root . '/plugged/onedark.vim'))
-    colorscheme onedark
-endif
 
 " Disable neovim providers
 let g:loaded_node_provider = 0
@@ -82,10 +76,11 @@ set nobackup                " Disable backup
 set nowrap                  " Do not wrap code by default
 set nowritebackup
 set number                  " Show line numbers
+set numberwidth=2           " Minimal number of columns to use for the line number
 set relativenumber          " Shows line number relative to the current line
+set scrolloff=3             " Scroll offset
 set shell=bash              " Set default shell to bash coz zsh isn't POSIX-compatible
 set shiftwidth=4            " Indents will have a width of 4
-set signcolumn=yes          " Always show signcolumn
 set smartcase               " Override `ignorecase` where possible
 set softtabstop=4           " Sets the number of columns for a TAB
 set synmaxcol=190           " Don't even try to highlight stuff that's longer than 190 columns
@@ -97,7 +92,11 @@ set termguicolors           " Term supports gui colors
 set title                   " Set window title appropriately
 
 if has('nvim')
-    set pumblend=20         " Enable a subtle transparency effect on pop-up menu
+    set pumblend=15         " Enable a subtle transparency effect on pop-up menu
+    set signcolumn=yes:2    " Reserve space for atleast two signs
+else
+    set signcolumn=yes      " Vim doesn't allow multiple signs
+    set ttyfast             " Fast scroll hax
 endif
 
 " Highlight trailing whitespace in red
@@ -139,14 +138,14 @@ nnoremap <silent> <C-S-Left> :wincmd H<CR>
 nnoremap <silent> <C-S-Right> :wincmd L<CR>
 
 " Quick moving around while keeping the cursor fixed in middle
-nnoremap <silent> <S-Down> 5jzz
-nnoremap <silent> <S-Up> 5kzz
+nnoremap <silent> J 5jzz
+nnoremap <silent> K 5kzz
 
 " Toggle tab highlighting
-nnoremap <silent> <Leader>t :call ToggleTabHighlight()<CR>
+nnoremap <silent> <Leader>th :call ToggleTabHighlight()<CR>
 
 " Toggle search highlighting
-nnoremap <silent> <Leader>s :set hlsearch!<CR>
+nnoremap <silent> <Leader>sh :set hlsearch!<CR>
 
 " Buffer management
 nnoremap <silent> <Leader>n :bnext<CR>
