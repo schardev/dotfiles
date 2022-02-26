@@ -5,15 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Initialize sheldon
-eval "$(sheldon source)"
-
 # Shout out loud if running on termux
 if [[ $PREFIX =~ com.termux ]]; then
     export IS_TERMUX=1 # exporting value to `1` instead of `true` because vim
                        # does't treat "every" string as truthy
 fi
 
+# Initialize sheldon
+eval "$(sheldon source)"
 
 # Configure plugins
 unset HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND

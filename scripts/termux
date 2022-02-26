@@ -17,11 +17,13 @@ pr_info "Installing packages ..."
 pkg install --no-install-recommends -y \
     antibody \
     clang \
-    nodejs \
+    gh \
+    gnupg \
+    jq \
     ncurses-utils \
     neovim \
+    nodejs \
     openssh \
-    gnupg \
     zsh
 
 # Theme
