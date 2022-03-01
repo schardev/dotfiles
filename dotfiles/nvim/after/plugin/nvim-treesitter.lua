@@ -7,7 +7,7 @@ end
 require("nvim-treesitter.configs").setup {
 
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = {'html', 'javascript', 'json', 'jsonc', 'lua', 'vim'},
+  ensure_installed = {'html', 'javascript', 'json', 'jsonc', 'lua', 'markdown'},
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -45,5 +45,13 @@ require("nvim-treesitter.configs").setup {
     --   goto_node = '<cr>',
     --   show_help = '?',
     -- },
-  }
+  },
+
+  rainbow = {
+    enable = true,
+    disable = { "html", "json", "lua" },
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {} -- Check onedark.lua
+  },
 }

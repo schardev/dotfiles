@@ -19,7 +19,16 @@ require("onedark").setup {
         GitGutterChange = {fg = "$yellow"},
         ALEWarningSign = {fg = "$yellow"},
         CocWarningSign = {fg = "$yellow"},
-        CocErrorSign = {fg = "$red"}
+        CocErrorSign = {fg = "$red"},
+
+        -- Treesitter rainbow colors
+        rainbowcol1 = {fg = "#e6b422"},
+        rainbowcol2 = {fg = "#c70067"},
+        rainbowcol3 = {fg = "#00a960"},
+        rainbowcol4 = {fg = "#fc7482"},
+        rainbowcol5 = {fg = "#33ccff"},
+        rainbowcol6 = {fg = "#8080ff"},
+        rainbowcol7 = {fg = "#0073a8"},
     },
 }
 

@@ -22,6 +22,9 @@
 
   // "semanticTokens.filetypes": ["c", "cpp", "javascript"],
 
+  // Color preview
+  "colors.filetypes": ["css", "scss"],
+
   // Diagnostic
   // "diagnostic.displayByAle": true,
   "diagnostic.enable": true,
@@ -94,6 +97,11 @@
   "snippets.ultisnips.enable": false,
   "snippets.textmateSnippetsRoots": ["~/env/dotfiles/vscode/snippets"],
 
+  // yank
+  "yank.highlight.enable": false,
+  "yank.highlight.duration": 350,
+  "yank.list.maxsize": 50,
+
   //=========================================================================
   // LANGAUGE SPECIFIC
   //=========================================================================
@@ -104,6 +112,10 @@
   "scss.lint.duplicateProperties": "warning",
   "html.format.wrapLineLength": 80,
 
+  /* javascript */
+  // "javascript.suggestionActions.enabled": false,
+  "javascript.showUnused": false,
+
   /* python */
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
@@ -112,4 +124,6 @@
   /* lua */
   "Lua.diagnostics.globals": ["vim"],
   "Lua.telemetry.enable": false
+
+  // vim: ft=jsonc
 }

@@ -17,12 +17,13 @@ endif
 
 call plug#begin(s:vim_root . '/plugged')
 
-Plug 'ap/vim-css-color'                                 " CSS color preview
 Plug 'dense-analysis/ale'                               " Powerful linting tool
-" Plug 'dstein64/vim-startuptime'                       " Shows human friendly startuptime
+Plug 'dstein64/vim-startuptime'                         " Shows human friendly startuptime
 Plug 'godlygeek/tabular', {'for': 'markdown'}           " Text alignment
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' } " Markdown preview
-Plug 'mattn/emmet-vim'                                  " Emmet
+Plug 'iamcco/markdown-preview.nvim',
+    \ { 'do': 'cd app && yarn install' }                " Markdown preview
+Plug 'mattn/emmet-vim',
+    \ {'for': ['html', 'css', 'scss']}                  " Emmet
 Plug 'mhinz/vim-startify'                               " Cool start menu
 Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
 Plug 'tpope/vim-commentary'                             " Commentary stuff
@@ -36,10 +37,12 @@ if has('nvim')
     Plug 'kyazdani42/nvim-web-devicons'                 " File icons
     Plug 'lukas-reineke/indent-blankline.nvim'          " Indent level
     Plug 'navarasu/onedark.nvim'                        " Lua fork of onedark colorscheme
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
-    " Plug 'nvim-treesitter/playground'                 " treesitter querying
+    Plug 'nvim-treesitter/nvim-treesitter',
+        \ {'do': ':TSUpdate'}                           " Better syntax highlighting
+    Plug 'nvim-treesitter/playground'                   " treesitter querying
+    Plug 'p00f/nvim-ts-rainbow'                         " Rainbow brackets
 else
-    Plug 'joshdick/onedark.vim'                         " Onedark colorscheme
+    Plug 'joshdick/onedark.vim'                         " Onedark colorscheme for vim
 endif
 
 call plug#end()
@@ -152,10 +155,10 @@ nnoremap <silent> <Leader>n :bnext<CR>
 nnoremap <silent> <Leader>p :bprevious<CR>
 nnoremap <silent> <C-w> :bdelete<CR>
 
-" Quick edit/source init.vim/vimrc
+" Quick edit/source init.vim/vimrc and coc-settings.json
 nnoremap <silent> <expr> <Leader>ev has('nvim') ?
-    \ ":call FloatingWindow('edit', '$MYVIMRC')<CR>" :
-    \ ":edit ~/.vim/init.vim<CR>"
+    \ ":edit $MYVIMRC<CR>" : ":edit ~/.vim/init.vim<CR>"
+nnoremap <silent> <Leader>es :CocConfig<CR>
 nnoremap <silent> <Leader>sv :source $MYVIMRC<CR>
 
 " Quick edit my dotfiles
@@ -186,51 +189,6 @@ function! ToggleTabHighlight()
     endif
 endfunc
 
-if has('nvim')
-    " Creates a bordered floating window
-    " NOTE: Only works with nvim!
-    function! CreateCenteredFloatingWindow(title) abort
-        " Define size of the float window
-        let width = min([&columns - 4, max([80, &columns - 20])])
-        let height = min([&lines - 4, max([20, &lines - 10])])
-        let top = ((&lines - height) / 2) - 1
-        let left = (&columns - width) / 2
-        let opts = {
-          \ 'relative': 'editor',
-          \ 'row': top,
-          \ 'col': left,
-          \ 'width': width,
-          \ 'height': height,
-          \ 'style': 'minimal',
-          \ 'focusable': v:false
-          \ }
-
-        " Create a 'bordered' window
-        let top = "╭" . repeat("─", width - 2) . "╮"
-        let mid = "│" . repeat(" ", width - 2) . "│"
-        let bot = "╰─" . a:title . repeat("─", width - strlen(a:title) - 3) . "╯"
-        let lines = [top] + repeat([mid], height - 2) + [bot]
-        let border_bufnr = nvim_create_buf(v:false, v:true)
-        call nvim_buf_set_lines(border_bufnr, 0, -1, v:true, lines)
-
-        let s:border_winid = nvim_open_win(border_bufnr, v:true, opts)
-        set winhl=Normal:Floating
-        let opts.row += 1
-        let opts.height -= 2
-        let opts.col += 2
-        let opts.width -= 4
-        let opts.focusable = v:true
-        let text_bufnr = nvim_create_buf(v:false, v:true)
-        call nvim_open_win(text_bufnr, v:true, opts)
-        autocmd WinClosed * ++once :bdelete | call nvim_win_close(s:border_winid, v:true)
-        return text_bufnr
-    endfunction
-
-    function! FloatingWindow(command, argument) abort
-        let l:buf = CreateCenteredFloatingWindow(a:argument)
-        execute a:command . a:argument
-    endfunction
-endif   " endif has('nvim')
 
 "}}}
 
@@ -249,15 +207,12 @@ augroup my_init_augroup
 
     if has('nvim')
         " Need no numbers in terminal
-        autocmd TermOpen * set nonumber
+        autocmd TermOpen * set nonumber norelativenumber signcolumn=no
+
+        " Highlight text on yank
+        autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=400}
     endif
 
 augroup END
-
-if has('nvim')
-    " Define custom Help command that opens help in a floating window
-    " (https://gist.github.com/wbthomason/5e249439b5fc5738cb4b44419e302f68)
-    command! -complete=help -nargs=? Help call FloatingWindow('setlocal filetype=help buftype=help | help ', <q-args>)
-endif
 
 "}}}

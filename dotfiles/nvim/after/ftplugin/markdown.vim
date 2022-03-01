@@ -4,5 +4,5 @@ setlocal wrap
 setlocal linebreak
 setlocal colorcolumn=
 
-" Disable coc.nvim
-let b:coc_enabled = 0
+" Enable vim's markdown folding (see runtime markdown ftplugin)
+let g:markdown_folding = 1

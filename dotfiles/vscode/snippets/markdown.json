@@ -1,0 +1,7 @@
+{
+  "Code block": {
+    "prefix": "code",
+    "body": ["```$1", "$TM_SELECTED_TEXT$0", "```"],
+    "description": "Code block"
+  }
+}

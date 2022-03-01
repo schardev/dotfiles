@@ -13,7 +13,7 @@ require("indent_blankline").setup {
     buftype_exclude = {'terminal'},
 
     -- Show indent context like VSCode (requires treesitter)
-    -- show_current_context = true,
+    show_current_context = true,
     -- show_current_context_start = true,
 
     -- Use treesitter to calculate indent
