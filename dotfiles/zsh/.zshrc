@@ -21,7 +21,7 @@ bindkey '^[[B' history-substring-search-down
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 bindkey '^[[1;5C' forward-word
-
+setxkbmap -option "caps:escape"
 
 # Completion settings
 WORDCHARS=${WORDCHARS:s:/:}                             # Remove '/' from wordchars

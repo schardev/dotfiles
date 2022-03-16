@@ -89,7 +89,7 @@ Plugin| Description
 [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Better syntax highlighting _`(neovim)`_
 [onedark.nvim](https://github.com/navarasu/onedark.nvim) | Onedark colorscheme _`(neovim)`_
 [tabular](https://github.com/godlygeek/tabular) | Aligning text
-[vim-airline](https://github.com/vim-airline/vim-airline) | Sexy AF statusline
+[lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Sexy AF statusline _`(neovim)`_
 [vim-commentary](https://github.com/tpope/vim-commentary) | Commenting .. uhh .. stuff
 [vim-css-color](https://github.com/ap/vim-css-color) | Color preview
 [vim-fugitive](https://github.com/tpope/vim-fugitive) | Awesome git plugin
@@ -147,6 +147,7 @@ Plugin Mappings  | What It Does
 `<Space>c`       | CocList commands _`(coc)`_
 `<Space>o`       | CocList outline _`(coc)`_
 `<Space>s`       | CocList -I symbols _`(coc)`_
+`<Space>y`       | CocList yank _`(coc)`_
 `<Space>j`       | CocNext _`(coc)`_
 `<Space>k`       | CocPrev _`(coc)`_
 `<Space>p`       | CocListResume _`(coc)`_

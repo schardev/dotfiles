@@ -20,12 +20,13 @@
     ".projections.json"
   ],
 
+  /* Semantic highlighting */
   // "semanticTokens.filetypes": ["c", "cpp", "javascript"],
 
-  // Color preview
+  /* Color preview */
   "colors.filetypes": ["css", "scss"],
 
-  // Diagnostic
+  /* Diagnostic */
   // "diagnostic.displayByAle": true,
   "diagnostic.enable": true,
   "diagnostic.errorSign": "",
@@ -51,7 +52,7 @@
     "border": true
   },
 
-  // git
+  /* git */
   "git.enableGutters": true,
   "git.addedSign.text": "┃ ",
   "git.changedSign.text": "┃ ",
@@ -64,7 +65,7 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChange",
 
-  // suggest
+  /* suggest */
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",
@@ -93,14 +94,15 @@
     "default": "\uf29c"
   },
 
-  // snippets
+  /* snippets */
   "snippets.ultisnips.enable": false,
   "snippets.textmateSnippetsRoots": ["~/env/dotfiles/vscode/snippets"],
 
-  // yank
+  /* yank */
   "yank.highlight.enable": false,
   "yank.highlight.duration": 350,
   "yank.list.maxsize": 50,
+  "yank.enableCompletion": false,
 
   //=========================================================================
   // LANGAUGE SPECIFIC
@@ -114,7 +116,7 @@
 
   /* javascript */
   // "javascript.suggestionActions.enabled": false,
-  "javascript.showUnused": false,
+  // "javascript.showUnused": false,
 
   /* python */
   "python.formatting.provider": "black",

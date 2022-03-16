@@ -25,7 +25,6 @@ require("nvim-tree").setup {
     -- Show files ignored by .gitignore
     git = {
         ignore = false,
-
     },
 
     -- Keeps cursor on the first letter of the filename when navigating tree
@@ -38,12 +37,12 @@ require("nvim-tree").setup {
 }
 
 -- Mappings
-vim.api.nvim_set_keymap('n', '<F1>', ':NvimTreeToggle<CR>', {
+vim.api.nvim_set_keymap("n", "<F1>", ":NvimTreeToggle<CR>", {
     noremap = true,
-    silent = true
+    silent = true,
 })
 
-vim.api.nvim_set_keymap('n', '<Leader><F1>', ':NvimTreeFindFile<CR>', {
+vim.api.nvim_set_keymap("n", "<Leader><F1>", ":NvimTreeFindFile<CR>", {
     noremap = true,
-    silent = true
+    silent = true,
 })

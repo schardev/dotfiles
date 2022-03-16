@@ -29,7 +29,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}         " Language server
 Plug 'tpope/vim-commentary'                             " Commentary stuff
 Plug 'tpope/vim-fugitive'                               " Awesome git wrapper
 Plug 'tpope/vim-surround'                               " Surrounding stuff
-Plug 'vim-airline/vim-airline'                          " Sexy statusline
 
 if has('nvim')
     Plug 'akinsho/bufferline.nvim'                      " Sax bufferline
@@ -37,12 +36,14 @@ if has('nvim')
     Plug 'kyazdani42/nvim-web-devicons'                 " File icons
     Plug 'lukas-reineke/indent-blankline.nvim'          " Indent level
     Plug 'navarasu/onedark.nvim'                        " Lua fork of onedark colorscheme
+    Plug 'nvim-lualine/lualine.nvim'                    " Statusline plugin
     Plug 'nvim-treesitter/nvim-treesitter',
         \ {'do': ':TSUpdate'}                           " Better syntax highlighting
     Plug 'nvim-treesitter/playground'                   " treesitter querying
     Plug 'p00f/nvim-ts-rainbow'                         " Rainbow brackets
 else
     Plug 'joshdick/onedark.vim'                         " Onedark colorscheme for vim
+    Plug 'vim-airline/vim-airline'                      " Statusline plugin for vim
 endif
 
 call plug#end()
@@ -69,7 +70,7 @@ set colorcolumn=80          " Highlight 80th column
 set cursorline              " Highlight current line number
 set encoding=utf-8          " It's the default in nvim but vim sets it conditionally
 set expandtab               " Expand TABs to spaces
-set fillchars+=vert:│,eob:. " Set vertical and empty lines chars
+set fillchars+=vert:│,eob:~ " Set vertical and empty lines chars
 set hidden                  " Allow buffers to be hidden
 set ignorecase              " Ignore case for pattern matching by default
 set incsearch               " Incrementally highlights search patterns

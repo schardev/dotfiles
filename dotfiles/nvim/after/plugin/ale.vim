@@ -15,6 +15,7 @@ let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ 'c': ['clang-format'],
     \ 'cpp': ['clang-format'],
+    \ 'lua': ['stylua'],
     \ 'sh': ['shfmt'],
     \ }
 
@@ -51,3 +52,4 @@ let g:ale_c_clangformat_style_option = 'Google'
 
 " Enable below option to use local .clang-format file
 " let g:ale_c_clangformat_use_local_file = 1
+let g:ale_lua_stylua_options = '--config-path ~/.config/nvim/.stylua.toml'
