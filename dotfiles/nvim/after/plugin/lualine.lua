@@ -4,7 +4,19 @@ if not installed then
     return
 end
 
+-- For extracting colors from hlgroups
 local get_color = require("lualine.utils.utils").extract_highlight_colors
+
+-- Conditions
+local conditions = {
+    buffer_not_empty = function()
+        return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+    end,
+
+    file_not_unix = function()
+        return vim.bo.fileformat ~= "unix"
+    end,
+}
 
 require("lualine").setup {
     options = {
@@ -50,6 +62,7 @@ require("lualine").setup {
             {
                 "filename",
                 color = { gui = "italic" },
+                cond = conditions.buffer_not_empty,
                 symbols = { readonly = " " },
             },
         },
@@ -57,8 +70,8 @@ require("lualine").setup {
             {
                 "fileformat",
 
-                -- Disable icon for unix files only
-                symbols = { unix = "" },
+                -- Only show for non-unix files
+                cond = conditions.file_not_unix,
             },
             "filetype",
         },

@@ -21,7 +21,6 @@ bindkey '^[[B' history-substring-search-down
 bindkey '^[[H' beginning-of-line
 bindkey '^[[F' end-of-line
 bindkey '^[[1;5C' forward-word
-setxkbmap -option "caps:escape"
 
 # Completion settings
 WORDCHARS=${WORDCHARS:s:/:}                             # Remove '/' from wordchars
@@ -56,6 +55,9 @@ fi
 if [ -z "$IS_TERMUX" ]; then
     # Use `bat` as manpager for colored man pages
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+    # Use caps lock as escape key
+    setxkbmap -option "caps:escape"
 fi
 
 # Set global editor to neovim

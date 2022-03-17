@@ -43,4 +43,6 @@
     "key": "f1",
     "command": "workbench.action.toggleSidebarVisibility"
   }
+
+  // vim: ft=jsonc
 ]

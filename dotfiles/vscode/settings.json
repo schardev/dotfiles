@@ -149,4 +149,6 @@
   "keyboard.dispatch": "keyCode",
   "editor.rulers": [80],
   "window.zoomLevel": 1
+
+  // vim: ft=jsonc
 }

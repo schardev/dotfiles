@@ -20,6 +20,8 @@ require("onedark").setup {
     highlights = {
         Pmenu = { bg = "#181a1f" },
         GitGutterChange = { fg = "$yellow" },
+        TSComment = { fg = "$light_grey" },
+        Comment = { fg = "$light_grey" },
 
         -- Treesitter rainbow colors
         rainbowcol1 = { fg = "#e6b422" },

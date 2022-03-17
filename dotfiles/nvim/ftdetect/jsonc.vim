@@ -10,6 +10,7 @@ augroup jsoncFtdetect
     autocmd BufNewFile,BufRead .mocharc.jsonc setlocal filetype=jsonc
     autocmd BufNewFile,BufRead coc-settings.json setlocal filetype=jsonc
     autocmd BufNewFile,BufRead settings.json setlocal filetype=jsonc
+    autocmd BufNewFile,BufRead keybindings.json setlocal filetype=jsonc
     autocmd BufNewFile,BufRead coffeelint.json setlocal filetype=jsonc
     autocmd BufNewFile,BufRead tsconfig.json setlocal filetype=jsonc
     autocmd BufNewFile,BufRead */waybar/config setlocal filetype=jsonc
