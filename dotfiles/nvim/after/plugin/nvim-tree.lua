@@ -6,9 +6,17 @@ end
 
 -- Enable highligting for folders and both file icons and names
 vim.g.nvim_tree_highlight_opened_files = 3
+vim.g.nvim_tree_git_hl = 1
 
 -- Enable indent marker
 vim.g.nvim_tree_indent_markers = 1
+
+-- Icons
+vim.g.nvim_tree_icons = {
+    git = {
+        ignored = "",
+    },
+}
 
 -- Main setup
 require("nvim-tree").setup {
@@ -17,23 +25,27 @@ require("nvim-tree").setup {
     diagnostics = {
         enable = true,
     },
+
+    actions = {
+        open_file = {
+            -- Auto-resize on opening file
+            resize_window = "true",
+        },
+    },
+
     -- Do not show hidden files by default (can be toggled by `H`)
     filters = {
         dotfiles = true,
     },
 
     -- Show files ignored by .gitignore
-    git = {
-        ignore = false,
-    },
+    -- Toggle by `I`
+    -- git = {
+    --     ignore = false,
+    -- },
 
     -- Keeps cursor on the first letter of the filename when navigating tree
     hijack_cursor = true,
-
-    -- Auto-resize on opening file
-    view = {
-        auto_resize = true,
-    },
 }
 
 -- Mappings

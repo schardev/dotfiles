@@ -53,6 +53,7 @@
   },
 
   /* git */
+  "git.signPriority": 1,
   "git.enableGutters": true,
   "git.addedSign.text": "┃ ",
   "git.changedSign.text": "┃ ",
@@ -125,7 +126,8 @@
 
   /* lua */
   "Lua.diagnostics.globals": ["vim"],
-  "Lua.telemetry.enable": false
+  "Lua.telemetry.enable": false,
+  "sumneko-lua.enableNvimLuaDev": true
 
   // vim: ft=jsonc
 }

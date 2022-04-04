@@ -10,6 +10,7 @@ let g:coc_global_extensions = [
     \'coc-clangd',
     \'coc-css',
     \'coc-emmet',
+    \'coc-eslint',
     \'coc-git',
     \'coc-html',
     \'coc-html-css-support',
