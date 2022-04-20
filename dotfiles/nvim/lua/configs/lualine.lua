@@ -1,9 +1,3 @@
-local installed, _ = pcall(require, "lualine")
-
-if not installed then
-    return
-end
-
 -- For extracting colors from hlgroups
 local get_color = require("lualine.utils.utils").extract_highlight_colors
 
@@ -13,17 +7,22 @@ local conditions = {
         return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
     end,
 
+    hide_in_width = function()
+        return vim.fn.winwidth(0) > 60
+    end,
+
     file_not_unix = function()
         return vim.bo.fileformat ~= "unix"
     end,
 }
 
-require("lualine").setup {
+require("lualine").setup({
     options = {
         component_separators = "",
         section_separators = { left = "", right = "" },
-        disabled_filetypes = { "NvimTree" },
+        -- disabled_filetypes = { "NvimTree" },
         always_divide_middle = true,
+        globalstatus = true,
     },
     sections = {
         lualine_a = { "mode" },
@@ -76,7 +75,18 @@ require("lualine").setup {
             "filetype",
         },
         lualine_y = {},
-        lualine_z = { "location" },
+        lualine_z = {
+            {
+                "location",
+                cond = conditions.hide_in_width,
+                padding = { right = 0 },
+            },
+            {
+                "%L",
+                cond = conditions.hide_in_width,
+                padding = { left = 1, right = 1 },
+            },
+        },
     },
     inactive_sections = {
         lualine_a = {},
@@ -87,4 +97,4 @@ require("lualine").setup {
         lualine_z = {},
     },
     -- extensions = {},
-}
+})

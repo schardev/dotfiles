@@ -1,5 +1,4 @@
-autoload
-plugged
+packer_compiled.lua
 viminfo
 swap
 backup

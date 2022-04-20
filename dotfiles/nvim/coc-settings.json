@@ -14,10 +14,10 @@
   ],
 
   "coc.preferences.rootPatterns": [
-    "package.json",
     ".git",
     ".hg",
-    ".projections.json"
+    ".projections.json",
+    "package.json"
   ],
 
   /* Semantic highlighting */
@@ -27,7 +27,6 @@
   "colors.filetypes": ["css", "scss"],
 
   /* Diagnostic */
-  // "diagnostic.displayByAle": true,
   "diagnostic.enable": true,
   "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
@@ -126,7 +125,10 @@
 
   /* lua */
   "Lua.diagnostics.globals": ["vim"],
+  "Lua.hint.enable": false,
+  "Lua.runtime.version": "LuaJIT",
   "Lua.telemetry.enable": false,
+  "sumneko-lua.checkUpdate": false,
   "sumneko-lua.enableNvimLuaDev": true
 
   // vim: ft=jsonc

@@ -1,13 +1,4 @@
-local installed, _ = pcall(require, "bufferline")
-
-if not installed then
-    return
-end
-
--- Onedark colors
-local colors = require("onedark.colors")
-
-require("bufferline").setup {
+require("bufferline").setup({
     options = {
         diagnostics = "coc",
         separator_style = "thick",
@@ -16,7 +7,7 @@ require("bufferline").setup {
     highlights = {
         -- Color of current selected buffer
         close_button_selected = {
-            guifg = colors.red,
+            guifg = "red",
         },
     },
-}
+})

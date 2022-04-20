@@ -24,6 +24,7 @@ pkg install --no-install-recommends -y \
     neovim \
     nodejs \
     openssh \
+    sheldon \
     zsh
 
 # Theme

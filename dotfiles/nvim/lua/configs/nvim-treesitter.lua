@@ -1,10 +1,4 @@
-local installed, _ = pcall(require, "nvim-treesitter.configs")
-
-if not installed then
-    return
-end
-
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter.configs").setup({
 
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
@@ -61,4 +55,4 @@ require("nvim-treesitter.configs").setup {
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
         -- colors = {} -- Check onedark.lua
     },
-}
+})

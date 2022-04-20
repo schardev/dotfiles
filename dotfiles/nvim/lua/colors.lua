@@ -4,10 +4,10 @@ if not installed then
     return
 end
 
-require("onedark").setup {
+require("onedark").setup({
     style = "darker",
-    -- toggle_style_key = '<leader>ts',
-    --
+    -- toggle_style_key = "<leader>ts",
+
     -- Show the end-of-buffer tildes
     ending_tildes = true,
 
@@ -32,7 +32,30 @@ require("onedark").setup {
         rainbowcol6 = { fg = "#8080ff" },
         rainbowcol7 = { fg = "#0073a8" },
     },
-}
+})
 
 -- Enable colorscheme
 require("onedark").load()
+
+local highlight = require("utils").highlight
+local autocmd = vim.api.nvim_create_autocmd
+
+-- Highlight trailing whitespace in red
+highlight("ExtraWhitespace", { bg = "red" })
+autocmd("BufWinEnter", {
+    pattern = "*",
+    command = [[ match ExtraWhitespace /\s\+$/ ]],
+})
+
+-- Highlight tabs in yellow
+vim.g.tab_highlight = 1
+highlight("Tabs", { bg = "yellow" })
+vim.fn.matchadd("Tabs", "\t")
+autocmd("BufWinEnter", {
+    pattern = "*",
+    command = [[ call matchadd("Tabs", "\t") ]],
+})
+autocmd("BufWinLeave", {
+    pattern = "*",
+    command = [[ call clearmatches() ]],
+})
