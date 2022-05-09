@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require("core.utils")
 
 local nnoremap = utils.nnoremap
 local tnoremap = utils.tnoremap
@@ -43,6 +43,9 @@ nnoremap("<C-w>", ":bdelete<CR>")
 nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
     desc = "Edit $MYVIMRC",
 })
+nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
+    desc = "Source $MYVIMRC",
+})
 nnoremap("<Leader>es", ":CocConfig<CR>", {
     desc = "Edit global coc-settings.json",
 })
@@ -61,14 +64,14 @@ nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
     desc = "Toggle search highlighting",
 })
 nnoremap("<Leader>th", function()
-    if vim.g.tab_highlight then
+    if vim.g.tab_highlight == 1 then
         vim.cmd("highlight clear Tabs")
         vim.g.tab_highlight = 0
     else
         vim.g.tab_highlight = 1
         vim.cmd("highlight Tabs guibg=yellow")
         -- https://github.com/neovim/neovim/issues/18160
-        -- require("utils").highlight("Tabs", { bg = "yellow" })
+        -- require("core.utils").highlight("Tabs", { bg = "yellow" })
     end
 end, {
     desc = "Toggle tab highlighting",

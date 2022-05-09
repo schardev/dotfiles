@@ -9,6 +9,3 @@ setlocal noexpandtab
 setlocal tabstop=8
 setlocal softtabstop=8
 setlocal shiftwidth=8
-
-" Clear tabs highlighting since indents will always be tabs and not spaces
-highlight clear Tabs

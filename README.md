@@ -3,12 +3,17 @@
 This repository contains my environment setup scripts and dotfiles, in case if anyone is interested in looking at them. There will be few other scripts in this repo too that I haven't documented yet, either because I don't use them anymore and/or I'll be removing/adding more to them them soon.
 
 ### Table of Contents
+
 - [ZSH](#ZSH)
 - [Neovim](#Neovim)
 - [Termux](#Termux)
+
 ---
+
 ### ZSH
+
 #### Installation
+
 Make sure you have [sheldon](https://github.com/rossmacarthur/sheldon) plugin manager installed in your system.
 
 ```bash
@@ -30,6 +35,7 @@ mkdir ~/.config/sheldon && ln -sf ~/env/dotfiles/zsh/plugins.toml ~/.config/shel
 ```
 
 #### Plugins
+
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish shell like autosuggestions
 - [zsh-completions](https://github.com/zsh-users/zsh-completions) - Additional completion definitions for Zsh.
 - [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - ZSH port of Fish history search (up arrow)
@@ -38,7 +44,9 @@ mkdir ~/.config/sheldon && ln -sf ~/env/dotfiles/zsh/plugins.toml ~/.config/shel
 - [zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use) - ZSH plugin that reminds you to use existing aliases
 
 ### Neovim
+
 #### Requirements
+
 - patched font (eg. [Powerline Fonts](https://github.com/powerline/fonts) or [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts))
 - `clang` or `gcc` - For nvim-treesitter
 - `nodejs` - For coc.nvim
@@ -60,6 +68,7 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 ```
 
 ##### Slow scrolling?
+
 You may or may not face slow scrolling with my configs. Since I keep enabled a bunch of settings which are notorious with cursor/scrolling speed you may want to disable them if you noticed any lag on your system.
 
 ```vim
@@ -74,11 +83,13 @@ set synmaxcol=190
 ```
 
 ### Termux
+
 When I'm not on my laptop (or just too lazy to boot it up) I'll use Termux to get my stuff done. It's pretty awesome!
 
 The script will setup termux to have [Dracula](https://github.com/dracula) colorscheme and [Hack](https://github.com/source-foundry/Hack) fonts by default. It also does my git and dotfiles setup.
 
 #### Installation
+
 ```bash
 # Clone the repo
 git clone https://github.com/saurabhchardereal/env ~/env
@@ -86,7 +97,9 @@ git clone https://github.com/saurabhchardereal/env ~/env
 # Run the script
 ./env/scripts/termux
 ```
+
 #### Packages Installed on Termux
+
 - antibody
 - clang
 - gnupg

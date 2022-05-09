@@ -33,16 +33,15 @@ local packer_config = {
 
 return require("packer").startup({
     function(use)
-        -- Packer can manage itself
-        use("wbthomason/packer.nvim")
+        -------------------------
+        ---       UTILS       ---
+        -------------------------
 
-        -- Powerful linting tool
-        use({
-            "dense-analysis/ale",
-            config = function()
-                require("configs.ale")
-            end,
-        })
+        -- Improve startup time for Neovim
+        use("lewis6991/impatient.nvim")
+
+        -- Plugin manager
+        use("wbthomason/packer.nvim")
 
         -- Shows human friendly startuptime
         use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
@@ -70,40 +69,11 @@ return require("packer").startup({
         -- Emmet
         use({ "mattn/emmet-vim", ft = { "html", "css", "scss", "javascript" } })
 
-        -- Cool start menu
+        -- A plugin to ... umm ... comment stuff
         use({
-            "mhinz/vim-startify",
+            "numToStr/Comment.nvim",
             config = function()
-                require("configs.startify")
-            end,
-        })
-
-        -- Language server
-        use({
-            "neoclide/coc.nvim",
-            config = function()
-                require("configs.coc")
-            end,
-            branch = "release",
-        })
-
-        -- Commentary stuff
-        use("tpope/vim-commentary")
-
-        -- Awesome git wrapper
-        use({
-            "tpope/vim-fugitive",
-            cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" },
-        })
-
-        -- Surrounding stuff
-        use("tpope/vim-surround")
-
-        -- Sax bufferline
-        use({
-            "akinsho/bufferline.nvim",
-            config = function()
-                require("configs.bufferline")
+                require("Comment").setup({})
             end,
         })
 
@@ -111,26 +81,11 @@ return require("packer").startup({
         use({
             "folke/which-key.nvim",
             config = function()
-                require("which-key").setup({
-                    plugins = {
-                        spelling = {
-                            enabled = true,
-                        },
-                    },
-                })
+                vim.defer_fn(function()
+                    require("configs.which-key")
+                end, 0)
             end,
         })
-
-        -- Lua fork of Nerdtree
-        use({
-            "kyazdani42/nvim-tree.lua",
-            config = function()
-                require("configs.nvim-tree")
-            end,
-        })
-
-        -- File icons
-        use("kyazdani42/nvim-web-devicons")
 
         -- Indent level
         use({
@@ -140,12 +95,104 @@ return require("packer").startup({
             end,
         })
 
-        -- Lua fork of onedark colorscheme
-        use("navarasu/onedark.nvim")
+        -- Lua fork of Nerdtree
+        use({
+            "kyazdani42/nvim-tree.lua",
+            keys = { "<F1>", "<Leader><F1>" },
+            cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
+            config = function()
+                require("configs.nvim-tree")
+            end,
+        })
+
+        -- Fuzzy finder and more
+        use({
+            "nvim-telescope/telescope.nvim",
+            cmd = "Telescope",
+            cond = function()
+                return not vim.env.IS_TERMUX
+            end,
+            requires = "nvim-lua/plenary.nvim",
+        })
+
+        -- Awesome git wrapper
+        use({
+            "tpope/vim-fugitive",
+            cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" },
+        })
+
+        -- Surrounding stuff
+        -- P.S: no vimrc is complete without some tpope goodness
+        use({ "tpope/vim-surround", requires = "tpope/vim-repeat" })
+
+        ----------------------
+        ---       UI       ---
+        ----------------------
+
+        -- File icons
+        use({
+            "kyazdani42/nvim-web-devicons",
+            module = "nvim-web-devicons",
+        })
+
+        -- Cool start menu
+        use({
+            "mhinz/vim-startify",
+            config = function()
+                require("configs.startify")
+            end,
+        })
+
+        -- Shows git signs in sign column
+        use({
+            "lewis6991/gitsigns.nvim",
+            config = function()
+                -- Don't try to hard to load gitsigns immediately
+                vim.defer_fn(require("gitsigns").setup, 0)
+            end,
+        })
+
+        -- Sax bufferline
+        use({
+            "akinsho/bufferline.nvim",
+            requires = "nvim-web-devicons",
+            config = function()
+                require("configs.bufferline")
+            end,
+        })
+
+        -- Colorschemes
+        use({
+            -- "folke/tokyonight.nvim",
+            "navarasu/onedark.nvim",
+            {
+                "catppuccin/nvim",
+                as = "catppuccin",
+            },
+        })
+
+        -- Color preview
+        use({
+            "norcalli/nvim-colorizer.lua",
+            cmd = "ColorizerAttachToBuffer",
+            ft = { "css", "scss", "javascript" },
+            config = function()
+                require("configs.colorizer")
+            end,
+        })
 
         -- Statusline plugin
         use({
             "nvim-lualine/lualine.nvim",
+            requires = {
+                "nvim-web-devicons",
+                -- {
+                --     "nvim-lua/lsp-status.nvim",
+                --     config = function()
+                --         require("lsp-status").register_progress()
+                --     end,
+                -- },
+            },
             config = function()
                 require("configs.lualine")
             end,
@@ -164,32 +211,100 @@ return require("packer").startup({
             -- treesitter querying
             {
                 "nvim-treesitter/playground",
-                requires = "nvim-treesitter",
+                after = "nvim-treesitter",
+                cmd = "TSHighlightCapturesUnderCursor",
             },
 
             -- Rainbow brackets
             {
                 "p00f/nvim-ts-rainbow",
-                requires = "nvim-treesitter",
+                after = "nvim-treesitter",
             },
         })
 
-        -- Fuzzy finder and more
+        -----------------------------------
+        ---       LSP / IDE STUFF       ---
+        -----------------------------------
+
+        -- LSP Setup
         use({
-            "nvim-telescope/telescope.nvim",
-            cond = function()
-                return not vim.env.IS_TERMUX
-            end,
-            requires = "nvim-lua/plenary.nvim",
+            "williamboman/nvim-lsp-installer",
+            {
+                "neovim/nvim-lspconfig",
+                config = function()
+                    require("configs.lsp")
+                end,
+                after = "cmp-nvim-lsp", -- So to update capabilities
+            },
+            { "folke/lua-dev.nvim", requires = "nvim-lspconfig" },
+            {
+                "jose-elias-alvarez/null-ls.nvim",
+                requires = "nvim-lspconfig",
+                config = function()
+                    require("configs.null-ls")
+                end,
+            },
         })
 
-        -- Color preview
+        -- Autocompletion
         use({
-            "norcalli/nvim-colorizer.lua",
-            ft = { "html", "css", "scss", "javascript", "vim", "lua" },
-            config = function()
-                require("configs.colorizer")
-            end,
+            {
+                "hrsh7th/nvim-cmp",
+                config = function()
+                    require("configs.nvim-cmp")
+                end,
+                requires = {
+                    "nvim-autopairs",
+                    {
+                        "L3MON4D3/LuaSnip",
+                        config = function()
+                            require("configs.luasnip")
+                        end,
+                    },
+                },
+            },
+            { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
+            { "hrsh7th/cmp-path", after = "nvim-cmp" },
+            { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+            {
+                "hrsh7th/cmp-git",
+                after = "nvim-cmp",
+                ft = "gitcommit",
+                requires = "nvim-lua/plenary.nvim",
+                config = function()
+                    require("cmp_git").setup()
+                end,
+            },
+            {
+                "windwp/nvim-autopairs",
+                config = function()
+                    require("nvim-autopairs").setup({})
+                end,
+            },
+        })
+
+        use({
+            -- Language server (and VSCode extension runtime)
+            {
+                "neoclide/coc.nvim",
+                disable = true,
+                config = function()
+                    require("configs.coc")
+                end,
+                branch = "release",
+            },
+
+            -- Powerful linting/formatting tool (similar to null-ls)
+            {
+
+                "dense-analysis/ale",
+                disable = true,
+                config = function()
+                    require("configs.ale")
+                end,
+            },
         })
     end,
     config = packer_config,

@@ -21,17 +21,17 @@ local configs_startify = vim.api.nvim_create_augroup("ConfigsStartify", {
     clear = true,
 })
 
-autocmd("BufDelete", {
-    group = configs_startify,
-    pattern = "*",
-    callback = function()
-        if
-            vim.fn.empty(
-                vim.fn.filter(vim.fn.tabpagebuflist(), "!buflisted(v:val)")
-            ) > 0
-        then
-            vim.cmd("Startify")
-        end
-    end,
-    desc = "Show startify screen if no buffers left to display",
-})
+-- autocmd("BufDelete", {
+--     group = configs_startify,
+--     pattern = "*",
+--     callback = function()
+--         if
+--             vim.fn.empty(
+--                 vim.fn.filter(vim.fn.tabpagebuflist(), "!buflisted(v:val)")
+--             ) > 0
+--         then
+--             vim.cmd("Startify")
+--         end
+--     end,
+--     desc = "Show startify screen if no buffers left to display",
+-- })

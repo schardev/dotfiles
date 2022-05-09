@@ -1,7 +1,7 @@
-local map = require("utils").map
-local inoremap = require("utils").inoremap
-local nnoremap = require("utils").nnoremap
-local vnoremap = require("utils").vnoremap
+local map = require("core.utils").map
+local inoremap = require("core.utils").inoremap
+local nnoremap = require("core.utils").nnoremap
+local vnoremap = require("core.utils").vnoremap
 local autocmd = vim.api.nvim_create_autocmd
 local configs_coc = vim.api.nvim_create_augroup("ConfigsCoc", { clear = true })
 

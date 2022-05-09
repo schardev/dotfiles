@@ -4,13 +4,14 @@ require("indent_blankline").setup({
 
     -- Ignore indent lines on these filetypes/buftype
     filetype_exclude = {
-        "help",
-        "markdown",
-        "startify",
         "NvimTree",
+        "help",
+        "lsp-installer",
+        "markdown",
         "packer",
+        "startify",
     },
-    buftype_exclude = { "terminal" },
+    buftype_exclude = { "terminal", "nofile" },
 
     -- Show indent context like VSCode (requires treesitter)
     show_current_context = true,

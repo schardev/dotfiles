@@ -1,5 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
-local nnoremap = require("utils").nnoremap
+local nnoremap = require("core.utils").nnoremap
 
 local my_local_group = vim.api.nvim_create_augroup("MyLocalGroup", {
     clear = true,
@@ -39,8 +39,13 @@ autocmd("TermOpen", {
 autocmd("BufEnter", {
     group = my_local_group,
     pattern = "*",
-    nested = true,
     callback = function()
+        -- Map q to exit in non-filetype buffer
+        if vim.bo.buftype == "nofile" then
+            nnoremap("q", ":q<CR>", { buffer = true })
+        end
+
+        -- Exit neovim if the last window is of NvimTree
         if
             vim.fn.winnr("$") == 1
             and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr()
@@ -48,7 +53,16 @@ autocmd("BufEnter", {
             vim.cmd("quit")
         end
     end,
-    desc = "Exit neovim if the last window is of NvimTree",
+    desc = "Utils",
+})
+
+autocmd("FileType", {
+    group = my_local_group,
+    pattern = { "help", "startuptime" },
+    callback = function()
+        nnoremap("q", ":q<CR>", { buffer = true })
+    end,
+    desc = "Press `q` to exit in certain filetypes",
 })
 
 autocmd("TextYankPost", {
@@ -58,13 +72,4 @@ autocmd("TextYankPost", {
         vim.highlight.on_yank({ higroup = "IncSearch", timeout = 400 })
     end,
     desc = "Highlight text on yank (copy)",
-})
-
-autocmd("FileType", {
-    group = my_local_group,
-    pattern = { "startuptime", "help" },
-    callback = function()
-        nnoremap("q", ":q<CR>")
-    end,
-    desc = "Press `q` to exit in certain filetypes",
 })

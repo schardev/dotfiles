@@ -1,6 +1,6 @@
 require("bufferline").setup({
     options = {
-        diagnostics = "coc",
+        diagnostics = "nvim_lsp",
         separator_style = "thick",
         offsets = { { filetype = "NvimTree", text = "File Explorer" } },
     },

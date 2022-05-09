@@ -2,6 +2,14 @@
 --
 -- Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 
+local installed, impatient = pcall(require, "impatient")
+
+if not installed then
+    vim.notify("Impatient not installed!")
+else
+    impatient.enable_profile()
+end
+
 -- Opt-in for lua filetype detection
 vim.g.did_load_filetypes = 0
 vim.g.do_filetype_lua = 1

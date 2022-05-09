@@ -37,4 +37,5 @@ set.title = true                        -- Set window title appropriately
 set.pumblend=15                         -- Enable a subtle transparency effect on pop-up menu
 set.signcolumn="yes:2"                  -- Reserve space for atleast two signs
 vim.g.mapleader = ","                   -- Set global <Leader> to `,`
+vim.g.maplocalleader = " "              -- Set <LocalLeader>
 -- stylua: ignore end

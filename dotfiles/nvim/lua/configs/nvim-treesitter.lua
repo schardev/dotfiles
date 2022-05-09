@@ -53,6 +53,30 @@ require("nvim-treesitter.configs").setup({
         disable = { "html", "json", "lua" },
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        -- colors = {} -- Check onedark.lua
+        colors = {
+            -- Colors extracted from VSCode's rainbow bracket extension
+            "#e6b422",
+            "#c70067",
+            "#00a960",
+            "#fc7482",
+            "#33ccff",
+            "#8080ff",
+            "#0073a8",
+            "#d4d4aa",
+            "#d1a075",
+            "#9c6628",
+        },
+        termcolors = {
+            "Red",
+            "Green",
+            "Yellow",
+            "Blue",
+            "Magenta",
+            "Cyan",
+            "White",
+            "LightYellow",
+            "LightRed",
+            "LightGreen",
+        },
     },
 })

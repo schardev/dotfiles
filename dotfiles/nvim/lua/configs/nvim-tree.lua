@@ -1,6 +1,15 @@
+-- Mappings
+local nnoremap = require("core.utils").nnoremap
+nnoremap("<F1>", ":NvimTreeToggle<CR>", {
+    desc = "Toggle NvimTree",
+})
+nnoremap("<Leader><F1>", ":NvimTreeFindFile<CR>", {
+    desc = "Open current file tree in NvimTree",
+})
+
 -- Enable highligting for folders and both file icons and names
 vim.g.nvim_tree_highlight_opened_files = 3
-vim.g.nvim_tree_git_hl = 1
+-- vim.g.nvim_tree_git_hl = 1
 
 -- Icons
 vim.g.nvim_tree_icons = {
@@ -46,13 +55,4 @@ require("nvim-tree").setup({
             enable = true,
         },
     },
-})
-
--- Mappings
-local nnoremap = require("utils").nnoremap
-nnoremap("<F1>", ":NvimTreeToggle<CR>", {
-    desc = "Toggle NvimTree",
-})
-nnoremap("<Leader><F1>", ":NvimTreeFindFile<CR>", {
-    desc = "Open current file tree in NvimTree",
 })
