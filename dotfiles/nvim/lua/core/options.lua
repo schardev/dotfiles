@@ -26,6 +26,14 @@ set.shiftwidth = 4                      -- Indents will have a width of 4
 set.smartcase = true                    -- Override `ignorecase` where possible
 set.softtabstop = 4                     -- Sets the number of columns for a TAB
 set.synmaxcol = 190                     -- Don't even try to highlight stuff that's longer than 190 columns
+set.wildignore:append({                 -- Ignore these directories/files while expanding `find` searches
+    "*.o",
+    "*~",
+    "*.pyc",
+    "*pycache*",
+    "*/node_modules/*",
+    "*/.git/*"
+})
 set.wrap = false                        -- Do not wrap code by default
 set.writebackup = false                 -- Disable backup
 set.tabstop = 4                         -- The width of a TAB is set to 4.

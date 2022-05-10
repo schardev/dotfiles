@@ -1,4 +1,4 @@
-name: Lint Scripts
+name: Lint shell scripts
 on: [push, pull_request]
 jobs:
   lint:
@@ -9,7 +9,8 @@ jobs:
         run: |
           sudo snap install shfmt
           sudo apt-get install fd-find
-      - name: Linting...
+
+      - name: Linting with shfmt and shellcheck
         run: |
           for i in $(fdfind -t x -E etc -E dotfiles); do
             shellcheck -s bash -e SC1090,SC1091 "$i"

@@ -39,10 +39,10 @@ autocmd("TermOpen", {
 autocmd("BufEnter", {
     group = my_local_group,
     pattern = "*",
-    callback = function()
+    callback = function(params)
         -- Map q to exit in non-filetype buffer
-        if vim.bo.buftype == "nofile" then
-            nnoremap("q", ":q<CR>", { buffer = true })
+        if vim.bo.buftype == "nofile" or not vim.bo.modifiable then
+            nnoremap("q", ":q<CR>", { buffer = params.buf })
         end
 
         -- Exit neovim if the last window is of NvimTree
@@ -54,15 +54,6 @@ autocmd("BufEnter", {
         end
     end,
     desc = "Utils",
-})
-
-autocmd("FileType", {
-    group = my_local_group,
-    pattern = { "help", "startuptime" },
-    callback = function()
-        nnoremap("q", ":q<CR>", { buffer = true })
-    end,
-    desc = "Press `q` to exit in certain filetypes",
 })
 
 autocmd("TextYankPost", {

@@ -5,8 +5,11 @@
 # Lint scripts using shellcheck and shfmt
 set -e
 
-# Files to lint
+# Lint bash files
 for i in $(fd -t x -E etc -E dotfiles); do
     shellcheck -s bash -e SC1090,SC1091 "$i"
     shfmt -d -ci -i 4 "$i"
 done
+
+# Check lua files format
+stylua --check -f dotfiles/nvim/.stylua.toml .

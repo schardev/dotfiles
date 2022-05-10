@@ -147,7 +147,7 @@ return require("packer").startup({
         use({
             "lewis6991/gitsigns.nvim",
             config = function()
-                -- Don't try to hard to load gitsigns immediately
+                -- Don't try too hard to load gitsigns immediately
                 vim.defer_fn(require("gitsigns").setup, 0)
             end,
         })
@@ -164,11 +164,11 @@ return require("packer").startup({
         -- Colorschemes
         use({
             -- "folke/tokyonight.nvim",
-            "navarasu/onedark.nvim",
-            {
-                "catppuccin/nvim",
-                as = "catppuccin",
-            },
+            -- "navarasu/onedark.nvim",
+            -- {
+            "catppuccin/nvim",
+            as = "catppuccin",
+            -- },
         })
 
         -- Color preview
@@ -195,6 +195,13 @@ return require("packer").startup({
             },
             config = function()
                 require("configs.lualine")
+            end,
+        })
+
+        use({
+            "j-hui/fidget.nvim",
+            config = function()
+                require("fidget").setup({})
             end,
         })
 

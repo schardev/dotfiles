@@ -39,6 +39,9 @@ local sources = {
         end,
     }),
 
+    actions.eslint_d.with({
+        runtime_condition = eslint_runtime_condition,
+    }),
     actions.shellcheck,
 
     --------------------------------
