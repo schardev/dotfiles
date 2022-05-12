@@ -238,15 +238,14 @@ return require("packer").startup({
             "williamboman/nvim-lsp-installer",
             {
                 "neovim/nvim-lspconfig",
+                module = "lspconfig",
                 config = function()
                     require("configs.lsp")
                 end,
-                after = "cmp-nvim-lsp", -- So to update capabilities
             },
             { "folke/lua-dev.nvim", requires = "nvim-lspconfig" },
             {
                 "jose-elias-alvarez/null-ls.nvim",
-                requires = "nvim-lspconfig",
                 config = function()
                     require("configs.null-ls")
                 end,
@@ -257,6 +256,7 @@ return require("packer").startup({
         use({
             {
                 "hrsh7th/nvim-cmp",
+                event = "InsertEnter",
                 config = function()
                     require("configs.nvim-cmp")
                 end,
@@ -271,7 +271,7 @@ return require("packer").startup({
                 },
             },
             { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
             { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
             { "hrsh7th/cmp-path", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
