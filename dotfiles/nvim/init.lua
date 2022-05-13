@@ -52,10 +52,3 @@ vim.g.do_filetype_lua = 1
 
 -- Load modules
 require("core")
-require("colors")
-
--- Main plugin loading is done via `packer_compiled.lua`
--- so no need to load this immediately
-vim.defer_fn(function()
-    require("plugins")
-end, 0)

@@ -12,13 +12,6 @@ if fn.empty(fn.glob(packer_path)) > 0 then
 end
 vim.cmd("packadd packer.nvim")
 
-local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-    group = packer_group,
-    command = "source <afile> | PackerCompile",
-    pattern = "plugins.lua",
-})
-
 local packer_config = {
     profile = {
         enable = true,
@@ -41,7 +34,7 @@ return require("packer").startup({
         use("lewis6991/impatient.nvim")
 
         -- Plugin manager
-        use("wbthomason/packer.nvim")
+        use({ "wbthomason/packer.nvim", opt = true })
 
         -- Shows human friendly startuptime
         use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
@@ -165,10 +158,14 @@ return require("packer").startup({
         use({
             -- "folke/tokyonight.nvim",
             -- "navarasu/onedark.nvim",
-            -- {
             "catppuccin/nvim",
             as = "catppuccin",
-            -- },
+            config = function()
+                require("colors")
+
+                -- Set global colorscheme
+                vim.cmd("colorscheme catppuccin")
+            end,
         })
 
         -- Color preview

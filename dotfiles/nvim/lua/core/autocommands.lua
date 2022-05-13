@@ -5,6 +5,12 @@ local my_local_group = vim.api.nvim_create_augroup("MyLocalGroup", {
     clear = true,
 })
 
+vim.api.nvim_create_autocmd("BufWritePost", {
+    group = my_local_group,
+    command = "source <afile> | PackerCompile",
+    pattern = "plugins.lua",
+})
+
 autocmd("WinEnter", {
     group = my_local_group,
     pattern = "*",
