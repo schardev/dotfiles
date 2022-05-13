@@ -10,6 +10,42 @@ else
     impatient.enable_profile()
 end
 
+-- Disable neovim providers
+local disabled_provider = {
+    "node",
+    "perl",
+    "python",
+    "python3",
+    "pythonx",
+    "ruby",
+}
+
+for _, d in pairs(disabled_provider) do
+    vim.g["loaded" .. d .. "_provider"] = 0
+end
+
+-- Disable few unused builtin plugins
+local disabled_plugin = {
+    "2html_plugin",
+    "gzip",
+    "man",
+    "matchit",
+    "netrw",
+    "netrwFileHandlers",
+    "netrwPlugin",
+    "netrwSettings",
+    "tar",
+    "tarPlugin",
+    "tutor_mode_plugin",
+    "vimball",
+    "zip",
+    "zipPlugin",
+}
+
+for _, d in pairs(disabled_plugin) do
+    vim.g["loaded_" .. d] = 1
+end
+
 -- Opt-in for lua filetype detection
 vim.g.did_load_filetypes = 0
 vim.g.do_filetype_lua = 1
@@ -23,10 +59,3 @@ require("colors")
 vim.defer_fn(function()
     require("plugins")
 end, 0)
-
--- Disable neovim providers
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_python_provider = 0
-vim.g.loaded_python3_provider = 0
