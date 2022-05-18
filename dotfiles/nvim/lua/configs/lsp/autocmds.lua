@@ -1,10 +1,6 @@
 local M = {}
 local autocmd = vim.api.nvim_create_autocmd
-
-local lsp_augroup = vim.api.nvim_create_augroup(
-    "MyLocalLSPGroup",
-    { clear = true }
-)
+local lsp_augroup = vim.api.nvim_create_augroup("MyLocalLSPGroup", {})
 
 M.attach = function(client, bufnr)
     if client.supports_method("textDocument/documentHighlight") then
@@ -12,7 +8,7 @@ M.attach = function(client, bufnr)
             group = lsp_augroup,
             buffer = bufnr,
             callback = vim.lsp.buf.document_highlight,
-            desc = "Highlight symbol under cursor",
+            desc = "Highlights symbol under cursor",
         })
 
         autocmd("CursorMoved", {
@@ -40,12 +36,12 @@ M.attach = function(client, bufnr)
                 },
                 border = "rounded",
                 source = "always",
-                prefix = " ",
+                prefix = "",
                 scope = "line",
             }
             vim.diagnostic.open_float(nil, opts)
         end,
-        desc = "Show diagnostic in floating window conditionally",
+        desc = "Shows diagnostic in floating window on smaller windows",
     })
 end
 

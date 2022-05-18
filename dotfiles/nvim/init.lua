@@ -21,7 +21,7 @@ local disabled_provider = {
 }
 
 for _, d in pairs(disabled_provider) do
-    vim.g["loaded" .. d .. "_provider"] = 0
+    vim.g["loaded_" .. d .. "_provider"] = 0
 end
 
 -- Disable few unused builtin plugins

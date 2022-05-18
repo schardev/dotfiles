@@ -2,8 +2,8 @@ local command = vim.api.nvim_create_user_command
 
 local packer_cmd = function(callback, args)
     return function()
-        require("plugins")
-        require("packer")[callback](args)
+        vim.cmd("packadd packer.nvim")
+        require("plugins")[callback](args)
     end
 end
 

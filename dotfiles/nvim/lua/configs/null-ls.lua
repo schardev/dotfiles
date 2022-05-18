@@ -1,5 +1,5 @@
 local null_ls = require("null-ls")
-local on_attach = require("configs.lsp.event").on_attach
+local on_attach = require("configs.lsp.events").on_attach
 local utils = require("configs.lsp.utils")
 
 local actions = null_ls.builtins.code_actions

@@ -3,7 +3,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 
 -- Kind symbols
-local cmp_kinds = {
+local cmp_kind_icons = {
     Class = "ﴯ",
     Color = "",
     Constant = "",
@@ -32,17 +32,25 @@ local cmp_kinds = {
 }
 
 cmp.setup({
-    keyword_length = 3,
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
     },
     formatting = {
-        format = function(_, vim_item)
-            vim_item.kind = (cmp_kinds[vim_item.kind] or "")
-                .. " "
-                .. vim_item.kind
+        format = function(index, vim_item)
+            vim_item.kind = string.format(
+                "%s %s",
+                cmp_kind_icons[vim_item.kind],
+                vim_item.kind
+            ) -- This concatonates the icons with the name of the item kind
+
+            vim_item.menu = ({
+                buffer = "[Buffer]",
+                nvim_lsp = "[LSP]",
+                luasnip = "[LuaSnip]",
+                cmp_git = "[Git]",
+            })[index.source.name]
             return vim_item
         end,
     },
@@ -107,7 +115,7 @@ cmp.setup.filetype("html", {
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
     sources = {
-        { name = "cmp_git", keyword_length = 1 },
+        { name = "cmp_git" },
         { name = "buffer" },
         { name = "path" },
     },

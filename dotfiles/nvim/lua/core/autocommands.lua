@@ -1,11 +1,9 @@
 local autocmd = vim.api.nvim_create_autocmd
 local nnoremap = require("core.utils").nnoremap
 
-local my_local_group = vim.api.nvim_create_augroup("MyLocalGroup", {
-    clear = true,
-})
+local my_local_group = vim.api.nvim_create_augroup("MyLocalGroup", {})
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+autocmd("BufWritePost", {
     group = my_local_group,
     command = "source <afile> | PackerCompile",
     pattern = "plugins.lua",
@@ -42,7 +40,7 @@ autocmd("TermOpen", {
     desc = "Disable line numbers in terminal window",
 })
 
-autocmd("BufEnter", {
+autocmd({ "BufModifiedSet", "BufEnter" }, {
     group = my_local_group,
     pattern = "*",
     callback = function(params)
@@ -50,16 +48,8 @@ autocmd("BufEnter", {
         if vim.bo.buftype == "nofile" or not vim.bo.modifiable then
             nnoremap("q", ":q<CR>", { buffer = params.buf })
         end
-
-        -- Exit neovim if the last window is of NvimTree
-        if
-            vim.fn.winnr("$") == 1
-            and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr()
-        then
-            vim.cmd("quit")
-        end
     end,
-    desc = "Utils",
+    desc = "Maps q to exit on non-filetypes",
 })
 
 autocmd("TextYankPost", {

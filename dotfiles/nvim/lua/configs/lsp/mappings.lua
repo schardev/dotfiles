@@ -1,5 +1,6 @@
 local M = {}
 local nnoremap = require("core.utils").nnoremap
+local vnoremap = require("core.utils").vnoremap
 
 M.attach = function(client, bufnr)
     nnoremap(
@@ -16,6 +17,12 @@ M.attach = function(client, bufnr)
         vim.lsp.buf.code_action,
         { buffer = bufnr, desc = "Code action" }
     )
+    vnoremap(
+        "<LocalLeader>ca",
+        vim.lsp.buf.range_code_action,
+        { buffer = bufnr, desc = "Code action" }
+    )
+
     nnoremap(
         "<LocalLeader>wa",
         vim.lsp.buf.add_workspace_folder,

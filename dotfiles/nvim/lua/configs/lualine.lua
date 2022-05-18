@@ -62,7 +62,7 @@ require("lualine").setup({
                 "filename",
                 color = { gui = "italic" },
                 cond = conditions.buffer_not_empty,
-                symbols = { readonly = " " },
+                symbols = { modified = " +", readonly = " " },
             },
         },
         lualine_x = {

@@ -1,13 +1,20 @@
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Do not highlight whitespaces in below filetypes
-local ignore_filetypes = { "help", "c", "gitcommit", "kconfig", "make" }
+local ignore_filetypes = {
+    "help",
+    "c",
+    "gitcommit",
+    "kconfig",
+    "make",
+}
 
-autocmd("BufWinEnter", {
+autocmd({ "ColorScheme", "FileType" }, {
     pattern = "*",
     callback = function()
         if
             vim.tbl_contains(ignore_filetypes, vim.bo.filetype)
+            or not vim.bo.modifiable
             or vim.bo.buftype == "nofile"
         then
             vim.fn.clearmatches()

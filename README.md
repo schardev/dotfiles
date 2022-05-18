@@ -100,12 +100,12 @@ git clone https://github.com/saurabhchardereal/env ~/env
 
 #### Packages Installed on Termux
 
-- antibody
-- clang
-- gnupg
-- ncurses-utils
-- nodejs
-- nvim
-- openssh
-- sheldon
-- zsh
+- `antibody`
+- `clang`
+- `gnupg`
+- `ncurses-utils`
+- `nodejs`
+- `nvim`
+- `openssh`
+- `sheldon`
+- `zsh`

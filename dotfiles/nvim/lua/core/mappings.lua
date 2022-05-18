@@ -1,5 +1,5 @@
 local utils = require("core.utils")
-
+local map = utils.map
 local nnoremap = utils.nnoremap
 local tnoremap = utils.tnoremap
 local vnoremap = utils.vnoremap
@@ -35,9 +35,16 @@ nnoremap("J", "5jzz")
 nnoremap("K", "5kzz")
 
 -- Buffer management
-nnoremap("<Leader>n", ":bnext<CR>")
-nnoremap("<Leader>p", ":bprevious<CR>")
+nnoremap("<C-L>", ":bnext<CR>")
+nnoremap("<C-H>", ":bprevious<CR>")
 nnoremap("<C-w>", ":bdelete<CR>")
+
+-- Don't put text in register on delete char
+map({ "n", "v" }, "x", '"_x')
+
+-- Keep visual mode indenting
+vnoremap("<", "<gv")
+vnoremap(">", ">gv")
 
 -- Quick edit/source config files
 nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {

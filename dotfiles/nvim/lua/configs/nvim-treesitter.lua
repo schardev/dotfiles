@@ -1,18 +1,32 @@
+local configs_treesitter = vim.api.nvim_create_augroup(
+    "ConfigsTreesitter",
+    { clear = true }
+)
+local autocmd = vim.api.nvim_create_autocmd
+
+local enabled_parsers = {
+    "bash",
+    "html",
+    "javascript",
+    "json",
+    "jsonc",
+    "lua",
+    "markdown",
+    "typescript",
+    "vim",
+    "yaml",
+}
+
+autocmd("FileType", {
+    group = configs_treesitter,
+    pattern = enabled_parsers,
+    command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()",
+})
+
 require("nvim-treesitter.configs").setup({
 
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = {
-        "bash",
-        "html",
-        "javascript",
-        "json",
-        "jsonc",
-        "lua",
-        "markdown",
-        "typescript",
-        "vim",
-        "yaml",
-    },
+    ensure_installed = enabled_parsers,
 
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -50,6 +64,10 @@ require("nvim-treesitter.configs").setup({
         --   goto_node = '<cr>',
         --   show_help = '?',
         -- },
+    },
+
+    indent = {
+        enable = true,
     },
 
     rainbow = {

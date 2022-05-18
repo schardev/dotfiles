@@ -1,10 +1,28 @@
 -- Mappings
 local nnoremap = require("core.utils").nnoremap
+local autocmd = vim.api.nvim_create_autocmd
+
 nnoremap("<F1>", ":NvimTreeToggle<CR>", {
     desc = "Toggle NvimTree",
 })
 nnoremap("<Leader><F1>", ":NvimTreeFindFile<CR>", {
     desc = "Open current file tree in NvimTree",
+})
+
+local configs_nvimtree = vim.api.nvim_create_augroup("ConfigsNvimTree", {})
+autocmd("BufEnter", {
+    group = configs_nvimtree,
+    pattern = "*",
+    callback = function(params)
+        -- Exit neovim if the last window is of NvimTree
+        if
+            vim.fn.winnr("$") == 1
+            and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr()
+        then
+            vim.cmd("quit")
+        end
+    end,
+    desc = "Smartly exit NvimTree",
 })
 
 -- Enable highligting for folders and both file icons and names
