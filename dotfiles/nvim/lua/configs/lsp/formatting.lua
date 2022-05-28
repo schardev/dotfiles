@@ -4,22 +4,12 @@ local vnoremap = require("core.utils").vnoremap
 local autocmd = vim.api.nvim_create_autocmd
 local command = vim.api.nvim_create_user_command
 
--- Expose global variable to control autoformatting
--- TODO: Make it local to buffer instead
-vim.g.format_on_save = true
-
 -- Use formatters from null-ls only
 local lsp_formatting = function(bufnr)
-    if not vim.g.format_on_save then
+    if not vim.b.format_on_save then
         return
     end
     vim.lsp.buf.format({
-        -- filter = function(clients)
-        --     -- filter out unwanted clients
-        --     return vim.tbl_filter(function(client)
-        --         return client.name == "null-ls"
-        --     end, clients)
-        -- end,
         name = "null-ls", -- Restrict formatting to client matching this name
         bufnr = bufnr,
     })
@@ -30,8 +20,16 @@ M.attach = function(client, bufnr)
         return
     end
 
-    command("LspAutoFormat", function()
-        vim.g.format_on_save = not vim.g.format_on_save
+    -- Expose buffer-scoped variable to control autoformatting
+    vim.b.format_on_save = true
+
+    command("LspAutoFormatToggle", function()
+        if not vim.b.format_on_save then
+            vim.notify("Enabling auto-formatting!")
+        else
+            vim.notify("Disabling auto-formatting!")
+        end
+        vim.b.format_on_save = not vim.b.format_on_save
     end, { desc = "Toggle auto-formatting" })
 
     nnoremap("<LocalLeader>f", function()
@@ -40,6 +38,7 @@ M.attach = function(client, bufnr)
 
     vnoremap("<LocalLeader>f", function()
         -- TODO: Either merge this into lsp_formatting or filter out clients
+        -- @see https://github.com/neovim/neovim/issues/18371
         vim.lsp.buf.range_formatting()
     end, { buffer = bufnr, desc = "Format" })
 
