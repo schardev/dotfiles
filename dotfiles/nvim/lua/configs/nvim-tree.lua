@@ -13,7 +13,7 @@ local configs_nvimtree = vim.api.nvim_create_augroup("ConfigsNvimTree", {})
 autocmd("BufEnter", {
     group = configs_nvimtree,
     pattern = "*",
-    callback = function(params)
+    callback = function()
         -- Exit neovim if the last window is of NvimTree
         if
             vim.fn.winnr("$") == 1
@@ -24,17 +24,6 @@ autocmd("BufEnter", {
     end,
     desc = "Smartly exit NvimTree",
 })
-
--- Enable highligting for folders and both file icons and names
-vim.g.nvim_tree_highlight_opened_files = 3
--- vim.g.nvim_tree_git_hl = 1
-
--- Icons
-vim.g.nvim_tree_icons = {
-    git = {
-        ignored = "",
-    },
-}
 
 -- Main setup
 require("nvim-tree").setup({
@@ -69,6 +58,16 @@ require("nvim-tree").setup({
     },
 
     renderer = {
+        -- Enable highligting for folders and both file icons and names
+        highlight_opened_files = "all",
+        highlight_git = false,
+        icons = {
+            glyphs = {
+                git = {
+                    ignored = "",
+                },
+            },
+        },
         indent_markers = {
             enable = true,
         },
