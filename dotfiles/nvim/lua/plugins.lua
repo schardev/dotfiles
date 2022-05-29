@@ -231,17 +231,28 @@ return require("packer").startup({
 
         -- Colorschemes
         use({
-            -- "folke/tokyonight.nvim",
-            -- "navarasu/onedark.nvim",
-            -- "numToStr/Sakura.nvim",
-            "catppuccin/nvim",
-            as = "catppuccin",
-            config = function()
-                require("colors")
-
-                -- Set global colorscheme
-                vim.cmd("colorscheme catppuccin")
-            end,
+            "numToStr/Sakura.nvim",
+            -- {
+            --     "folke/tokyonight.nvim",
+            --     config = function()
+            --         require("colors.tokyonight")
+            --     end,
+            -- },
+            -- {
+            --     "navarasu/onedark.nvim",
+            --     config = function()
+            --         require("colors.onedark")
+            --     end,
+            -- },
+            {
+                "catppuccin/nvim",
+                as = "catppuccin",
+                commit = "f079dda",
+                config = function()
+                    require("colors.catppuccin")
+                    vim.cmd("colorscheme catppuccin")
+                end,
+            },
         })
 
         -- Color preview
