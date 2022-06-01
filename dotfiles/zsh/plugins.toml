@@ -1,11 +1,17 @@
 # `sheldon` configuration file
+# https://sheldon.cli.rs
 shell = "zsh"
 
+[templates]
+# Defers loading of plugin (requires romkatv/zsh-defer)
+defer = { value = 'zsh-defer source "{{ file }}"', each = true }
+defer-more = { value = 'zsh-defer -t 0.5 source "{{ file }}"', each = true }
+
+# `sheldon` will source plugins in order they are defined below
 [plugins]
 
-# Source local plugins
-[plugins.local-plugins]
-local = "~/.config/zsh/plugins"
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
 
 # Additional completion definitions for Zsh
 [plugins.zsh-completions]
@@ -15,6 +21,7 @@ github = 'zsh-users/zsh-completions'
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
 use = ["{{ name }}.zsh"]
+apply = ["defer"]
 
 # ZSH port of Fish history search (up arrow)
 [plugins.zsh-history-substring-search]
@@ -23,6 +30,7 @@ github = 'zsh-users/zsh-history-substring-search'
 # Better (customisable) syntax highlighting for ZSH
 [plugins.fast-syntax-highlighting]
 github = 'zdharma-continuum/fast-syntax-highlighting'
+apply = ["defer"]
 
 # Awesome ZSH prompt
 [plugins.powerlevel10k]
@@ -31,3 +39,22 @@ github = 'romkatv/powerlevel10k'
 # ZSH plugin that reminds you to use existing aliases
 [plugins.zsh-you-should-use]
 github = 'MichaelAquilina/zsh-you-should-use'
+apply = ["defer"]
+
+# Extends vi mode
+[plugins.zsh-vi-mode]
+github = 'jeffreytse/zsh-vi-mode'
+
+# Source env.zsh first from local plugins
+[plugins.env]
+local = "~/.config/zsh/plugins"
+
+# Now source local plugins
+[plugins.local-plugins]
+local = "~/.config/zsh/plugins"
+use = ["*.zsh", "!env.zsh"] # do not source `env.zsh` again
+
+# Initialize completion stuff
+# This should be defined last to have completions work properly
+[plugins.compinit]
+inline = "autoload -Uz compinit && compinit"

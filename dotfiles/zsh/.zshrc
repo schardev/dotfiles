@@ -5,40 +5,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Shout out loud if running on termux
-if [[ $PREFIX =~ com.termux ]]; then
-    export IS_TERMUX=true
-fi
-
-# Initialize sheldon
-eval "$(sheldon source)"
-
-# Configure plugins
-unset HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^[[H' beginning-of-line
-bindkey '^[[F' end-of-line
-bindkey '^[[1;5C' forward-word
-
-# Completion settings
-WORDCHARS=${WORDCHARS:s:/:}                             # Remove '/' from wordchars
-
-zstyle ':completion:*:*:*:*:*' menu select
-eval "$(dircolors)"                                     # Source LS_COLORS and use them for
-zstyle ':completion:*' list-colors “${(s.:.)LS_COLORS}” # tab completions
-zstyle ':completion:*' use-cache yes                    # Use caching so that commands like
-zstyle ':completion:*' cache-path $ZSH_CACHE_DIR        # apt and dpkg complete are useable
-zstyle ':completion:*' special-dirs true                # Autocomplete . and .. special dirs
-
-# Initialize completion stuff
-autoload -Uz compinit && compinit
-
-# Export GPG_TTY using $TTY (works even when stdin is redirected)
-export GPG_TTY=$TTY
-
 # Source common script
 source "${HOME}"/env/funcs/common-funcs.sh
+
+# Initialize sheldon if installed
+# https://github.com/rossmacarthur/sheldon
+if command -v sheldon >/dev/null; then
+    eval "$(sheldon source)"
+else
+    pr_err "sheldon is not installed"
+fi
+
+# Initialize zoxide if installed
+# https://github.com/ajeetdsouza/zoxide
+if command -v zoxide >/dev/null; then
+    eval "$(zoxide init zsh --cmd cd)"
+else
+    pr_warn "zoxide is not installed. Using built-in `cd`."
+fi
 
 # Start `ssh-agent` if not already and add keys (env/common)
 if [ -f "${SSH_ENV}" ]; then
@@ -49,18 +33,6 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent
 fi
-
-# Set bat as man pager (except for termux since it needs a wrapper for that)
-if [ -z "$IS_TERMUX" ]; then
-    # Use `bat` as manpager for colored man pages
-    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-    # Use caps lock as escape key
-    setxkbmap -option "caps:escape"
-fi
-
-# Set global editor to neovim
-export EDITOR=nvim
 
 #To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
