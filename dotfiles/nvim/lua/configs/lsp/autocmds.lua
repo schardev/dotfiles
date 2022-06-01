@@ -1,6 +1,9 @@
 local M = {}
+
 local autocmd = vim.api.nvim_create_autocmd
 local lsp_augroup = vim.api.nvim_create_augroup("MyLocalLSPGroup", {})
+local diagnostics_float_handler =
+    require("configs.lsp.diagnostics").diagnostics_float_handler
 
 M.attach = function(client, bufnr)
     if client.supports_method("textDocument/documentHighlight") then
@@ -19,29 +22,22 @@ M.attach = function(client, bufnr)
         })
     end
 
-    autocmd("CursorHold", {
+    if client.supports_method("textDocument/publishDiagnostics") then
+        autocmd("CursorHold", {
+            group = lsp_augroup,
+            buffer = bufnr,
+            callback = diagnostics_float_handler,
+            desc = "Shows diagnostic in floating window on smaller windows",
+        })
+    end
+
+    autocmd("LspDetach", {
         group = lsp_augroup,
         buffer = bufnr,
         callback = function()
-            if vim.fn.winwidth(0) > 100 then
-                return
-            end
-            local opts = {
-                focusable = false,
-                close_events = {
-                    "BufLeave",
-                    "CursorMoved",
-                    "InsertEnter",
-                    "FocusLost",
-                },
-                border = "rounded",
-                source = "always",
-                prefix = "",
-                scope = "line",
-            }
-            vim.diagnostic.open_float(nil, opts)
+            vim.api.nvim_del_augroup_by_id(lsp_augroup)
         end,
-        desc = "Shows diagnostic in floating window on smaller windows",
+        desc = "Delete lsp autocmds after detaching client",
     })
 end
 
