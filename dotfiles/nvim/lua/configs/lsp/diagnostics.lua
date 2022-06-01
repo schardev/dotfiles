@@ -1,11 +1,23 @@
 local M = {}
 
--- Set diagnostic signs
+-- Set diagnostic signs and highlight group
 local diagnostics_signs = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
+    [vim.diagnostic.severity.ERROR] = {
+        sign = " ",
+        hl_group = "DiagnosticSignError",
+    },
+    [vim.diagnostic.severity.WARN] = {
+        sign = " ",
+        hl_group = "DiagnosticSignWarn",
+    },
+    [vim.diagnostic.severity.HINT] = {
+        sign = " ",
+        hl_group = "DiagnosticSignHint",
+    },
+    [vim.diagnostic.severity.INFO] = {
+        sign = " ",
+        hl_group = "DiagnosticSignInfo",
+    },
 }
 
 -- Diagnostic float options (for vim.diagnostic.open_float)
@@ -14,12 +26,10 @@ local diagnostics_float_config = {
     close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
     focusable = false,
     -- header = "",
-    -- prefix = function(diagnostic)
-    --     local severity = diagnostics_signs[diagnostic.severity]
-    --     local sname = vim.tbl_keys(severity)[1]
-    --     local hl = "DiagnosticSign" .. sname
-    --     return severity[sname], hl
-    -- end,
+    prefix = function(diagnostic)
+        local severity = diagnostics_signs[diagnostic.severity]
+        return severity.sign, severity.hl_group
+    end,
     scope = "line",
     source = "always",
 }
@@ -45,9 +55,12 @@ function M.diagnostics_float_handler()
 end
 
 function M.setup()
-    for type, icon in pairs(diagnostics_signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    for _, severity in pairs(diagnostics_signs) do
+        vim.fn.sign_define(severity.hl_group, {
+            text = severity.sign,
+            texthl = severity.hl_group,
+            numhl = severity.hl_group,
+        })
     end
 
     -- Global diagnostic config
