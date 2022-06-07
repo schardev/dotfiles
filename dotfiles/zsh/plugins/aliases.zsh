@@ -1,3 +1,8 @@
+# Checks if the command is present or not
+has() {
+    command -v "$1" &> /dev/null && return true
+}
+
 # Common aliases
 alias .....='cd ../../../..'
 alias ....='cd ../../..'
@@ -22,6 +27,18 @@ else
     alias la='ls --color=auto -a'
     alias ll='ls --color=auto -lh'
     alias lll='ls --color=auto -lah'
+fi
+
+# Initialize zoxide if installed
+# https://github.com/ajeetdsouza/zoxide
+if has zoxide; then
+    eval "$(zoxide init zsh --cmd cd)"
+else
+    pr_warn "zoxide is not installed. Using built-in `cd`."
+fi
+
+if has bat; then
+    alias cat="bat --plain"
 fi
 
 # Workstation-only aliases

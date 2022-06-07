@@ -37,17 +37,4 @@ header() {
     printf '\n%b%s\n%s\n%s%b\n\n' "${2:-${LGR}}" "${BORDER}" "    ${1}    " "${BORDER}" "${RST}"
 }
 
-# SSH
-SSH_ENV="${HOME}/.ssh/ssh-env"
-function start_agent {
-    echo "Initialising new SSH agent..."
-    ssh-agent -s | sed 's/^echo/#echo/' >"${SSH_ENV}"
-    chmod 0600 "${SSH_ENV}"
-    source "${SSH_ENV}"
-
-    # Disable passphrase dialog box when running in GUI mode (good 'ol tty ftw)
-    export SSH_ASKPASS_REQUIRE=never
-    ssh-add
-}
-
 # vim: filetype=sh
