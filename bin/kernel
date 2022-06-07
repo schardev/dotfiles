@@ -8,8 +8,8 @@
 # shellcheck disable=SC2191
 
 # Source common helper
-source "${SCRIPT_DIR}"/funcs/common-funcs.sh
-source "${SCRIPT_DIR}"/funcs/kernel-funcs.sh
+source "${SCRIPT_DIR}"/scripts/common.sh
+source "${SCRIPT_DIR}"/scripts/kernel.sh
 
 # Exit if not a kernel repository
 [[ ! -f Makefile ]] && pr_err "Run from within kernel directory!" && exit 1

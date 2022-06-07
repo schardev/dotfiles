@@ -7,7 +7,7 @@ fi
 
 # Source common script
 # TODO: retire common script and do stuff using zsh only
-source "${HOME}"/env/funcs/common-funcs.sh
+source "${HOME}"/env/scripts/common.sh
 
 # Add local function definitions to fpath and autoload them when called
 fpath=("$HOME/.config/zsh/functions" "${fpath[@]}")

@@ -6,8 +6,8 @@
 #
 
 SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source "$SCRIPT_PATH"/../funcs/common-funcs.sh
-source "$SCRIPT_PATH"/../funcs/git-setup-funcs.sh
+source "$SCRIPT_PATH"/../scripts/common.sh
+source "$SCRIPT_PATH"/../scripts/git-setup.sh
 
 # Update package lists and update packages
 pkg update -y && pkg upgrade -y
