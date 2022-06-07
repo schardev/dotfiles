@@ -72,7 +72,9 @@ return require("packer").startup({
         -- Lua fork of Nerdtree
         use({
             "kyazdani42/nvim-tree.lua",
+            cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
             ft = "startify",
+            keys = { "<F1>", "<Leader><F1>" },
             config = function()
                 require("configs.nvim-tree")
             end,
