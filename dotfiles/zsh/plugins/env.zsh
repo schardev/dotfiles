@@ -3,13 +3,9 @@ if [[ $PREFIX =~ com.termux ]]; then
     export IS_TERMUX=true
 fi
 
-# Set bat as man pager (except for termux since it needs a wrapper for that)
+# Non-termux env vars
 if [ -z "$IS_TERMUX" ]; then
-    # Use `bat` as manpager for colored man pages
-    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-    # Use caps lock as escape key
-    setxkbmap -option "caps:escape"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'" # Use `bat` as manpager for colored man pages
 fi
 
 export EDITOR=nvim # Set global editor to neovim
