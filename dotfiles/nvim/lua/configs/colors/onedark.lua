@@ -1,10 +1,4 @@
-local installed, onedark = pcall(require, "onedark")
-
-if not installed then
-    return
-end
-
-onedark.setup({
+require("onedark").setup({
     style = "darker",
     -- toggle_style_key = "<leader>ts",
 

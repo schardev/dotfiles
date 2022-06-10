@@ -1,10 +1,4 @@
-local installed, catppuccin = pcall(require, "catppuccin")
-
-if not installed then
-    return
-end
-
-catppuccin.setup({
+require("catppuccin").setup({
     term_colors = false,
     styles = {
         comments = "italic",

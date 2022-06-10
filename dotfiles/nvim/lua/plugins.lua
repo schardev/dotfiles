@@ -236,13 +236,13 @@ return require("packer").startup({
             -- {
             --     "folke/tokyonight.nvim",
             --     config = function()
-            --         require("colors.tokyonight")
+            --         require("configs.colors.tokyonight")
             --     end,
             -- },
             -- {
             --     "navarasu/onedark.nvim",
             --     config = function()
-            --         require("colors.onedark")
+            --         require("configs.colors.onedark")
             --     end,
             -- },
             {
@@ -250,7 +250,7 @@ return require("packer").startup({
                 as = "catppuccin",
                 commit = "f079dda",
                 config = function()
-                    require("colors.catppuccin")
+                    require("configs.colors.catppuccin")
                     vim.cmd("colorscheme catppuccin")
                 end,
             },
