@@ -8,5 +8,6 @@ vim.filetype.add({
     pattern = {
         ["*.cjsn"] = "jsonc",
         ["*.cjson"] = "jsonc",
+        [".*/zsh/functions/.*"] = "zsh",
     },
 })

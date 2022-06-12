@@ -5,9 +5,9 @@
 # Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 
-SCRIPT_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source "$SCRIPT_PATH"/../scripts/common.sh
-source "$SCRIPT_PATH"/../scripts/git-setup.sh
+CONFIG_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/..
+source "$CONFIG_DIR"/dotfiles/zsh/functions/utils
+source "$CONFIG_DIR"/scripts/git-setup.sh
 
 # Update package lists and update packages
 pkg update -y && pkg upgrade -y
@@ -45,9 +45,9 @@ git_setup
 pr_info "Setting up dotfiles ..."
 mkdir "${HOME}"/{.config,.sheldon}
 echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
-ln -sf "$SCRIPT_DIR"/dotfiles/zsh "${HOME}"/.config/zsh
-ln -sf "$SCRIPT_DIR"/dotfiles/nvim "${HOME}"/.config/nvim
-ln -sf "$SCRIPT_DIR"/dotfiles/zsh/plugins.toml "${HOME}"/.sheldon
+ln -sf "$CONFIG_DIR"/dotfiles/zsh "${HOME}"/.config/zsh
+ln -sf "$CONFIG_DIR"/dotfiles/nvim "${HOME}"/.config/nvim
+ln -sf "$CONFIG_DIR"/dotfiles/zsh/plugins.toml "${HOME}"/.sheldon
 
 # Switch to zsh
 chsh -s zsh

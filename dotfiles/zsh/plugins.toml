@@ -45,6 +45,10 @@ apply = ["defer"]
 [plugins.zsh-vi-mode]
 github = 'jeffreytse/zsh-vi-mode'
 
+# Load utils functions (@see ./functions/_utils)
+[plugins.utils]
+inline = "_utils"
+
 # Source env.zsh first from local plugins
 [plugins.env]
 local = "~/.config/zsh/plugins"

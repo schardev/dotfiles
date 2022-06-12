@@ -56,7 +56,7 @@ nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
 nnoremap("<Leader>es", ":CocConfig<CR>", {
     desc = "Edit global coc-settings.json",
 })
-nnoremap("<Leader>ed", ":edit ~/env/dotfiles<CR>", {
+nnoremap("<Leader>ed", ":edit $CONFIG_DIR/dotfiles<CR>", {
     desc = "Edit dotfiles",
 })
 nnoremap("<Leader>se", utils.save_and_exec, {

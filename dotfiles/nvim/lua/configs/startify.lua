@@ -5,7 +5,7 @@ local g = vim.g
 g.startify_custom_header = "startify#center(startify#fortune#cowsay())"
 
 -- Bookmark $MYVIMRC on startify for quick edit
-g.startify_bookmarks = { { v = "$MYVIMRC" }, { d = "~/env/dotfiles" } }
+g.startify_bookmarks = { { v = "$MYVIMRC" }, { d = "$CONFIG_DIR/dotfiles" } }
 
 g.startify_commands = {
     { ch = { "Check Health", ":checkhealth" } },

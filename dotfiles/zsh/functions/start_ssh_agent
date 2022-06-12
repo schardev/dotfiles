@@ -17,5 +17,3 @@ start_ssh_agent() {
 }
 
 start_ssh_agent "$@"
-
-# vim: ft=zsh
