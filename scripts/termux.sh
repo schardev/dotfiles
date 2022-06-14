@@ -18,11 +18,15 @@ termux_install_packages() {
         gh
         gnupg
         jq
+        lua-language-server
         ncurses-utils
         neovim
         nodejs
         openssh
         sheldon
+        shellcheck
+        shfmt
+        stylua
         zoxide
         zsh
     )
