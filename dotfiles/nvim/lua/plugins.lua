@@ -336,28 +336,6 @@ return require("packer").startup({
                 end,
             },
         })
-
-        use({
-            -- Language server (and VSCode extension runtime)
-            {
-                "neoclide/coc.nvim",
-                disable = true,
-                config = function()
-                    require("configs.coc")
-                end,
-                branch = "release",
-            },
-
-            -- Powerful linting/formatting tool (similar to null-ls)
-            {
-
-                "dense-analysis/ale",
-                disable = true,
-                config = function()
-                    require("configs.ale")
-                end,
-            },
-        })
     end,
     config = packer_config,
 })
