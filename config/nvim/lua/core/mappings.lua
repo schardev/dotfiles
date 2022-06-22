@@ -53,7 +53,7 @@ nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
 nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
     desc = "Source $MYVIMRC",
 })
-nnoremap("<Leader>ed", ":edit $CONFIG_DIR/dotfiles<CR>", {
+nnoremap("<Leader>ed", ":edit $CONFIG_DIR/config<CR>", {
     desc = "Edit dotfiles",
 })
 nnoremap("<Leader>se", utils.save_and_exec, {

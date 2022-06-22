@@ -6,7 +6,7 @@
 #
 
 CONFIG_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/..
-source "$CONFIG_DIR"/dotfiles/zsh/functions/_utils
+source "$CONFIG_DIR"/config/zsh/functions/_utils
 source "$CONFIG_DIR"/scripts/git-setup.sh
 
 # Install packages
@@ -56,10 +56,10 @@ termux_setup_dotfiles() {
 
     # Make zsh follow $XDA_CONFIG_DIR
     echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
-    mkdir "${HOME}"/{.config,.sheldon}
-    ln -sf "$CONFIG_DIR"/dotfiles/zsh "${HOME}"/.config/zsh
-    ln -sf "$CONFIG_DIR"/dotfiles/nvim "${HOME}"/.config/nvim
-    ln -sf "$CONFIG_DIR"/dotfiles/zsh/plugins.toml "${HOME}"/.sheldon
+    [[ ! -d ~/.config ]] && mkdir "${HOME}"/{.config,.sheldon}
+    ln -sf "$CONFIG_DIR"/config/zsh "${HOME}"/.config/zsh
+    ln -sf "$CONFIG_DIR"/config/nvim "${HOME}"/.config/nvim
+    ln -sf "$CONFIG_DIR"/config/zsh/plugins.toml "${HOME}"/.sheldon
 }
 
 termux_setup_env() {

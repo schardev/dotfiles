@@ -26,10 +26,10 @@ echo 'export ZDOTDIR=$HOME/.config/zsh' > ${HOME}/.zshenv
 
 # Either symlink the zsh directory to your $HOME/.config or copy the file
 # (I'll just symlink them here as I'd like it to be versioned controlled by git)
-ln -sf ~/env/dotfiles/zsh ~/.config/zsh
+ln -sf ~/env/config/zsh ~/.config/zsh
 
 # Create sheldon plugin file symlink
-mkdir ~/.config/sheldon && ln -sf ~/env/dotfiles/zsh/plugins.toml ~/.config/sheldon
+mkdir ~/.config/sheldon && ln -sf ~/env/config/zsh/plugins.toml ~/.config/sheldon
 
 # restart shell/terminal
 ```
@@ -61,7 +61,7 @@ mkdir ~/.config/sheldon && ln -sf ~/env/dotfiles/zsh/plugins.toml ~/.config/shel
 git clone https://github.com/saurabhchardereal/env ~/env
 
 # Either symlink the nvim directory to your $HOME/.config or copy the contents
-ln -sf ~/env/dotfiles/nvim ~/.config/nvim
+ln -sf ~/env/config/nvim ~/.config/nvim
 
 # Open nvim and it'll automatically start installing plugins
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'

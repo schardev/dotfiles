@@ -2,10 +2,10 @@ name: Lint lua files
 on:
   push:
     paths:
-      - "dotfiles/nvim/**"
+      - "config/nvim/**"
   pull_request:
     paths:
-      - "dotfiles/nvim/**"
+      - "config/nvim/**"
 
 jobs:
   stylua:
@@ -17,4 +17,4 @@ jobs:
         with:
           token: ${{ secrets.TOKEN }}
           # args passed to stylua
-          args: --check -f dotfiles/nvim/.stylua.toml .
+          args: --check -f config/nvim/.stylua.toml .

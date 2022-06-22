@@ -9,7 +9,7 @@ luasnip.config.setup({
 })
 
 require("luasnip.loaders.from_vscode").lazy_load({
-    paths = vim.env.CONFIG_DIR .. "/dotfiles/vscode/snippets",
+    paths = vim.env.CONFIG_DIR .. "/config/vscode/snippets",
 })
 
 luasnip.add_snippets("lua", {
