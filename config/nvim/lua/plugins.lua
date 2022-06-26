@@ -284,7 +284,6 @@ return require("packer").startup({
             "williamboman/nvim-lsp-installer",
             {
                 "neovim/nvim-lspconfig",
-                module = "lspconfig",
                 config = function()
                     require("configs.lsp")
                 end,
@@ -292,6 +291,7 @@ return require("packer").startup({
             { "folke/lua-dev.nvim", requires = "nvim-lspconfig" },
             {
                 "jose-elias-alvarez/null-ls.nvim",
+                after = "nvim-lspconfig",
                 config = function()
                     require("configs.null-ls")
                 end,
