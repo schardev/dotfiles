@@ -24,6 +24,7 @@ set.relativenumber = true               -- Shows line number relative to the cur
 set.scrolloff = 3                       -- Scroll offset
 set.shell = "bash"                      -- Set default shell to bash coz zsh isn't POSIX-compatible
 set.shiftwidth = 4                      -- Indents will have a width of 4
+set.splitright = true                   -- Splits windows to the right by default
 set.smartcase = true                    -- Override `ignorecase` where possible
 set.softtabstop = 4                     -- Sets the number of columns for a TAB
 set.synmaxcol = 190                     -- Don't even try to highlight stuff that's longer than 190 columns
