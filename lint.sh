@@ -6,10 +6,11 @@
 set -e
 
 # Lint bash files
-for i in $(fd -t x -E etc -E config); do
-    shellcheck -s bash -e SC1090,SC1091 "$i"
-    shfmt -d -ci -i 4 "$i"
-done
+find . -type f \( -executable -or -name "*.sh" \) -not -path "./.git/*" -print0 |
+    while IFS= read -r -d '' file; do
+        shellcheck -s bash -e SC1090,SC1091 "$file"
+        shfmt -d -ci -i 4 "$file"
+    done
 
 # Check lua files format
 stylua --check -f config/nvim/.stylua.toml .

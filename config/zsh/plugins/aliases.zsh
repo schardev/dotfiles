@@ -48,6 +48,7 @@ fi
 if [[ -z $IS_TERMUX ]]; then
     alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
     alias clean-cache='paccache -rvk2 && paccache -ruk0'
+    alias update-mirrorlist='reflector --sort rate -f 30 -n 30 -p https --download-timeout 3 -c India -c Singapore -c Sweden -c Bangladesh'
 fi
 
 # vim: fdm=marker

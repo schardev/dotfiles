@@ -45,19 +45,6 @@ apply = ["defer"]
 [plugins.zsh-vi-mode]
 github = 'jeffreytse/zsh-vi-mode'
 
-# Load utils functions (@see ./functions/_utils)
-[plugins.utils]
-inline = "_utils"
-
-# Source env.zsh first from local plugins
-[plugins.env]
-local = "~/.config/zsh/plugins"
-
-# Now source local plugins
-[plugins.local-plugins]
-local = "~/.config/zsh/plugins"
-use = ["*.zsh", "!env.zsh"] # do not source `env.zsh` again
-
 # Initialize completion stuff
 # This should be defined last to have completions work properly
 [plugins.compinit]

@@ -232,19 +232,20 @@ return require("packer").startup({
 
         -- Colorschemes
         use({
-            "numToStr/Sakura.nvim",
-            -- {
-            --     "folke/tokyonight.nvim",
-            --     config = function()
-            --         require("configs.colors.tokyonight")
-            --     end,
-            -- },
-            -- {
-            --     "navarasu/onedark.nvim",
-            --     config = function()
-            --         require("configs.colors.onedark")
-            --     end,
-            -- },
+            {
+                "folke/tokyonight.nvim",
+                disable = true,
+                config = function()
+                    require("configs.colors.tokyonight")
+                end,
+            },
+            {
+                "navarasu/onedark.nvim",
+                disable = true,
+                config = function()
+                    require("configs.colors.onedark")
+                end,
+            },
             {
                 "catppuccin/nvim",
                 as = "catppuccin",
@@ -260,7 +261,7 @@ return require("packer").startup({
         use({
             "norcalli/nvim-colorizer.lua",
             cmd = "ColorizerAttachToBuffer",
-            ft = { "css", "scss", "javascript" },
+            ft = { "css", "scss" },
             config = function()
                 require("configs.colorizer")
             end,
@@ -310,6 +311,7 @@ return require("packer").startup({
                     "nvim-autopairs",
                     {
                         "L3MON4D3/LuaSnip",
+                        module = "luasnip",
                         config = function()
                             require("configs.luasnip")
                         end,

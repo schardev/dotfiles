@@ -41,10 +41,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Setup all listed servers
 for _, lsp in pairs(servers) do
-    local configured, lsp_settings = pcall(
-        require,
-        "configs.lsp.servers." .. lsp
-    )
+    local configured, lsp_settings =
+        pcall(require, "configs.lsp.servers." .. lsp)
 
     if not configured then
         lsp_settings = {}

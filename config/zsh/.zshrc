@@ -11,6 +11,11 @@ for i in "$HOME"/.config/zsh/functions/*(:t); do
     autoload -Uz $i
 done
 
+# Source local plugins
+for plugin in "$HOME"/.config/zsh/plugins/*; do
+    source "$plugin"
+done
+
 # Initialize sheldon if installed
 # https://github.com/rossmacarthur/sheldon
 if command -v sheldon &>/dev/null; then

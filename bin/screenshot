@@ -1,0 +1,68 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2020-2022 Saurabh Charde <saurabhchardereal@gmail.com>
+#
+# Utility script for taking screenshots
+
+source "$CONFIG_DIR"/scripts/utils.sh
+
+time=$(date +%d-%m-%Y-%I-%M-%S)
+dir="$(xdg-user-dir PICTURES)/Screenshots"
+filename="Screenshot-${time}.png"
+options=(--hidecursor "--format=png")
+default_delay=5
+
+show_usage() {
+    cat <<EOF
+Usage: $(basename "${0}") [options]
+
+-h, --help          -- Show this help message
+-c, --current       -- Takes screenshot of current active window
+-d, --delay=N       -- Delays taking a screenshot by N seconds (defaults to ${default_delay}sec)
+-n, --now           -- Immediately takes screenshot of current display
+-s, --select        -- Takes screenshot of selected area
+-x, --clipboard     -- Copies the screenshot to clipboard instead of saving
+EOF
+}
+
+while ((${#})); do
+    case "${1}" in
+        --help | -h)
+            show_usage && exit
+            ;;
+        --current | -c)
+            options+=("--window=$(xdotool getactivewindow)")
+            shift
+            continue
+            ;;
+        --delay | -d)
+            if [[ -n "$2" ]]; then
+                options+=("--delay=$2")
+                shift
+            else
+                echo "reched"
+                options+=("--delay=${default_delay}")
+                echo "reched"
+            fi
+            shift
+            continue
+            ;;
+        --select | -s)
+            options+=(--select)
+            shift
+            continue
+            ;;
+        --clipboard | -x)
+            maim "${options[@]}" | xclip -selection clipboard -t image/png
+            exit # intentionally exit
+            ;;
+        *)
+            pr_err "Error processing option arguments"
+            show_usage
+            exit 1
+            ;;
+    esac
+done
+
+# Run command with passed options
+maim "${options[@]}" "$dir/$filename"

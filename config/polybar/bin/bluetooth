@@ -1,0 +1,16 @@
+#!/bin/bash
+powered=$(bluetoothctl show | awk '/Powered/ {print $2}')
+
+if [[ $powered == "yes" ]]; then
+    if bluetoothctl info >>/tmp/sbltlog; then
+        status=$(bluetoothctl info | awk '/Connected/ {print $2}')
+        device_name=$(bluetoothctl info | grep 'Name' | sed 's/\sName: \(.*\)/\1/')
+        if [[ "$status" == "yes" ]]; then
+            echo " ${device_name}"
+        fi
+    else
+        echo ""
+    fi
+else
+    echo ""
+fi

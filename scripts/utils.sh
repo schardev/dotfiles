@@ -1,3 +1,6 @@
+# Disable unused variables warnings
+# shellcheck disable=SC2034
+
 # Colors
 RST='\033[0m'
 RED='\033[0;31m'

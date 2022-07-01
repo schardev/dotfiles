@@ -1,7 +1,5 @@
-local configs_treesitter = vim.api.nvim_create_augroup(
-    "ConfigsTreesitter",
-    { clear = true }
-)
+local configs_treesitter =
+    vim.api.nvim_create_augroup("ConfigsTreesitter", { clear = true })
 local autocmd = vim.api.nvim_create_autocmd
 
 local enabled_parsers = {

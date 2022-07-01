@@ -46,9 +46,5 @@ for _, d in pairs(disabled_plugin) do
     vim.g["loaded_" .. d] = 1
 end
 
--- Opt-in for lua filetype detection
-vim.g.did_load_filetypes = 0
-vim.g.do_filetype_lua = 1
-
 -- Load modules
 require("core")
