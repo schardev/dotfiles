@@ -7,9 +7,10 @@
 configuration {
     modi: "run,drun,window";
     lines: 5;
-    font: "JetBrainsMono Nerd Font 14";
+    // font: "JetBrainsMono Nerd Font 14";
+    font: "SF Pro Rounded 14";
     show-icons: true;
-    // icon-theme: "Oranchelo";
+    icon-theme: "Papirus-Dark";
     terminal: "wezterm";
     drun-display-format: "{icon} {name}";
     location: 0;
@@ -98,7 +99,7 @@ button {
     padding: 10px;
     background-color: @bg-col-light;
     text-color: @grey;
-    vertical-align: 0.5; 
+    vertical-align: 0.5;
     horizontal-align: 0.5;
 }
 

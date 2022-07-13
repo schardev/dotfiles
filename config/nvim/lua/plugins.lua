@@ -72,11 +72,13 @@ return require("packer").startup({
         -- Lua fork of Nerdtree
         use({
             "kyazdani42/nvim-tree.lua",
-            cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
-            ft = "startify",
-            keys = { "<F1>", "<Leader><F1>" },
+            -- cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
+            -- ft = "startify",
+            -- keys = { "<F1>", "<Leader><F1>" },
             config = function()
-                require("configs.nvim-tree")
+                vim.defer_fn(function()
+                    require("configs.nvim-tree")
+                end, 0)
             end,
         })
 
@@ -125,6 +127,14 @@ return require("packer").startup({
         -- P.S: no vimrc is complete without some tpope goodness
         use({ "tpope/vim-surround", requires = "tpope/vim-repeat" })
 
+        -- Blazzingly fast movement in neovim
+        use({
+            "ggandor/leap.nvim",
+            config = function()
+                require("leap").set_default_keymaps()
+            end,
+        })
+
         ----------------------------------
         ---       LANGUAGE TOOLS       ---
         ----------------------------------
@@ -144,7 +154,10 @@ return require("packer").startup({
         })
 
         -- Emmet
-        use({ "mattn/emmet-vim", ft = { "html", "css", "scss", "javascript" } })
+        use({
+            "mattn/emmet-vim",
+            ft = { "html", "css", "scss", "javascript", "javascriptreact" },
+        })
 
         -- A plugin to ... umm ... comment stuff
         use({
@@ -168,7 +181,10 @@ return require("packer").startup({
             {
                 "nvim-treesitter/playground",
                 after = "nvim-treesitter",
-                cmd = "TSHighlightCapturesUnderCursor",
+                cmd = {
+                    "TSHighlightCapturesUnderCursor",
+                    "TSPlaygroundToggle",
+                },
             },
 
             -- Rainbow brackets
@@ -249,7 +265,7 @@ return require("packer").startup({
             {
                 "catppuccin/nvim",
                 as = "catppuccin",
-                commit = "f079dda",
+                -- commit = "f079dda",
                 config = function()
                     require("configs.colors.catppuccin")
                     vim.cmd("colorscheme catppuccin")
@@ -280,16 +296,29 @@ return require("packer").startup({
         ---       LSP / IDE STUFF       ---
         -----------------------------------
 
-        -- LSP Setup
         use({
-            "williamboman/nvim-lsp-installer",
+            -- LSP, DAP, Formatters, and Linters installer
+            {
+                "williamboman/mason.nvim",
+                "williamboman/mason-lspconfig.nvim",
+            },
+
+            -- LSP Setup
             {
                 "neovim/nvim-lspconfig",
                 config = function()
                     require("configs.lsp")
                 end,
             },
-            { "folke/lua-dev.nvim", requires = "nvim-lspconfig" },
+
+            -- Emmylua docs for vim.* completion
+            {
+                "folke/lua-dev.nvim",
+                module = "lua-dev",
+                requires = "nvim-lspconfig",
+            },
+
+            -- Generic lsp server
             {
                 "jose-elias-alvarez/null-ls.nvim",
                 after = "nvim-lspconfig",
@@ -334,7 +363,9 @@ return require("packer").startup({
             {
                 "windwp/nvim-autopairs",
                 config = function()
-                    require("nvim-autopairs").setup({})
+                    require("nvim-autopairs").setup({
+                        check_ts = true,
+                    })
                 end,
             },
         })

@@ -1,6 +1,8 @@
 -- nvim-cmp setup
+local autopairs = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local ts_utils = require("nvim-treesitter.ts_utils")
 
 -- Kind symbols
 local cmp_kind_icons = {
@@ -89,8 +91,8 @@ cmp.setup({
         end, { "i", "s" }),
     }),
     sources = {
-        { name = "nvim_lsp", max_item_count = 30 },
         { name = "luasnip" },
+        { name = "nvim_lsp", max_item_count = 30 },
         { name = "nvim_lsp_signature_help" },
         { name = "buffer", max_item_count = 10 },
         { name = "path" },
@@ -98,11 +100,24 @@ cmp.setup({
 })
 
 -- Autopairs for completion items
-cmp.event:on(
-    "confirm_done",
-    require("nvim-autopairs.completion.cmp").on_confirm_done()
-)
+-- @see https://github.com/NvChad/NvChad/pull/1095
+cmp.event:on("confirm_done", function(event)
+    local filetypes =
+        { "javascript", "typescript", "javascriptreact", "typescriptreact" }
+    local filetype = vim.bo.filetype
+    local node_type = ts_utils.get_node_at_cursor():type()
 
+    -- Do not complete autopairs in import statements
+    if vim.tbl_contains(filetypes, filetype) then
+        if node_type ~= "named_imports" then
+            autopairs.on_confirm_done()(event)
+        end
+    else
+        autopairs.on_confirm_done()(event)
+    end
+end)
+
+-- Make <CR> autoselect first completion item in html files
 cmp.setup.filetype("html", {
     mapping = cmp.mapping.preset.insert({
         ["<CR>"] = cmp.mapping.confirm({

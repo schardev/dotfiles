@@ -16,6 +16,7 @@ alias fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias quit='exit'
 alias vim='nvim'
+alias v='nvim'
 # }}}
 
 # Use modern replacements for common GNU programs
@@ -48,7 +49,10 @@ fi
 if [[ -z $IS_TERMUX ]]; then
     alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
     alias clean-cache='paccache -rvk2 && paccache -ruk0'
-    alias update-mirrorlist='reflector --sort rate -f 30 -n 30 -p https --download-timeout 3 -c India -c Singapore -c Sweden -c Bangladesh'
+    alias update-mirrorlist='reflector --sort rate -f 30 -p https --download-timeout 3 -c India -c Singapore -c Sweden -c Bangladesh'
+
+    # Repeat last command with sudo
+    alias fuck='sudo $(fc -ln -1)'
 fi
 
 # vim: fdm=marker

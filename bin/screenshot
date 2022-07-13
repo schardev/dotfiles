@@ -40,9 +40,7 @@ while ((${#})); do
                 options+=("--delay=$2")
                 shift
             else
-                echo "reched"
                 options+=("--delay=${default_delay}")
-                echo "reched"
             fi
             shift
             continue

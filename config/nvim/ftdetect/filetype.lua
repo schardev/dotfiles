@@ -4,7 +4,6 @@ vim.filetype.add({
         ["coc-settings.json"] = "jsonc",
         ["keybindings.json"] = "jsonc",
         ["tsconfig.json"] = "jsonc",
-        ["sxhkdrc"] = "sxhkd",
     },
     pattern = {
         ["*.cjsn"] = "jsonc",

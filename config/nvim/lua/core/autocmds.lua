@@ -52,6 +52,22 @@ autocmd({ "BufModifiedSet", "BufEnter" }, {
     desc = "Maps q to exit on non-filetypes",
 })
 
+autocmd("FileType", {
+    group = my_local_group,
+    pattern = "*",
+    callback = function()
+        if
+            vim.bo.filetype == "lspinfo"
+            or vim.bo.filetype == "null-ls-info"
+        then
+            -- Add border to `:LspInfo` and `:NullLsInfo` commands
+            -- https://github.com/neovim/nvim-lspconfig/issues/1717
+            vim.api.nvim_win_set_config(0, { border = "rounded" })
+        end
+    end,
+    desc = "Set borders to few floating windows",
+})
+
 autocmd("TextYankPost", {
     group = my_local_group,
     pattern = "*",

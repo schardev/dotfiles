@@ -9,6 +9,7 @@ events.setup()
 return {
     -- automatically_reload_config = false,
     font = wezterm.font("Hack Nerd Font Mono"),
+    font_size = 13.5,
 
     -- Debug keycodes/names (open wezterm using another terminal)
     -- debug_key_events = true,

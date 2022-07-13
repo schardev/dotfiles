@@ -1,5 +1,5 @@
 require("core.options")
 require("core.mappings")
-require("core.autocommands")
+require("core.autocmds")
 require("core.commands")
 require("core.highlights")

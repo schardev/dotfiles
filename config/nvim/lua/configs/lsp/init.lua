@@ -19,15 +19,20 @@ local servers = {
     "yamlls",
 }
 
-require("nvim-lsp-installer").setup({
-    ensure_installed = servers,
+-- Mason config
+require("mason").setup({
     ui = {
+        border = "rounded",
         icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗",
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
         },
     },
+})
+
+require("mason-lspconfig").setup({
+    ensure_installed = servers,
 })
 
 -- Setup handlers and diagnostics config

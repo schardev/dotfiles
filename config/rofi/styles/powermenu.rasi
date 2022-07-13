@@ -1,126 +1,120 @@
-/*
- *
- * Author  : Aditya Shakya
- * Mail    : adi1090x@gmail.com
- * Github  : @adi1090x
- * Twitter : @adi1090x
- *
- */
+// Original author: Aditya Shakya (https://github.com/adi1090x/rofi)
+// I modified it a bit to my liking
 
 @import "../themes/catppuccin.rasi"
 
 configuration {
-	font:							"JetBrainsMono Nerd Font 14";
-    show-icons:                     false;
-	icon-theme: 					"Papirus";
-    drun-display-format:            "{name}";
-    disable-history:                false;
-	sidebar-mode: 					false;
+  font: "JetBrainsMono Nerd Font 14";
+  show-icons: false;
+  icon-theme: "Papirus";
+  drun-display-format: "{name}";
+  disable-history: false;
+  sidebar-mode: false;
 }
 
 window {
-    transparency:                   "real";
-    background-color:               rgba(0,0,0,0);
-    text-color:                     @fg-col;
-    border-radius:                  0px;
-    fullscreen: true;
-    location:                       center;
+  transparency: "real";
+  background-color: rgba(0,0,0,0);
+  text-color: @fg-col;
+  border-radius: 0px;
+  fullscreen: true;
+  location: center;
 }
 
 prompt {
-    enabled: 						true;
-    padding:                        1% 1% 1% 0%;
-    background-color:               rgba(0,0,0,0);
-	// background-color: 				@bg-col;
-	text-color: 					@fg-col;
+  enabled: true;
+  padding: 1% 1% 1% 0%;
+  background-color: rgba(0,0,0,0);
+  // background-color: @bg-col;
+  text-color: @fg-col;
 }
 
 textbox-prompt-colon {
-	expand: 						false;
-	str: 							"System |";
-    background-color:               rgba(0,0,0,0);
-	// background-color: 				@bg-col;
-	text-color: 					@fg-col;
-    padding:                        1% 0.5% 1% 0.5%;
+  expand: false;
+  str: "System |";
+  background-color: rgba(0,0,0,0);
+  // background-color: @bg-col;
+  text-color: @fg-col;
+  padding: 1% 0.5% 1% 0.5%;
 }
 
 // Uptime
 inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
-    background-color:               @bg-col;
-    text-color:                     @fg-col;
-    expand:                         false;
-    border:                  		2px;
-    border-radius:                  100%;
-    border-color:                  	@fg-col2;
-    margin:                         0% 59.3% 0% 0%;
-    padding:                        0.5%;
-    position:                       center;
+  children: [ textbox-prompt-colon, prompt ];
+  background-color: @bg-col;
+  text-color: @fg-col;
+  expand: false;
+  border: 2px;
+  border-radius: 100%;
+  border-color: @blue;
+  margin: 0% 59.3% 0% 0%;
+  padding: 0.5%;
+  position: center;
 }
 
 listview {
-    background-color:               rgba(0,0,0,0);
-    // background-color:               @bg-col;
-    // margin:                         0% 0% 0% 0%;
-    spacing:                        3%;
-    cycle:                          true;
-    dynamic:                        true;
-    layout:                         horizontal;
+  background-color: rgba(0,0,0,0);
+  // background-color: @bg-col;
+  // margin: 0% 0% 0% 0%;
+  spacing: 3%;
+  cycle: true;
+  dynamic: true;
+  layout: horizontal;
 }
 
 mainbox {
-    background-color:               rgba(0,0,0,0);
-    // background-color:               @bg-col;
-    children:                       [ inputbar, listview ];
-    spacing:                        5%;
-    margin:                        30% 0% 0% 20%;
+  background-color: rgba(0,0,0,0);
+  // background-color: @bg-col;
+  children: [ inputbar, listview ];
+  spacing: 5%;
+  margin: 30% 0% 0% 20%;
 }
 
 element {
-    // background-color:               rgba(0,0,0,0);
-    background-color:               @bg-col;
-    text-color:                     @fg-col;
-    orientation:                    horizontal;
-    border-radius:                  100%;
+  // background-color: rgba(0,0,0,0);
+  background-color: @bg-col;
+  text-color: @fg-col;
+  orientation: horizontal;
+  border-radius: 100%;
 }
 
 element-text {
-    background-color: 				#00000000;
-    text-color:       				inherit;
-	font:							"feather 64";
-    // expand:                         true;
-    // horizontal-align:               0.5;
-    // vertical-align:                 0.5;
-    padding:                         3%;
+  background-color: #00000000;
+  text-color: inherit;
+  font: "feather 64";
+  // expand: true;
+  // horizontal-align: 0.5;
+  // vertical-align: 0.5;
+  padding: 3%;
 }
 
 element normal.urgent,
 element alternate.urgent {
-    background-color:               @fg-col2;
-    text-color:                     @fg-col;
-    border-radius:                  0.2%;
+  background-color: @fg-col2;
+  text-color: @fg-col;
+  border-radius: 0.2%;
 }
 
 element normal.active,
 element alternate.active {
-    background-color:               @bg-col;
-    text-color:                     @fg-col;
+  background-color: @bg-col;
+  text-color: @fg-col;
 }
 
 element selected {
-    background-color:               @blue;
-    text-color:                     @bg-col;
-    // border:                  		2px;
-    // border-radius:                  100%;
-    // border-color:                  	@blue;
+    background-color: @blue;
+    text-color: @bg-col;
+    // border: 2px;
+    // border-radius: 100%;
+    // border-color: @blue;
 }
 
 element selected.urgent {
-    background-color:               @fg-col2;
-    text-color:                     @fg-col;
+    background-color: @fg-col2;
+    text-color: @fg-col;
 }
 
 element selected.active {
-    background-color:               @bg-col;
-    color:                          @fg-col;
+    background-color: @bg-col;
+    color: @fg-col;
 }

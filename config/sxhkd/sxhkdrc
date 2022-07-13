@@ -4,8 +4,8 @@
 super + Return
     wezterm
 
-super + space
-    rofi -show run
+super + {_, shift +} space
+    rofi -show {drun,run}
 
 super + a ; {f,t,c,o}
     {firefox,telegram-desktop,google-chrome-stable,obs}

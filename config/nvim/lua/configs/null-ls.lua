@@ -1,6 +1,7 @@
 local null_ls = require("null-ls")
 local on_attach = require("configs.lsp.events").on_attach
-local utils = require("configs.lsp.utils")
+local utils = require("null-ls.utils")
+local helpers = require("null-ls.helpers")
 
 local actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
@@ -8,6 +9,7 @@ local formatting = null_ls.builtins.formatting
 
 -- Filetypes to trim whitespace and newlines
 local trim_filetypes = {
+    "dosini",
     "text",
     "toml",
     "vim",
@@ -15,18 +17,25 @@ local trim_filetypes = {
 }
 
 -- Enable specific formatters only if the root has config file
-local eslint_runtime_condition = utils.check_runtime_condition({
-    ".eslintrc.cjs",
-    ".eslintrc.js",
-    ".eslintrc.json",
-    ".eslintrc.yaml",
-    ".eslintrc.yml",
-})
+local eslint_runtime_condition = helpers.cache.by_bufnr(function(params)
+    local config_path = utils.root_pattern(
+        -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
+        ".eslintrc",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintrc.yaml",
+        ".eslintrc.yml",
+        ".eslintrc.json"
+        -- "package.json"
+    )(params.bufname)
+    return config_path ~= nil
+end)
 
-local stylua_runtime_condition = utils.check_runtime_condition({
-    ".stylua.toml",
-    "stylua.toml",
-})
+local stylua_runtime_condition = helpers.cache.by_bufnr(function(params)
+    local config_path =
+        utils.root_pattern(".stylua.toml", "stylua.toml")(params.bufname)
+    return config_path ~= nil
+end)
 
 local sources = {
     --------------------------------
@@ -42,6 +51,7 @@ local sources = {
     actions.eslint_d.with({
         runtime_condition = eslint_runtime_condition,
     }),
+
     actions.shellcheck,
 
     --------------------------------
@@ -61,6 +71,7 @@ local sources = {
     }),
 
     diagnostics.eslint_d.with({
+        method = null_ls.methods.DIAGNOSTICS_ON_SAVE, -- run eslint on save
         runtime_condition = eslint_runtime_condition,
     }),
 
@@ -69,7 +80,9 @@ local sources = {
     ------------------------------
 
     formatting.prettierd,
-    formatting.eslint_d,
+    formatting.eslint_d.with({
+        runtime_condition = eslint_runtime_condition,
+    }),
 
     formatting.stylua.with({
         -- cwd = function(params)

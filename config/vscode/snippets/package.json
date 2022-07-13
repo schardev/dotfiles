@@ -2,8 +2,17 @@
   "contributes": {
     "snippets": [
       {
-        "language": "javascript",
+        "language": [
+          "javascript",
+          "typescript",
+          "javascriptreact",
+          "typescriptreact"
+        ],
         "path": "./javascript.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./jest.json"
       },
       {
         "language": "markdown",

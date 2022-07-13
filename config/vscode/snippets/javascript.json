@@ -119,7 +119,7 @@
   },
   "Import external module.": {
     "prefix": "import statement",
-    "body": ["import { $0 } from \"${1:module}\";"],
+    "body": ["import { $2 } from \"${1:module}\";$0"],
     "description": "Import external module."
   },
   "Log to the console": {
@@ -129,7 +129,7 @@
   },
   "Log warning to console": {
     "prefix": "cw",
-    "body": ["console.warn($$TM_SELECTED_TEXT$1);$0"],
+    "body": ["console.warn($TM_SELECTED_TEXT$1);$0"],
     "description": "Log warning to the console"
   },
   "Log error to console": {

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+window_id=$1
+window_class=$2
+window_instance=$3
+window_options=$4
+window_title="$(xwininfo -id "$window_id" | sed '/^xwininfo/!d ; s,.*"\(.*\)".*,\1,')"
+window_type="$(xprop -id "$window_id" _NET_WM_WINDOW_TYPE | sed '/^_NET_WM_WINDOW_TYPE/!d ; s/^.* = \(.*\),.*/\1/')"
+debug=false
+
+case "$window_class" in
+    # Declare all window classes that'll be set to floating
+    Nm-* | *calculator* | Pavucontrol)
+        eval "$window_options"
+        echo "state=${state:-floating}" # explicitly set state=floating if `$state` isn't defined already
+        ;;
+    MEGAsync)
+        echo "state=floating border=off"
+        ;;
+esac
+
+# Loggings
+if "$debug"; then
+    logfile=/tmp/bspwm_external_rules.log
+    cat <<EOF >>"$logfile"
+Id: $window_id
+Class: $window_class
+Instance: $window_instance
+Title: $window_title
+Type: $window_type
+window_options: $window_options
+---
+EOF
+fi
