@@ -222,9 +222,9 @@ return require("packer").startup({
 
         -- Cool start menu
         use({
-            "mhinz/vim-startify",
+            "goolord/alpha-nvim",
             config = function()
-                require("configs.startify")
+                require("configs.alpha")
             end,
         })
 
