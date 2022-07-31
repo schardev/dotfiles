@@ -3,10 +3,11 @@ local map = utils.map
 local nnoremap = utils.nnoremap
 local tnoremap = utils.tnoremap
 local vnoremap = utils.vnoremap
+local no_silent = { silent = false }
 
 -- No need to keep holding shift
-nnoremap(";", ":", { silent = false })
-vnoremap(";", ":", { silent = false })
+nnoremap(";", ":", no_silent)
+vnoremap(";", ":", no_silent)
 
 -- Map H and L to start and end of the line respectively (makes more sence that way)
 nnoremap("H", "0")
@@ -50,6 +51,7 @@ vnoremap(">", ">gv")
 nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
     desc = "Edit $MYVIMRC",
 })
+-- TODO: Make it hard reload init.lua
 nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
     desc = "Source $MYVIMRC",
 })
@@ -74,9 +76,28 @@ nnoremap("<Leader>th", function()
     else
         vim.g.tab_highlight = 1
         vim.cmd("highlight Tabs guibg=yellow")
-        -- https://github.com/neovim/neovim/issues/18160
+        -- FIXME: https://github.com/neovim/neovim/issues/18160
         -- require("core.utils").highlight("Tabs", { bg = "yellow" })
     end
 end, {
     desc = "Toggle tab highlighting",
 })
+
+-- Quick find and replace (stolen from @akinsho)
+---@see https://github.com/akinsho/dotfiles/blob/main/.config/nvim/
+vnoremap(
+    "<Leader>rr",
+    [[<esc>:'<,'>s/]],
+    { desc = "Within visually selected area", silent = false }
+)
+nnoremap("<Leader>rr", [[:%s/]], { desc = "Replace text", silent = false })
+vnoremap(
+    "<Leader>rw",
+    [["zy:%s/<C-r><C-o>"/]],
+    { desc = "Visually selected text", silent = false }
+)
+nnoremap(
+    "<Leader>rw",
+    [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
+    { desc = "Replace word under cursor", silent = true }
+)

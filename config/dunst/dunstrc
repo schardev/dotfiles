@@ -453,8 +453,7 @@
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
 
-
-# Colora
+# Catppuccin colorscheme
 [global]
 frame_color = "#89B4FA"
 separator_color= frame

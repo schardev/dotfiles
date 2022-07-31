@@ -17,6 +17,7 @@ alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias quit='exit'
 alias vim='nvim'
 alias v='nvim'
+alias fv='vim $(fzf)'
 # }}}
 
 # Use modern replacements for common GNU programs
@@ -37,7 +38,7 @@ fi
 if has zoxide; then
     eval "$(zoxide init zsh --cmd cd)"
 else
-    pr_warn "zoxide is not installed. Using built-in `cd`."
+    echo "zoxide is not installed. Using built-in 'cd'."
 fi
 
 if has bat; then

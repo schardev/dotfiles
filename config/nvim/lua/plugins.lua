@@ -242,7 +242,9 @@ return require("packer").startup({
             "lewis6991/gitsigns.nvim",
             config = function()
                 -- Don't try too hard to load gitsigns immediately
-                vim.defer_fn(require("gitsigns").setup, 0)
+                vim.defer_fn(function()
+                    require("configs.gitsigns")
+                end, 0)
             end,
         })
 

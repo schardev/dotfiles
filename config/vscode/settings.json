@@ -3,7 +3,7 @@
   //  THEMING
   //=========================================================================
   "oneDarkPro.editorTheme": "One Dark Pro Darker",
-  "workbench.colorTheme": "One Dark Pro Darker",
+  "workbench.colorTheme": "Catppuccin",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorCustomizations": {
     "[One Dark Pro Darker]": {

@@ -13,5 +13,15 @@ nnoremap("<Leader>st", builtin.help_tags, { desc = "Helptags" })
 nnoremap("<Leader>ss", builtin.builtin, { desc = "Telescope Builtins" })
 nnoremap("<Leader>sr", builtin.oldfiles, { desc = "Oldfiles" })
 
+-- Telescope base config
+require("telescope").setup({
+    defaults = {
+        file_ignore_patterns = {
+            ".*/doc/.*.txt", -- ignores all doc files from pickers
+            ".*/COMMIT_EDITMSG", -- ignore git commit msgs
+        },
+    },
+})
+
 -- Load native fzf sorter
 require("telescope").load_extension("fzf")

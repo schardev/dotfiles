@@ -11,6 +11,7 @@ require("catppuccin").setup({
     -- use lighter color for comments so that I can actually *see* them
     custom_highlights = {
         Comment = { fg = colors.overlay1 },
+        VertSplit = { fg = colors.overlay1 },
     },
     styles = {
         comments = { "italic" },

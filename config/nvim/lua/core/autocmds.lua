@@ -54,16 +54,11 @@ autocmd({ "BufModifiedSet", "BufEnter" }, {
 
 autocmd("FileType", {
     group = my_local_group,
-    pattern = "*",
+    pattern = { "lspinfo", "null-ls-info" },
     callback = function()
-        if
-            vim.bo.filetype == "lspinfo"
-            or vim.bo.filetype == "null-ls-info"
-        then
-            -- Add border to `:LspInfo` and `:NullLsInfo` commands
-            -- https://github.com/neovim/nvim-lspconfig/issues/1717
-            vim.api.nvim_win_set_config(0, { border = "rounded" })
-        end
+        -- Add border to `:LspInfo` and `:NullLsInfo` commands
+        -- https://github.com/neovim/nvim-lspconfig/issues/1717
+        vim.api.nvim_win_set_config(0, { border = "rounded" })
     end,
     desc = "Set borders to few floating windows",
 })

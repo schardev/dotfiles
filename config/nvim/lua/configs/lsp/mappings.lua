@@ -54,11 +54,14 @@ M.attach = function(client, bufnr)
         { buffer = bufnr, desc = "Go to implementation" }
     )
     nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
-    nnoremap(
-        "<LocalLeader>D",
-        vim.lsp.buf.type_definition,
-        { buffer = bufnr, desc = "Go to type definition" }
-    )
+
+    if client.supports_method("textDocument/hover") then
+        nnoremap(
+            "<LocalLeader>D",
+            vim.lsp.buf.type_definition,
+            { buffer = bufnr, desc = "Go to type definition" }
+        )
+    end
 
     nnoremap(
         "<LocalLeader>rn",

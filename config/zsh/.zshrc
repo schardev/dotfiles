@@ -18,7 +18,7 @@ done
 
 # Initialize sheldon if installed
 # https://github.com/rossmacarthur/sheldon
-if command -v sheldon &>/dev/null; then
+if (( $+commands[sheldon] )); then
     eval "$(sheldon source)"
 else
     echo "sheldon is not installed!" >&2

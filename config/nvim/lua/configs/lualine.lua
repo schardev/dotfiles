@@ -16,6 +16,10 @@ local conditions = {
     end,
 }
 
+local format_status = function()
+    return vim.b.format_on_save and "" or ""
+end
+
 require("lualine").setup({
     options = {
         component_separators = "",
@@ -74,7 +78,7 @@ require("lualine").setup({
             },
             "filetype",
         },
-        lualine_y = {},
+        lualine_y = { format_status },
         lualine_z = {
             {
                 "location",

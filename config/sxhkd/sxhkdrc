@@ -27,8 +27,9 @@ XF86AudioMute
 # Super + Print -> Takes screenshot of full window
 # Alt + Print -> Starts a selection
 # Ctrl + Print -> Takes screenshot of current active window
-{_,super + ,alt + ,ctrl +}Print
-    ~/dotfiles/bin/screenshot {-x,_,-s,-c}
+# Ctrl + Shift + Print -> Takes screenshot after delay (@see bin/screnshot)
+{_,super + ,alt + ,ctrl +, ctrl + shift + }Print
+    ~/dotfiles/bin/screenshot {-x,_,-s,-c,-d}
 
 alt + F4
     ~/dotfiles/config/polybar/bin/powermenu
@@ -65,7 +66,7 @@ super + Escape
 
 # set the window state
 super + {t,shift + t,s,f}
-    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+    bspc node -t {tiled,pseudo_tiled,\~floating,\~fullscreen}
 
 # set the node flags
 super + ctrl + {m,x,y,z}

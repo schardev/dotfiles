@@ -46,5 +46,5 @@ for _, d in pairs(disabled_plugin) do
     vim.g["loaded_" .. d] = 1
 end
 
--- Load modules
+--- Load modules
 require("core")

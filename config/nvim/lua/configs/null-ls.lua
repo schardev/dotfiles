@@ -42,12 +42,6 @@ local sources = {
     ---       CODE ACTIONS       ---
     --------------------------------
 
-    actions.gitsigns.with({
-        condition = function(util)
-            return util.root_has_file({ ".git" })
-        end,
-    }),
-
     actions.eslint_d.with({
         runtime_condition = eslint_runtime_condition,
     }),
@@ -55,7 +49,7 @@ local sources = {
     actions.shellcheck,
 
     --------------------------------
-    ---       DIAGNOSTICS       ---
+    ---       DIAGNOSTICS        ---
     --------------------------------
 
     diagnostics.shellcheck.with({

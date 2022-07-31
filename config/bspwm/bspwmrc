@@ -15,7 +15,7 @@ bspc monitor -d 1 2 3 4 5
 
 ## BSPWM config
 config border_width 1
-config window_gap 10
+config window_gap 7
 config split_ratio 0.52
 config borderless_monocle true
 config gapless_monocle true

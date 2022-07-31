@@ -101,14 +101,15 @@ cmp.setup({
 
 -- Autopairs for completion items
 -- @see https://github.com/NvChad/NvChad/pull/1095
+local filetypes =
+    { "javascript", "typescript", "javascriptreact", "typescriptreact" }
+
 cmp.event:on("confirm_done", function(event)
-    local filetypes =
-        { "javascript", "typescript", "javascriptreact", "typescriptreact" }
     local filetype = vim.bo.filetype
-    local node_type = ts_utils.get_node_at_cursor():type()
 
     -- Do not complete autopairs in import statements
     if vim.tbl_contains(filetypes, filetype) then
+        local node_type = ts_utils.get_node_at_cursor():type()
         if node_type ~= "named_imports" then
             autopairs.on_confirm_done()(event)
         end
