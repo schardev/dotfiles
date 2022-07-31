@@ -9,8 +9,35 @@ source "$CONFIG_DIR"/scripts/utils.sh
 time=$(date +%d-%m-%Y-%I-%M-%S)
 dir="$(xdg-user-dir PICTURES)/Screenshots"
 filename="Screenshot-${time}.png"
-options=(--hidecursor "--format=png")
-default_delay=5
+
+# Default options
+maim_options=(--hidecursor "--format=png" --quiet)
+dunst_options=("--urgency=normal" "--timeout=4000" "--replace=69")
+reason="Screenshot Saved "
+delay=5
+
+# Notifies user when screenshot is taken successfully
+notify() {
+    if command -v dunstify >/dev/null; then
+        if [[ ! -f "$dir/$filename" ]]; then
+            dunst_options+=("--icon=camera")
+        else
+            dunst_options+=("--icon=$dir/$filename")
+        fi
+
+        dunstify "${dunst_options[@]}" "$reason"
+    fi
+}
+
+# Countdown timer for delayed screenshots
+timer() {
+    if command -v dunstify >/dev/null; then
+        for sec in $(seq $delay -1 1); do
+            dunstify --timeout 1000 --replace=69 --icon=alarm-timer "Taking screenshot in: $sec"
+            sleep 1
+        done
+    fi
+}
 
 show_usage() {
     cat <<EOF
@@ -18,7 +45,7 @@ Usage: $(basename "${0}") [options]
 
 -h, --help          -- Show this help message
 -c, --current       -- Takes screenshot of current active window
--d, --delay=N       -- Delays taking a screenshot by N seconds (defaults to ${default_delay}sec)
+-d, --delay=N       -- Delays taking a screenshot by N seconds (defaults to ${delay}sec)
 -n, --now           -- Immediately takes screenshot of current display
 -s, --select        -- Takes screenshot of selected area
 -x, --clipboard     -- Copies the screenshot to clipboard instead of saving
@@ -31,27 +58,35 @@ while ((${#})); do
             show_usage && exit
             ;;
         --current | -c)
-            options+=("--window=$(xdotool getactivewindow)")
+            maim_options+=("--window=$(xdotool getactivewindow)")
+            reason+=": Current Window"
             shift
             continue
             ;;
         --delay | -d)
             if [[ -n "$2" ]]; then
-                options+=("--delay=$2")
+                maim_options+=("--delay=$2")
                 shift
             else
-                options+=("--delay=${default_delay}")
+                maim_options+=("--delay=${delay}")
             fi
+
+            # run timer asynchronously so that we can match up with maim's own timer
+            timer &
+
             shift
             continue
             ;;
         --select | -s)
-            options+=(--select)
+            maim_options+=(--select)
+            reason+=": Selected Area"
             shift
             continue
             ;;
         --clipboard | -x)
-            maim "${options[@]}" | xclip -selection clipboard -t image/png
+            maim "${maim_options[@]}" | xclip -selection clipboard -t image/png
+            reason+=": To Clipboard"
+            notify
             exit # intentionally exit
             ;;
         *)
@@ -63,4 +98,4 @@ while ((${#})); do
 done
 
 # Run command with passed options
-maim "${options[@]}" "$dir/$filename"
+maim "${maim_options[@]}" "$dir/$filename" && notify
