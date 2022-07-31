@@ -73,7 +73,6 @@ return require("packer").startup({
         use({
             "kyazdani42/nvim-tree.lua",
             -- cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
-            -- ft = "startify",
             -- keys = { "<F1>", "<Leader><F1>" },
             config = function()
                 vim.defer_fn(function()
@@ -84,12 +83,21 @@ return require("packer").startup({
 
         -- Fuzzy finder and more
         use({
-            "nvim-telescope/telescope.nvim",
-            cmd = "Telescope",
-            cond = function()
-                return not vim.env.IS_TERMUX
-            end,
-            requires = "nvim-lua/plenary.nvim",
+            {
+                "nvim-telescope/telescope.nvim",
+                event = "BufEnter",
+                config = function()
+                    require("configs.telescope")
+                end,
+                requires = {
+                    "nvim-lua/plenary.nvim",
+                    "telescope-fzf-native.nvim",
+                },
+            },
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                run = "make",
+            },
         })
 
         -- The undo history visualizer
@@ -201,6 +209,7 @@ return require("packer").startup({
                 "javascript",
                 "javascriptreact",
                 "lua",
+                "sh",
                 "typescript",
                 "typescriptreact",
             },

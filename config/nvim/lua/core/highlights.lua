@@ -7,6 +7,7 @@ local ignore_filetypes = {
     "gitcommit",
     "kconfig",
     "make",
+    "TelescopePrompt",
 }
 
 autocmd({ "ColorScheme", "FileType" }, {
