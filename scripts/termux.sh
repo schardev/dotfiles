@@ -42,7 +42,7 @@ termux_install_packages() {
 termux_setup_theme() {
     # use Dracula color scheme & Hack font by default
     pr_info "Setting up theme ..."
-    cp "$CONFIG_DIR"/etc/Dracula-termux.properties "$HOME"/.termux/colors.properties
+    curl -o "$HOME"/.termux/colors.properties https://raw.githubusercontent.com/catppuccin/termux/main/Mocha/colors.properties
     cp "$CONFIG_DIR"/etc/Hack.ttf "$HOME"/.termux/font.ttf
 }
 

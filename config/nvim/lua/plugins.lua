@@ -164,7 +164,14 @@ return require("packer").startup({
         -- Emmet
         use({
             "mattn/emmet-vim",
-            ft = { "html", "css", "scss", "javascript", "javascriptreact" },
+            ft = {
+                "html",
+                "css",
+                "scss",
+                "javascript",
+                "javascriptreact",
+                "markdown",
+            },
         })
 
         -- A plugin to ... umm ... comment stuff
