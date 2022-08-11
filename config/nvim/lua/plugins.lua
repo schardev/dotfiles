@@ -87,7 +87,9 @@ return require("packer").startup({
                 "nvim-telescope/telescope.nvim",
                 event = "BufEnter",
                 config = function()
-                    require("configs.telescope")
+                    vim.defer_fn(function()
+                        require("configs.telescope")
+                    end, 0)
                 end,
                 requires = {
                     "nvim-lua/plenary.nvim",
