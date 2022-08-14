@@ -7,7 +7,10 @@ require("bufferline").setup({
     highlights = {
         -- Color of current selected buffer
         close_button_selected = {
-            guifg = "red",
+            fg = {
+                attribute = "fg",
+                highlight = "Error",
+            },
         },
     },
 })
