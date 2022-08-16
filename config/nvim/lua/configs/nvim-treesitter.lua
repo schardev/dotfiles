@@ -47,21 +47,55 @@ require("nvim-treesitter.configs").setup({
         additional_vim_regex_highlighting = false,
     },
 
+    -- textobjects
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@conditional.outer",
+                ["ic"] = "@conditional.inner",
+                -- ["ac"] = "@class.outer",
+                -- ["ic"] = "@class.inner",
+            },
+
+            -- choose the select mode (default is charwise 'v')
+            selection_modes = {
+                ["@function.inner"] = "V", -- linewise
+                ["@function.outer"] = "V",
+            },
+        },
+
+        swap = {
+            enable = true,
+            swap_next = {
+                ["[w"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["]w"] = "@parameter.inner",
+            },
+        },
+
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]]"] = "@class.outer",
+            },
+            goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[["] = "@class.outer",
+            },
+        },
+    },
+
     playground = {
         enable = true,
         updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        -- keybindings = {
-        --   toggle_query_editor = 'o',
-        --   toggle_hl_groups = 'i',
-        --   toggle_injected_languages = 't',
-        --   toggle_anonymous_nodes = 'a',
-        --   toggle_language_display = 'I',
-        --   focus_language = 'f',
-        --   unfocus_language = 'F',
-        --   update = 'R',
-        --   goto_node = '<cr>',
-        --   show_help = '?',
-        -- },
     },
 
     indent = {

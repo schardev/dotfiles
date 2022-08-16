@@ -194,6 +194,12 @@ return require("packer").startup({
                 end,
             },
 
+            -- treesitter powered textobjects
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                after = "nvim-treesitter",
+            },
+
             -- treesitter querying
             {
                 "nvim-treesitter/playground",
