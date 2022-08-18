@@ -117,16 +117,6 @@ return require("packer").startup({
             end,
         })
 
-        -- Highlights todo comments
-        use({
-            "folke/todo-comments.nvim",
-            cmd = "TodoTrouble",
-            requires = "nvim-lua/plenary.nvim",
-            config = function()
-                require("todo-comments").setup({})
-            end,
-        })
-
         -- Awesome git wrapper
         use({
             "tpope/vim-fugitive",
@@ -148,9 +138,6 @@ return require("packer").startup({
         ----------------------------------
         ---       LANGUAGE TOOLS       ---
         ----------------------------------
-
-        -- Text alignment
-        use({ "godlygeek/tabular", ft = { "markdown" } })
 
         --  Markdown preview
         use({
@@ -291,7 +278,6 @@ return require("packer").startup({
             {
                 "catppuccin/nvim",
                 as = "catppuccin",
-                -- commit = "f079dda",
                 config = function()
                     require("configs.colors.catppuccin")
                     vim.cmd("colorscheme catppuccin")
