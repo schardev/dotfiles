@@ -135,20 +135,21 @@
   //=========================================================================
   "editor.codeLensFontSize": 20,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "Hack Nerd Font Mono",
   "editor.fontSize": 15,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.minimap.enabled": false,
   "editor.renderWhitespace": "none",
+  "editor.rulers": [80],
   "editor.smoothScrolling": true,
   "editor.wordWrap": "off",
   "explorer.confirmDelete": true,
+  "keyboard.dispatch": "keyCode",
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off",
-  "workbench.startupEditor": "none",
-  "keyboard.dispatch": "keyCode",
-  "editor.rulers": [80],
-  "window.zoomLevel": 1
+  "window.zoomLevel": 1,
+  "workbench.startupEditor": "none"
 
   // vim: ft=jsonc
 }
