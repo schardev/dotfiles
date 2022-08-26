@@ -20,7 +20,7 @@ export XDG_CONFIG_DIRS=/etc/xdg
 export CONFIG_DIR="$HOME/dotfiles" # Export location of dotfiles' directory
 export EDITOR=nvim # Set global editor to neovim
 export GPG_TTY=$TTY # Export GPG_TTY using $TTY (works even when stdin is redirected)
-unset HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND # Disable highlighting for matched strings
+export VISUAL=nvim
 
 # PATH
 path+=(

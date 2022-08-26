@@ -8,8 +8,3 @@ bindkey '^[[1;5C' forward-word # Ctrl + Right arrow
 if [ -z "$IS_TERMUX" ]; then
     setxkbmap -option "caps:escape" # Use caps lock as escape key
 fi
-
-# Setup fzf keybindings if installed
-if (( $+commands[fzf] )); then
-    source "${PREFIX:-/usr}"/share/fzf/key-bindings.zsh
-fi
