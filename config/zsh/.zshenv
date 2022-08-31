@@ -1,6 +1,10 @@
 # Use XDG base directory structure
 export ZDOTDIR=$HOME/.config/zsh
 
+# Set lang
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # Shout out loud if running on termux
 if [[ $PREFIX =~ com.termux ]]; then
     export IS_TERMUX=true
