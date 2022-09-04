@@ -7,16 +7,17 @@ local diagnostics = require("configs.lsp.diagnostics")
 local on_attach = require("configs.lsp.events").on_attach
 
 -- List of servers to install and setup automatically
+local NIL = {} -- to avoid creating a new unique table everytime
 local servers = {
-    "cssls",
-    "cssmodules_ls",
-    "dockerls",
-    "emmet_ls",
-    "html",
-    "jsonls",
-    "sumneko_lua",
-    "tsserver",
-    "yamlls",
+    cssls = NIL,
+    cssmodules_ls = NIL,
+    dockerls = NIL,
+    emmet_ls = NIL,
+    html = NIL,
+    jsonls = require("configs.lsp.servers.jsonls"),
+    sumneko_lua = require("configs.lsp.servers.sumneko_lua"),
+    tsserver = NIL,
+    yamlls = NIL,
 }
 
 -- Mason config
@@ -32,7 +33,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-    ensure_installed = servers,
+    ensure_installed = vim.tbl_keys(servers),
 })
 
 -- Setup handlers and diagnostics config
@@ -45,15 +46,8 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Setup all listed servers
-for _, lsp in pairs(servers) do
-    local configured, lsp_settings =
-        pcall(require, "configs.lsp.servers." .. lsp)
-
-    if not configured then
-        lsp_settings = {}
-    end
-
-    lspconfig[lsp].setup(vim.tbl_deep_extend("force", lsp_settings, {
+for lsp, config in pairs(servers) do
+    lspconfig[lsp].setup(vim.tbl_deep_extend("force", config, {
         on_attach = on_attach,
         capabilities = capabilities,
         flags = {
