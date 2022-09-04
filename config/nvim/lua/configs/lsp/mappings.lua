@@ -3,14 +3,31 @@ local nnoremap = require("core.utils").nnoremap
 local vnoremap = require("core.utils").vnoremap
 
 M.attach = function(client, bufnr)
-    nnoremap(
-        "<LocalLeader>q",
-        vim.diagnostic.setloclist,
-        { desc = "Add buffer diagnostics to the location list" }
-    )
-
-    nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-    nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
+    if client.supports_method("textDocument/publishDiagnostics") then
+        nnoremap(
+            "<LocalLeader>q",
+            vim.diagnostic.setloclist,
+            { desc = "Add buffer diagnostics to the location list" }
+        )
+        nnoremap(
+            "]d",
+            vim.diagnostic.goto_next,
+            { desc = "Go to next diagnostic" }
+        )
+        nnoremap(
+            "[d",
+            vim.diagnostic.goto_prev,
+            { desc = "Go to prev diagnostic" }
+        )
+        nnoremap("<LocalLeader>dd", function()
+            if vim.b.diagnostics_status then
+                vim.diagnostic.disable(bufnr)
+            else
+                vim.diagnostic.enable(bufnr)
+            end
+            vim.b.diagnostics_status = not vim.b.diagnostics_status
+        end, { desc = "Toggle diagnostics" })
+    end
 
     nnoremap(
         "<LocalLeader>ca",
