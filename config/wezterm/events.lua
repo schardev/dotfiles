@@ -5,7 +5,7 @@ local utils = require("utils")
 M.setup = function()
     -- `update-right-status` is emitted based on the interval specified by the
     -- `status_update_interval` configuration value (default 1000)
-    wezterm.on("update-right-status", function(window, pane)
+    wezterm.on("update-status", function(window, pane)
         local proc_name = pane:get_foreground_process_name()
         local overrides = window:get_config_overrides() or {}
 
