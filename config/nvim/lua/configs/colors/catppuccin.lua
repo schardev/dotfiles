@@ -10,6 +10,8 @@ require("catppuccin").setup({
     custom_highlights = {
         Comment = { fg = colors.overlay1 },
         VertSplit = { fg = colors.overlay1 },
+        TSTagAttribute = { style = {} }, -- removes italic
+        TSURI = { style = {} },
     },
     styles = {
         comments = { "italic" },
