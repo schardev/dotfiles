@@ -12,14 +12,20 @@ nnoremap("<Leader><F1>", ":NvimTreeFindFile<CR>", {
 local configs_nvimtree = vim.api.nvim_create_augroup("ConfigsNvimTree", {})
 autocmd("BufEnter", {
     group = configs_nvimtree,
-    pattern = "*",
+    pattern = "NvimTree_*",
     callback = function()
         -- Exit neovim if the last window is of NvimTree
+        ---@see https://github.com/kyazdani42/nvim-tree.lua/issues/1368#issuecomment-1195557960
+        local layout = vim.fn.winlayout()
         if
-            vim.fn.winnr("$") == 1
-            and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr()
+            layout[1] == "leaf"
+            and vim.api.nvim_buf_get_option(
+                vim.api.nvim_win_get_buf(layout[2]),
+                "filetype"
+            ) == "NvimTree"
+            and layout[3] == nil
         then
-            vim.cmd("quit")
+            vim.cmd("confirm quit")
         end
     end,
     desc = "Smartly exit NvimTree",
