@@ -10,6 +10,8 @@ local enabled_parsers = {
     "jsonc",
     "lua",
     "markdown",
+    "markdown_inline",
+    "scss",
     "typescript",
     "vim",
     "yaml",
