@@ -1,5 +1,5 @@
 local fn = vim.fn
-local packer_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+local packer_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(packer_path)) > 0 then
     fn.system({
         "git",
@@ -33,7 +33,7 @@ return require("packer").startup({
         use("lewis6991/impatient.nvim")
 
         -- Plugin manager
-        use({ "wbthomason/packer.nvim", opt = true })
+        use("wbthomason/packer.nvim")
 
         -- Shows human friendly startuptime
         use({ "dstein64/vim-startuptime", cmd = "StartupTime" })

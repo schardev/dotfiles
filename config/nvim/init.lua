@@ -48,3 +48,4 @@ end
 
 --- Load modules
 require("core")
+require("plugins")
