@@ -18,7 +18,7 @@ eval "$(dircolors)"
 zstyle ':completion:*' list-colors “${(s.:.)LS_COLORS}”
 
 # Use caching so that commands like apt and dpkg complete are useable
-zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' use-cache true
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME}/.zcompcache"
 
 # Autocomplete . and .. special dirs

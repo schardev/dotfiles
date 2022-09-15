@@ -13,6 +13,8 @@ source "${PREFIX:-/usr}"/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--height 100% --preview 'exa --tree {}'"
+alias hv='(cd $HOME; fv)'
+alias dv='(cd $CONFIG_DIR; fv)'
 
 ## Few useful utilities
 
