@@ -1,5 +1,5 @@
 local gs = require("gitsigns")
-local nnoremap = require("core.utils").nnoremap
+local nnoremap = require("core.utils").mapper_factory("n")
 
 gs.setup({
     max_file_length = 5000,

@@ -1,8 +1,9 @@
 local utils = require("core.utils")
-local map = utils.map
-local nnoremap = utils.nnoremap
-local tnoremap = utils.tnoremap
-local vnoremap = utils.vnoremap
+local mapper = utils.mapper_factory
+local nnoremap = mapper("n")
+local tnoremap = mapper("t")
+local vnoremap = mapper("v")
+local xnoremap = mapper("x")
 local no_silent = { silent = false }
 
 -- No need to keep holding shift
@@ -41,7 +42,7 @@ nnoremap("<C-H>", ":bprevious<CR>")
 nnoremap("<C-w>", ":bdelete<CR>")
 
 -- Don't put text in register on delete char
-map({ "n", "v" }, "x", '"_x')
+mapper({ "n", "v" })("x", '"_x')
 
 -- Keep visual mode indenting
 vnoremap("<", "<gv")
@@ -167,3 +168,6 @@ end
 
 nnoremap("gx", open_link)
 nnoremap("gf", "<Cmd>e <cfile><CR>")
+
+-- greatest remap ever (courtesy of @theprimeagen)
+xnoremap("<Leader>p", '"_dP')

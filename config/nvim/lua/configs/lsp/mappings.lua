@@ -1,6 +1,6 @@
 local M = {}
-local nnoremap = require("core.utils").nnoremap
-local vnoremap = require("core.utils").vnoremap
+local nnoremap = require("core.utils").mapper_factory("n")
+local vnoremap = require("core.utils").mapper_factory("v")
 
 M.attach = function(client, bufnr)
     if client.supports_method("textDocument/publishDiagnostics") then

@@ -1,5 +1,5 @@
 local neogen = require("neogen")
-local nnoremap = require("core.utils").nnoremap
+local nnoremap = require("core.utils").mapper_factory("n")
 
 neogen.setup({
     snippet_engine = "luasnip",

@@ -1,4 +1,4 @@
-local nnoremap = require("core.utils").nnoremap
+local nnoremap = require("core.utils").mapper_factory("n")
 local builtin = require("telescope.builtin")
 
 -- Mappings

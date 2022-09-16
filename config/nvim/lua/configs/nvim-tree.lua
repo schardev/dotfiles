@@ -1,5 +1,5 @@
 -- Mappings
-local nnoremap = require("core.utils").nnoremap
+local nnoremap = require("core.utils").mapper_factory("n")
 local autocmd = vim.api.nvim_create_autocmd
 
 nnoremap("<F1>", ":NvimTreeToggle<CR>", {
