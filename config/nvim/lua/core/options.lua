@@ -1,4 +1,5 @@
-local set = vim.opt
+local set = vim.o
+local opt = vim.opt
 local cmd = vim.cmd
 
 -- stylua: ignore start
@@ -10,7 +11,7 @@ set.colorcolumn = "80"                  -- Highlight 80th column
 set.cursorline = true                   -- Highlight current line number
 set.encoding = "utf-8"                  -- It's the default in nvim but vim sets it conditionally
 set.expandtab = true                    -- Expand TABs to spaces
-set.fillchars:append("vert:│,eob:~")    -- Set vertical and empty lines chars
+opt.fillchars = {vert = '│', eob = '~'} -- Set vertical and empty lines chars
 set.foldlevel = 99                      -- Fold after this level (hax to prevent folding by default)
 set.hidden = true                       -- Allow buffers to be hidden
 set.ignorecase = true                   -- Ignore case for pattern matching by default
@@ -28,7 +29,7 @@ set.splitright = true                   -- Splits windows to the right by defaul
 set.smartcase = true                    -- Override `ignorecase` where possible
 set.softtabstop = 4                     -- Sets the number of columns for a TAB
 set.synmaxcol = 190                     -- Don't even try to highlight stuff that's longer than 190 columns
-set.wildignore:append({                 -- Ignore these directories/files while expanding `find` searches
+opt.wildignore:append({                 -- Ignore these directories/files while expanding `find` searches
     "*.o",
     "*.pyc",
     "*/.git/*",
