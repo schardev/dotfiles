@@ -31,8 +31,8 @@ dashboard.section.header.val = logo
 dashboard.section.header.opts.hl = pick_color()
 dashboard.section.buttons.val = {
     dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("<L> s f", "  Find File"),
-    dashboard.button("<L> s r", "  Recent files"),
+    dashboard.button("SPC s f", "  Find File"),
+    dashboard.button("SPC s r", "  Recent files"),
     dashboard.button("<F1>", "  NvimTree", ":NvimTreeToggle<CR>"),
     dashboard.button("pi", "  Packer Sync", ":PackerSync<CR>"),
     dashboard.button("ps", "  Packer Status", ":PackerStatus<CR>"),
