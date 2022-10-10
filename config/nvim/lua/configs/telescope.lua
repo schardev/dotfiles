@@ -2,7 +2,14 @@ local nnoremap = require("core.utils").mapper_factory("n")
 local builtin = require("telescope.builtin")
 
 -- Mappings
-nnoremap("<Leader>sf", builtin.find_files, { desc = "Find Files" })
+nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
+nnoremap("<Leader>dv", function()
+    builtin.find_files({ cwd = "$CONFIG_DIR" })
+end, { desc = "Find Files in $CONFIG_DIR" })
+nnoremap("<Leader>hv", function()
+    builtin.find_files({ cwd = "$HOME" })
+end, { desc = "Find Files in $HOME" })
+
 nnoremap(
     "<Leader>sb",
     builtin.current_buffer_fuzzy_find,
