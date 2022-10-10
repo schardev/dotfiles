@@ -14,11 +14,6 @@ function M.save_and_exec()
     end
 end
 
-function M.highlight(...)
-    -- https://github.com/neovim/neovim/issues/18160
-    vim.api.nvim_set_hl(0, ...)
-end
-
 function M.mapper_factory(mode)
     local default_opts = { silent = true }
 
