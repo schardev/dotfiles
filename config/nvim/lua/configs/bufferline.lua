@@ -1,3 +1,5 @@
+local nnoremap = require("core.utils").mapper_factory("n")
+
 require("bufferline").setup({
     options = {
         diagnostics = "nvim_lsp",
@@ -14,3 +16,7 @@ require("bufferline").setup({
         },
     },
 })
+
+-- Mappings
+nnoremap("<C-L>", "<Cmd>BufferLineCycleNext<CR>")
+nnoremap("<C-H>", "<Cmd>BufferLineCyclePrev<CR>")
