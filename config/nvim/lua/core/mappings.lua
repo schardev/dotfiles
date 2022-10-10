@@ -72,13 +72,13 @@ nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
 })
 nnoremap("<Leader>th", function()
     if vim.g.tab_highlight == 1 then
-        vim.cmd("highlight clear Tabs")
         vim.g.tab_highlight = 0
+        vim.cmd("highlight clear Tabs")
+        vim.notify("Disabled whitespace highlighting!")
     else
         vim.g.tab_highlight = 1
         vim.cmd("highlight Tabs guibg=yellow")
-        -- FIXME: https://github.com/neovim/neovim/issues/18160
-        -- require("core.utils").highlight("Tabs", { bg = "yellow" })
+        vim.notify("Enabled whitespace highlighting!")
     end
 end, {
     desc = "Toggle tab highlighting",
@@ -90,10 +90,14 @@ end, {
 -- Quick find and replace
 vnoremap(
     "<Leader>rr",
-    [[<esc>:'<,'>s/]],
+    [[<esc>:'<,'>s//<left>]],
     { desc = "Within visually selected area", silent = false }
 )
-nnoremap("<Leader>rr", [[:%s/]], { desc = "Replace text", silent = false })
+nnoremap(
+    "<Leader>rr",
+    [[:%s//<left>]],
+    { desc = "Replace text", silent = false }
+)
 vnoremap(
     "<Leader>rw",
     [["zy:%s/<C-r><C-o>"/]],
