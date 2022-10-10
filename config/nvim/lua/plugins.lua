@@ -41,16 +41,16 @@ return require("packer").startup({
         -- For key mapping hints
         use({
             "folke/which-key.nvim",
+            event = "BufEnter",
             config = function()
-                vim.defer_fn(function()
-                    require("configs.which-key")
-                end, 0)
+                require("configs.which-key")
             end,
         })
 
         -- Indent level
         use({
             "lukas-reineke/indent-blankline.nvim",
+            event = "BufReadPre",
             config = function()
                 require("configs.indent_blankline")
             end,
@@ -61,6 +61,10 @@ return require("packer").startup({
             "j-hui/fidget.nvim",
             event = "LspAttach",
             config = function()
+                vim.api.nvim_create_autocmd(
+                    "VimLeavePre",
+                    { command = [[silent! FidgetClose]] }
+                )
                 require("fidget").setup({
                     text = {
                         spinner = "dots",
@@ -72,12 +76,9 @@ return require("packer").startup({
         -- Lua fork of Nerdtree
         use({
             "kyazdani42/nvim-tree.lua",
-            -- cmd = { "NvimTreeToggle", "NvimTreeFindFileToggle" },
-            -- keys = { "<F1>", "<Leader><F1>" },
+            event = "BufEnter",
             config = function()
-                vim.defer_fn(function()
-                    require("configs.nvim-tree")
-                end, 0)
+                require("configs.nvim-tree")
             end,
         })
 
@@ -87,9 +88,7 @@ return require("packer").startup({
                 "nvim-telescope/telescope.nvim",
                 event = "BufEnter",
                 config = function()
-                    vim.defer_fn(function()
-                        require("configs.telescope")
-                    end, 0)
+                    require("configs.telescope")
                 end,
                 requires = {
                     "nvim-lua/plenary.nvim",
@@ -125,11 +124,16 @@ return require("packer").startup({
 
         -- Surrounding stuff
         -- P.S: no vimrc is complete without some tpope goodness
-        use({ "tpope/vim-surround", requires = "tpope/vim-repeat" })
+        use({
+            "tpope/vim-surround",
+            event = "BufReadPre",
+            requires = { "tpope/vim-repeat", after = "vim-surround" },
+        })
 
         -- Blazzingly fast movement in neovim
         use({
             "ggandor/leap.nvim",
+            event = "BufReadPre",
             config = function()
                 require("leap").set_default_keymaps()
             end,
@@ -166,6 +170,8 @@ return require("packer").startup({
         -- A plugin to ... umm ... comment stuff
         use({
             "numToStr/Comment.nvim",
+            event = "InsertEnter",
+            keys = { "gc", "gcc", "gbc" },
             config = function()
                 require("Comment").setup({})
             end,
@@ -242,17 +248,16 @@ return require("packer").startup({
         -- Shows git signs in sign column
         use({
             "lewis6991/gitsigns.nvim",
+            event = "BufReadPre",
             config = function()
-                -- Don't try too hard to load gitsigns immediately
-                vim.defer_fn(function()
-                    require("configs.gitsigns")
-                end, 0)
+                require("configs.gitsigns")
             end,
         })
 
         -- Sax bufferline
         use({
             "akinsho/bufferline.nvim",
+            event = "BufEnter",
             requires = "nvim-web-devicons",
             config = function()
                 require("configs.bufferline")
@@ -278,7 +283,7 @@ return require("packer").startup({
             {
                 "catppuccin/nvim",
                 as = "catppuccin",
-                commit = "3a5f324694b0",
+                commit = "9991ede",
                 config = function()
                     require("configs.colors.catppuccin")
                     vim.cmd("colorscheme catppuccin")
@@ -299,6 +304,7 @@ return require("packer").startup({
         -- Statusline plugin
         use({
             "nvim-lualine/lualine.nvim",
+            event = "VimEnter",
             requires = "nvim-web-devicons",
             config = function()
                 require("configs.lualine")
@@ -312,13 +318,20 @@ return require("packer").startup({
         use({
             -- LSP, DAP, Formatters, and Linters installer
             {
-                "williamboman/mason.nvim",
-                "williamboman/mason-lspconfig.nvim",
+                {
+                    "williamboman/mason.nvim",
+                    module = "mason",
+                },
+                {
+                    "williamboman/mason-lspconfig.nvim",
+                    module = "mason-lspconfig",
+                },
             },
 
             -- LSP Setup
             {
                 "neovim/nvim-lspconfig",
+                event = "BufEnter",
                 config = function()
                     require("configs.lsp")
                 end,
@@ -375,6 +388,8 @@ return require("packer").startup({
             },
             {
                 "windwp/nvim-autopairs",
+                module = "nvim-autopairs",
+                event = "BufReadPre",
                 config = function()
                     require("nvim-autopairs").setup({
                         check_ts = true,
