@@ -4,8 +4,8 @@ shell = "zsh"
 
 [templates]
 # Defers loading of plugin (requires romkatv/zsh-defer)
-defer = { value = 'zsh-defer source "{{ file }}"', each = true }
-defer-more = { value = 'zsh-defer -t 0.5 source "{{ file }}"', each = true }
+defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
+defer-more = "{% for file in files %}zsh-defer -t 0.5 source \"{{ file }}\"\n{% endfor %}"
 
 # `sheldon` will source plugins in order they are defined below
 [plugins]
