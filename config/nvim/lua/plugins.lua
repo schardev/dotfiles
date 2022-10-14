@@ -173,7 +173,11 @@ return require("packer").startup({
             event = "InsertEnter",
             keys = { "gc", "gcc", "gbc" },
             config = function()
-                require("Comment").setup({})
+                require("Comment").setup({
+                    pre_hook = require(
+                        "ts_context_commentstring.integrations.comment_nvim"
+                    ).create_pre_hook(),
+                })
             end,
         })
 
@@ -206,6 +210,12 @@ return require("packer").startup({
             -- Rainbow brackets
             {
                 "p00f/nvim-ts-rainbow",
+                after = "nvim-treesitter",
+            },
+
+            -- better comment support for jsx/tsx
+            {
+                "JoosepAlviste/nvim-ts-context-commentstring",
                 after = "nvim-treesitter",
             },
         })
