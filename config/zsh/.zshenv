@@ -21,14 +21,23 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_DATA_DIRS=/usr/local/share:/usr/share
 export XDG_CONFIG_DIRS=/etc/xdg
 
-export CONFIG_DIR="$HOME/dotfiles" # Export location of dotfiles' directory
-export EDITOR=nvim # Set global editor to neovim
-export GPG_TTY=$TTY # Export GPG_TTY using $TTY (works even when stdin is redirected)
+export CONFIG_DIR="$HOME/dotfiles"
+export SHELDON_CONFIG_DIR=$XDG_CONFIG_HOME/zsh # https://github.com/rossmacarthur/sheldon
+export EDITOR=nvim
 export VISUAL=nvim
+export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+
+# Export GPG_TTY using $TTY (works even when stdin is redirected)
+export GPG_TTY=$TTY
 
 # PATH
-path+=(
-    "$CONFIG_DIR"/bin
-    "$HOME"/.npm-global/bin
+# (N-/): do not register if the directory does not exists (credit @akinsho)
+path=(
+    "$PNPM_HOME" # Prepending pnpm bin directory to pick up specific node versions from there
+    "${path[@]}"
+    "$CONFIG_DIR"/bin(N-/)
+    "$XDG_DATA_HOME"/npm-global/bin(N-/)
 )
-export PATH
+
+# remove duplicate entries from $PATH
+typeset -U PATH path

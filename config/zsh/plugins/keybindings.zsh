@@ -5,7 +5,3 @@ bindkey '^[[H' beginning-of-line # Home key
 bindkey '^[[F' end-of-line # End key
 bindkey '^[[1;5C' forward-word # Ctrl + Right arrow
 bindkey '^[[1;5D' backward-word # Ctrl + Left arrow
-
-if [ -z "$IS_TERMUX" ]; then
-    setxkbmap -option "caps:escape" # Use caps lock as escape key
-fi
