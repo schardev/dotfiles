@@ -1,9 +1,14 @@
-local M = {}
+-- Setup neodev for annotations and vim api completions
+require("neodev").setup({ library = { plugins = false } })
 
-M = vim.tbl_deep_extend(
-    "force",
-    require("lua-dev").setup({ snippet = false }),
-    {}
-)
+local M = {
+    settings = {
+        Lua = {
+            completion = {
+                callSnippet = "Disable",
+            },
+        },
+    },
+}
 
 return M

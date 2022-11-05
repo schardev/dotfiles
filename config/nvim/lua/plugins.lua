@@ -349,8 +349,8 @@ return require("packer").startup({
 
             -- Emmylua docs for vim.* completion
             {
-                "folke/lua-dev.nvim",
-                module = "lua-dev",
+                "folke/neodev.nvim",
+                module = "neodev",
                 requires = "nvim-lspconfig",
             },
 
