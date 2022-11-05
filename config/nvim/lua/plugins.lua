@@ -165,6 +165,12 @@ return require("packer").startup({
                 "javascriptreact",
                 "markdown",
             },
+            config = function()
+                local vmap = require("core.utils").mapper_factory("v")
+
+                -- Wrap selected text in emmet abbrev
+                vmap("<leader>S", "<C-y>,", { remap = true })
+            end,
         })
 
         -- A plugin to ... umm ... comment stuff
