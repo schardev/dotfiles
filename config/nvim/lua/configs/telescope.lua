@@ -9,12 +9,14 @@ end, { desc = "Find Files in $CONFIG_DIR" })
 nnoremap("<Leader>hv", function()
     builtin.find_files({ cwd = "$HOME" })
 end, { desc = "Find Files in $HOME" })
+nnoremap("<Leader>bb", builtin.buffers, { desc = "Buffers List" })
 
 nnoremap(
     "<Leader>sb",
     builtin.current_buffer_fuzzy_find,
     { desc = "Live fuzzy search inside current buffer" }
 )
+
 nnoremap("<Leader>sg", builtin.live_grep, { desc = "Live Grep" })
 nnoremap("<Leader>st", builtin.help_tags, { desc = "Helptags" })
 nnoremap("<Leader>ss", builtin.builtin, { desc = "Telescope Builtins" })
