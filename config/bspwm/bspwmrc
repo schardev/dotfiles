@@ -46,12 +46,15 @@ feh --bg-fill "$HOME"/Downloads/bg.jpg
 start sxhkd
 
 # Start systray services
-start nm-applet # network manager systray
-start dunst     # Notification daemon
-start /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+start nm-applet                                                 # network manager systray
+start dunst                                                     # Notification daemon
+start /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # authentication prompt for root apps
 
 # Launch Polybar
 ~/.config/polybar/launch.sh
 
 # Set proper cursor
 xsetroot -cursor_name left_ptr &
+
+# Use caps lock as escape key
+setxkbmap -option "caps:escape" &
