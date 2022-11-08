@@ -1,5 +1,6 @@
 local M = {}
 
+-- https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server#settings
 M = {
     settings = {
         json = {
@@ -12,8 +13,8 @@ M = {
                 },
                 {
                     description = "TypeScript compiler configuration file",
-                    fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-                    url = "http://json.schemastore.org/tsconfig",
+                    fileMatch = { "tsconfig*.json" },
+                    url = "https://json.schemastore.org/tsconfig.json",
                 },
                 {
                     description = "Babel configuration",
@@ -22,12 +23,12 @@ M = {
                         ".babelrc",
                         "babel.config.json",
                     },
-                    url = "http://json.schemastore.org/lerna",
+                    url = "https://json.schemastore.org/lerna",
                 },
                 {
                     description = "ESLint config",
                     fileMatch = { ".eslintrc.json", ".eslintrc" },
-                    url = "http://json.schemastore.org/eslintrc",
+                    url = "https://json.schemastore.org/eslintrc",
                 },
                 {
                     description = "Prettier config",
@@ -36,12 +37,12 @@ M = {
                         ".prettierrc.json",
                         "prettier.config.json",
                     },
-                    url = "http://json.schemastore.org/prettierrc",
+                    url = "https://json.schemastore.org/prettierrc",
                 },
                 {
                     description = "Vercel Now config",
                     fileMatch = { "now.json" },
-                    url = "http://json.schemastore.org/now",
+                    url = "https://json.schemastore.org/now",
                 },
             },
         },

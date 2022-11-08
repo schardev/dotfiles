@@ -158,7 +158,7 @@ local function open_link()
         return vim.cmd("edit " .. file)
     end
 
-    if file:match("https://") then
+    if file:match("https?://") then
         return open(file)
     end
 
