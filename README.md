@@ -43,9 +43,6 @@ git clone https://github.com/saurabhchardereal/dotfiles ~/dotfiles
 # Symlink zsh directory to $HOME/.config/zsh and zsh/.zshenv to $HOME
 ln -sf ~/dotfiles/config/zsh{,/.zshenv} ~/{.config/zsh,}
 
-# Setup sheldon
-mkdir ~/.config/sheldon && ln -sf ~/dotfiles/config/zsh/plugins.toml ~/.config/sheldon
-
 # restart shell/terminal
 exec zsh
 ```
@@ -78,8 +75,7 @@ ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 ```
 
-> **Note**
->
+> **Note**  
 > Check [this](./config/nvim/lua/plugins.lua) file for the list of plugins that'll be installed automatically.
 
 <details>
