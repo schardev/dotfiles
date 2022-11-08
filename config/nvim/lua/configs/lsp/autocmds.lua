@@ -1,11 +1,11 @@
 local M = {}
 
 local autocmd = vim.api.nvim_create_autocmd
-local lsp_augroup = vim.api.nvim_create_augroup("MyLocalLSPGroup", {})
 local diagnostics_float_handler =
     require("configs.lsp.diagnostics").diagnostics_float_handler
 
 M.attach = function(client, bufnr)
+    local lsp_augroup = vim.api.nvim_create_augroup("MyLocalLSPGroup", {})
     if client.supports_method("textDocument/documentHighlight") then
         autocmd({ "CursorHold", "CursorHoldI" }, {
             group = lsp_augroup,

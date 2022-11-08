@@ -5,10 +5,17 @@ local formatting = require("configs.lsp.formatting")
 
 M.on_attach = function(client, bufnr)
     -- Clear any autocmd declared by previous client
-    vim.api.nvim_clear_autocmds({
-        group = "MyLocalLSPGroup",
-        buffer = bufnr,
-    })
+    if
+        pcall(
+            vim.api.nvim_get_autocmds,
+            { group = "MyLocalLSPGroup", buffer = bufnr }
+        )
+    then
+        vim.api.nvim_clear_autocmds({
+            group = "MyLocalLSPGroup",
+            buffer = bufnr,
+        })
+    end
 
     autocmds.attach(client, bufnr)
     formatting.attach(client, bufnr)
