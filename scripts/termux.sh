@@ -6,7 +6,7 @@
 #
 
 CONFIG_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/..
-source "$CONFIG_DIR"/config/zsh/functions/_utils
+source "$CONFIG_DIR"/scripts/utils.sh
 source "$CONFIG_DIR"/scripts/git-setup.sh
 
 # Install packages
