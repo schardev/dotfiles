@@ -12,6 +12,7 @@ local enabled_parsers = {
     "markdown",
     "markdown_inline",
     "scss",
+    "tsx",
     "typescript",
     "vim",
     "yaml",
