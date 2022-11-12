@@ -60,13 +60,16 @@ cmp.setup({
         -- completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
-    -- view = {
-    --     entries = "native",
-    -- },
     mapping = cmp.mapping.preset.insert({
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.close()
+            else
+                cmp.complete()
+            end
+        end),
         ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             -- select = true,
