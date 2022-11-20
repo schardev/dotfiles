@@ -61,8 +61,8 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping(function()
             if cmp.visible() then
                 cmp.close()
@@ -72,7 +72,6 @@ cmp.setup({
         end),
         ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            -- select = true,
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -95,7 +94,7 @@ cmp.setup({
     }),
     sources = {
         { name = "luasnip" },
-        { name = "nvim_lsp", max_item_count = 30 },
+        { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
         { name = "buffer", max_item_count = 10 },
         { name = "path" },
@@ -108,17 +107,15 @@ local filetypes =
     { "javascript", "typescript", "javascriptreact", "typescriptreact" }
 
 cmp.event:on("confirm_done", function(event)
-    local filetype = vim.bo.filetype
-
     -- Do not complete autopairs in import statements
-    if vim.tbl_contains(filetypes, filetype) then
-        local node_type = ts_utils.get_node_at_cursor():type()
-        if node_type ~= "named_imports" then
-            autopairs.on_confirm_done()(event)
-        end
-    else
-        autopairs.on_confirm_done()(event)
+    local filetype = vim.bo.filetype
+    if
+        vim.tbl_contains(filetypes, filetype)
+        and ts_utils.get_node_at_cursor():type() == "named_imports"
+    then
+        return
     end
+    autopairs.on_confirm_done()(event)
 end)
 
 -- Make <CR> autoselect first completion item in html files
