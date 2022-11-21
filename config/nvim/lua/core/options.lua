@@ -24,10 +24,10 @@ set.numberwidth = 2                     -- Minimal number of columns to use for 
 set.relativenumber = true               -- Shows line number relative to the current line
 set.scrolloff = 3                       -- Scroll offset
 set.shell = "bash"                      -- Set default shell to bash coz zsh isn't POSIX-compatible
-set.shiftwidth = 4                      -- Indents will have a width of 4
+set.shiftwidth = 2                      -- Indents will have this much width
 set.splitright = true                   -- Splits windows to the right by default
 set.smartcase = true                    -- Override `ignorecase` where possible
-set.softtabstop = 4                     -- Sets the number of columns for a TAB
+set.softtabstop = 2                     -- Sets the number of columns for a TAB
 set.synmaxcol = 190                     -- Don't even try to highlight stuff that's longer than 190 columns
 opt.wildignore:append({                 -- Ignore these directories/files while expanding `find` searches
     "*.o",
@@ -47,10 +47,10 @@ opt.wildignore:append({                 -- Ignore these directories/files while 
 set.wildignorecase = true               -- Ignore case while completing file
 set.wrap = false                        -- Do not wrap code by default
 set.writebackup = false                 -- Disable backup
-set.tabstop = 4                         -- The width of a TAB is set to 4.
+set.tabstop = 2                         -- The width of a TAB is set to this value
                                         -- Still it is a \t. It is just that
                                         -- vim will interpret it to be having
-                                        -- a width of 4.
+                                        -- this much width
 set.termguicolors = true                -- Term supports gui colors
 set.title = true                        -- Set window title appropriately
 set.pumblend=15                         -- Enable a subtle transparency effect on pop-up menu
