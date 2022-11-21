@@ -41,7 +41,8 @@ Make sure you have [sheldon](https://github.com/rossmacarthur/sheldon) plugin ma
 git clone https://github.com/saurabhchardereal/dotfiles ~/dotfiles
 
 # Symlink zsh directory to $HOME/.config/zsh and zsh/.zshenv to $HOME
-ln -sf ~/dotfiles/config/zsh{,/.zshenv} ~/{.config/zsh,}
+ln -sf ~/dotfiles/config/zsh ${HOME}/.config/zsh
+ln -sf ~/dotfiles/config/zsh/.zshenv ${HOME}
 
 # restart shell/terminal
 exec zsh
