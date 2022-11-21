@@ -16,7 +16,7 @@ local servers = {
     html = NIL,
     jsonls = require("configs.lsp.servers.jsonls"),
     sumneko_lua = require("configs.lsp.servers.sumneko_lua"),
-    tsserver = NIL,
+    tsserver = require("configs.lsp.servers.tsserver"),
     yamlls = NIL,
 }
 
@@ -46,12 +46,16 @@ capabilities.textDocument.completion =
     { completionItem = { snippetSupport = true } }
 
 -- Setup all listed servers
-for lsp, config in pairs(servers) do
-    lspconfig[lsp].setup(vim.tbl_deep_extend("force", config, {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = {
-            debounce_text_changes = vim.o.updatetime,
-        },
-    }))
+for lsp, server in pairs(servers) do
+    if lsp == "tsserver" then
+        require("configs.lsp.servers.tsserver").setup(on_attach)
+    else
+        lspconfig[lsp].setup(vim.tbl_deep_extend("force", server.config or {}, {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            flags = {
+                debounce_text_changes = vim.o.updatetime,
+            },
+        }))
+    end
 end

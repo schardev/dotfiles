@@ -1,7 +1,7 @@
 local M = {}
 
 -- https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server#settings
-M = {
+M.config = {
     settings = {
         json = {
             validate = { enable = true },

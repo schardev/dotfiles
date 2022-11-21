@@ -1,4 +1,5 @@
-local M = {
+local M = {}
+M.config = {
     -- Disable emmet in css/sass
     filetypes = {
         "html",

@@ -91,6 +91,10 @@ M.attach = function(client, bufnr)
         vim.lsp.buf.references,
         { buffer = bufnr, desc = "List all references" }
     )
+
+    if client.name == "tsserver" then
+        require("configs.lsp.servers.tsserver").mappings(bufnr)
+    end
 end
 
 return M

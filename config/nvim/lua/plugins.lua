@@ -243,6 +243,17 @@ return require("packer").startup({
             requires = "nvim-treesitter",
         })
 
+        use({
+            "jose-elias-alvarez/typescript.nvim",
+            module = "typescript",
+            ft = {
+                "javascript",
+                "javascriptreact",
+                "typescript",
+                "typescriptreact",
+            },
+        })
+
         ----------------------
         ---       UI       ---
         ----------------------
