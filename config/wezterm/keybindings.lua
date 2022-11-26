@@ -100,8 +100,18 @@ local tmux = {
         action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
     },
     {
+        key = "-",
+        mods = "LEADER",
+        action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+    },
+    {
         key = "%",
         mods = "LEADER|SHIFT",
+        action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+    },
+    {
+        key = "\\",
+        mods = "LEADER",
         action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
     },
 
