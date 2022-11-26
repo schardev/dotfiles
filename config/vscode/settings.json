@@ -15,6 +15,9 @@
       "terminal.background": "#0d1117"
     }
   },
+  "catppuccin.accentColor": "blue",
+  "catppuccin.italicComments": false,
+  "catppuccin.italicKeywords": false,
 
   //=========================================================================
   // LANGUAGE SPECIFIC
@@ -74,7 +77,7 @@
 
     /* toggle highlight search  */
     {
-      "before": ["<leader>", "s"],
+      "before": ["<leader>", "s", "h"],
       "commands": [":set hlsearch!"]
     },
 
@@ -125,7 +128,7 @@
 
     /* wrapping text with emmet tags */
     {
-      "before": ["<leader>", "s"],
+      "before": ["<leader>", "S"],
       "commands": ["editor.emmet.action.wrapWithAbbreviation"]
     }
   ],
@@ -148,6 +151,7 @@
   "keyboard.dispatch": "keyCode",
   "redhat.telemetry.enabled": false,
   "telemetry.telemetryLevel": "off",
+  "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,
   "workbench.startupEditor": "none"
 

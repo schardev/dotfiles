@@ -1,11 +1,11 @@
 [
-  /* saner 'default' for moving around */
+  /* replicate my vim keybindings for moving around */
   {
-    "key": "ctrl+tab",
+    "key": "ctrl+l",
     "command": "workbench.action.nextEditorInGroup"
   },
   {
-    "key": "ctrl+shift+tab",
+    "key": "ctrl+h",
     "command": "workbench.action.previousEditorInGroup"
   },
   /* toggle minimap */
@@ -16,17 +16,17 @@
   },
   /* match my vim suggestion behaviour */
   // <Tab> - go to next suggestion if pop-up is visible
-  // <S-Tab> - trigger suggestion
   // <S-Tab> - go to prev suggestion if pop-up is visible
+  // <CTRL-Space> - close suggestion pop up
   {
     "key": "tab",
     "command": "selectNextSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
   {
-    "key": "shift+tab",
-    "command": "editor.action.triggerSuggest",
-    "when": "!suggestWidgetVisible && textInputFocus"
+    "key": "ctrl+space",
+    "command": "hideSuggestWidget",
+    "when": "suggestWidgetVisible && textInputFocus"
   },
   {
     "key": "shift+tab",
