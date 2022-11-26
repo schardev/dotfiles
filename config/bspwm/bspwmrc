@@ -37,7 +37,7 @@ rule obs desktop=5 follow=off
 
 ## Autostart few services
 # Start picom
-picom --experimental-backends --config "$HOME"/.config/picom/picom.conf &
+picom --config "$HOME"/.config/picom/picom.conf &
 
 # Set wallpaper
 feh --bg-fill "$HOME"/Downloads/bg.jpg
