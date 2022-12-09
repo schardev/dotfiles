@@ -158,12 +158,14 @@ return require("packer").startup({
         use({
             "mattn/emmet-vim",
             ft = {
-                "html",
                 "css",
-                "scss",
+                "html",
                 "javascript",
                 "javascriptreact",
                 "markdown",
+                "scss",
+                "typescript",
+                "typescriptreact",
             },
             config = function()
                 local vmap = require("core.utils").mapper_factory("v")
