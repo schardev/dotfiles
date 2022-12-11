@@ -20,7 +20,7 @@ local enabled_parsers = {
 
 autocmd("FileType", {
     group = configs_treesitter,
-    pattern = enabled_parsers,
+    pattern = vim.tbl_extend("force", enabled_parsers, { "typescriptreact" }),
     command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()",
 })
 
