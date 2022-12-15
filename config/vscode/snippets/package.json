@@ -11,8 +11,12 @@
         "path": "./javascript.json"
       },
       {
-        "language": "javascript",
-        "path": "./jest.json"
+        "language": [
+          "typescript",
+          "javascriptreact",
+          "typescriptreact"
+        ],
+        "path": "./react.json"
       },
       {
         "language": "markdown",
