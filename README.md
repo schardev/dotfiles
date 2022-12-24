@@ -2,8 +2,8 @@
 <p align='center'><b>~ There's no other place like <code>$HOME</code> ~</b></p>
 
 <div align="center">
-    <img alt="Lint Lua" src="https://img.shields.io/github/workflow/status/saurabhchardereal/dotfiles/Lint%20lua%20files/main?label=Lint%20Lua&style=flat-square">
-    <img alt="Lint Scripts" src="https://img.shields.io/github/workflow/status/saurabhchardereal/dotfiles/Lint%20shell%20scripts/main?label=Lint%20Scripts&style=flat-square">
+    <img alt="Lint Lua" src="https://img.shields.io/github/actions/workflow/status/saurabhchardereal/dotfiles/.github/workflows/lint_lua.yml">
+    <img alt="Lint Scripts" src="https://img.shields.io/github/actions/workflow/status/saurabhchardereal/dotfiles/.github/workflows/lint_shell.yml">
 </div>
 
 ### Current Setup
