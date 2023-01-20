@@ -322,7 +322,7 @@ return require("packer").startup({
 
         -- Color preview
         use({
-            "norcalli/nvim-colorizer.lua",
+            "NvChad/nvim-colorizer.lua",
             cmd = "ColorizerAttachToBuffer",
             ft = { "css", "scss" },
             config = function()
