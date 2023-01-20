@@ -25,7 +25,6 @@ autocmd("FileType", {
 })
 
 require("nvim-treesitter.configs").setup({
-
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = enabled_parsers,
 
@@ -36,7 +35,6 @@ require("nvim-treesitter.configs").setup({
     -- ignore_install = { "javascript" },
 
     highlight = {
-
         -- `false` will disable the whole extension
         enable = true,
 
@@ -62,12 +60,32 @@ require("nvim-treesitter.configs").setup({
             lookahead = true,
 
             keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@conditional.outer",
-                ["ic"] = "@conditional.inner",
-                -- ["ac"] = "@class.outer",
-                -- ["ic"] = "@class.inner",
+                ["af"] = {
+                    query = "@function.outer",
+                    desc = "Select around funtion",
+                },
+                ["if"] = {
+                    query = "@function.inner",
+                    desc = "Select inside funtion",
+                },
+                ["ac"] = {
+                    query = "@conditional.outer",
+                    desc = "Select around conditional",
+                },
+                ["ic"] = {
+                    query = "@conditional.inner",
+                    desc = "Select inside conditional",
+                },
+                ["aP"] = {
+                    query = "@parameter.outer",
+                    desc = "Select around parameter",
+                },
+                ["iP"] = {
+                    query = "@parameter.inner",
+                    desc = "Select inside parameter",
+                },
+                ["aC"] = { query = "@class.outer", desc = "Select outer class" },
+                ["iC"] = { query = "@class.inner", desc = "Select inner class" },
             },
 
             -- choose the select mode (default is charwise 'v')
@@ -91,8 +109,11 @@ require("nvim-treesitter.configs").setup({
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]]"] = "@class.outer",
+                ["]m"] = {
+                    query = "@function.outer",
+                    desc = "Next function start",
+                },
+                ["]]"] = { query = "@class.outer", desc = "Next class start" },
             },
             goto_previous_start = {
                 ["[m"] = "@function.outer",
@@ -115,7 +136,7 @@ require("nvim-treesitter.configs").setup({
         disable = { "html", "json", "lua" },
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        colors = {
+        --[[ colors = {
             -- Colors extracted from VSCode's rainbow bracket extension
             "#e6b422",
             "#c70067",
@@ -139,6 +160,6 @@ require("nvim-treesitter.configs").setup({
             "LightYellow",
             "LightRed",
             "LightGreen",
-        },
+        }, ]]
     },
 })
