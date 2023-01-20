@@ -21,7 +21,7 @@ autocmd({ "ColorScheme", "FileType" }, {
             vim.fn.clearmatches()
             return
         end
-        vim.g.tab_highlight = 1
+        vim.g.tab_highlight = true
         vim.cmd([[ highlight ExtraWhitespace ctermbg=red guibg=red ]])
         vim.cmd([[ highlight Tabs ctermbg=yellow guibg=yellow ]])
         vim.cmd([[ match ExtraWhitespace /\s\+$/ ]])

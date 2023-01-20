@@ -15,10 +15,18 @@ nnoremap("H", "0")
 nnoremap("L", "$")
 
 -- Navigating between windows
-nnoremap("<C-Up>", ":wincmd k<CR>")
-nnoremap("<C-Down>", ":wincmd j<CR>")
-nnoremap("<C-Left>", ":wincmd h<CR>")
-nnoremap("<C-Right>", ":wincmd l<CR>")
+nnoremap("<C-Up>", function()
+    utils.navigate_pane_or_window("k")
+end)
+nnoremap("<C-Down>", function()
+    utils.navigate_pane_or_window("j")
+end)
+nnoremap("<C-Left>", function()
+    utils.navigate_pane_or_window("h")
+end)
+nnoremap("<C-Right>", function()
+    utils.navigate_pane_or_window("l")
+end)
 
 -- Moving windows
 nnoremap("<C-S-Up>", ":wincmd K<CR>")
@@ -35,6 +43,10 @@ nnoremap("<M-Right>", ":vertical resize -2<CR>")
 -- Quick moving around while keeping the cursor fixed in middle
 nnoremap("J", "5jzz")
 nnoremap("K", "5kzz")
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("<C-u>", "<C-u>zz")
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
 
 -- Buffer management
 nnoremap("<C-L>", ":bnext<CR>")
@@ -71,20 +83,19 @@ nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
     desc = "Toggle search highlighting",
 })
 nnoremap("<Leader>th", function()
-    if vim.g.tab_highlight == 1 then
-        vim.g.tab_highlight = 0
+    if vim.g.tab_highlight == true then
         vim.cmd("highlight clear Tabs")
         vim.notify("Disabled whitespace highlighting!")
     else
-        vim.g.tab_highlight = 1
         vim.cmd("highlight Tabs guibg=yellow")
         vim.notify("Enabled whitespace highlighting!")
     end
+    vim.g.tab_highlight = not vim.g.tab_highlight
 end, {
     desc = "Toggle tab highlighting",
 })
 
--- Few mappings I stolen from @akinsho :)
+--- Few mappings I stole from @akinsho :)
 ---@see https://github.com/akinsho/dotfiles/blob/main/.config/nvim/
 
 -- Quick find and replace
@@ -121,7 +132,8 @@ vnoremap("//", [[y/<C-R>"<CR>]])
 function Setup_CR()
     nnoremap(
         "<Enter>",
-        [[:nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z]]
+        [[:nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z]],
+        { buffer = true }
     )
 end
 vim.g.mc = [[y/\V<C-r>=escape(@", '/')<CR><CR>]]
@@ -147,31 +159,9 @@ vnoremap(
 )
 
 -- Replicate netrw functionality (gx/gf)
-local function open(path)
-    vim.fn.jobstart({ "xdg-open", path }, { detach = true })
-    vim.notify(string.format("Opening %s", path))
-end
-
-local function open_link()
-    local file = vim.fn.expand("<cfile>")
-    if vim.fn.isdirectory(file) > 0 then
-        return vim.cmd("edit " .. file)
-    end
-
-    if file:match("https?://") then
-        return open(file)
-    end
-
-    -- consider anything that looks like string/string a github link
-    local plugin_url_regex = "[%a%d%-%.%_]*%/[%a%d%-%.%_]*"
-    local link = string.match(file, plugin_url_regex)
-    if link then
-        return open(string.format("https://www.github.com/%s", link))
-    end
-end
-
-nnoremap("gx", open_link)
+nnoremap("gx", utils.open_link)
 nnoremap("gf", "<Cmd>e <cfile><CR>")
 
--- greatest remap ever (courtesy of @theprimeagen)
-xnoremap("<Leader>p", '"_dP')
+-- few greatest remaps ever (courtesy of @theprimeagen)
+xnoremap("<Leader>p", [["_dP]])
+mapper({ "x", "n" })("<Leader>y", [["+y]])

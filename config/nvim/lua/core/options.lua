@@ -14,6 +14,7 @@ set.expandtab = true                    -- Expand TABs to spaces
 opt.fillchars = {vert = '│', eob = '~'} -- Set vertical and empty lines chars
 set.foldlevel = 99                      -- Fold after this level (hax to prevent folding by default)
 set.hidden = true                       -- Allow buffers to be hidden
+set.hlsearch = false                    -- Diable search highlighting
 set.ignorecase = true                   -- Ignore case for pattern matching by default
 set.incsearch = true                    -- Incrementally highlights search patterns
 set.laststatus = 3                      -- Enable global statusline

@@ -123,11 +123,11 @@ return require("packer").startup({
         })
 
         -- Surrounding stuff
-        -- P.S: no vimrc is complete without some tpope goodness
         use({
-            "tpope/vim-surround",
-            event = "BufReadPre",
-            requires = { "tpope/vim-repeat", after = "vim-surround" },
+            "kylechui/nvim-surround",
+            config = function()
+                require("nvim-surround").setup({})
+            end,
         })
 
         -- Blazzingly fast movement in neovim
@@ -136,6 +136,16 @@ return require("packer").startup({
             event = "BufReadPre",
             config = function()
                 require("leap").set_default_keymaps()
+            end,
+        })
+
+        use({
+            "cshuaimin/ssr.nvim",
+            config = function()
+                local mapper = require("core.utils").mapper_factory
+                mapper({ "n", "x" })("<leader>tr", function()
+                    require("ssr").open()
+                end)
             end,
         })
 
@@ -168,10 +178,9 @@ return require("packer").startup({
                 "typescriptreact",
             },
             config = function()
-                local vmap = require("core.utils").mapper_factory("v")
-
+                local mapper = require("core.utils").mapper_factory
                 -- Wrap selected text in emmet abbrev
-                vmap("<leader>S", "<C-y>,", { remap = true })
+                mapper("v")("<leader>S", "<C-y>,", { remap = true })
             end,
         })
 
