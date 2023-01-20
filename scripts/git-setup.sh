@@ -37,16 +37,17 @@ gpg_setup() {
 
 # Set git aliases
 git_aliases() { (
-    gpg_key_usable && GPG_SIGN=" --gpg-sign"
+    gpg_key_usable && GPG_SIGN="--gpg-sign"
+    # SIGNOFF="--signoff"
 
     git config --global alias.aa 'add --all'
-    git config --global alias.ac "commit${GPG_SIGN} --all --signoff --verbose"          # add and commit
-    git config --global alias.aca "commit${GPG_SIGN} --all --amend --signoff --verbose" # add, amend and commit
+    git config --global alias.ac "commit ${GPG_SIGN} --all ${SIGNOFF} --verbose"          # add and commit
+    git config --global alias.aca "commit ${GPG_SIGN} --all --amend ${SIGNOFF} --verbose" # add, amend and commit
     git config --global alias.ama 'am --abort'
     git config --global alias.amc 'am --continue'
     # shellcheck disable=SC2016
     git config --global alias.aml '!bash -c "curl -sL ${1} | git am"' # am from patch url
-    git config --global alias.ams "am${GPG_SIGN} --signoff"           # am signoff
+    git config --global alias.ams "am ${GPG_SIGN} ${SIGNOFF}"         # am signoff
     git config --global alias.ap 'apply -3 -v'
     # shellcheck disable=SC2016
     git config --global alias.apl '!bash -c "curl -sL ${1} | git apply -v"' # apply from patch url
@@ -55,17 +56,17 @@ git_aliases() { (
     git config --global alias.bn 'rev-parse --abbrev-ref HEAD' # branch name
     git config --global alias.bm 'branch --move'
     git config --global alias.bu 'branch --unset-upstream'
-    git config --global alias.c "commit${GPG_SIGN} --signoff --verbose"
-    git config --global alias.ca "commit${GPG_SIGN} --amend --signoff --verbose"                           # commit ammend
-    git config --global alias.cad "!git commit${GPG_SIGN} --amend --signoff --date=\"\$(date)\" --verbose" # commit amend date
-    git config --global alias.cb 'rev-parse --abbrev-ref HEAD'                                             # current branch
-    git config --global alias.cf 'diff --name-only --diff-filter=U'                                        # conflicts
+    git config --global alias.c "commit ${GPG_SIGN} ${SIGNOFF} --verbose"
+    git config --global alias.ca "commit ${GPG_SIGN} --amend ${SIGNOFF} --verbose"                           # commit ammend
+    git config --global alias.cad "!git commit ${GPG_SIGN} --amend ${SIGNOFF} --date=\"\$(date)\" --verbose" # commit amend date
+    git config --global alias.cb 'rev-parse --abbrev-ref HEAD'                                               # current branch
+    git config --global alias.cf 'diff --name-only --diff-filter=U'                                          # conflicts
     git config --global alias.ch 'checkout'
     git config --global alias.cl 'clean -fxd'
-    git config --global alias.cp "cherry-pick${GPG_SIGN} --signoff"
+    git config --global alias.cp "cherry-pick ${GPG_SIGN} ${SIGNOFF}"
     git config --global alias.cpa 'cherry-pick --abort'
     git config --global alias.cpc 'cherry-pick --continue'
-    git config --global alias.cpe 'cherry-pick --edit --signoff'
+    git config --global alias.cpe "cherry-pick --edit ${SIGNOFF}"
     git config --global alias.cpq 'cherry-pick --quit'
     git config --global alias.cps 'cherry-pick --skip'
     git config --global alias.dc 'describe --contains'
@@ -76,11 +77,8 @@ git_aliases() { (
     git config --global alias.f 'fetch'
     git config --global alias.fa 'fetch --all'
     git config --global alias.fixes 'show -s --format="Fixes: %h (\"%s\")"'
-    git config --global alias.fm "commit${GPG_SIGN} --file /tmp/mrg-msg" # finish merge
+    git config --global alias.fm "commit ${GPG_SIGN} --file /tmp/mrg-msg" # finish merge
     git config --global alias.fp 'format-patch'
-    git config --global alias.fpk 'format-patch --add-header="X-Patchwork-Bot: notify"'
-    git config --global alias.kf 'show -s --format="%h (\"%s\")"'                             # kernel format
-    git config --global alias.korg 'show -s --format="Link: https://git.kernel.org/linus/%H"' # link to a kernel.org commit for cherry-picks
     git config --global alias.lo 'log --oneline'
     git config --global alias.ma 'merge --abort'
     git config --global alias.mc 'merge --continue'
@@ -90,7 +88,7 @@ git_aliases() { (
     git config --global alias.psu 'push --set-upstream'
     # shellcheck disable=SC2016
     git config --global alias.ra '!f() { for i in $(git cf); do git rf $i; done }; f' # reset all conflicts
-    git config --global alias.rb "rebase${GPG_SIGN}"
+    git config --global alias.rb "rebase ${GPG_SIGN}"
     git config --global alias.rba 'rebase --abort'
     git config --global alias.rbc 'rebase --continue'
     git config --global alias.rbs 'rebase --skip'
@@ -100,17 +98,13 @@ git_aliases() { (
     git config --global alias.rfl '!bash -c "git reset -- ${1} && git checkout -- ${1}"' # reset file (loud)
     git config --global alias.rh 'reset --hard'
     git config --global alias.rma 'remote add'
-    # https://lore.kernel.org/lkml/20190624144924.GE29120@arrakis.emea.arm.com/
     # shellcheck disable=SC2016
-    git config --global alias.send-rmk-email '!git send-email --add-header=\"KernelVersion: $(git describe --abbrev=0)\" --no-thread --suppress-cc=all --to="patches@arm.linux.org.uk"'
     git config --global alias.rmsu 'remote set-url'
     git config --global alias.rmv 'remote -v'
     git config --global alias.rs 'reset --soft'
     git config --global alias.ru 'remote update'
-    git config --global alias.rv "revert${GPG_SIGN} --signoff"
+    git config --global alias.rv "revert ${GPG_SIGN} ${SIGNOFF}"
     git config --global alias.s 'status'
-    # shellcheck disable=SC2016
-    git config --global alias.sc '!f() { git aa && git ac -m "${1}: sync changes [$(date '\''+%d-%m-%y %r'\'')]";}; f' # add all and create commit msg with local time
     git config --global alias.sh 'show --first-parent'
     git config --global alias.shf 'show --first-parent --format=fuller'
     git config --global alias.shm 'show --no-patch'
@@ -118,13 +112,6 @@ git_aliases() { (
     git config --global alias.sql 'show --format="Author: %aN <%ae> %nDate: %ad %n%n  %w(0,2,4)%B%n" --no-patch' # squash commit msg format
     git config --global alias.ss 'status --short --branch'
     git config --global alias.us 'reset HEAD'
-
-    # Set up merge aliases based on availability of '--signoff'
-    [[ $(git --version | head -n 1 | cut -d . -f 2) -ge 15 ]] && SIGNOFF=" --signoff"
-    git config --global alias.m "merge${GPG_SIGN}${SIGNOFF}"
-    git config --global alias.ml "merge${GPG_SIGN}${SIGNOFF} --log=500"
-    git config --global alias.pl "pull${GPG_SIGN}${SIGNOFF}"
-    git config --global alias.pll "pull${GPG_SIGN}${SIGNOFF} --log=500"
 ); }
 
 # Initial git config setup
