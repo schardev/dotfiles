@@ -312,7 +312,7 @@ return require("packer").startup({
             {
                 "catppuccin/nvim",
                 as = "catppuccin",
-                commit = "9991ede",
+                commit = "3d0c37c",
                 config = function()
                     require("configs.colors.catppuccin")
                     vim.cmd("colorscheme catppuccin")
