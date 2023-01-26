@@ -3,3 +3,4 @@ viminfo
 swap
 backup
 .netrwhist
+spell/*.spl

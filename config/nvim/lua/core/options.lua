@@ -14,7 +14,7 @@ set.expandtab = true                    -- Expand TABs to spaces
 opt.fillchars = {vert = '│', eob = '~'} -- Set vertical and empty lines chars
 set.foldlevel = 99                      -- Fold after this level (hax to prevent folding by default)
 set.hidden = true                       -- Allow buffers to be hidden
-set.hlsearch = false                    -- Diable search highlighting
+set.hlsearch = false                    -- Disable search highlighting
 set.ignorecase = true                   -- Ignore case for pattern matching by default
 set.incsearch = true                    -- Incrementally highlights search patterns
 set.laststatus = 3                      -- Enable global statusline
@@ -23,9 +23,13 @@ set.mouse = "ni"                        -- Enable mouse support in normal and in
 set.number = true                       -- Show line numbers
 set.numberwidth = 2                     -- Minimal number of columns to use for the line number
 set.relativenumber = true               -- Shows line number relative to the current line
-set.scrolloff = 3                       -- Scroll offset
+set.scrolloff = 5                       -- Scroll offset
 set.shell = "bash"                      -- Set default shell to bash coz zsh isn't POSIX-compatible
 set.shiftwidth = 2                      -- Indents will have this much width
+-- FIXME: Enable this after fixing typescript spell in upstream
+-- set.spell = true                        -- Enable spell checking
+set.spelllang = "en_us"
+set.spellfile = os.getenv('XDG_CONFIG_HOME') .. '/nvim/spell/en.utf-8.add'
 set.splitright = true                   -- Splits windows to the right by default
 set.smartcase = true                    -- Override `ignorecase` where possible
 set.softtabstop = 2                     -- Sets the number of columns for a TAB

@@ -16,16 +16,16 @@ nnoremap("L", "$")
 
 -- Navigating between windows
 nnoremap("<C-Up>", function()
-    utils.navigate_pane_or_window("k")
+  utils.navigate_pane_or_window("k")
 end)
 nnoremap("<C-Down>", function()
-    utils.navigate_pane_or_window("j")
+  utils.navigate_pane_or_window("j")
 end)
 nnoremap("<C-Left>", function()
-    utils.navigate_pane_or_window("h")
+  utils.navigate_pane_or_window("h")
 end)
 nnoremap("<C-Right>", function()
-    utils.navigate_pane_or_window("l")
+  utils.navigate_pane_or_window("l")
 end)
 
 -- Moving windows
@@ -51,7 +51,7 @@ nnoremap("N", "Nzzzv")
 -- Buffer management
 nnoremap("<C-L>", ":bnext<CR>")
 nnoremap("<C-H>", ":bprevious<CR>")
-nnoremap("<C-w>", ":bdelete<CR>")
+-- nnoremap("<C-w>", ":bdelete<CR>")
 
 -- Don't put text in register on delete char
 mapper({ "n", "v" })("x", '"_x')
@@ -62,17 +62,17 @@ vnoremap(">", ">gv")
 
 -- Quick edit/source config files
 nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
-    desc = "Edit $MYVIMRC",
+  desc = "Edit $MYVIMRC",
 })
 -- TODO: Make it hard reload init.lua
 nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
-    desc = "Source $MYVIMRC",
+  desc = "Source $MYVIMRC",
 })
 nnoremap("<Leader>ed", ":edit $CONFIG_DIR/config<CR>", {
-    desc = "Edit dotfiles",
+  desc = "Edit dotfiles",
 })
 nnoremap("<Leader>se", utils.save_and_exec, {
-    desc = "Save and execute vim/lua files",
+  desc = "Save and execute vim/lua files",
 })
 
 -- Make <Esc> to actually escape from terminal mode
@@ -80,19 +80,19 @@ tnoremap("<Esc>", "<C-\\><C-n>")
 
 -- Toggle highlights
 nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
-    desc = "Toggle search highlighting",
+  desc = "Toggle search highlighting",
 })
 nnoremap("<Leader>th", function()
-    if vim.g.tab_highlight == true then
-        vim.cmd("highlight clear Tabs")
-        vim.notify("Disabled whitespace highlighting!")
-    else
-        vim.cmd("highlight Tabs guibg=yellow")
-        vim.notify("Enabled whitespace highlighting!")
-    end
-    vim.g.tab_highlight = not vim.g.tab_highlight
+  if vim.g.tab_highlight == true then
+    vim.cmd("highlight clear Tabs")
+    vim.notify("Disabled whitespace highlighting!")
+  else
+    vim.cmd("highlight Tabs guibg=yellow")
+    vim.notify("Enabled whitespace highlighting!")
+  end
+  vim.g.tab_highlight = not vim.g.tab_highlight
 end, {
-    desc = "Toggle tab highlighting",
+  desc = "Toggle tab highlighting",
 })
 
 --- Few mappings I stole from @akinsho :)
@@ -100,24 +100,24 @@ end, {
 
 -- Quick find and replace
 vnoremap(
-    "<Leader>rr",
-    [[<esc>:'<,'>s//<left>]],
-    { desc = "Within visually selected area", silent = false }
+  "<Leader>rr",
+  [[<esc>:'<,'>s//<left>]],
+  { desc = "Within visually selected area", silent = false }
 )
 nnoremap(
-    "<Leader>rr",
-    [[:%s//<left>]],
-    { desc = "Replace text", silent = false }
+  "<Leader>rr",
+  [[:%s//<left>]],
+  { desc = "Replace text", silent = false }
 )
 vnoremap(
-    "<Leader>rw",
-    [["zy:%s/<C-r><C-o>"/]],
-    { desc = "Visually selected text", silent = false }
+  "<Leader>rw",
+  [["zy:%s/<C-r><C-o>"/]],
+  { desc = "Visually selected text", silent = false }
 )
 nnoremap(
-    "<Leader>rw",
-    [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
-    { desc = "Replace word under cursor", silent = true }
+  "<Leader>rw",
+  [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
+  { desc = "Replace word under cursor", silent = true }
 )
 
 -- Search visual selection
@@ -130,11 +130,11 @@ vnoremap("//", [[y/<C-R>"<CR>]])
 -- 3. Once you are done with the macro, go back to normal mode.
 -- 4. Hit Enter to repeat the macro over search matches.
 function Setup_CR()
-    nnoremap(
-        "<Enter>",
-        [[:nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z]],
-        { buffer = true }
-    )
+  nnoremap(
+    "<Enter>",
+    [[:nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z]],
+    { buffer = true }
+  )
 end
 vim.g.mc = [[y/\V<C-r>=escape(@", '/')<CR><CR>]]
 
@@ -148,14 +148,14 @@ nnoremap("cq", [[:\<C-u>call v:lua.Setup_CR()<CR>*``qz]])
 nnoremap("cQ", [[:\<C-u>call v:lua.Setup_CR()<CR>#``qz]])
 
 vnoremap(
-    "cq",
-    [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . g:mc . "``qz"]],
-    { expr = true }
+  "cq",
+  [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . g:mc . "``qz"]],
+  { expr = true }
 )
 vnoremap(
-    "cQ",
-    [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . substitute(g:mc, '/', '?', 'g') . "``qz"]],
-    { expr = true }
+  "cQ",
+  [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . substitute(g:mc, '/', '?', 'g') . "``qz"]],
+  { expr = true }
 )
 
 -- Replicate netrw functionality (gx/gf)

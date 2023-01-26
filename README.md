@@ -53,15 +53,9 @@ exec zsh
 #### Requirements
 
 - patched font (eg. [Powerline Fonts](https://github.com/powerline/fonts) or [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts))
-- `clang` or `gcc` - For [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-- `wget` or `curl` and `gzip` or `tar` - For fetching language servers
+- `clang`/`gcc` - For [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- `wget`/`curl` and `gzip`/`tar` - For fetching language servers
 - `nodejs` and `npm` - For installing language servers
-
-##### Optional Dependencies
-
-- `rg` and `fd` - For [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- `eslint_d`, `shellcheck` - For linting
-- `prettierd`, `shfmt`, `stylua` - For formatting
 
 #### Installation
 
@@ -73,29 +67,8 @@ git clone https://github.com/saurabhchardereal/dotfiles ~/dotfiles
 ln -sf ~/dotfiles/config/nvim ~/.config/nvim
 
 # Open nvim and it'll automatically start installing plugins
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless "+Lazy! sync" +qa
 ```
-
-> **Note**  
-> Check [this](./config/nvim/lua/plugins.lua) file for the list of plugins that'll be installed automatically.
-
-<details>
-  <summary> Slow scrolling? </summary>
-
-You may or may not face slow scrolling with my configs. Since I keep enabled a bunch of settings which are notorious with cursor/scrolling speed you may want to disable them if you noticed any lag on your system.
-
-```vim
-" Disable cursorline and colorcolumn highlight as it is (most of the time) the main
-" culprit in slowing down your scrolling
-set nocursorline colorcolumn=
-
-" Syntax highlighting can be heavy sometimes, set maximum column to read for syntax highlighting items
-" NOTE: (neo)vim will stop highlighting text after this column and following
-" lines may not be highlighted correctly
-set synmaxcol=190
-```
-
-</details>
 
 ### Termux
 
