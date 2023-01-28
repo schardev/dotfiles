@@ -35,21 +35,6 @@ local default = {
     mods = "CTRL|SHIFT",
     action = act.SpawnTab("CurrentPaneDomain"),
   },
-  -- If CTRL-w inside an editor, send key to the editor instead
-  -- (I mapped that key to close buffers in vim)
-  {
-
-    key = "w",
-    mods = "CTRL",
-    action = callback(function(window, pane)
-      local proc_name = pane:get_foreground_process_name()
-      if utils.is_editor(proc_name) then
-        window:perform_action(act.SendKey({ key = "w", mods = "CTRL" }), pane)
-      else
-        window:perform_action(act.CloseCurrentPane({ confirm = true }), pane)
-      end
-    end),
-  },
 
   -- Open debug overlay
   {

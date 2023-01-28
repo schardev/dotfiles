@@ -51,7 +51,7 @@ nnoremap("N", "Nzzzv")
 -- Buffer management
 nnoremap("<C-L>", ":bnext<CR>")
 nnoremap("<C-H>", ":bprevious<CR>")
--- nnoremap("<C-w>", ":bdelete<CR>")
+nnoremap("<Leader>qw", ":bdelete<CR>")
 
 -- Don't put text in register on delete char
 mapper({ "n", "v" })("x", '"_x')
