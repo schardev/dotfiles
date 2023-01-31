@@ -65,3 +65,18 @@ autocmd("TextYankPost", {
   end,
   desc = "Highlight text on yank (copy)",
 })
+
+autocmd("FileType", {
+  group = my_local_group,
+  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+  callback = function()
+    local CONFIG_DIR = os.getenv("XDG_CONFIG_HOME") or os.getenv("CONFIG_DIR")
+
+    -- ECMA specific spell file
+    vim.opt_local.spellfile:append(CONFIG_DIR .. "/nvim/spell/ecma.utf-8.add")
+
+    -- When a word is CamelCased, assume "Cased" is a separate word
+    vim.opt_local.spelloptions:append("camel")
+  end,
+  desc = "ECMA specific file settings",
+})

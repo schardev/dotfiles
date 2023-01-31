@@ -1,6 +1,7 @@
 local set = vim.o
 local opt = vim.opt
 local cmd = vim.cmd
+local CONFIG_DIR = os.getenv("XDG_CONFIG_HOME") or os.getenv("CONFIG_DIR")
 
 -- stylua: ignore start
 cmd('filetype plugin indent on ')       -- Used for indentation based on file-type
@@ -26,10 +27,9 @@ set.relativenumber = true               -- Shows line number relative to the cur
 set.scrolloff = 5                       -- Scroll offset
 set.shell = "bash"                      -- Set default shell to bash coz zsh isn't POSIX-compatible
 set.shiftwidth = 2                      -- Indents will have this much width
--- FIXME: Enable this after fixing typescript spell in upstream
--- set.spell = true                        -- Enable spell checking
+set.spell = true                        -- Enable spell checking
 set.spelllang = "en_us"
-set.spellfile = os.getenv('XDG_CONFIG_HOME') .. '/nvim/spell/en.utf-8.add'
+set.spellfile = CONFIG_DIR .. '/nvim/spell/common.utf-8.add'
 set.splitright = true                   -- Splits windows to the right by default
 set.smartcase = true                    -- Override `ignorecase` where possible
 set.softtabstop = 2                     -- Sets the number of columns for a TAB
