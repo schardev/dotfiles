@@ -34,12 +34,12 @@ autocmd("TermOpen", {
   desc = "Disable line numbers in terminal window",
 })
 
-autocmd({ "BufModifiedSet", "BufEnter" }, {
+autocmd("BufEnter", {
   group = my_local_group,
   pattern = "*",
   callback = function(params)
-    -- Map q to exit in non-filetype buffer
-    if vim.bo.buftype == "nofile" or not vim.bo.modifiable then
+    -- Map q to exit in non-filetype/non-listed buffer
+    if vim.bo.buftype == "nofile" or not vim.bo.buflisted then
       nnoremap("q", ":q<CR>", { buffer = params.buf })
     end
   end,
