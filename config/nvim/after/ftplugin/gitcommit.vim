@@ -1,2 +1,8 @@
 " Auto-indent after this many column
-set textwidth=80
+setlocal textwidth=80
+
+" Enable spell
+setlocal spell
+
+" Disable cap check
+setlocal spellcapcheck=

@@ -6,3 +6,7 @@ setlocal colorcolumn=
 
 " Enable vim's markdown folding (see runtime markdown ftplugin)
 " let g:markdown_folding = 1
+
+" Enable spell
+setlocal spell
+
