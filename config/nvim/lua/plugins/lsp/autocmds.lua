@@ -6,7 +6,7 @@ local diagnostics_float_handler =
 
 M.attach = function(client, bufnr)
   local lsp_augroup = vim.api.nvim_create_augroup("MyLocalLSPGroup", {})
-  if client.supports_method("textDocument/documentHighlight") then
+  if client.server_capabilities.documentHighlightProvider then
     autocmd({ "CursorHold", "CursorHoldI" }, {
       group = lsp_augroup,
       buffer = bufnr,
@@ -22,14 +22,12 @@ M.attach = function(client, bufnr)
     })
   end
 
-  if client.supports_method("textDocument/publishDiagnostics") then
-    autocmd("CursorHold", {
-      group = lsp_augroup,
-      buffer = bufnr,
-      callback = diagnostics_float_handler,
-      desc = "Shows diagnostic in floating window on smaller windows",
-    })
-  end
+  autocmd("CursorHold", {
+    group = lsp_augroup,
+    buffer = bufnr,
+    callback = diagnostics_float_handler,
+    desc = "Shows diagnostic in floating window on smaller windows",
+  })
 
   autocmd("LspDetach", {
     group = lsp_augroup,

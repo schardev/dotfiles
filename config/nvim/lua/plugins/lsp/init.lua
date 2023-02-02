@@ -1,5 +1,5 @@
 -- List of servers to install and setup automatically
-local NIL = {} -- to avoid creating a new unique table everytime
+local NIL = {} -- to avoid creating a new unique table every time
 local servers = {
   cssls = NIL,
   cssmodules_ls = NIL,
@@ -40,7 +40,7 @@ return {
         },
       },
 
-      -- Neovim api completions
+      -- Neovim API completions
       {
         "folke/neodev.nvim",
         opts = { library = { plugins = false } },

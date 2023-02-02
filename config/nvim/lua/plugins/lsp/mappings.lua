@@ -1,37 +1,29 @@
 local M = {}
-local nnoremap = require("core.utils").mapper_factory("n")
-local vnoremap = require("core.utils").mapper_factory("v")
+local mapper = require("core.utils").mapper_factory
+local nnoremap = mapper("n")
 
 M.attach = function(client, bufnr)
-  if client.supports_method("textDocument/publishDiagnostics") then
-    nnoremap(
-      "<LocalLeader>q",
-      vim.diagnostic.setloclist,
-      { desc = "Add buffer diagnostics to the location list" }
-    )
-    nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-    nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
-    nnoremap("<LocalLeader>dd", function()
-      if vim.b.diagnostics_status then
-        vim.diagnostic.disable(bufnr)
-      else
-        vim.diagnostic.enable(bufnr)
-      end
-      vim.b.diagnostics_status = not vim.b.diagnostics_status
-    end, { desc = "Toggle diagnostics" })
-  end
-
   nnoremap(
+    "<LocalLeader>q",
+    vim.diagnostic.setloclist,
+    { desc = "Add buffer diagnostics to the location list" }
+  )
+  nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+  nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
+  nnoremap("<LocalLeader>dd", function()
+    if vim.b.diagnostics_status then
+      vim.diagnostic.disable(bufnr)
+    else
+      vim.diagnostic.enable(bufnr)
+    end
+    vim.b.diagnostics_status = not vim.b.diagnostics_status
+  end, { desc = "Toggle diagnostics" })
+
+  mapper({ "n", "v" })(
     "<LocalLeader>ca",
     vim.lsp.buf.code_action,
     { buffer = bufnr, desc = "Code action" }
   )
-  vnoremap(
-    "<LocalLeader>ca",
-    vim.lsp.buf.range_code_action,
-    { buffer = bufnr, desc = "Code action" }
-  )
-
   nnoremap(
     "<LocalLeader>wa",
     vim.lsp.buf.add_workspace_folder,
@@ -64,7 +56,7 @@ M.attach = function(client, bufnr)
   )
   nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
 
-  if client.supports_method("textDocument/hover") then
+  if client.server_capabilities.hoverProvider then
     nnoremap(
       "<LocalLeader>D",
       vim.lsp.buf.type_definition,

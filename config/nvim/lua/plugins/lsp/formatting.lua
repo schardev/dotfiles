@@ -12,7 +12,7 @@ local lsp_formatting = function(bufnr)
 end
 
 M.attach = function(client, bufnr)
-  if not client.supports_method("textDocument/formatting") then
+  if not client.server_capabilities.documentFormattingProvider then
     return
   end
 
