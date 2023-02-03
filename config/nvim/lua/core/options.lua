@@ -27,7 +27,6 @@ set.relativenumber = true               -- Shows line number relative to the cur
 set.scrolloff = 5                       -- Scroll offset
 set.shell = "bash"                      -- Set default shell to bash coz zsh isn't POSIX-compatible
 set.shiftwidth = 2                      -- Indents will have this much width
-set.spelllang = "en_us"
 set.spellfile = CONFIG_DIR .. '/nvim/spell/common.utf-8.add'
 set.splitright = true                   -- Splits windows to the right by default
 set.smartcase = true                    -- Override `ignorecase` where possible
