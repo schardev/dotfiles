@@ -7,7 +7,7 @@ local servers = {
   emmet_ls = require("plugins.lsp.servers.emmet_ls"),
   html = NIL,
   jsonls = require("plugins.lsp.servers.jsonls"),
-  sumneko_lua = require("plugins.lsp.servers.sumneko_lua"),
+  lua_ls = require("plugins.lsp.servers.lua_ls"),
   tsserver = require("plugins.lsp.servers.tsserver"),
   yamlls = NIL,
 }
