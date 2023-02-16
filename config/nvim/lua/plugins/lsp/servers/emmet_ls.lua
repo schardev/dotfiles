@@ -1,4 +1,5 @@
 local M = {}
+
 M.config = {
   -- Disable emmet in css/sass
   filetypes = {
@@ -11,18 +12,19 @@ M.config = {
     -- "less",
   },
 
-  -- FIXME: These options doesn't seem to work
+  -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts
   init_options = {
     html = {
       options = {
-        -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts
         ["bem.enabled"] = true,
         ["bem.modifier"] = "--",
       },
     },
-    javascriptreact = {
+    jsx = {
       options = {
+        ["bem.enabled"] = true,
         ["jsx.enabled"] = true,
+        ["output.selfClosingStyle"] = "xhtml",
       },
     },
   },
