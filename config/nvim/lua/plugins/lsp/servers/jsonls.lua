@@ -44,6 +44,12 @@ M.config = {
           fileMatch = { "now.json" },
           url = "https://json.schemastore.org/now",
         },
+        {
+          description = "Vercel configuration file",
+          fileMatch = { "vercel.json" },
+          name = "Vercel",
+          url = "https://openapi.vercel.sh/vercel.json",
+        },
       },
     },
   },
