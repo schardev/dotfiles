@@ -160,7 +160,6 @@ vnoremap(
 
 -- Replicate netrw functionality (gx/gf)
 nnoremap("gx", utils.open_link)
-nnoremap("gf", "<Cmd>e <cfile><CR>")
 
 -- few greatest remaps ever (courtesy of @theprimeagen)
 xnoremap("<Leader>p", [["_dP]])
