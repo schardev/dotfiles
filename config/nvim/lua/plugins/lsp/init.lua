@@ -36,7 +36,12 @@ return {
       {
         "williamboman/mason-lspconfig.nvim",
         opts = {
-          ensure_installed = vim.tbl_keys(servers),
+          ensure_installed = vim.tbl_filter(function(server)
+            if vim.env.IS_TERMUX and server == "lua_ls" then
+              return false
+            end
+            return true
+          end, vim.tbl_keys(servers)),
         },
       },
 
