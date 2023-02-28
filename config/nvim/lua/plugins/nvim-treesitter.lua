@@ -10,6 +10,7 @@ return {
 
       local enabled_parsers = {
         "bash",
+        "css",
         "help",
         "html",
         "javascript",
@@ -133,6 +134,16 @@ return {
               ["[m"] = "@function.outer",
               ["[["] = "@class.outer",
             },
+          },
+        },
+
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",
+            node_decremental = "<S-Tab>",
+            node_incremental = "<Tab>",
+            scope_incremental = "<CR>",
           },
         },
 
