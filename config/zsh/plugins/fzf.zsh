@@ -13,8 +13,8 @@ source "${PREFIX:-/usr}"/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--height 100% --preview 'exa --tree {}'"
-alias hv='(cd $HOME; fv)'
-alias dv='(cd $CONFIG_DIR; fv)'
+alias fh='(cd $HOME; fv)'
+alias fd='(cd $CONFIG_DIR; fv)'
 
 ## Few useful utilities
 
@@ -49,7 +49,7 @@ function fopen() {
 
 # ripgrep <3 fzf
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#using-fzf-as-the-secondary-filter
-function rfv() {
+function fg() {
     local rg_opts=(--color=always --line-number --no-heading --smart-case)
 
     while ((${#})); do

@@ -19,7 +19,7 @@ return {
         g = { name = "+git" },
         n = { g = { name = "+neogen" } },
         r = { name = "+replace" },
-        s = { name = "+telescope" },
+        f = { name = "+telescope" },
       },
     })
   end,

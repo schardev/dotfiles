@@ -14,24 +14,24 @@ return {
 
     -- Mappings
     nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
-    nnoremap("<Leader>dv", function()
+    nnoremap("<Leader>fd", function()
       builtin.find_files({ cwd = "$CONFIG_DIR" })
     end, { desc = "Find Files in $CONFIG_DIR" })
-    nnoremap("<Leader>hv", function()
+    nnoremap("<Leader>fh", function()
       builtin.find_files({ cwd = "$HOME" })
     end, { desc = "Find Files in $HOME" })
-    nnoremap("<Leader>bb", builtin.buffers, { desc = "Buffers List" })
+    -- nnoremap("<Leader>fb", builtin.buffers, { desc = "Buffers List" })
 
     nnoremap(
-      "<Leader>sb",
+      "<Leader>fb",
       builtin.current_buffer_fuzzy_find,
       { desc = "Live fuzzy search inside current buffer" }
     )
 
-    nnoremap("<Leader>sg", builtin.live_grep, { desc = "Live Grep" })
-    nnoremap("<Leader>st", builtin.help_tags, { desc = "Helptags" })
-    nnoremap("<Leader>ss", builtin.builtin, { desc = "Telescope Builtins" })
-    nnoremap("<Leader>sr", builtin.oldfiles, { desc = "Oldfiles" })
+    nnoremap("<Leader>fg", builtin.live_grep, { desc = "Live Grep" })
+    nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
+    nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
+    nnoremap("<Leader>fo", builtin.oldfiles, { desc = "Oldfiles" })
 
     -- Telescope base config
     require("telescope").setup({
