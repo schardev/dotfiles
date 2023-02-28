@@ -110,10 +110,12 @@ return {
           swap = {
             enable = true,
             swap_next = {
-              ["[w"] = "@parameter.inner",
+              ["[p"] = "@parameter.inner",
+              ["[t"] = "@user.ternary.inner", -- defined in after/queries/ecma/textobjects.scm
             },
             swap_previous = {
-              ["]w"] = "@parameter.inner",
+              ["]p"] = "@parameter.inner",
+              ["]t"] = "@user.ternary.inner",
             },
           },
 
