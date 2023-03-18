@@ -76,13 +76,4 @@ return {
       })
     end,
   },
-
-  -- Autopairs for bracket completions
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {
-      check_ts = true,
-    },
-  },
 }
