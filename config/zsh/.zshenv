@@ -21,7 +21,8 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_DATA_DIRS=/usr/local/share:/usr/share
 export XDG_CONFIG_DIRS=/etc/xdg
 
-export CONFIG_DIR="$HOME/dotfiles"
+export CONFIG_DIR="$HOME/dotfiles/config"
+export DOTS_DIR="$HOME/dotfiles"
 export SHELDON_CONFIG_DIR=$XDG_CONFIG_HOME/zsh # https://github.com/rossmacarthur/sheldon
 export EDITOR=nvim
 export VISUAL=nvim

@@ -4,7 +4,7 @@
 #
 # Utility script for taking screenshots
 
-source "$CONFIG_DIR"/scripts/utils.sh
+source "$DOTS_DIR"/scripts/utils.sh
 
 time=$(date +%d-%m-%Y-%I-%M-%S)
 dir="$(xdg-user-dir PICTURES)/Screenshots"

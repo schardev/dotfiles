@@ -131,6 +131,7 @@ function M.conditional_activate_pane(window, pane, wezterm_direction)
   else
     -- FIXME: workaround edge case where wezterm swallows the keybinds
     -- when there's no pane exists in the given direction
+    -- https://github.com/wez/wezterm/discussions/2990#discussioncomment-5095593
     window:perform_action(
       wezterm.action.ActivatePaneDirection(wezterm_direction),
       pane

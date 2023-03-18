@@ -1,4 +1,4 @@
-source "$CONFIG_DIR"/scripts/utils.sh
+source "$DOTS_DIR"/scripts/utils.sh
 
 code_install_extension() {
     local extensions=(
@@ -23,5 +23,5 @@ code_setup_dotfiles() {
     rm -rf "$code_dir"/{*.json,snippets}
 
     # Symlink version controlled configs
-    ln -sf "$CONFIG_DIR"/config/vscode/* "$code_dir"
+    ln -sf "$CONFIG_DIR"/vscode/* "$code_dir"
 }

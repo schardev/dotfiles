@@ -5,9 +5,9 @@
 # Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 
-CONFIG_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/..
-source "$CONFIG_DIR"/scripts/utils.sh
-source "$CONFIG_DIR"/scripts/git-setup.sh
+DOTS_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/..
+source "$DOTS_DIR"/scripts/utils.sh
+source "$DOTS_DIR"/scripts/git-setup.sh
 
 # Install packages
 termux_install_packages() {
@@ -43,7 +43,7 @@ termux_setup_theme() {
     # use Dracula color scheme & Hack font by default
     pr_info "Setting up theme ..."
     curl -o "$HOME"/.termux/colors.properties https://raw.githubusercontent.com/catppuccin/termux/main/Mocha/colors.properties
-    cp "$CONFIG_DIR"/etc/Hack.ttf "$HOME"/.termux/font.ttf
+    cp "$DOTS_DIR"/etc/Hack.ttf "$HOME"/.termux/font.ttf
 }
 
 # Setup dotfiles
@@ -54,12 +54,12 @@ termux_setup_dotfiles() {
     [[ ! -d ~/.termux ]] && mkdir ~/.termux
     echo "extra-keys = [['ESC','SHIFT','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" >~/.termux/termux.properties
 
-    # Make zsh follow $XDA_CONFIG_DIR
+    # Make zsh follow $XDA_DOTS_DIR
     echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
     [[ ! -d ~/.config ]] && mkdir "${HOME}"/{.config,.sheldon}
-    ln -sf "$CONFIG_DIR"/config/zsh "${HOME}"/.config/zsh
-    ln -sf "$CONFIG_DIR"/config/nvim "${HOME}"/.config/nvim
-    ln -sf "$CONFIG_DIR"/config/zsh/plugins.toml "${HOME}"/.sheldon
+    ln -sf "$DOTS_DIR"/config/zsh "${HOME}"/.config/zsh
+    ln -sf "$DOTS_DIR"/config/nvim "${HOME}"/.config/nvim
+    ln -sf "$DOTS_DIR"/config/zsh/plugins.toml "${HOME}"/.sheldon
 }
 
 termux_setup_env() {

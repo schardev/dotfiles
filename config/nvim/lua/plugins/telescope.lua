@@ -15,8 +15,8 @@ return {
     -- Mappings
     nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
     nnoremap("<Leader>fd", function()
-      builtin.find_files({ cwd = "$CONFIG_DIR" })
-    end, { desc = "Find Files in $CONFIG_DIR" })
+      builtin.find_files({ cwd = "$DOTS_DIR" })
+    end, { desc = "Find Files in $DOTS_DIR" })
     nnoremap("<Leader>fh", function()
       builtin.find_files({ cwd = "$HOME" })
     end, { desc = "Find Files in $HOME" })
