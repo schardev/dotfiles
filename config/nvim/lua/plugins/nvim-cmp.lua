@@ -2,14 +2,15 @@ return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
-    "nvim-autopairs",
     "L3MON4D3/LuaSnip",
+    "f3fora/cmp-spell",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-calc",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-path",
+    "nvim-autopairs",
     "saadparwaiz1/cmp_luasnip",
-    "hrsh7th/cmp-calc",
     {
       "petertriho/cmp-git",
       config = true,
@@ -46,10 +47,33 @@ return {
       Snippet = "",
       Struct = "פּ",
       Text = "",
-      TypeParameter = "",
+      TypeParameter = "",
       Unit = "塞",
       Value = "",
       Variable = "",
+    }
+
+    local cmp_source_names = {
+      buffer = "[Buffer]",
+      nvim_lsp = "[LSP]",
+      luasnip = "[LuaSnip]",
+      git = "[Git]",
+      calc = "[Calc]",
+      spell = "[Spell]",
+    }
+
+    local common_sources = {
+      { name = "buffer", max_item_count = 10 },
+      { name = "calc" },
+      { name = "path" },
+      {
+        name = "spell",
+        option = {
+          enable_in_context = function()
+            return require("cmp.config.context").in_treesitter_capture("spell")
+          end,
+        },
+      },
     }
 
     cmp.setup({
@@ -58,25 +82,24 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      formatting = {
-        format = function(index, vim_item)
-          vim_item.kind =
-            string.format("%s %s", cmp_kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 
-          vim_item.menu = ({
-            buffer = "[Buffer]",
-            nvim_lsp = "[LSP]",
-            luasnip = "[LuaSnip]",
-            git = "[Git]",
-            calc = "[Calc]",
-          })[index.source.name]
+      formatting = {
+        format = function(entry, vim_item)
+          local source_name = cmp_source_names[entry.source.name]
+
+          vim_item.kind =
+            string.format("%s %s", cmp_kind_icons[vim_item.kind], vim_item.kind)
+          vim_item.menu = source_name
+
           return vim_item
         end,
       },
+
       window = {
         -- completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
+
       mapping = cmp.mapping.preset.insert({
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -109,35 +132,16 @@ return {
           end
         end, { "i", "s" }),
       }),
+
       sources = cmp.config.sources({
         { name = "luasnip" },
-      }, {
         { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
-      }, {
-        { name = "buffer", max_item_count = 10 },
-      }, {
-        { name = "calc" },
-        { name = "path" },
-      }),
+      }, common_sources),
     })
 
     -- Autopairs for completion items
-    ---@see https://github.com/NvChad/NvChad/pull/1095
-    local ecma_filetypes =
-      { "javascript", "typescript", "javascriptreact", "typescriptreact" }
-
-    cmp.event:on("confirm_done", function(event)
-      -- Do not complete autopairs in import statements
-      local filetype = vim.bo.filetype
-      if
-        vim.tbl_contains(ecma_filetypes, filetype)
-        and ts_utils.get_node_at_cursor():type() == "named_imports"
-      then
-        return
-      end
-      autopairs.on_confirm_done()(event)
-    end)
+    cmp.event:on("confirm_done", autopairs.on_confirm_done())
 
     -- Enable emmet-ls snippets inside jsx only
     ---@see https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
@@ -146,42 +150,23 @@ return {
         and entry.source:get_debug_name() == "nvim_lsp:emmet_ls"
     end
 
-    local is_inside_jsx = function()
-      local current_node = ts_utils.get_node_at_cursor()
-
-      while current_node ~= nil do
-        if current_node:type() == "jsx_text" then
-          return true
-        end
-        current_node = current_node:parent()
-      end
-      return false
-    end
-
     local emmet_in_jsx_only = function(entry, _)
       if is_emmet_snippet(entry) then
-        return is_inside_jsx()
+        return ts_utils.get_node_at_cursor():type() == "jsx_text"
       else
         return true
       end
     end
 
-    local ecma_sources = {
+    -- Add filtered lsp source to jsx supported files
+    -- TODO: https://github.com/hrsh7th/nvim-cmp/issues/632
+    cmp.setup.filetype({ "javascriptreact", "typescriptreact" }, {
       sources = cmp.config.sources({
-        { name = "luasnip" },
-      }, {
+        { name = "luasnip", keyword_length = 2, max_item_count = 5 },
         { name = "nvim_lsp", entry_filter = emmet_in_jsx_only },
         { name = "nvim_lsp_signature_help" },
-      }, {
-        { name = "buffer", max_item_count = 10 },
-      }, {
-        { name = "calc" },
-        { name = "path" },
-      }),
-    }
-
-    -- Add filtered lsp source to jsx supported files
-    cmp.setup.filetype({ "javascriptreact", "typescriptreact" }, ecma_sources)
+      }, common_sources),
+    })
 
     -- Make <CR> autoselect first completion item in html files
     cmp.setup.filetype("html", {
@@ -198,6 +183,7 @@ return {
         { name = "git" },
         { name = "buffer" },
         { name = "path" },
+        { name = "spell" },
       },
     })
   end,
