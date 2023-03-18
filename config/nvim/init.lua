@@ -21,6 +21,9 @@ local lazy_config = {
   dev = {
     path = "~/workspace",
   },
+  change_detection = {
+    notify = false,
+  },
   performance = {
     rtp = {
       disabled_plugins = {
