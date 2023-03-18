@@ -6,7 +6,6 @@ return {
     local null_ls = require("null-ls")
     local on_attach = require("plugins.lsp.events").on_attach
     local utils = require("null-ls.utils")
-    local helpers = require("null-ls.helpers")
 
     local actions = null_ls.builtins.code_actions
     local diagnostics = null_ls.builtins.diagnostics
@@ -22,8 +21,8 @@ return {
     }
 
     -- Enable specific formatters only if the root has config file
-    local eslint_runtime_condition = helpers.cache.by_bufnr(function(params)
-      local config_path = utils.root_pattern(
+    local eslint_condition = function()
+      return utils.root_pattern(
         -- https://eslint.org/docs/user-guide/configuring/configuration-files#configuration-file-formats
         ".eslintrc",
         ".eslintrc.js",
@@ -32,15 +31,21 @@ return {
         ".eslintrc.yml",
         ".eslintrc.json"
         -- "package.json"
-      )(params.bufname)
-      return config_path ~= nil
-    end)
+      )(vim.api.nvim_buf_get_name(0)) ~= nil
+    end
 
-    local stylua_runtime_condition = helpers.cache.by_bufnr(function(params)
-      local config_path =
-        utils.root_pattern(".stylua.toml", "stylua.toml")(params.bufname)
-      return config_path ~= nil
-    end)
+    -- TODO: Remove once this gets merged - https://github.com/mantoni/eslint_d.js/issues/214
+    local eslint_flat_config = function()
+      return utils.root_pattern("eslint.config.js")(
+        vim.api.nvim_buf_get_name(0)
+      ) ~= nil
+    end
+
+    local stylua_condition = function()
+      return utils.root_pattern(".stylua.toml", "stylua.toml")(
+        vim.api.nvim_buf_get_name(0)
+      ) ~= nil
+    end
 
     local sources = {
       --------------------------------
@@ -48,7 +53,11 @@ return {
       --------------------------------
 
       actions.eslint_d.with({
-        runtime_condition = eslint_runtime_condition,
+        condition = eslint_condition,
+      }),
+
+      actions.eslint.with({
+        condition = eslint_flat_config,
       }),
 
       actions.shellcheck,
@@ -71,7 +80,12 @@ return {
 
       diagnostics.eslint_d.with({
         method = null_ls.methods.DIAGNOSTICS_ON_SAVE, -- run eslint on save
-        runtime_condition = eslint_runtime_condition,
+        condition = eslint_condition,
+      }),
+
+      diagnostics.eslint.with({
+        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+        condition = eslint_flat_config,
       }),
 
       ------------------------------
@@ -79,15 +93,9 @@ return {
       ------------------------------
 
       formatting.prettierd,
-      formatting.eslint_d.with({
-        runtime_condition = eslint_runtime_condition,
-      }),
 
       formatting.stylua.with({
-        -- cwd = function(params)
-        -- utils.spawn_with_lsp_root(params, "sumneko_lua")
-        -- end,
-        runtime_condition = stylua_runtime_condition,
+        condition = stylua_condition,
       }),
 
       formatting.trim_newlines.with({
