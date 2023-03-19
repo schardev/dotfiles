@@ -76,4 +76,34 @@ return {
       })
     end,
   },
+
+  -- Session management
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre",
+    keys = {
+      {
+        "<leader>so",
+        function()
+          require("persistence").load()
+        end,
+        desc = "Load session for current directory",
+      },
+      {
+        "<leader>sl",
+        function()
+          require("persistence").load({ last = true })
+        end,
+        desc = "Load last session",
+      },
+      {
+        "<leader>sq",
+        function()
+          require("persistence").stop()
+        end,
+        desc = "Stop session",
+      },
+    },
+    config = true,
+  },
 }
