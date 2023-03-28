@@ -1,0 +1,22 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character]
+success_symbol = '[➜](bold green)'
+error_symbol = '[➜](bold red)'
+
+[git_branch]
+symbol = 'שׂ '
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+conflicted = '(#$count )'
+stashed = '(\$$count )'
+deleted = '([$count](red) )'
+renamed = '(»$count )'
+modified = '([!$count](yellow) )'
+staged = '([+$count](green) )'
+untracked = '([$count?](blue) )'
+ahead = '([$count](cyan) )'
+behind = '([$count](cyan) )'
