@@ -18,6 +18,7 @@ return {
       "toml",
       "vim",
       "zsh",
+      "scss", -- prettier doesn't trim trailing whitespaces for whatever reason
     }
 
     -- Enable specific formatters only if the root has config file
