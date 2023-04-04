@@ -11,7 +11,6 @@ return {
       local enabled_parsers = {
         "bash",
         "css",
-        "help",
         "html",
         "javascript",
         "json",
@@ -19,12 +18,13 @@ return {
         "lua",
         "markdown",
         "markdown_inline",
+        "query",
         "scss",
         "tsx",
         "typescript",
         "vim",
+        "vimdoc",
         "yaml",
-        "query",
       }
 
       autocmd("FileType", {
