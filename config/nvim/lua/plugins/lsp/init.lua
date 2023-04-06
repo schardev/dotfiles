@@ -8,10 +8,9 @@ local servers = {
   html = NIL,
   jsonls = require("plugins.lsp.servers.jsonls"),
   lua_ls = require("plugins.lsp.servers.lua_ls"),
-  tsserver = require("plugins.lsp.servers.tsserver"),
+  tsserver = NIL,
   yamlls = NIL,
 }
-local on_attach = require("plugins.lsp.events").on_attach
 
 return {
   {
@@ -52,12 +51,15 @@ return {
       },
     },
     config = function()
-      -- Set global updatetime (null-ls and nvim-cmp also depends on it)
+      -- Set global updatetime (null-ls and lspconfig also depends on it)
       vim.opt.updatetime = 400
 
       local lspconfig = require("lspconfig")
       local handlers = require("plugins.lsp.handlers")
       local diagnostics = require("plugins.lsp.diagnostics")
+      local lsp_autocmds = require("plugins.lsp.autocmds")
+      local lsp_formatting = require("plugins.lsp.formatting")
+      local lsp_mappings = require("plugins.lsp.mappings")
 
       -- Setup handlers and diagnostics config
       handlers.setup()
@@ -68,12 +70,36 @@ return {
       capabilities.textDocument.completion =
         { completionItem = { snippetSupport = true } }
 
+      -- Attach callbacks
+      local autocmd = vim.api.nvim_create_autocmd
+      autocmd("LspAttach", {
+        group = lsp_autocmds.lsp_augroup_id,
+        callback = function(args)
+          -- Clear any autocmd declared by previous client
+          -- TODO: file an issue upstream with repro
+          if
+            pcall(
+              vim.api.nvim_get_autocmds,
+              { group = lsp_autocmds.lsp_augroup_id, buffer = args.buf }
+            )
+          then
+            vim.api.nvim_clear_autocmds({
+              group = lsp_autocmds.lsp_augroup_id,
+              buffer = args.buf,
+            })
+          end
+
+          lsp_autocmds.attach(args)
+          lsp_formatting.attach(args)
+          lsp_mappings.attach(args)
+        end,
+      })
+
       -- Setup all listed servers
       for lsp, server in pairs(servers) do
         if lsp ~= "tsserver" then
           lspconfig[lsp].setup(
             vim.tbl_deep_extend("force", server.config or {}, {
-              on_attach = on_attach,
               capabilities = capabilities,
               flags = {
                 debounce_text_changes = vim.o.updatetime,
@@ -97,9 +123,6 @@ return {
     dependencies = { "nvim-lspconfig" },
     opts = {
       debug = false,
-      server = {
-        on_attach = on_attach,
-      },
     },
   },
 }

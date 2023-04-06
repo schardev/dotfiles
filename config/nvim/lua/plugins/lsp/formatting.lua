@@ -1,17 +1,22 @@
 local M = {}
 local mapper = require("core.utils").mapper_factory
+local lsp_autocmds = require("plugins.lsp.autocmds")
 local autocmd = vim.api.nvim_create_autocmd
 local command = vim.api.nvim_create_user_command
 
 -- Use formatters from null-ls only
-local lsp_formatting = function(bufnr)
+local lsp_format = function(bufnr)
   vim.lsp.buf.format({
     name = "null-ls", -- Restrict formatting to client matching this name
     bufnr = bufnr,
   })
 end
 
-M.attach = function(client, bufnr)
+M.attach = function(args)
+  local bufnr = args.buf
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+  -- Exit immediately if the client doesn't support formatting
   if not client.server_capabilities.documentFormattingProvider then
     return
   end
@@ -19,7 +24,7 @@ M.attach = function(client, bufnr)
   -- Expose buffer-scoped variable to control autoformatting
   vim.b.format_on_save = true
 
-  command("LspAutoFormatToggle", function()
+  command("UserLspAutoFormatToggle", function()
     if not vim.b.format_on_save then
       vim.notify("Enabling auto-formatting!")
     else
@@ -29,17 +34,25 @@ M.attach = function(client, bufnr)
   end, { desc = "Toggle auto-formatting" })
 
   mapper({ "n", "v" })("<LocalLeader>f", function()
-    lsp_formatting(bufnr)
+    lsp_format(bufnr)
   end, { buffer = bufnr, desc = "Format" })
 
   autocmd("BufWritePre", {
-    group = "MyLocalLSPGroup",
+    group = lsp_autocmds.lsp_augroup_id,
     buffer = bufnr,
     callback = function()
       if not vim.b.format_on_save then
         return
       end
-      lsp_formatting(bufnr)
+
+      -- Organize imports before writing to a tsx or ts file
+      if client.name == "tsserver" then
+        if vim.fn.exists(":TypescriptOrganizeImports") > 0 then
+          vim.cmd.TypescriptOrganizeImports({ bang = true }) -- runs synchronously
+        end
+      end
+
+      lsp_format(bufnr)
     end,
     desc = "Format file on save",
   })

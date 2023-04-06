@@ -2,11 +2,15 @@ local M = {}
 local mapper = require("core.utils").mapper_factory
 local nnoremap = mapper("n")
 
-M.attach = function(client, bufnr)
+M.attach = function(args)
+  local bufnr = args.buf
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  vim.b.diagnostics_status = true
+
   nnoremap(
     "<LocalLeader>q",
     vim.diagnostic.setloclist,
-    { desc = "Add buffer diagnostics to the location list" }
+    { desc = "Add diagnostics to the location list" }
   )
   nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
   nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
@@ -58,7 +62,7 @@ M.attach = function(client, bufnr)
 
   if client.server_capabilities.hoverProvider then
     nnoremap(
-      "<LocalLeader>D",
+      "gt",
       vim.lsp.buf.type_definition,
       { buffer = bufnr, desc = "Go to type definition" }
     )
@@ -77,7 +81,26 @@ M.attach = function(client, bufnr)
   )
 
   if client.name == "tsserver" then
-    require("plugins.lsp.servers.tsserver").mappings(bufnr)
+    nnoremap(
+      "<LocalLeader>rf",
+      "<Cmd>TypescriptRenameFile<CR>",
+      { buffer = bufnr, desc = "Rename File" }
+    )
+    nnoremap(
+      "<LocalLeader>gd",
+      "<Cmd>TypescriptGoToSourceDefinition<CR>",
+      { buffer = bufnr, desc = "Go To Source Definition" }
+    )
+    nnoremap(
+      "<LocalLeader>mi",
+      "<Cmd>TypescriptAddMissingImports<CR>",
+      { buffer = bufnr, desc = "Add Missing Imports" }
+    )
+    nnoremap(
+      "<LocalLeader>ru",
+      "<Cmd>TypescriptRemoveUnused<CR>",
+      { buffer = bufnr, desc = "Remove Unused" }
+    )
   end
 end
 

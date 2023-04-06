@@ -6,6 +6,9 @@ M.config = {
       completion = {
         callSnippet = "Disable",
       },
+      workspace = {
+        checkThirdParty = false,
+      },
     },
   },
 }
