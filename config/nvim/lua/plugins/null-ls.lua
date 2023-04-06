@@ -4,7 +4,6 @@ return {
   dependencies = { "mason.nvim" },
   config = function()
     local null_ls = require("null-ls")
-    local on_attach = require("plugins.lsp.events").on_attach
     local utils = require("null-ls.utils")
 
     local actions = null_ls.builtins.code_actions
@@ -117,8 +116,7 @@ return {
     }
 
     null_ls.setup({
-      on_attach = on_attach,
-      debounce = vim.o.updatetime, -- Bind debounce with global option
+      debounce = 150,
       debug = false, -- View logs with `:NullLsLog` after setting to true
       diagnostics_format = "[#{c}] #{m}",
       sources = sources,

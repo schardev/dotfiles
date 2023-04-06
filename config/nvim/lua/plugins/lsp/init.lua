@@ -51,9 +51,6 @@ return {
       },
     },
     config = function()
-      -- Set global updatetime (null-ls and lspconfig also depends on it)
-      vim.opt.updatetime = 400
-
       local lspconfig = require("lspconfig")
       local handlers = require("plugins.lsp.handlers")
       local diagnostics = require("plugins.lsp.diagnostics")
@@ -101,9 +98,6 @@ return {
           lspconfig[lsp].setup(
             vim.tbl_deep_extend("force", server.config or {}, {
               capabilities = capabilities,
-              flags = {
-                debounce_text_changes = vim.o.updatetime,
-              },
             })
           )
         end
