@@ -1,38 +1,11 @@
 {
-  "React Function Component": {
-    "prefix": "rcomp",
-    "body": [
-      "const ${1:${TM_FILENAME_BASE}} = ($2) => {",
-      "\treturn (",
-      "\t\t<div>${3:Hello World!}</div>",
-      "\t)",
-      "}",
-      "",
-      "export default ${1:${TM_FILENAME_BASE}};"
-    ],
-    "description": "React Function Component"
-  },
-  "useEffect": {
-    "prefix": "rue",
-    "body": [
-      "useEffect(() => {",
-      "\t$1",
-      "",
-      "\treturn () => {",
-      "\t\t$2",
-      "\t}",
-      "}, [$3])",
-      ""
-    ],
-    "description": "useEffect"
-  },
   "useContext": {
-    "prefix": "rucb",
+    "prefix": "rucon",
     "body": ["const ${1:contextVal} = useContext(${2:context})"],
     "description": "useContext"
   },
   "useImperativeHandle": {
-    "prefix": "rih",
+    "prefix": "ruimp",
     "body": [
       "useImperativeHandle(${1:ref}, () => {",
       "\t${2:handle}",
@@ -42,7 +15,7 @@
     "description": "useImperativeHandle"
   },
   "useLayoutEffect": {
-    "prefix": "rle",
+    "prefix": "rule",
     "body": [
       "useLayoutEffect(() => {${1:first}",
       "",
@@ -61,18 +34,13 @@
   "useReducer": {
     "prefix": "rur",
     "body": [
-      "const [state, dispatch] = useReducer(${1:reducer}, ${2:initialArg}, ${3:init})"
+      "const [state, dispatch] = useReducer(${1:reducerFn}, ${2:initialArg}, ${3:init})"
     ],
     "description": "useReducer"
   },
   "useRef": {
-    "prefix": "ruf",
+    "prefix": "ruref",
     "body": ["const ${1:ref} = useRef(${2:initialVal})"],
     "description": "useRef"
-  },
-  "useState": {
-    "prefix": "rus",
-    "body": ["const [${1:state}, set${2:$1}] = useState(${3:initialState})"],
-    "description": "useState"
   }
 }
