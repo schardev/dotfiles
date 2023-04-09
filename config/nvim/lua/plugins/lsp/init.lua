@@ -2,7 +2,7 @@
 local NIL = {} -- to avoid creating a new unique table every time
 local servers = {
   cssls = NIL,
-  cssmodules_ls = NIL,
+  -- cssmodules_ls = NIL,
   dockerls = NIL,
   emmet_ls = require("plugins.lsp.servers.emmet_ls"),
   html = NIL,
@@ -85,6 +85,10 @@ return {
               buffer = args.buf,
             })
           end
+
+          -- TODO: Temporarily disable semantic tokens
+          vim.lsp.get_client_by_id(args.data.client_id).server_capabilities.semanticTokensProvider =
+            nil
 
           lsp_autocmds.attach(args)
           lsp_formatting.attach(args)
