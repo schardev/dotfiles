@@ -27,6 +27,15 @@ return {
         "yaml",
       }
 
+      -- Use scss parser fork for improved placeholder selector support
+      -- TODO: remove when upstream adds support
+      ---@see https://github.com/serenadeai/tree-sitter-scss/pull/19
+      local scss_parser =
+        require("nvim-treesitter.parsers").get_parser_configs().scss
+      scss_parser.install_info.url =
+        "https://github.com/saurabhchardereal/tree-sitter-scss"
+      scss_parser.install_info.revision = "master"
+
       autocmd("FileType", {
         group = configs_treesitter,
         pattern = vim.tbl_extend(
