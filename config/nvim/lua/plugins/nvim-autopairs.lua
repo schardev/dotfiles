@@ -29,11 +29,6 @@ return {
         end)
       ),
 
-      -- arrow function completion
-      Rule("%(.*%)%s*%=>$", " {  }", ecma_filetypes)
-        :use_regex(true)
-        :set_end_pair_length(2),
-
       Rule("$", "$", { "markdown" }),
     })
   end,
