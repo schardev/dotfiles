@@ -12,7 +12,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    commit = "3d0c37c",
+    commit = "939be5f",
     priority = 1000,
     opts = {
       no_italic = true,
