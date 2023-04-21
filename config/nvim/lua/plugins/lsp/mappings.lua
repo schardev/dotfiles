@@ -82,6 +82,11 @@ M.attach = function(args)
 
   if client.name == "tsserver" then
     nnoremap(
+      "<LocalLeader>oi",
+      "<Cmd>TypescriptOrganizeImports<CR>",
+      { buffer = bufnr, desc = "Organize Imports" }
+    )
+    nnoremap(
       "<LocalLeader>rf",
       "<Cmd>TypescriptRenameFile<CR>",
       { buffer = bufnr, desc = "Rename File" }

@@ -44,14 +44,6 @@ M.attach = function(args)
       if not vim.b.format_on_save then
         return
       end
-
-      -- Organize imports before writing to a tsx or ts file
-      if client.name == "tsserver" then
-        if vim.fn.exists(":TypescriptOrganizeImports") > 0 then
-          vim.cmd.TypescriptOrganizeImports({ bang = true }) -- runs synchronously
-        end
-      end
-
       lsp_format(bufnr)
     end,
     desc = "Format file on save",
