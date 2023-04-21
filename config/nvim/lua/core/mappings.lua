@@ -78,6 +78,15 @@ nnoremap("<Leader>se", utils.save_and_exec, {
 -- Make <Esc> to actually escape from terminal mode
 tnoremap("<Esc>", "<C-\\><C-n>")
 
+-- `dd` but don't yank if the line is empty
+nnoremap("dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return [["_dd]]
+  else
+    return [[dd]]
+  end
+end, { expr = true })
+
 -- Toggle highlights
 nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
   desc = "Toggle search highlighting",
