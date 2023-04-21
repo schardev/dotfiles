@@ -20,3 +20,7 @@ staged = '([+$count](green) )'
 untracked = '([$count?](blue) )'
 ahead = '([$count](cyan) )'
 behind = '([$count](cyan) )'
+
+# Disabled because it was hogging my prompt startup time
+[battery]
+disabled = true
