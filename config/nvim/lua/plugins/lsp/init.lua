@@ -1,17 +1,3 @@
--- List of servers to install and setup automatically
-local NIL = {} -- to avoid creating a new unique table every time
-local servers = {
-  cssls = NIL,
-  -- cssmodules_ls = NIL,
-  dockerls = NIL,
-  emmet_ls = require("plugins.lsp.servers.emmet_ls"),
-  html = NIL,
-  jsonls = require("plugins.lsp.servers.jsonls"),
-  lua_ls = require("plugins.lsp.servers.lua_ls"),
-  tsserver = NIL,
-  yamlls = NIL,
-}
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -19,29 +5,42 @@ return {
       -- LSP, Formatters, DAP installer
       {
         "williamboman/mason.nvim",
-        opts = {
-          ui = {
-            border = "rounded",
-            icons = {
-              package_installed = "✓",
-              package_pending = "➜",
-              package_uninstalled = "✗",
+        build = ":MasonUpdate",
+        config = function()
+          require("mason").setup({
+            ui = {
+              border = "rounded",
+              icons = {
+                package_installed = "✓",
+                package_pending = "➜",
+                package_uninstalled = "✗",
+              },
             },
-          },
-        },
-      },
+          })
 
-      -- Mason - lspconfig bridge
-      {
-        "williamboman/mason-lspconfig.nvim",
-        opts = {
-          ensure_installed = vim.tbl_filter(function(server)
-            if vim.env.IS_TERMUX and server == "lua_ls" then
-              return false
-            end
-            return true
-          end, vim.tbl_keys(servers)),
-        },
+          local ensure_installed = {
+            -- lsp
+            "css-lsp",
+            "cssmodules-language-server",
+            "dockerfile-language-server",
+            "emmet-ls",
+            "html-lsp",
+            "json-lsp",
+            "lua-language-server",
+            "tailwindcss-language-server",
+            "typescript-language-server",
+            -- "vtsls",
+            "yaml-language-server",
+
+            -- formatters
+            "eslint_d",
+            "prettierd",
+          }
+
+          vim.api.nvim_create_user_command("MasonInstallAll", function()
+            vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
+          end, {})
+        end,
       },
 
       -- Neovim API completions
@@ -57,6 +56,20 @@ return {
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_formatting = require("plugins.lsp.formatting")
       local lsp_mappings = require("plugins.lsp.mappings")
+
+      -- List of servers to setup
+      local NIL = {} -- to avoid creating a new unique table every time
+      local servers = {
+        cssls = NIL,
+        cssmodules_ls = require("plugins.lsp.servers.cssmodules_ls"),
+        dockerls = NIL,
+        emmet_ls = require("plugins.lsp.servers.emmet_ls"),
+        html = NIL,
+        jsonls = require("plugins.lsp.servers.jsonls"),
+        lua_ls = require("plugins.lsp.servers.lua_ls"),
+        tailwindcss = require("plugins.lsp.servers.tailwindcss"),
+        yamlls = NIL,
+      }
 
       -- Setup handlers and diagnostics config
       handlers.setup()
@@ -98,13 +111,9 @@ return {
 
       -- Setup all listed servers
       for lsp, server in pairs(servers) do
-        if lsp ~= "tsserver" then
-          lspconfig[lsp].setup(
-            vim.tbl_deep_extend("force", server.config or {}, {
-              capabilities = capabilities,
-            })
-          )
-        end
+        lspconfig[lsp].setup(vim.tbl_deep_extend("force", server.config or {}, {
+          capabilities = capabilities,
+        }))
       end
     end,
   },

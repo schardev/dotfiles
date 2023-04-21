@@ -16,8 +16,10 @@ M.attach = function(args)
   nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
   nnoremap("<LocalLeader>dd", function()
     if vim.b.diagnostics_status then
+      vim.notify("[LSP] Disabling diagnostics.", vim.log.levels.INFO)
       vim.diagnostic.disable(bufnr)
     else
+      vim.notify("[LSP] Enabling diagnostics.", vim.log.levels.INFO)
       vim.diagnostic.enable(bufnr)
     end
     vim.b.diagnostics_status = not vim.b.diagnostics_status
