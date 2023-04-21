@@ -2,7 +2,17 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      -- treesitter powered textobjects
+      "nvim-treesitter/nvim-treesitter-textobjects",
+
+      -- better comment support for jsx/tsx
+      "JoosepAlviste/nvim-ts-context-commentstring",
+
+      -- Rainbow brackets
+      "p00f/nvim-ts-rainbow",
+    },
     config = function()
       local configs_treesitter =
         vim.api.nvim_create_augroup("ConfigsTreesitter", { clear = true })
@@ -206,16 +216,8 @@ return {
     end,
   },
 
-  -- treesitter powered textobjects
-  "nvim-treesitter/nvim-treesitter-textobjects",
-
-  -- better comment support for jsx/tsx
-  "JoosepAlviste/nvim-ts-context-commentstring",
-
-  -- Rainbow brackets
-  "p00f/nvim-ts-rainbow",
-
   -- treesitter querying
+  -- adding it seperately here for lazy loading
   {
     "nvim-treesitter/playground",
     cmd = {
