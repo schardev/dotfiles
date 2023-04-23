@@ -39,7 +39,7 @@ local default = {
   -- Open debug overlay
   {
     key = "l",
-    mods = "CTRL|SHIFT",
+    mods = "CTRL|ALT",
     action = act.ShowDebugOverlay,
   },
 
