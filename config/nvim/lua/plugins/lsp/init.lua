@@ -1,3 +1,5 @@
+local env = require("core.env")
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -29,7 +31,7 @@ return {
             "lua-language-server",
             "tailwindcss-language-server",
             "typescript-language-server",
-            -- "vtsls",
+            "vtsls",
             "yaml-language-server",
 
             -- formatters
@@ -56,20 +58,6 @@ return {
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_formatting = require("plugins.lsp.formatting")
       local lsp_mappings = require("plugins.lsp.mappings")
-
-      -- List of servers to setup
-      local NIL = {} -- to avoid creating a new unique table every time
-      local servers = {
-        cssls = NIL,
-        cssmodules_ls = require("plugins.lsp.servers.cssmodules_ls"),
-        dockerls = NIL,
-        emmet_ls = require("plugins.lsp.servers.emmet_ls"),
-        html = NIL,
-        jsonls = require("plugins.lsp.servers.jsonls"),
-        lua_ls = require("plugins.lsp.servers.lua_ls"),
-        tailwindcss = require("plugins.lsp.servers.tailwindcss"),
-        yamlls = NIL,
-      }
 
       -- Setup handlers and diagnostics config
       handlers.setup()
@@ -110,10 +98,29 @@ return {
       })
 
       -- Setup all listed servers
-      for lsp, server in pairs(servers) do
-        lspconfig[lsp].setup(vim.tbl_deep_extend("force", server.config or {}, {
-          capabilities = capabilities,
-        }))
+      local servers = {
+        "cssls",
+        "cssmodules_ls",
+        "dockerls",
+        "emmet_ls",
+        "html",
+        "jsonls",
+        "lua_ls",
+        "tailwindcss",
+        "yamlls",
+      }
+
+      if env.NVIM_USER_USE_VTSLS then
+        table.insert(servers, "vtsls")
+      end
+
+      for _, lsp in pairs(servers) do
+        local present, server = pcall(require, "plugins.lsp.servers." .. lsp)
+        lspconfig[lsp].setup(
+          vim.tbl_deep_extend("force", present and server.config or {}, {
+            capabilities = capabilities,
+          })
+        )
       end
     end,
   },
@@ -127,9 +134,22 @@ return {
       "typescript",
       "typescriptreact",
     },
+    enabled = not env.NVIM_USER_USE_VTSLS,
     dependencies = { "nvim-lspconfig" },
     opts = {
       debug = false,
     },
+  },
+
+  {
+    "yioneko/nvim-vtsls",
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    enabled = env.NVIM_USER_USE_VTSLS,
+    dependencies = { "nvim-lspconfig" },
   },
 }

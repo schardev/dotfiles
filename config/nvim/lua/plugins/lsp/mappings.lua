@@ -5,6 +5,7 @@ local nnoremap = mapper("n")
 M.attach = function(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
+  local lsp_utils = require("plugins.lsp.utils")
   vim.b.diagnostics_status = true
 
   nnoremap(
@@ -82,30 +83,32 @@ M.attach = function(args)
     { buffer = bufnr, desc = "List all references" }
   )
 
-  if client.name == "tsserver" then
+  if client.name == "tsserver" or client.name == "vtsls" then
+    local ts_mappings = lsp_utils.generate_ts_mappings(client.name)
+
     nnoremap(
       "<LocalLeader>oi",
-      "<Cmd>TypescriptOrganizeImports<CR>",
+      ts_mappings.organize_imports,
       { buffer = bufnr, desc = "Organize Imports" }
     )
     nnoremap(
       "<LocalLeader>rf",
-      "<Cmd>TypescriptRenameFile<CR>",
+      ts_mappings.rename_file,
       { buffer = bufnr, desc = "Rename File" }
     )
     nnoremap(
       "<LocalLeader>gd",
-      "<Cmd>TypescriptGoToSourceDefinition<CR>",
+      ts_mappings.go_to_source_definition,
       { buffer = bufnr, desc = "Go To Source Definition" }
     )
     nnoremap(
       "<LocalLeader>mi",
-      "<Cmd>TypescriptAddMissingImports<CR>",
+      ts_mappings.add_missing_imports,
       { buffer = bufnr, desc = "Add Missing Imports" }
     )
     nnoremap(
       "<LocalLeader>ru",
-      "<Cmd>TypescriptRemoveUnused<CR>",
+      ts_mappings.remove_unused_imports,
       { buffer = bufnr, desc = "Remove Unused" }
     )
   end
