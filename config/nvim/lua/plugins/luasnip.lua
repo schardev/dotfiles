@@ -3,6 +3,7 @@ return {
   event = "InsertEnter",
   config = function()
     local ls = require("luasnip")
+    local ft_funs = require("luasnip.extras.filetype_functions")
     local map = require("core.utils").mapper_factory({ "i", "s" })
 
     map("<M-Tab>", function()
@@ -23,7 +24,13 @@ return {
           },
         },
       },
-      ft_func = require("luasnip.extras.filetype_functions").from_pos_or_filetype,
+      ft_func = function()
+        if vim.bo.filetype == "markdown" then
+          return ft_funs.from_pos_or_filetype()
+        else
+          return ft_funs.from_filetype()
+        end
+      end,
       load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
         markdown = {
           "css",
@@ -63,7 +70,6 @@ return {
 
     ls.filetype_extend("typescript", { "javascript" })
     ls.filetype_extend("javascriptreact", { "javascript" })
-    ls.filetype_extend("tsx", { "typescriptreact" })
     ls.filetype_extend(
       "typescriptreact",
       { "javascriptreact", "javascript", "typescript" }
