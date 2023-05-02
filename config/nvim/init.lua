@@ -62,13 +62,9 @@ for _, d in pairs(disabled_provider) do
 end
 
 -- Load modules/plugins
+local env = require("core.env")
 require("core")
-require("lazy").setup("plugins", lazy_config)
 
--- local installed, impatient = pcall(require, "impatient")
---
--- if not installed then
---   vim.notify("Impatient not installed!")
--- else
---   impatient.enable_profile()
--- end
+if not env.NVIM_USER_ONLY_CORE then
+  require("lazy").setup("plugins", lazy_config)
+end

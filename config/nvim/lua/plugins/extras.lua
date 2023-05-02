@@ -1,6 +1,4 @@
 return {
-  -- Improve startup time for Neovim
-  "lewis6991/impatient.nvim",
 
   -- Icons provider
   { "kyazdani42/nvim-web-devicons", lazy = "true" },
