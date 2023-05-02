@@ -75,4 +75,26 @@ function M.open_link()
   end
 end
 
+--- Get language from the current cursor position
+function M.get_lang_from_cursor_pos()
+  local has_parser, parser = pcall(vim.treesitter.get_parser)
+
+  -- If no parser is found then just return the current filetype instead of failing
+  if not has_parser then
+    return vim.bo.filetype
+  end
+
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  cursor[1] = cursor[1] - 1 -- treesitter nodes are 0-indexed
+
+  return parser
+    :language_for_range({
+      cursor[1],
+      cursor[2],
+      cursor[1],
+      cursor[2],
+    })
+    :lang()
+end
+
 return M

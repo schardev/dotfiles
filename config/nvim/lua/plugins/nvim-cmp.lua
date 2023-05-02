@@ -18,6 +18,7 @@ return {
   },
   config = function()
     -- nvim-cmp setup
+    local utils = require("core.utils")
     local autopairs = require("nvim-autopairs.completion.cmp")
     local cmp = require("cmp")
     local cmp_kinds = require("cmp.types").lsp.CompletionItemKind
@@ -153,9 +154,16 @@ return {
     local emmet_in_jsx_only = function(entry, _)
       if is_emmet_snippet(entry) then
         return ts_utils.get_node_at_cursor():type() == "jsx_text"
-      else
+      end
+      return true
+    end
+
+    local emmet_in_html_block_only = function(entry, _)
+      if not is_emmet_snippet(entry) then
         return true
       end
+
+      return utils.get_lang_from_cursor_pos() == "html"
     end
 
     -- Add filtered lsp source to jsx supported files
@@ -176,6 +184,13 @@ return {
           select = true,
         }),
       }),
+    })
+
+    cmp.setup.filetype("markdown", {
+      sources = cmp.config.sources({
+        { name = "luasnip" },
+        { name = "nvim_lsp", entry_filter = emmet_in_html_block_only },
+      }, common_sources),
     })
 
     cmp.setup.filetype("gitcommit", {

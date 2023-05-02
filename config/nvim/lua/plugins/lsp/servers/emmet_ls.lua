@@ -1,15 +1,11 @@
 local M = {}
 
 M.config = {
-  -- Disable emmet in css/sass
   filetypes = {
     "html",
-    "typescriptreact",
     "javascriptreact",
-    -- "css",
-    -- "sass",
-    -- "scss",
-    -- "less",
+    "markdown",
+    "typescriptreact",
   },
 
   -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts
