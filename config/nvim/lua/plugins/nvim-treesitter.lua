@@ -43,7 +43,7 @@ return {
       local scss_parser =
         require("nvim-treesitter.parsers").get_parser_configs().scss
       scss_parser.install_info.url =
-        "https://github.com/saurabhchardereal/tree-sitter-scss"
+        "https://github.com/schardev/tree-sitter-scss"
       scss_parser.install_info.revision = "master"
 
       autocmd("FileType", {

@@ -2,8 +2,8 @@
 <p align='center'><b>~ There's no other place like <code>$HOME</code> ~</b></p>
 
 <div align="center">
-    <img alt="Lint Lua" src="https://img.shields.io/github/actions/workflow/status/saurabhchardereal/dotfiles/.github/workflows/lint_lua.yml?label=Lint%20Lua">
-    <img alt="Lint Scripts" src="https://img.shields.io/github/actions/workflow/status/saurabhchardereal/dotfiles/.github/workflows/lint_shell.yml?label=Lint%20Scripts">
+    <img alt="Lint Lua" src="https://img.shields.io/github/actions/workflow/status/schardev/dotfiles/.github/workflows/lint_lua.yml?label=Lint%20Lua">
+    <img alt="Lint Scripts" src="https://img.shields.io/github/actions/workflow/status/schardev/dotfiles/.github/workflows/lint_shell.yml?label=Lint%20Scripts">
 </div>
 
 ### Current Setup
@@ -38,7 +38,7 @@ Make sure you have [sheldon](https://github.com/rossmacarthur/sheldon) plugin ma
 
 ```bash
 # Clone the repo
-git clone https://github.com/saurabhchardereal/dotfiles ~/dotfiles
+git clone https://github.com/schardev/dotfiles ~/dotfiles
 
 # Symlink zsh directory to $HOME/.config/zsh and zsh/.zshenv to $HOME
 ln -sf ~/dotfiles/config/zsh ${HOME}/.config/zsh
@@ -61,7 +61,7 @@ exec zsh
 
 ```bash
 # Clone the repo
-git clone https://github.com/saurabhchardereal/dotfiles ~/dotfiles
+git clone https://github.com/schardev/dotfiles ~/dotfiles
 
 # Either symlink the nvim directory to your $HOME/.config or copy the contents
 ln -sf ~/dotfiles/config/nvim ~/.config/nvim
@@ -80,7 +80,7 @@ The script will setup termux to have [Catppuccin](https://github.com/catppuccin)
 
 ```bash
 # Clone the repo
-git clone https://github.com/saurabhchardereal/dotfiles ~/dotfiles
+git clone https://github.com/schardev/dotfiles ~/dotfiles
 
 # Run the script
 ./dotfiles/scripts/termux

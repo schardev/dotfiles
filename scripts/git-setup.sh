@@ -19,7 +19,7 @@ gpg_setup() {
         # clone keys repo and import (if not already)
         if ! [ -d "${HOME}/.keys" ]; then
             trap 'rm -rf ${HOME}/.keys' EXIT
-            git clone https://github.com/saurabhchardereal/keys "${HOME}"/.keys
+            git clone https://github.com/schardev/keys "${HOME}"/.keys
             gpg --import "${HOME}"/.keys/{private,public}-key.gpg
         fi
 
