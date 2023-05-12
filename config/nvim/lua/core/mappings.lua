@@ -53,6 +53,9 @@ nnoremap("<C-L>", ":bnext<CR>")
 nnoremap("<C-H>", ":bprevious<CR>")
 nnoremap("<Leader>qw", ":bdelete<CR>")
 
+-- Toggle wrap
+nnoremap("<Leader>w", ":set wrap!<CR>")
+
 -- Don't put text in register on delete char
 mapper({ "n", "v" })("x", '"_x')
 
