@@ -41,12 +41,6 @@ return {
       ) ~= nil
     end
 
-    local stylua_condition = function()
-      return utils.root_pattern(".stylua.toml", "stylua.toml")(
-        vim.api.nvim_buf_get_name(0)
-      ) ~= nil
-    end
-
     local sources = {
       --------------------------------
       ---       CODE ACTIONS       ---
@@ -93,10 +87,7 @@ return {
       ------------------------------
 
       formatting.prettierd,
-
-      formatting.stylua.with({
-        condition = stylua_condition,
-      }),
+      formatting.stylua,
 
       formatting.trim_newlines.with({
         filetypes = trim_filetypes,
