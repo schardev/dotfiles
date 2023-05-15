@@ -42,3 +42,8 @@ path=(
 
 # remove duplicate entries from $PATH
 typeset -U PATH path
+
+# Load local overrides if present
+if [[ -f "$XDG_CONFIG_HOME/zsh/.env.local.zsh" ]]; then
+  source "$XDG_CONFIG_HOME/zsh/.env.local.zsh"
+fi
