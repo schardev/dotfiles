@@ -28,8 +28,6 @@ return {
           return { cursor[1] - 1, cursor[2] }
         end)
       ),
-
-      Rule("$", "$", { "markdown" }),
     })
   end,
 }
