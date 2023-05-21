@@ -40,7 +40,7 @@ termux_install_packages() {
 
 # Theme
 termux_setup_theme() {
-    # use Dracula color scheme & Hack font by default
+    # use catppuccin color scheme & Hack font by default
     pr_info "Setting up theme ..."
     curl -o "$HOME"/.termux/colors.properties https://raw.githubusercontent.com/catppuccin/termux/main/Mocha/colors.properties
     cp "$DOTS_DIR"/etc/Hack.ttf "$HOME"/.termux/font.ttf
@@ -56,10 +56,10 @@ termux_setup_dotfiles() {
 
     # Make zsh follow $XDA_DOTS_DIR
     echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
-    [[ ! -d ~/.config ]] && mkdir "${HOME}"/{.config,.sheldon}
+    [[ ! -d ~/.config ]] && mkdir "${HOME}"/.config
     ln -sf "$DOTS_DIR"/config/zsh "${HOME}"/.config/zsh
     ln -sf "$DOTS_DIR"/config/nvim "${HOME}"/.config/nvim
-    ln -sf "$DOTS_DIR"/config/zsh/plugins.toml "${HOME}"/.sheldon
+    mkdir "${HOME}"/.config/sheldon && ln -sf "$DOTS_DIR"/config/zsh/plugins.toml "${HOME}"/.config/sheldon
 }
 
 termux_setup_env() {
