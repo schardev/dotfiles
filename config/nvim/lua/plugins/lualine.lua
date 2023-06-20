@@ -5,6 +5,7 @@ return {
   config = function()
     -- For extracting colors from hlgroups
     local get_color = require("lualine.utils.utils").extract_highlight_colors
+    local icons = require("icons")
 
     -- Conditions
     local conditions = {
@@ -22,7 +23,7 @@ return {
     }
 
     local format_status = function()
-      return vim.b.format_on_save and "" or ""
+      return vim.b.format_on_save and icons.devicons.format or ""
     end
 
     require("lualine").setup({
@@ -36,7 +37,7 @@ return {
       sections = {
         lualine_a = { "mode" },
         lualine_b = {
-          { "branch", icon = "שׂ" },
+          { "branch", icon = "󰘬" },
           {
             "diagnostics",
 
@@ -56,10 +57,10 @@ return {
             },
 
             symbols = {
-              error = " ",
-              warn = " ",
-              info = " ",
-              hint = " ",
+              error = string.format("%s ", icons.diagnostics.error),
+              warn = string.format("%s ", icons.diagnostics.warning),
+              info = string.format("%s ", icons.diagnostics.info),
+              hint = string.format("%s ", icons.diagnostics.hint),
             },
 
             -- Show diagnostics even if there are none
@@ -71,7 +72,10 @@ return {
             "filename",
             -- color = { gui = "italic" },
             cond = conditions.buffer_not_empty,
-            symbols = { modified = " +", readonly = " " },
+            symbols = {
+              modified = " +",
+              readonly = string.format(" %s", icons.devicons.lock),
+            },
           },
         },
         lualine_x = {

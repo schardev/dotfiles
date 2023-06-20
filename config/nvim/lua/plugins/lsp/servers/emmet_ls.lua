@@ -6,6 +6,7 @@ M.config = {
     "javascriptreact",
     "markdown",
     "typescriptreact",
+    "css",
   },
 
   -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts

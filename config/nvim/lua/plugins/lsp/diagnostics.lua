@@ -1,21 +1,22 @@
 local M = {}
+local icons = require("icons").diagnostics
 
 -- Set diagnostic signs and highlight group
 local diagnostics_signs = {
   [vim.diagnostic.severity.ERROR] = {
-    sign = " ",
+    sign = string.format("%s ", icons.error),
     hl_group = "DiagnosticSignError",
   },
   [vim.diagnostic.severity.WARN] = {
-    sign = " ",
+    sign = string.format("%s ", icons.warning),
     hl_group = "DiagnosticSignWarn",
   },
   [vim.diagnostic.severity.HINT] = {
-    sign = " ",
+    sign = string.format("%s ", icons.hint),
     hl_group = "DiagnosticSignHint",
   },
   [vim.diagnostic.severity.INFO] = {
-    sign = " ",
+    sign = string.format("%s ", icons.info),
     hl_group = "DiagnosticSignInfo",
   },
 }

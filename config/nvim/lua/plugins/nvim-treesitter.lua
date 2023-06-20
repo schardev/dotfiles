@@ -181,6 +181,8 @@ return {
           enable = true,
         },
 
+        -- TODO: move to fork HiPhish/nvim-ts-rainbow2
+        -- once https://github.com/neovim/neovim/pull/17099 gets fixed
         rainbow = {
           enable = true,
           disable = { "html", "json", "lua" },

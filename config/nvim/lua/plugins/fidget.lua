@@ -1,6 +1,7 @@
 return {
   "j-hui/fidget.nvim",
   event = "LspAttach",
+  tag = "legacy",
   config = function()
     vim.api.nvim_create_autocmd(
       "VimLeavePre",

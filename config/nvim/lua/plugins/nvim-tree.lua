@@ -1,3 +1,4 @@
+local icons = require("icons")
 return {
   "kyazdani42/nvim-tree.lua",
   event = "VeryLazy",
@@ -76,7 +77,7 @@ return {
           glyphs = {
             git = {
               ignored = "",
-              untracked = "",
+              untracked = icons.git.untracked,
             },
           },
         },

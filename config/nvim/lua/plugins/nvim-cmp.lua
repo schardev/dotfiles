@@ -24,35 +24,7 @@ return {
     local cmp_kinds = require("cmp.types").lsp.CompletionItemKind
     local luasnip = require("luasnip")
     local ts_utils = require("nvim-treesitter.ts_utils")
-
-    -- Kind symbols
-    local cmp_kind_icons = {
-      Class = "ﴯ",
-      Color = "",
-      Constant = "",
-      Constructor = "",
-      Enum = "",
-      EnumMember = "",
-      Event = "",
-      Field = "ﰠ",
-      File = "",
-      Folder = "",
-      Function = "",
-      Interface = "",
-      Keyword = "",
-      Method = "",
-      Module = "",
-      Operator = "",
-      Property = "ﰠ",
-      Reference = "",
-      Snippet = "",
-      Struct = "פּ",
-      Text = "",
-      TypeParameter = "",
-      Unit = "塞",
-      Value = "",
-      Variable = "",
-    }
+    local cmp_kind_icons = require("icons").lspkind
 
     local cmp_source_names = {
       buffer = "[Buffer]",
@@ -100,6 +72,9 @@ return {
         -- completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
+
+      -- https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/17#issuecomment-1291205911
+      preselect = cmp.PreselectMode.None,
 
       mapping = cmp.mapping.preset.insert({
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),

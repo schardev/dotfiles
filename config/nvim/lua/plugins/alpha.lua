@@ -1,3 +1,4 @@
+local icons = require("icons")
 return {
   "goolord/alpha-nvim",
   event = "VimEnter",
@@ -13,12 +14,19 @@ return {
 
     local function footer()
       local stats = require("lazy").stats()
-      local total_plugins = string.format(" %s plugins", stats.count)
+      local total_plugins =
+        string.format("%s %s plugins", icons.devicons.download, stats.count)
       local ver = vim.version()
-      local ver_info =
-        string.format(" v%s.%s.%s", ver.major, ver.minor, ver.patch)
+      local ver_info = string.format(
+        "%s v%s.%s.%s",
+        icons.diagnostics.info,
+        ver.major,
+        ver.minor,
+        ver.patch
+      )
       local startuptime = string.format(
-        " %sms startup",
+        "%s %sms startup",
+        icons.devicons.flash,
         math.floor(stats.startuptime * 100) / 100
       )
 
@@ -44,15 +52,49 @@ return {
     dashboard.section.header.val = logo
     dashboard.section.header.opts.hl = pick_color()
     dashboard.section.buttons.val = {
-      dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
-      dashboard.button("SPC f v", "  Find File"),
-      dashboard.button("SPC s r", "  Recent files"),
-      dashboard.button("<F1>", "  NvimTree", ":NvimTreeToggle<CR>"),
-      dashboard.button("pu", "  Lazy Update", "<Cmd>Lazy update<CR>"),
-      dashboard.button("ps", "  Lazy Show", "<Cmd>Lazy show<CR>"),
-      dashboard.button("pp", "󰞯  Lazy Profile", "<Cmd>Lazy profile<CR>"),
-      dashboard.button("ch", "  Check Health", "<Cmd>checkhealth<CR>"),
-      dashboard.button("q", "  Quit", ":qa<CR>"),
+      dashboard.button(
+        "n",
+        string.format("%s  New file", icons.devicons.file),
+        ":ene <BAR> startinsert <CR>"
+      ),
+      dashboard.button(
+        "SPC f v",
+        string.format("%s  Find File", icons.devicons.search)
+      ),
+      dashboard.button(
+        "SPC s r",
+        string.format("%s  Recent files", icons.devicons.files)
+      ),
+      dashboard.button(
+        "<F1>",
+        string.format("%s  NvimTree", icons.devicons.folder),
+        ":NvimTreeToggle<CR>"
+      ),
+      dashboard.button(
+        "pu",
+        string.format("%s  Lazy Update", icons.devicons.update),
+        "<Cmd>Lazy update<CR>"
+      ),
+      dashboard.button(
+        "ps",
+        string.format("%s  Lazy Show", icons.devicons.check),
+        "<Cmd>Lazy show<CR>"
+      ),
+      dashboard.button(
+        "pp",
+        string.format("%s  Lazy Profile", icons.devicons.speedometer),
+        "<Cmd>Lazy profile<CR>"
+      ),
+      dashboard.button(
+        "ch",
+        string.format("%s  Check Health", icons.devicons.plus_circle),
+        "<Cmd>checkhealth<CR>"
+      ),
+      dashboard.button(
+        "q",
+        string.format("%s  Quit", icons.diagnostics.error),
+        ":qa<CR>"
+      ),
     }
     dashboard.section.footer.val = footer()
     dashboard.section.footer.opts.hl = "Constant"
