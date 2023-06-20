@@ -5,10 +5,8 @@ return {
     local wk = require("which-key")
 
     wk.setup({
-      plugins = {
-        spelling = {
-          enabled = true,
-        },
+      window = {
+        margin = { 1, 0, 2, 0 },
       },
     })
 
