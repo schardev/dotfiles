@@ -60,7 +60,7 @@ function M.get_process_icon(tab)
     },
     ["node"] = {
       { Foreground = { Color = colors.green } },
-      { Text = wezterm.nerdfonts.mdi_nodejs },
+      { Text = wezterm.nerdfonts.dev_nodejs_small },
     },
     ["zsh"] = {
       { Foreground = { Color = colors.peach } },
