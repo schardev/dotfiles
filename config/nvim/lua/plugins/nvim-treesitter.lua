@@ -11,7 +11,7 @@ return {
       "JoosepAlviste/nvim-ts-context-commentstring",
 
       -- Rainbow brackets
-      "p00f/nvim-ts-rainbow",
+      "HiPhish/nvim-ts-rainbow2",
     },
     config = function()
       local configs_treesitter =
@@ -181,38 +181,9 @@ return {
           enable = true,
         },
 
-        -- TODO: move to fork HiPhish/nvim-ts-rainbow2
-        -- once https://github.com/neovim/neovim/pull/17099 gets fixed
         rainbow = {
           enable = true,
           disable = { "html", "json", "lua" },
-          extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-          max_file_lines = nil, -- Do not enable for files with more than n lines, int
-          --[[ colors = {
-          -- Colors extracted from VSCode's rainbow bracket extension
-          "#e6b422",
-          "#c70067",
-          "#00a960",
-          "#fc7482",
-          "#33ccff",
-          "#8080ff",
-          "#0073a8",
-          "#d4d4aa",
-          "#d1a075",
-          "#9c6628",
-          },
-          termcolors = {
-          "Red",
-          "Green",
-          "Yellow",
-          "Blue",
-          "Magenta",
-          "Cyan",
-          "White",
-          "LightYellow",
-          "LightRed",
-          "LightGreen",
-          }, ]]
         },
       })
     end,
