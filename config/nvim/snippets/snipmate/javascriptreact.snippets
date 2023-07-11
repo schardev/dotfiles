@@ -1,0 +1,26 @@
+snippet rucon "useContext"
+	const ${1:contextValue} = useContext(${2:contextProvider})
+
+snippet ruimp "useImperativeHandle"
+	useImperativeHandle(${1:ref}, () => {
+		${2:handle}
+	}, [${3:deps}])
+
+snippet rule "useLayoutEffect"
+	useLayoutEffect(() => {
+		$1
+
+		return () => {
+			$2
+		};
+	}, [${3:deps}])
+
+
+snippet rum "useMemo"
+	useMemo(() => $1, [${2:deps}])
+
+snippet rur "useReducer"
+	const [${1:state}, ${2:dispatch}] = useReducer(${3:reducerFn})
+
+snippet ruref "useRef"
+	const ${1:ref} = useRef(${2:initialValue})

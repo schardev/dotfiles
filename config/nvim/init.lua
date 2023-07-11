@@ -62,7 +62,7 @@ for _, d in pairs(disabled_provider) do
 end
 
 -- Load modules/plugins
-local env = require("core.env")
+local env = require("env")
 require("core")
 
 if not env.NVIM_USER_ONLY_CORE then

@@ -54,7 +54,7 @@ nnoremap("<C-H>", ":bprevious<CR>")
 nnoremap("<Leader>qw", ":bdelete<CR>")
 
 -- Toggle wrap
-nnoremap("<Leader>w", ":set wrap!<CR>")
+nnoremap("<Leader>w", ":setlocal wrap!<CR>")
 
 -- Don't put text in register on delete char
 mapper({ "n", "v" })("x", '"_x')
@@ -70,9 +70,6 @@ nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
 -- TODO: Make it hard reload init.lua
 nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
   desc = "Source $MYVIMRC",
-})
-nnoremap("<Leader>ed", ":edit $DOTS_DIR/config<CR>", {
-  desc = "Edit dotfiles",
 })
 nnoremap("<Leader>se", utils.save_and_exec, {
   desc = "Save and execute vim/lua files",

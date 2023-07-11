@@ -1,0 +1,107 @@
+snippet fore "For-Each loop"
+	${1:array}.forEach(element => {
+		${TM_SELECTED_TEXT}
+		$0
+	})
+
+snippet forin "For-In loop"
+	for (const ${1:key} in ${2:object}) {
+		if (Object.hasOwn(${2:object}, ${1:key})) {
+			const ${3:value} = ${2:object}[${1:key}];
+			${TM_SELECTED_TEXT}
+			$0
+		}
+	}
+
+snippet forof "For-Of loop"
+	for (const ${1:iterator} of ${2:array-like}) {
+		${TM_SELECTED_TEXT}
+		$0
+	}
+
+snippet func "Function Statement"
+	function ${1:name}(${2:params}) {
+		${TM_SELECTED_TEXT}
+		$0
+	}
+
+snippet if "If Statement"
+	if (${1:condition}) {
+		${TM_SELECTED_TEXT}
+		$0
+	}
+
+snippet ifelse "If-Else Statement"
+	if (${1:condition}) {
+		${TM_SELECTED_TEXT}
+		$2
+	} else {
+		$0
+	}
+
+snippet arrow "Arrow Function"
+	const ${1:name} = (${2:params}) => {
+		$0
+	}
+
+snippet new "Constructor"
+	const ${1:name} = new ${2:type}(${3:arguments});$0
+
+snippet switch "Switch Statement"
+	switch (${1:key}) {
+		case ${2:value}:
+			$0,
+			break;
+
+		default:
+			$2
+			break;
+	}
+
+snippet while "While Statement"
+	while (${1:condition}) {
+		${TM_SELECTED_TEXT}$0
+	}
+
+snippet dowhile "Do-While Statement"
+	do {
+		${TM_SELECTED_TEXT}$0
+	} while (${1:condition})
+
+snippet trycatch "Try-Catch Statement"
+	try {
+		${TM_SELECTED_TEXT}$0
+	} catch (${2:error}) {
+		$0
+	}
+
+snippet settimeout
+	setTimeout(() => {
+		${TM_SELECTED_TEXT}$0
+	}, ${1:timeout});
+
+snippet setinterval
+	setINterval(() => {
+		${TM_SELECTED_TEXT}$0
+	}, ${1:interval})
+
+snippet cl "Console log"
+	console.log(${TM_SELECTED_TEXT}$0);
+
+snippet cw "Console warn"
+	console.warn(${TM_SELECTED_TEXT}$0);
+
+snippet ce "Console error"
+	console.error(${TM_SELECTED_TEXT}$0);
+
+snippet ed "export default"
+	export default $0
+
+snippet edf "export default function"
+	export default function ${1:name}(${2:params}) {
+		${TM_SELECTED_TEXT}
+		$0
+	}
+
+snippet ec "export const"
+	export const ${1:name} = ${0:value};

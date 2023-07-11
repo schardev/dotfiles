@@ -1,5 +1,4 @@
 ---@diagnostic disable: undefined-global
-
 return {
   -- react component
   s(
@@ -17,12 +16,7 @@ return {
   export default {};
   ]],
       {
-        -- TODO: make a generic insert_filename that handles jumps too
-        d(1, function(_, snip)
-          return sn(nil, {
-            i(1, snip.env.TM_FILENAME_BASE),
-          })
-        end),
+        insert_filename(1, 1, "pascal"),
         c(2, {
           i(1, "props"),
           i(1, "{ children }"),
@@ -55,11 +49,7 @@ return {
         }),
         c(3, {
           i(1),
-          sn(nil, {
-            t(", ["),
-            i(1),
-            t("]"),
-          }),
+          sn(nil, { t(", ["), i(1), t("]") }),
         }),
       }
     )

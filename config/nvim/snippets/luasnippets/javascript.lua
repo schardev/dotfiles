@@ -3,7 +3,7 @@
 return {
   -- c-style for loop
   s(
-    { trig = "for", name = "For Loop" },
+    { trig = "forc", name = "For Loop" },
     fmt(
       [[
   for (let {} = 0; {} < {}; {}++) {{

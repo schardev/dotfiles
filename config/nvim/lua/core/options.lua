@@ -1,7 +1,7 @@
 local set = vim.o
 local opt = vim.opt
 local cmd = vim.cmd
-local CONFIG_DIR = os.getenv("XDG_CONFIG_HOME") or os.getenv("CONFIG_DIR")
+local CONFIG_DIR = require("env").CONFIG_DIR
 
 -- stylua: ignore start
 cmd('filetype plugin indent on ')       -- Used for indentation based on file-type

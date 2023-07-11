@@ -1,4 +1,4 @@
-local env = require("core.env")
+local env = require("env")
 
 return {
   {
@@ -74,7 +74,6 @@ return {
         group = lsp_autocmds.lsp_augroup_id,
         callback = function(args)
           -- Clear any autocmd declared by previous client
-          -- TODO: file an issue upstream with repro
           if
             pcall(
               vim.api.nvim_get_autocmds,

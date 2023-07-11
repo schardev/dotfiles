@@ -5,6 +5,8 @@ return {
     local ls = require("luasnip")
     local ft_funs = require("luasnip.extras.filetype_functions")
     local map = require("core.utils").mapper_factory({ "i", "s" })
+    local utils = require("core.utils").snippet_utils
+    local env = require("env")
 
     map("<M-Tab>", function()
       if ls.choice_active() then
@@ -60,9 +62,15 @@ return {
             end
           end)
         end,
-        insert_filename = function()
-          return ls.f(function(_, snip)
-            return snip.env.TM_FILENAME_BASE
+        insert_filename = function(jump_index, insert, case)
+          return ls.d(jump_index, function(_, snip)
+            local filename = snip.env.TM_FILENAME_BASE
+
+            if case == "pascal" then
+              filename = utils.to_pascal_case(filename)
+            end
+
+            return ls.sn(nil, { ls.i(insert and 1 or nil, filename) })
           end)
         end,
       },
@@ -75,9 +83,11 @@ return {
       { "javascriptreact", "javascript", "typescript" }
     )
 
-    require("luasnip.loaders.from_lua").lazy_load()
-    require("luasnip.loaders.from_vscode").lazy_load({
-      paths = vim.env.CONFIG_DIR .. "/vscode/snippets",
+    require("luasnip.loaders.from_lua").lazy_load({
+      paths = env.CONFIG_DIR .. "/nvim/snippets/luasnippets",
+    })
+    require("luasnip.loaders.from_snipmate").lazy_load({
+      paths = env.CONFIG_DIR .. "/nvim/snippets/snipmate",
     })
   end,
 }
