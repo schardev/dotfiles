@@ -23,7 +23,7 @@ function fv() {
     # Enable preview if not in termux
     local opts
     [[ -z "$IS_TERMUX" ]] &&
-        opts="--multi --preview 'bat --style=numbers --color=always --line-range :100 {}'"
+        opts="--multi --preview 'bat --style=numbers --color=always --line-range :250 {}'"
 
     # Invoke fzf and select files
     local files=()
