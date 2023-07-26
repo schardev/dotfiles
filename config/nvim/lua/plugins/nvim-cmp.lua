@@ -23,7 +23,6 @@ return {
     local cmp = require("cmp")
     local cmp_kinds = require("cmp.types").lsp.CompletionItemKind
     local luasnip = require("luasnip")
-    local ts_utils = require("nvim-treesitter.ts_utils")
     local cmp_kind_icons = require("icons").lspkind
 
     local cmp_source_names = {
@@ -128,7 +127,8 @@ return {
 
     local emmet_in_jsx_only = function(entry, _)
       if is_emmet_snippet(entry) then
-        return ts_utils.get_node_at_cursor():type() == "jsx_text"
+        local node = vim.treesitter.get_node()
+        return node and node:type() == "jsx_element" or false
       end
       return true
     end
