@@ -19,7 +19,7 @@ local lazy_config = {
     --lazy = true
   },
   dev = {
-    path = "~/workspace",
+    path = "~/dev",
   },
   change_detection = {
     notify = false,
