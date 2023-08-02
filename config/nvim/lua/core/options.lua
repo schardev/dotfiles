@@ -61,11 +61,4 @@ set.signcolumn="yes:2"                  -- Reserve space for atleast two signs
 set.undofile = true                     -- Enable undo file
 vim.g.mapleader = " "                   -- Set global <Leader> to `,`
 vim.g.maplocalleader = ","              -- Set <LocalLeader>
-vim.g.markdown_fenced_languages = {     -- Filemap for markdown code blocks
-  'js=javascript',
-  'ts=typescript',
-  'shell=sh',
-  'bash=sh',
-  'console=sh',
-}
 -- stylua: ignore end
