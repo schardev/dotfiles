@@ -11,12 +11,19 @@ return {
       "JoosepAlviste/nvim-ts-context-commentstring",
 
       -- Rainbow brackets
-      "HiPhish/nvim-ts-rainbow2",
+      "HiPhish/rainbow-delimiters.nvim",
     },
     config = function()
       local configs_treesitter =
         vim.api.nvim_create_augroup("ConfigsTreesitter", { clear = true })
       local autocmd = vim.api.nvim_create_autocmd
+
+      vim.g.rainbow_delimiters = {
+        -- log = {
+        --   level = vim.log.levels.TRACE,
+        -- },
+        blacklist = { "html", "lua", "json" },
+      }
 
       local enabled_parsers = {
         "bash",
@@ -179,11 +186,6 @@ return {
 
         indent = {
           enable = true,
-        },
-
-        rainbow = {
-          enable = true,
-          disable = { "html", "json", "lua" },
         },
       })
     end,
