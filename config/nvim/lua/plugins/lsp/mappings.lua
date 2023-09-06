@@ -6,7 +6,7 @@ M.attach = function(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
   local lsp_utils = require("plugins.lsp.utils")
-  vim.b.diagnostics_status = true
+  vim.b[bufnr].show_diagnostics = true
 
   nnoremap(
     "<LocalLeader>q",
@@ -16,14 +16,14 @@ M.attach = function(args)
   nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
   nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
   nnoremap("<LocalLeader>dd", function()
-    if vim.b.diagnostics_status then
-      vim.notify("[LSP] Disabling diagnostics.", vim.log.levels.INFO)
+    if vim.b.show_diagnostics then
+      vim.notify("[LSP] Disabled diagnostics.", vim.log.levels.INFO)
       vim.diagnostic.disable(bufnr)
     else
-      vim.notify("[LSP] Enabling diagnostics.", vim.log.levels.INFO)
+      vim.notify("[LSP] Enabled diagnostics.", vim.log.levels.INFO)
       vim.diagnostic.enable(bufnr)
     end
-    vim.b.diagnostics_status = not vim.b.diagnostics_status
+    vim.b.show_diagnostics = not vim.b.show_diagnostics
   end, { desc = "Toggle diagnostics" })
 
   mapper({ "n", "v" })(
@@ -45,6 +45,9 @@ M.attach = function(args)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, { buffer = bufnr, desc = "Print workspace folders" })
 
+  nnoremap("D", vim.lsp.buf.hover, { buffer = bufnr })
+  nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
+
   nnoremap(
     "gD",
     vim.lsp.buf.declaration,
@@ -55,13 +58,17 @@ M.attach = function(args)
     vim.lsp.buf.definition,
     { buffer = bufnr, desc = "Go to definition" }
   )
-  nnoremap("D", vim.lsp.buf.hover, { buffer = bufnr })
   nnoremap(
     "gi",
     vim.lsp.buf.implementation,
     { buffer = bufnr, desc = "Go to implementation" }
   )
-  nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
+
+  nnoremap(
+    "gr",
+    vim.lsp.buf.references,
+    { buffer = bufnr, desc = "List all references" }
+  )
 
   if client.server_capabilities.hoverProvider then
     nnoremap(
@@ -75,12 +82,6 @@ M.attach = function(args)
     "<LocalLeader>rn",
     vim.lsp.buf.rename,
     { buffer = bufnr, desc = "Rename symbol under cursor" }
-  )
-
-  nnoremap(
-    "gr",
-    vim.lsp.buf.references,
-    { buffer = bufnr, desc = "List all references" }
   )
 
   if client.name == "tsserver" or client.name == "vtsls" then
