@@ -70,7 +70,7 @@ git_aliases() { (
     git config --global alias.cpq 'cherry-pick --quit'
     git config --global alias.cps 'cherry-pick --skip'
     git config --global alias.dc 'describe --contains'
-    git config --global alias.dfs 'diff --stat'
+    git config --global alias.dfs 'diff --staged'
     git config --global alias.dfss 'diff --shortstat'
     git config --global alias.dh 'diff HEAD'
     git config --global alias.dhc 'reset --hard HEAD^'
