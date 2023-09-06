@@ -62,7 +62,7 @@ return {
         string.format("%s  Find File", icons.devicons.search)
       ),
       dashboard.button(
-        "SPC s r",
+        "SPC f o",
         string.format("%s  Recent files", icons.devicons.files)
       ),
       dashboard.button(
