@@ -22,9 +22,11 @@ return {
       end,
     }
 
-    local format_status = function()
-      return vim.b.format_on_save and icons.devicons.format or ""
-    end
+    local components = {
+      format_status = function()
+        return icons.devicons.format
+      end,
+    }
 
     require("lualine").setup({
       options = {
@@ -71,6 +73,7 @@ return {
           {
             "filename",
             -- color = { gui = "italic" },
+            path = 4,
             cond = conditions.buffer_not_empty,
             symbols = {
               modified = " +",
@@ -86,8 +89,24 @@ return {
             cond = conditions.file_not_unix,
           },
           "filetype",
+          "searchcount",
         },
-        lualine_y = { format_status },
+        lualine_y = {
+          {
+            components.format_status,
+            color = function()
+              return {
+                bg = not vim.b.format_on_save
+                  and get_color("NeogitDiffDelete", "bg"),
+                fg = not vim.b.format_on_save
+                  and get_color("NeogitDiffDelete", "fg"),
+              }
+            end,
+            on_click = function()
+              vim.b.format_on_save = not vim.b.format_on_save
+            end,
+          },
+        },
         lualine_z = {
           {
             "location",
