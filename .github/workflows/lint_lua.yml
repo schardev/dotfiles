@@ -2,10 +2,10 @@ name: Lint lua files
 on:
   push:
     paths:
-      - "config/nvim/**"
+      - "**.lua"
   pull_request:
     paths:
-      - "config/nvim/**"
+      - "**.lua"
 
 jobs:
   stylua:
@@ -13,8 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check formatting with stylua
-        uses: JohnnyMorganz/stylua-action@v1
+        uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.TOKEN }}
+          version: latest
           # args passed to stylua
           args: --check -f config/nvim/.stylua.toml .
