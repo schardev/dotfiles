@@ -1,8 +1,6 @@
 local M = {}
 
 local autocmd = vim.api.nvim_create_autocmd
-local diagnostics_float_handler =
-  require("plugins.lsp.diagnostics").diagnostics_float_handler
 M.lsp_augroup_id = vim.api.nvim_create_augroup("UserLspGroup", {})
 
 M.attach = function(args)
@@ -24,13 +22,6 @@ M.attach = function(args)
       desc = "Clears symbol highlighting under cursor",
     })
   end
-
-  autocmd("CursorHold", {
-    group = M.lsp_augroup_id,
-    buffer = bufnr,
-    callback = diagnostics_float_handler,
-    desc = "Shows diagnostic in floating window on smaller windows",
-  })
 end
 
 return M
