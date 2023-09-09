@@ -10,6 +10,7 @@ alias egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox
 alias fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias gti='git' # I quite often mistype `git` as `gti`
+alias gf='git fuzzy'
 alias pp='pnpm'
 alias px='pnpm dlx'
 alias pe='pnpm exec'

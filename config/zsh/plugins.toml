@@ -41,7 +41,12 @@ apply = ["defer"]
 [plugins.zsh-vi-mode]
 github = 'jeffreytse/zsh-vi-mode'
 
+[plugins.git-fuzzy]
+github = "bigH/git-fuzzy"
+dir = "bin"
+apply = ["PATH"]
+
 # Initialize completion stuff
-# This should be defined last to have completions work properly
+# This should be defined last for completions to work properly
 [plugins.compinit]
 inline = "autoload -Uz compinit && compinit"

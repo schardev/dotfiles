@@ -11,6 +11,7 @@ source "${PREFIX:-/usr}"/share/fzf/key-bindings.zsh
 
 # Use fd as primary indexer globally
 export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --follow"
+export FZF_DEFAULT_OPTS="--bind 'alt-w:toggle-preview-wrap'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--height 100% --preview 'exa --tree {}'"
 alias fh='(cd $HOME; fv)'
@@ -27,7 +28,7 @@ function fv() {
 
     # Invoke fzf and select files
     local files=()
-    FZF_DEFAULT_OPTS="$opts" fzf | while IFS= read -r file; do files+=("$file"); done
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $opts" fzf | while IFS= read -r file; do files+=("$file"); done
 
     [[ -n "${files[1]}" ]] && vim ${files[@]}
 }

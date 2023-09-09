@@ -114,6 +114,22 @@ git_aliases() { (
     git config --global alias.us 'reset HEAD'
 ); }
 
+git_plugins() {
+    # https://github.com/dandavison/delta
+    if command -v delta &>/dev/null; then
+        git config --global core.pager delta
+        git config --global interactive.diffFilter "delta --color-only"
+        git config --global merge.conflictstyle diff3
+        git config --global diff.colorMoved default
+
+        # delta config
+        git config --global delta.light false
+        git config --global delta.line-numbers true
+        git config --global delta.navigate true
+        git config --global delta.features mellow-barbet # theme
+    fi
+}
+
 # Initial git config setup
 git_setup() { (
     git config --global user.name "Saurabh Charde"
@@ -124,4 +140,5 @@ git_setup() { (
 
     gpg_setup
     git_aliases
+    git_plugins
 ); }
