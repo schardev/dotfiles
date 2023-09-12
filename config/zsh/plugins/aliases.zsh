@@ -10,7 +10,6 @@ alias egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox
 alias fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias gti='git' # I quite often mistype `git` as `gti`
-alias gf='git fuzzy'
 alias pp='pnpm'
 alias px='pnpm dlx'
 alias pe='pnpm exec'
@@ -22,11 +21,11 @@ alias v='nvim'
 ## Use modern replacements for common GNU programs
 # {{{
 if (( $+commands[exa] )); then
-    alias ls='exa'
-    alias l='exa'
-    alias la='exa -a'
-    alias ll='exa -lh'
-    alias lll='exa -lah'
+    alias ls='eza'
+    alias l='eza'
+    alias la='eza -a'
+    alias ll='eza -lh'
+    alias lll='eza -lah'
 else
     alias l='ls --color=auto'
     alias la='ls --color=auto -a'

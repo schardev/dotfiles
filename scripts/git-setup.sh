@@ -128,6 +128,13 @@ git_plugins() {
         git config --global delta.navigate true
         git config --global delta.features mellow-barbet # theme
     fi
+
+    if command -v git-fuzzy &>/dev/null; then
+        git config --global alias.f 'fuzzy'
+        git config --global alias.fd 'fuzzy diff'
+        git config --global alias.fs 'fuzzy status'
+        git config --global alias.fl 'fuzzy log'
+    fi
 }
 
 # Initial git config setup
