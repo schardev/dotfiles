@@ -17,9 +17,6 @@ return {
     nnoremap("<Leader>fd", function()
       builtin.find_files({ cwd = "$DOTS_DIR" })
     end, { desc = "Find Files in $DOTS_DIR" })
-    nnoremap("<Leader>fh", function()
-      builtin.find_files({ cwd = "$HOME" })
-    end, { desc = "Find Files in $HOME" })
     -- nnoremap("<Leader>fb", builtin.buffers, { desc = "Buffers List" })
 
     nnoremap(
