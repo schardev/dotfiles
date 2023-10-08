@@ -24,7 +24,7 @@ return {
   -- Git plugin
   {
     "tpope/vim-fugitive",
-    cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" },
+    cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull", "G" },
   },
 
   -- Surrounding stuff efficiently
