@@ -63,6 +63,9 @@ mapper({ "n", "v" })("x", '"_x')
 vnoremap("<", "<gv")
 vnoremap(">", ">gv")
 
+-- Select all lines
+nnoremap("vga", "ggVG")
+
 -- Quick edit/source config files
 nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
   desc = "Edit $MYVIMRC",
