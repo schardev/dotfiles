@@ -11,6 +11,7 @@ if [[ $PREFIX =~ com.termux ]]; then
 else
     # Non-termux env vars
     export MANPAGER="sh -c 'col -bx | bat -l man -p'" # Use `bat` as manpager for colored man pages
+    export MANROFFOPT="-c"
 fi
 
 # xdg base directories (https://wiki.archlinux.org/title/XDG_Base_Directory#User_directories)
