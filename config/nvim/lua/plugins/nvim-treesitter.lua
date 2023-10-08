@@ -30,6 +30,7 @@ return {
         "css",
         "html",
         "javascript",
+        "jsdoc",
         "json",
         "jsonc",
         "lua",
@@ -128,21 +129,21 @@ return {
             },
 
             -- choose the select mode (default is charwise 'v')
-            selection_modes = {
-              ["@function.inner"] = "V", -- linewise
-              ["@function.outer"] = "V",
-            },
+            -- selection_modes = {
+            --   ["@function.inner"] = "v",
+            --   ["@function.outer"] = "V",
+            -- },
           },
 
           swap = {
             enable = true,
             swap_next = {
-              ["[p"] = "@parameter.inner",
-              ["[t"] = "@user.ternary.inner", -- defined in after/queries/ecma/textobjects.scm
+              ["]p"] = "@parameter.inner",
+              ["]t"] = "@user.ternary.inner", -- defined in after/queries/ecma/textobjects.scm
             },
             swap_previous = {
-              ["]p"] = "@parameter.inner",
-              ["]t"] = "@user.ternary.inner",
+              ["[p"] = "@parameter.inner",
+              ["[t"] = "@user.ternary.inner",
             },
           },
 
@@ -150,14 +151,14 @@ return {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              ["]m"] = {
+              ["]f"] = {
                 query = "@function.outer",
                 desc = "Next function start",
               },
               ["]]"] = { query = "@class.outer", desc = "Next class start" },
             },
             goto_previous_start = {
-              ["[m"] = "@function.outer",
+              ["[f"] = "@function.outer",
               ["[["] = "@class.outer",
             },
           },
@@ -198,6 +199,34 @@ return {
     cmd = {
       "TSHighlightCapturesUnderCursor",
       "TSPlaygroundToggle",
+    },
+  },
+
+  -- indent/scope highlighting
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    dependencies = { "nvim-treesitter" },
+    event = { "BufReadPost", "BufNewFile" },
+    main = "ibl",
+    opts = {
+      -- char list for different indentation level
+      indent = {
+        -- char = { "|", "¦", "┆", "┊" },
+        char = { "│" },
+      },
+
+      exclude = {
+        filetypes = {
+          "NvimTree",
+          "markdown",
+          "startify",
+        },
+      },
+
+      scope = {
+        show_start = false,
+        show_end = false,
+      },
     },
   },
 }
