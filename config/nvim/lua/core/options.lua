@@ -11,7 +11,6 @@ set.cmdheight = 2                       -- Set command panel height
 set.colorcolumn = "80"                  -- Highlight 80th column
 set.cursorline = true                   -- Highlight current line number
 set.encoding = "utf-8"                  -- It's the default in nvim but vim sets it conditionally
-set.expandtab = true                    -- Expand TABs to spaces
 opt.fillchars = {vert = '│', eob = '~'} -- Set vertical and empty lines chars
 set.foldlevel = 99                      -- Fold after this level (hax to prevent folding by default)
 set.hidden = true                       -- Allow buffers to be hidden
@@ -26,11 +25,9 @@ set.numberwidth = 2                     -- Minimal number of columns to use for 
 set.relativenumber = true               -- Shows line number relative to the current line
 set.scrolloff = 5                       -- Scroll offset
 set.shell = "bash"                      -- Set default shell to bash coz zsh isn't POSIX-compatible
-set.shiftwidth = 2                      -- Indents will have this much width
 set.spellfile = CONFIG_DIR .. '/nvim/spell/en.utf-8.add'
 set.splitright = true                   -- Splits windows to the right by default
 set.smartcase = true                    -- Override `ignorecase` where possible
-set.softtabstop = 2                     -- Sets the number of columns for a TAB
 set.synmaxcol = 190                     -- Don't even try to highlight stuff that's longer than 190 columns
 opt.wildignore:append({                 -- Ignore these directories/files while expanding `find` searches
     "*.o",
@@ -50,10 +47,6 @@ opt.wildignore:append({                 -- Ignore these directories/files while 
 set.wildignorecase = true               -- Ignore case while completing file
 set.wrap = false                        -- Do not wrap code by default
 set.writebackup = false                 -- Disable backup
-set.tabstop = 2                         -- The width of a TAB is set to this value
-                                        -- Still it is a \t. It is just that
-                                        -- vim will interpret it to be having
-                                        -- this much width
 set.termguicolors = true                -- Term supports gui colors
 set.title = true                        -- Set window title appropriately
 set.pumblend=15                         -- Enable a subtle transparency effect on pop-up menu
@@ -62,3 +55,9 @@ set.undofile = true                     -- Enable undo file
 vim.g.mapleader = " "                   -- Set global <Leader> to `,`
 vim.g.maplocalleader = ","              -- Set <LocalLeader>
 -- stylua: ignore end
+
+-- Indentation
+set.expandtab = true -- Expand <Tab> to spaces
+set.shiftwidth = 2 -- Indents (`>>`, `<<`, etc) inserts this much width
+set.softtabstop = 2 -- Sets the number of columns for a <Tab>
+set.tabstop = 2 -- The width of <Tab>
