@@ -41,6 +41,7 @@ autocmd("FileType", {
     "help",
     "lspinfo",
     "qf",
+    "query",
     "startuptime",
     "tsplayground",
   },
