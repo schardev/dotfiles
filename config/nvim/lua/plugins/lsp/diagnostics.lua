@@ -1,5 +1,5 @@
 local M = {}
-local icons = require("icons").diagnostics
+local icons = require("core.icons").diagnostics
 
 -- Set diagnostic signs and highlight group
 local diagnostics_signs = {

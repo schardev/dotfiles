@@ -23,7 +23,7 @@ return {
     local cmp = require("cmp")
     local cmp_kinds = require("cmp.types").lsp.CompletionItemKind
     local luasnip = require("luasnip")
-    local cmp_kind_icons = require("icons").lspkind
+    local cmp_kind_icons = require("core.icons").lspkind
 
     local cmp_source_names = {
       buffer = "[Buffer]",

@@ -6,7 +6,7 @@ return {
     local ft_funs = require("luasnip.extras.filetype_functions")
     local map = require("core.utils").mapper_factory({ "i", "s" })
     local utils = require("core.utils").snippet_utils
-    local env = require("env")
+    local env = require("core.env")
 
     map("<M-Tab>", function()
       if ls.choice_active() then

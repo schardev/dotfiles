@@ -1,4 +1,4 @@
-local icons = require("icons")
+local icons = require("core.icons")
 return {
   "kyazdani42/nvim-tree.lua",
   event = "VeryLazy",

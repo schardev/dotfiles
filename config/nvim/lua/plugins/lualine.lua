@@ -5,7 +5,7 @@ return {
   config = function()
     -- For extracting colors from hlgroups
     local get_color = require("lualine.utils.utils").extract_highlight_colors
-    local icons = require("icons")
+    local icons = require("core.icons")
 
     -- Conditions
     local conditions = {

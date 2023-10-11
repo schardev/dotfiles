@@ -1,4 +1,4 @@
-local env = require("env")
+local env = require("core.env")
 
 return {
   {
