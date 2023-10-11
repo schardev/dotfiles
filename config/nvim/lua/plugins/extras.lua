@@ -30,7 +30,7 @@ return {
   -- Surrounding stuff efficiently
   {
     "kylechui/nvim-surround",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
 
