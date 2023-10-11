@@ -24,9 +24,6 @@ local diagnostics_signs = {
 -- Diagnostic float options (for vim.diagnostic.open_float)
 local diagnostics_float_config = {
   border = "rounded",
-  close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-  focusable = false,
-  -- header = "",
   prefix = function(diagnostic)
     local severity = diagnostics_signs[diagnostic.severity]
     return severity.sign, severity.hl_group
@@ -45,13 +42,17 @@ function M.diagnostics_float_handler()
     return
   end
 
+  -- Don't open floating window if there's already one opened
+  for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.api.nvim_win_get_config(winid).zindex then
+      return
+    end
+  end
+
   local cword = vim.fn.expand("<cword>")
   if cword ~= vim.w.lsp_diagnostics_cword then
     vim.w.lsp_diagnostics_cword = cword
-    local _, winnr = vim.diagnostic.open_float(diagnostics_float_config)
-    if winnr ~= nil then
-      vim.api.nvim_win_set_option(winnr, "winblend", 20)
-    end
+    vim.diagnostic.open_float(diagnostics_float_config)
   end
 end
 
