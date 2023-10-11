@@ -1,4 +1,5 @@
 ---@diagnostic disable: undefined-global
+local utils = require("core.utils").string_utils
 
 return {
   -- c-style for loop
@@ -26,10 +27,14 @@ return {
   -- import statement
   s(
     { trig = "import", name = "Import Name" },
-    fmt("import {} from {};", {
+    fmt('import {} from "{}";', {
       c(2, {
+        d(nil, function(args)
+          local specifier = args[1][1]
+          local import = utils.to_pascal_case(utils.basename(specifier))
+          return sn(nil, { i(1, import) })
+        end, { 1 }),
         sn("named import", { t("{ "), i(1, "named import"), t(" }") }),
-        sn("default import", i(1, "default import")),
         sn("namespace import", { t("* as "), i(1, "namespace import") }),
       }),
       i(1, "specifier"),

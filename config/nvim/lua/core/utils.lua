@@ -97,7 +97,7 @@ function M.get_lang_from_cursor_pos()
     :lang()
 end
 
---- Common snippets utilities
+--- Common string utilities
 ---@see https://github.com/tbastos/lift/blob/master/lift/string.lua
 
 --- Returns a capitilzed string
@@ -118,10 +118,15 @@ local function to_pascal_case(str)
   return str:gsub("%W*(%w+)", capitalize)
 end
 
-M.snippet_utils = {
+local function basename(str)
+  return str:gsub("(.*)/(.*)", "%2")
+end
+
+M.string_utils = {
   capitalize = capitalize,
   to_camel_case = to_camel_case,
   to_pascal_case = to_pascal_case,
+  basename = basename,
 }
 
 return M
