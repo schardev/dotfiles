@@ -14,21 +14,21 @@ return {
 
     -- Mappings
     nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
-    nnoremap("<Leader>fd", function()
-      builtin.find_files({ cwd = "$DOTS_DIR" })
-    end, { desc = "Find Files in $DOTS_DIR" })
-    -- nnoremap("<Leader>fb", builtin.buffers, { desc = "Buffers List" })
-
-    nnoremap(
-      "<Leader>fb",
-      builtin.current_buffer_fuzzy_find,
-      { desc = "Live fuzzy search inside current buffer" }
-    )
-
     nnoremap("<Leader>fg", builtin.live_grep, { desc = "Live Grep" })
     nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
     nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
     nnoremap("<Leader>fo", builtin.oldfiles, { desc = "Oldfiles" })
+    nnoremap("<Leader>fb", builtin.buffers, { desc = "Buffers List" })
+
+    nnoremap("<Leader>fd", function()
+      builtin.find_files({ cwd = "$DOTS_DIR" })
+    end, { desc = "Find Files in $DOTS_DIR" })
+
+    nnoremap(
+      "<Leader>fB",
+      builtin.current_buffer_fuzzy_find,
+      { desc = "Live fuzzy search inside current buffer" }
+    )
 
     -- Telescope base config
     require("telescope").setup({
