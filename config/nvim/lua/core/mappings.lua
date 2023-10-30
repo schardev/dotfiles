@@ -153,18 +153,18 @@ vim.g.mc = [[y/\V<C-r>=escape(@", '/')<CR><CR>]]
 nnoremap("cn", "*``cgn")
 nnoremap("cN", "*``cgN")
 
-vnoremap("cn", [[g:mc . "``cgn"]], { expr = true })
-vnoremap("cN", [[g:mc . "``cgN"]], { expr = true })
+xnoremap("cn", [[g:mc . "``cgn"]], { expr = true })
+xnoremap("cN", [[g:mc . "``cgN"]], { expr = true })
 
 nnoremap("cq", [[:\<C-u>call v:lua.Setup_CR()<CR>*``qz]])
 nnoremap("cQ", [[:\<C-u>call v:lua.Setup_CR()<CR>#``qz]])
 
-vnoremap(
+xnoremap(
   "cq",
   [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . g:mc . "``qz"]],
   { expr = true }
 )
-vnoremap(
+xnoremap(
   "cQ",
   [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . substitute(g:mc, '/', '?', 'g') . "``qz"]],
   { expr = true }
