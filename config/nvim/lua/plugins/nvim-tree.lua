@@ -63,7 +63,7 @@ return {
       -- },
 
       -- Keeps cursor on the first letter of the filename when navigating tree
-      hijack_cursor = true,
+      -- hijack_cursor = true,
 
       view = {
         preserve_window_proportions = true,
