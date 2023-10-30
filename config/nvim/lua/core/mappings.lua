@@ -4,11 +4,10 @@ local nnoremap = mapper("n")
 local tnoremap = mapper("t")
 local vnoremap = mapper("v")
 local xnoremap = mapper("x")
-local no_silent = { silent = false }
 
 -- No need to keep holding shift
-nnoremap(";", ":", no_silent)
-vnoremap(";", ":", no_silent)
+nnoremap(";", ":", { silent = false })
+vnoremap(";", ":", { silent = false })
 
 -- Map H and L to start and end of the line respectively (makes more sence that way)
 nnoremap("H", "0")
@@ -70,10 +69,6 @@ nnoremap("vga", "ggVG")
 nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
   desc = "Edit $MYVIMRC",
 })
--- TODO: Make it hard reload init.lua
-nnoremap("<Leader>sv", ":source $MYVIMRC<CR>", {
-  desc = "Source $MYVIMRC",
-})
 nnoremap("<Leader>se", utils.save_and_exec, {
   desc = "Save and execute vim/lua files",
 })
@@ -129,7 +124,7 @@ vnoremap(
 nnoremap(
   "<Leader>rw",
   [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
-  { desc = "Replace word under cursor", silent = true }
+  { desc = "Replace word under cursor", silent = false }
 )
 
 -- Search visual selection
