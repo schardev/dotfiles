@@ -23,6 +23,7 @@ if (( $+commands[exa] )); then
     alias la='eza -a'
     alias ll='eza -lh'
     alias lll='eza -lah'
+    alias tree='eza --tree'
 else
     alias l='ls --color=auto'
     alias la='ls --color=auto -a'
