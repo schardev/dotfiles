@@ -3,9 +3,6 @@ return {
   -- Icons provider
   { "kyazdani42/nvim-web-devicons", lazy = "true" },
 
-  -- Shows human friendly startuptime
-  { "dstein64/vim-startuptime", cmd = "StartupTime" },
-
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", lazy = true },
 
@@ -53,6 +50,7 @@ return {
           require("ssr").open()
         end,
         mode = { "n", "v" },
+        desc = "Search replace using treesitter",
       },
     },
   },
