@@ -27,10 +27,6 @@ return {
         end,
       },
 
-      styles = {
-        comments = { "italic" },
-      },
-
       integrations = {
         lsp_trouble = true,
         leap = true,
