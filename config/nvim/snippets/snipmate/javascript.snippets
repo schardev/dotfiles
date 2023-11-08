@@ -75,7 +75,7 @@ snippet settimeout
 	}, ${1:timeout});
 
 snippet setinterval
-	setINterval(() => {
+	setInterval(() => {
 		${TM_SELECTED_TEXT}$0
 	}, ${1:interval})
 
@@ -95,6 +95,3 @@ snippet edf "export default function"
 	export default function ${1:name}(${2:params}) {
 		${TM_SELECTED_TEXT}$0
 	}
-
-snippet ec "export const"
-	export const ${1:name} = ${0:value};

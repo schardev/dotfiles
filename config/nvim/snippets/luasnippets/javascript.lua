@@ -34,8 +34,8 @@ return {
           local import = utils.to_pascal_case(utils.basename(specifier))
           return sn(nil, { i(1, import) })
         end, { 1 }),
-        sn("named import", { t("{ "), i(1, "named import"), t(" }") }),
-        sn("namespace import", { t("* as "), i(1, "namespace import") }),
+        sn(nil, { t("{ "), i(1, "named import"), t(" }") }),
+        sn(nil, { t("* as "), i(1, "namespace import") }),
       }),
       i(1, "specifier"),
     })
