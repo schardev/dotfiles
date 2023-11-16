@@ -14,9 +14,9 @@ return {
       end
     end)
 
-    ls.config.setup({
-      -- history = true, -- If true, snippets that were exited can still be jumped back into
-      update_events = { "TextChanged", "TextChangedI" },
+    ls.setup({
+      -- TODO: disabled until this gets fixed https://github.com/L3MON4D3/LuaSnip/issues/503
+      -- update_events = { "TextChanged", "TextChangedI" },
       delete_check_events = { "TextChanged", "TextChangedI" },
       store_selection_keys = "s",
       ext_opts = {
