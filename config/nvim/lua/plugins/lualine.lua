@@ -20,11 +20,19 @@ return {
       file_not_unix = function()
         return vim.bo.fileformat ~= "unix"
       end,
+
+      tabs = function()
+        return not vim.bo.expandtab
+      end,
     }
 
     local components = {
       format_status = function()
         return icons.devicons.format
+      end,
+
+      tabs = function()
+        return "[TABS]"
       end,
     }
 
@@ -82,13 +90,20 @@ return {
           },
         },
         lualine_x = {
+          "filetype",
           {
             "fileformat",
 
             -- Only show for non-unix files
             cond = conditions.file_not_unix,
           },
-          "filetype",
+          {
+            components.tabs,
+            cond = conditions.tabs,
+            color = {
+              fg = get_color("DiagnosticInfo", "fg"),
+            },
+          },
           "searchcount",
         },
         lualine_y = {
@@ -103,7 +118,7 @@ return {
               }
             end,
             on_click = function()
-              vim.b.format_on_save = not vim.b.format_on_save
+              vim.cmd("UserLspAutoFormatToggle")
             end,
           },
         },

@@ -21,14 +21,14 @@ M.attach = function(args)
     return
   end
 
-  -- Expose buffer-scoped variable to control autoformatting
+  -- Whether format on save is enabled
   vim.b.format_on_save = true
 
   command("UserLspAutoFormatToggle", function()
     if not vim.b.format_on_save then
-      vim.notify("Enabling auto-formatting!")
+      vim.notify("Enabled auto-formatting!")
     else
-      vim.notify("Disabling auto-formatting!")
+      vim.notify("Disabled auto-formatting!")
     end
     vim.b.format_on_save = not vim.b.format_on_save
   end, { desc = "Toggle auto-formatting" })
