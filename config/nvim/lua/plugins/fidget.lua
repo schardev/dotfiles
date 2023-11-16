@@ -1,7 +1,6 @@
 return {
   "j-hui/fidget.nvim",
   event = "LspAttach",
-  tag = "legacy",
   config = function()
     vim.api.nvim_create_autocmd(
       "VimLeavePre",
@@ -9,8 +8,11 @@ return {
     )
 
     require("fidget").setup({
-      text = {
-        spinner = "dots",
+      notification = {
+        override_vim_notify = true,
+        window = {
+          winblend = 50,
+        },
       },
     })
   end,
