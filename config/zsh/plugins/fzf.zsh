@@ -14,8 +14,8 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --follow"
 export FZF_DEFAULT_OPTS="--bind 'alt-w:toggle-preview-wrap'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--height 100% --preview 'exa --tree {}'"
-alias fh='(cd $HOME; fv)'
-alias fd='(cd $DOTS_DIR; fv)'
+# alias fh='(cd $HOME; fv)'
+# alias fd='(cd $DOTS_DIR; fv)'
 
 ## Few useful utilities
 
@@ -50,7 +50,7 @@ function fopen() {
 
 # ripgrep <3 fzf
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#using-fzf-as-the-secondary-filter
-function fg() {
+function fr() {
     local rg_opts=(--color=always --line-number --no-heading --smart-case)
 
     while ((${#})); do

@@ -14,7 +14,7 @@ return {
 
     -- Mappings
     nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
-    nnoremap("<Leader>fg", builtin.live_grep, { desc = "Live Grep" })
+    nnoremap("<Leader>fr", builtin.live_grep, { desc = "Live Grep" })
     nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
     nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
     nnoremap("<Leader>fo", builtin.oldfiles, { desc = "Oldfiles" })
@@ -25,7 +25,7 @@ return {
     end, { desc = "Find Files in $DOTS_DIR" })
 
     nnoremap(
-      "<Leader>fB",
+      "<Leader>fg",
       builtin.current_buffer_fuzzy_find,
       { desc = "Live fuzzy search inside current buffer" }
     )
