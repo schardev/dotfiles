@@ -52,7 +52,7 @@ function M.xdg_open(path)
     vim.fn.jobstart({ "xdg-open", path }, { detach = true })
     vim.notify(string.format("Opening %s", path))
   else
-    vim.notify("path is null")
+    vim.notify("path is null", vim.log.levels.ERROR)
   end
 end
 
