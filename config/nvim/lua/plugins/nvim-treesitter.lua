@@ -7,23 +7,23 @@ return {
       -- treesitter powered textobjects
       "nvim-treesitter/nvim-treesitter-textobjects",
 
-      -- better comment support for jsx/tsx
-      "JoosepAlviste/nvim-ts-context-commentstring",
-
       -- Rainbow brackets
-      "HiPhish/rainbow-delimiters.nvim",
+      {
+        "HiPhish/rainbow-delimiters.nvim",
+        config = function()
+          vim.g.rainbow_delimiters = {
+            -- log = {
+            --   level = vim.log.levels.TRACE,
+            -- },
+            blacklist = { "html", "lua", "json" },
+          }
+        end,
+      },
     },
     config = function()
       local configs_treesitter =
         vim.api.nvim_create_augroup("ConfigsTreesitter", { clear = true })
       local autocmd = vim.api.nvim_create_autocmd
-
-      vim.g.rainbow_delimiters = {
-        -- log = {
-        --   level = vim.log.levels.TRACE,
-        -- },
-        blacklist = { "html", "lua", "json" },
-      }
 
       local enabled_parsers = {
         "bash",
@@ -86,11 +86,6 @@ return {
           -- Using this option may slow down your editor, and you may see some duplicate highlights.
           -- Instead of true it can also be a list of languages
           additional_vim_regex_highlighting = false,
-        },
-
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
         },
 
         -- textobjects
@@ -199,34 +194,6 @@ return {
     cmd = {
       "TSHighlightCapturesUnderCursor",
       "TSPlaygroundToggle",
-    },
-  },
-
-  -- indent/scope highlighting
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    dependencies = { "nvim-treesitter" },
-    event = { "BufReadPost", "BufNewFile" },
-    main = "ibl",
-    opts = {
-      -- char list for different indentation level
-      indent = {
-        -- char = { "|", "¦", "┆", "┊" },
-        char = { "│" },
-      },
-
-      exclude = {
-        filetypes = {
-          "NvimTree",
-          "markdown",
-          "startify",
-        },
-      },
-
-      scope = {
-        show_start = false,
-        show_end = false,
-      },
     },
   },
 }
