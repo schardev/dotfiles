@@ -4,9 +4,13 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      -- schemas
+      "b0o/schemastore.nvim",
+
       -- LSP, Formatters, DAP installer
       {
         "williamboman/mason.nvim",
+        dependencies = { "williamboman/mason-lspconfig.nvim" },
         build = ":MasonUpdate",
         config = function()
           require("mason").setup({
@@ -20,27 +24,18 @@ return {
             },
           })
 
-          local ensure_installed = {
-            -- lsp
-            "css-lsp",
-            "cssmodules-language-server",
-            "dockerfile-language-server",
-            "emmet-ls",
-            "html-lsp",
-            "json-lsp",
-            "lua-language-server",
-            "tailwindcss-language-server",
-            "typescript-language-server",
-            "vtsls",
-            "yaml-language-server",
+          local packages = require("plugins.lsp.packages")
+          local lspconfig_to_package =
+            require("mason-lspconfig.mappings.server").lspconfig_to_package
+          local packages_to_install =
+            vim.tbl_extend("force", packages.formatters, {})
 
-            -- formatters
-            "eslint_d",
-            "prettierd",
-          }
+          for lsp_name, _ in pairs(packages.servers) do
+            table.insert(packages_to_install, lspconfig_to_package[lsp_name])
+          end
 
           vim.api.nvim_create_user_command("MasonInstallAll", function()
-            vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
+            vim.cmd("MasonInstall " .. table.concat(packages_to_install, " "))
           end, {})
         end,
       },
@@ -53,15 +48,16 @@ return {
     },
     config = function()
       local lspconfig = require("lspconfig")
-      local handlers = require("plugins.lsp.handlers")
-      local diagnostics = require("plugins.lsp.diagnostics")
+      local lsp_handlers = require("plugins.lsp.handlers")
+      local lsp_diagnostics = require("plugins.lsp.diagnostics")
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_formatting = require("plugins.lsp.formatting")
       local lsp_mappings = require("plugins.lsp.mappings")
+      local lsp_servers = require("plugins.lsp.packages").servers
 
       -- Setup handlers and diagnostics config
-      handlers.setup()
-      diagnostics.setup()
+      lsp_handlers.setup()
+      lsp_diagnostics.setup()
 
       -- Update capabilities
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -87,8 +83,8 @@ return {
           end
 
           -- TODO: Temporarily disable semantic tokens
-          vim.lsp.get_client_by_id(args.data.client_id).server_capabilities.semanticTokensProvider =
-            nil
+          -- vim.lsp.get_client_by_id(args.data.client_id).server_capabilities.semanticTokensProvider =
+          --   nil
 
           lsp_autocmds.attach(args)
           lsp_formatting.attach(args)
@@ -96,30 +92,10 @@ return {
         end,
       })
 
-      -- Setup all listed servers
-      local servers = {
-        "cssls",
-        "cssmodules_ls",
-        "dockerls",
-        "emmet_ls",
-        "html",
-        "jsonls",
-        "lua_ls",
-        "tailwindcss",
-        "yamlls",
-      }
-
-      if env.NVIM_USER_USE_VTSLS then
-        table.insert(servers, "vtsls")
-      end
-
-      for _, lsp in pairs(servers) do
-        local present, server = pcall(require, "plugins.lsp.servers." .. lsp)
-        lspconfig[lsp].setup(
-          vim.tbl_deep_extend("force", present and server.config or {}, {
-            capabilities = capabilities,
-          })
-        )
+      for lsp, config in pairs(lsp_servers) do
+        lspconfig[lsp].setup(vim.tbl_deep_extend("force", config, {
+          capabilities = capabilities,
+        }))
       end
     end,
   },
