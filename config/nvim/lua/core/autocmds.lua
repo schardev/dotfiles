@@ -81,6 +81,10 @@ autocmd("FileType", {
 
     -- When a word is CamelCased, assume "Cased" is a separate word
     vim.opt_local.spelloptions:append("camel")
+
+    -- React directives
+    vim.cmd.inoreabbrev("uc", '"use client";')
+    vim.cmd.inoreabbrev("us", '"use server";')
   end,
   desc = "ECMA specific file settings",
 })
