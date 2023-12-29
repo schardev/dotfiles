@@ -3,7 +3,6 @@ return {
   event = "BufReadPre",
   opts = {
     max_file_length = 5000,
-    trouble = false, -- disable loading trouble.nvim
     on_attach = function(bufnr)
       local gs = require("gitsigns")
       local nnoremap = require("core.utils").mapper_factory("n")

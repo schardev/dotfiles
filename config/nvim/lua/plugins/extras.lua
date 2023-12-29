@@ -9,15 +9,6 @@ return {
   -- Undo tree
   { "mbbill/undotree", cmd = "UndotreeToggle" },
 
-  -- Workspace diagnostics
-  {
-    "folke/trouble.nvim",
-    cmd = { "TroubleToggle", "Trouble" },
-    opts = {
-      use_diagnostic_signs = true,
-    },
-  },
-
   -- Git plugin
   {
     "tpope/vim-fugitive",
