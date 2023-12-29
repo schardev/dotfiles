@@ -23,6 +23,7 @@ return {
           return {
             ["@comment"] = { fg = colors.overlay1 },
             VertSplit = { fg = colors.overlay1 },
+            WinSeparator = { fg = colors.overlay1 },
           }
         end,
       },
