@@ -38,6 +38,7 @@ return {
         "markdown_inline",
         "query",
         "scss",
+        "sql",
         "tsx",
         "typescript",
         "vim",
@@ -104,12 +105,12 @@ return {
                 desc = "Select inside funtion",
               },
               ["ac"] = {
-                query = "@conditional.outer",
-                desc = "Select around conditional",
+                query = "@class.outer",
+                desc = "Select outer class",
               },
               ["ic"] = {
-                query = "@conditional.inner",
-                desc = "Select inside conditional",
+                query = "@class.inner",
+                desc = "Select inner class",
               },
               ["aP"] = {
                 query = "@parameter.outer",
@@ -119,8 +120,14 @@ return {
                 query = "@parameter.inner",
                 desc = "Select inside parameter",
               },
-              ["aC"] = { query = "@class.outer", desc = "Select outer class" },
-              ["iC"] = { query = "@class.inner", desc = "Select inner class" },
+              ["aC"] = {
+                query = "@conditional.outer",
+                desc = "Select around conditional",
+              },
+              ["iC"] = {
+                query = "@conditional.inner",
+                desc = "Select inside conditional",
+              },
             },
 
             -- choose the select mode (default is charwise 'v')
