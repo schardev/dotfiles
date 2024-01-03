@@ -92,8 +92,8 @@ return {
         end,
       })
 
-      for lsp, config in pairs(lsp_servers) do
-        lspconfig[lsp].setup(vim.tbl_deep_extend("force", config, {
+      for lsp, opts in pairs(lsp_servers) do
+        lspconfig[lsp].setup(vim.tbl_deep_extend("force", opts.config or {}, {
           capabilities = capabilities,
         }))
       end
