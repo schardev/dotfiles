@@ -20,7 +20,7 @@ snippet rum "useMemo"
 	useMemo(() => $1, [${2:deps}])
 
 snippet rur "useReducer"
-	const [${1:state}, ${2:dispatch}] = useReducer(${3:reducerFn})
+	const [${1:state}, ${2:dispatch}] = useReducer(${3:reducerFn}, ${4:initialState})
 
 snippet ruref "useRef"
 	const ${1:ref} = useRef(${2:initialValue})
