@@ -2,7 +2,6 @@ local M = {}
 local wezterm = require("wezterm")
 local utils = require("utils")
 local act = wezterm.action
-local callback = wezterm.action_callback
 
 local default = {
   -- Repeat leader to send it to terminal (as wezterm will swallow it otherwise)
