@@ -47,6 +47,10 @@ nnoremap("<C-u>", "<C-u>zz")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
 
+-- Remap for dealing with word wrap
+nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 -- Buffer management
 nnoremap("<C-L>", ":bnext<CR>")
 nnoremap("<C-H>", ":bprevious<CR>")
