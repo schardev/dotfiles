@@ -11,10 +11,6 @@ local default = {
     action = act.SendKey({ key = "a", mods = "CTRL" }),
   },
 
-  -- Reload config (there's probably no need for it as the config will be
-  -- loaded automatically upon change)
-  { key = "z", mods = "ALT", action = act.ReloadConfiguration },
-
   -- Navigating
   { key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
   { key = "Tab", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
@@ -53,11 +49,6 @@ local default = {
     mods = "CTRL|SHIFT",
     action = act.QuickSelect,
   },
-  -- {
-  --     key = "f",
-  --     mods = "CTRL|SHIFT",
-  --     action = act.Search({ CaseSensitiveString = "" }),
-  -- },
 
   -- Copy/Paste
   { key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },

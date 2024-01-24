@@ -1,39 +1,37 @@
 local wezterm = require("wezterm")
 local events = require("events")
 local keybindings = require("keybindings")
-local catppuccin = require("colors.catppuccin")
 
 -- Setup events
 events.setup()
 
-return {
-  -- automatically_reload_config = false,
-  font = wezterm.font("JetBrainsMonoNL Nerd Font"),
-  font_size = 15,
+local config = wezterm.config_builder()
+config.font = wezterm.font("JetBrainsMonoNL Nerd Font")
+config.font_size = 15
 
-  -- Debug keycodes/names (open wezterm using another terminal)
-  -- debug_key_events = true,
+-- Debug keycodes/names (open wezterm using another terminal)
+-- config.debug_key_events = true,
 
-  window_frame = {
-    active_titlebar_bg = catppuccin.colors.base,
-    inactive_titlebar_bg = catppuccin.colors.base,
-  },
-  -- window_background_opacity = 0.5,
+-- Tab bar
+config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
+config.use_fancy_tab_bar = false
 
-  -- Tab bar
-  hide_tab_bar_if_only_one_tab = true,
-  tab_bar_at_bottom = true,
-  use_fancy_tab_bar = false,
-
-  -- Sane behaviour for font sizing in BSPWM
-  adjust_window_size_when_changing_font_size = false,
-
-  -- Colorscheme
-  colors = catppuccin.scheme,
-
-  -- Keybindings
-  disable_default_key_bindings = true,
-  leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
-  key_tables = keybindings.key_tables,
-  keys = keybindings.keys,
+-- Colorscheme
+local scheme = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
+scheme.tab_bar.active_tab = {
+  bg_color = "#313244",
+  fg_color = "#bac2de",
 }
+config.color_scheme = "Catppuccin Mocha"
+config.color_schemes = {
+  ["Catppuccin Mocha"] = scheme,
+}
+
+-- Keybindings
+config.disable_default_key_bindings = true
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
+config.key_tables = keybindings.key_tables
+config.keys = keybindings.keys
+
+return config
