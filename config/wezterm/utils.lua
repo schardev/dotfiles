@@ -52,7 +52,7 @@ function M.get_process_icon(tab)
     },
     ["nvim"] = {
       { Foreground = { Color = colors.green } },
-      { Text = wezterm.nerdfonts.custom_vim },
+      { Text = wezterm.nerdfonts.linux_neovim },
     },
     ["vim"] = {
       { Foreground = { Color = colors.green } },
@@ -112,11 +112,14 @@ end
 
 function M.get_current_working_dir(tab)
   local current_dir = tab.active_pane.current_working_dir
-  local hostname = tab.active_pane.user_vars.WEZTERM_HOST
-  local HOME_DIR = string.format("file://%s%s/", hostname, os.getenv("HOME"))
 
-  return current_dir == HOME_DIR and " ~"
-    or string.format(" %s", string.gsub(current_dir, "(.*/)(.*)/", "%2"))
+  if current_dir then
+    local path = current_dir.file_path
+    return path == os.getenv("HOME") .. "/" and " ~"
+      or string.format(" %s", string.gsub(path, "(.*/)(.*)/", "%2"))
+  else
+    return tab.active_pane.title
+  end
 end
 
 function M.conditional_activate_pane(window, pane, wezterm_direction)
