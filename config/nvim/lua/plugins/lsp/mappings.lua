@@ -18,10 +18,10 @@ M.attach = function(args)
   nnoremap("<LocalLeader>dd", function()
     if vim.b.show_diagnostics then
       vim.notify("[LSP] Disabled diagnostics.", vim.log.levels.INFO)
-      vim.diagnostic.disable()
+      vim.diagnostic.disable(0)
     else
       vim.notify("[LSP] Enabled diagnostics.", vim.log.levels.INFO)
-      vim.diagnostic.enable()
+      vim.diagnostic.enable(0)
     end
     vim.b.show_diagnostics = not vim.b.show_diagnostics
   end, { desc = "Toggle diagnostics" })
