@@ -12,5 +12,6 @@ vim.filetype.add({
   pattern = {
     [".*/zsh/functions/.*"] = "zsh",
     ["tsconfig.*.json"] = "jsonc",
+    [".env%..*"] = "sh",
   },
 })
