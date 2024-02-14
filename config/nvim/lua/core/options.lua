@@ -7,6 +7,7 @@ local CONFIG_DIR = require("core.env").NVIM_USER_CONFIG_DIR
 cmd('filetype plugin indent on ')       -- Used for indentation based on file-type
 cmd('syntax enable')                    -- Enable syntax highlighting
 set.backup = false                      -- Disable backup
+set.breakindent = true                  -- Preserve indentation while wrapping
 set.cmdheight = 2                       -- Set command panel height
 set.colorcolumn = "80"                  -- Highlight 80th column
 set.cursorline = true                   -- Highlight current line number
