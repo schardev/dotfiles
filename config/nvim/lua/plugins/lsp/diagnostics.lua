@@ -1,7 +1,7 @@
 local M = {}
 local icons = require("core.icons").diagnostics
 
--- Set diagnostic signs and highlight group
+-- Diagnostic signs and highlight group
 local diagnostics_signs = {
   [vim.diagnostic.severity.ERROR] = {
     sign = string.format("%s ", icons.error),
@@ -21,39 +21,10 @@ local diagnostics_signs = {
   },
 }
 
--- Diagnostic float options (for vim.diagnostic.open_float)
-local diagnostics_float_config = {
-  border = "rounded",
-  prefix = function(diagnostic)
-    local severity = diagnostics_signs[diagnostic.severity]
-    return severity.sign, severity.hl_group
-  end,
-  scope = "line",
-  source = "always",
-}
-
--- Show the popup diagnostics window, but only once for the current cursor location
--- by checking whether the word under the cursor has changed.
--- (Thanks @akinsho)
-function M.diagnostics_float_handler()
-  -- Immediately return if the screen width can show virtual text
-  -- Mostly done for window splits and termux
-  if vim.fn.winwidth(0) > 100 then
-    return
-  end
-
-  -- Don't open floating window if there's already one opened
-  for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-    if vim.api.nvim_win_get_config(winid).zindex then
-      return
-    end
-  end
-
-  local cword = vim.fn.expand("<cword>")
-  if cword ~= vim.w.lsp_diagnostics_cword then
-    vim.w.lsp_diagnostics_cword = cword
-    vim.diagnostic.open_float(diagnostics_float_config)
-  end
+---@param diagnostic lsp.Diagnostic
+local diagnostics_prefix = function(diagnostic)
+  local severity = diagnostics_signs[diagnostic.severity]
+  return severity.sign, severity.hl_groupl
 end
 
 function M.setup()
@@ -71,7 +42,14 @@ function M.setup()
       -- Disable virtual text on smaller screens
       return vim.fn.winwidth(0) > 100
     end,
-    float = diagnostics_float_config,
+    float = {
+      max_width = 85,
+      max_height = 30,
+      border = "rounded",
+      prefix = diagnostics_prefix,
+      scope = "line",
+      source = "always",
+    },
     underline = {
       -- Do not underline text when severity is low (INFO or HINT).
       severity = { min = vim.diagnostic.severity.WARN },
