@@ -17,7 +17,7 @@ end
 
 --- Creates a keymap function with given mode
 ---@param mode string|table
----@return function
+---@return fun(lhs: string, rhs: string|function, opts: table|nil)
 function M.mapper_factory(mode)
   local default_opts = { silent = true }
 

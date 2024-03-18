@@ -80,13 +80,13 @@ snippet setinterval
 	}, ${1:interval})
 
 snippet cl "Console log"
-	console.log(${TM_SELECTED_TEXT}$0);
+	console.log(${TM_SELECTED_TEXT}$1);
 
 snippet cw "Console warn"
-	console.warn(${TM_SELECTED_TEXT}$0);
+	console.warn(${TM_SELECTED_TEXT}$1);
 
 snippet ce "Console error"
-	console.error(${TM_SELECTED_TEXT}$0);
+	console.error(${TM_SELECTED_TEXT}$1);
 
 snippet ed "export default"
 	export default $0
@@ -95,3 +95,22 @@ snippet edf "export default function"
 	export default function ${1:name}(${2:params}) {
 		${TM_SELECTED_TEXT}$0
 	}
+
+snippet sleep "sleep"
+	await new Promise((res) => setTimeout(res, ${1:2000}));
+
+snippet it "it"
+	it("${1:desc}", () => {
+		${2}
+	})
+
+snippet etb "expect"
+	expect(${1}).toBe(${2})
+
+snippet ete "expect"
+	expect(${1}).toEqual(${2})
+
+snippet desc "describe"
+	describe("${1}", () => {
+		${2}
+	})
