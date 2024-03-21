@@ -43,7 +43,7 @@ return {
       -- Neovim API completions
       {
         "folke/neodev.nvim",
-        opts = { library = { plugins = false } },
+        opts = { library = { plugins = true } },
       },
     },
     config = function()
