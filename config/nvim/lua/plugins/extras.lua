@@ -1,7 +1,7 @@
 return {
 
   -- Icons provider
-  { "kyazdani42/nvim-web-devicons", lazy = "true" },
+  { "kyazdani42/nvim-web-devicons", lazy = true },
 
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", lazy = true },
