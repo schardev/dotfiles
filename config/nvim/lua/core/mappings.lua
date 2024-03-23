@@ -97,16 +97,18 @@ nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
   desc = "Toggle search highlighting",
 })
 nnoremap("<Leader>th", function()
-  if vim.g.tab_highlight == true then
+  if vim.w.whitespace_highlight == true then
     vim.cmd("highlight clear Tabs")
+    vim.cmd("highlight clear ExtraWhitespace")
     vim.notify("Disabled whitespace highlighting!")
   else
-    vim.cmd("highlight Tabs guibg=yellow")
+    vim.cmd([[ highlight Tabs ctermbg=yellow guibg=yellow ]])
+    vim.cmd([[ highlight ExtraWhitespace ctermbg=red guibg=red ]])
     vim.notify("Enabled whitespace highlighting!")
   end
-  vim.g.tab_highlight = not vim.g.tab_highlight
+  vim.w.whitespace_highlight = not vim.w.whitespace_highlight
 end, {
-  desc = "Toggle tab highlighting",
+  desc = "Toggle whitespace highlighting",
 })
 
 --- Few mappings I stole from @akinsho :)
@@ -163,22 +165,22 @@ vim.g.mc = [[y/\V<C-r>=escape(@", '/')<CR><CR>]]
 nnoremap("cn", "*``cgn")
 nnoremap("cN", "*``cgN")
 
-xnoremap("cn", [[g:mc . "``cgn"]], { expr = true })
-xnoremap("cN", [[g:mc . "``cgN"]], { expr = true })
+-- xnoremap("cn", [[g:mc . "``cgn"]], { expr = true })
+-- xnoremap("cN", [[g:mc . "``cgN"]], { expr = true })
 
 nnoremap("cq", [[:\<C-u>call v:lua.Setup_CR()<CR>*``qz]])
 nnoremap("cQ", [[:\<C-u>call v:lua.Setup_CR()<CR>#``qz]])
 
-xnoremap(
-  "cq",
-  [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . g:mc . "``qz"]],
-  { expr = true }
-)
-xnoremap(
-  "cQ",
-  [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . substitute(g:mc, '/', '?', 'g') . "``qz"]],
-  { expr = true }
-)
+-- xnoremap(
+--   "cq",
+--   [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . g:mc . "``qz"]],
+--   { expr = true }
+-- )
+-- xnoremap(
+--   "cQ",
+--   [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . substitute(g:mc, '/', '?', 'g') . "``qz"]],
+--   { expr = true }
+-- )
 
 -- Replicate netrw functionality (gx/gf)
 nnoremap("gx", utils.open_link)
