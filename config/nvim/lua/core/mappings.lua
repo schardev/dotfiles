@@ -57,7 +57,10 @@ nnoremap("<C-H>", ":bprevious<CR>")
 nnoremap("<Leader>qw", ":bdelete<CR>")
 
 -- Toggle wrap
-nnoremap("<Leader>w", ":setlocal wrap!<CR>")
+nnoremap("<Leader>w", function()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.notify("Wrap " .. (vim.o.wrap and "on" or "off"), vim.log.levels.INFO)
+end, { desc = "Toggle wrap" })
 
 -- Don't put text in register on delete char
 mapper({ "n", "v" })("x", '"_x')
@@ -108,6 +111,14 @@ end, {
 
 --- Few mappings I stole from @akinsho :)
 ---@see https://github.com/akinsho/dotfiles/blob/main/.config/nvim/
+
+xnoremap("@", function()
+  -- TODO: https://github.com/neovim/neovim/issues/18340
+  -- vim.ui.input({ prompt = "Macro Register: " }, function(reg)
+  -- vim.cmd([['<,'>normal @q]])
+  -- end)
+  return ":normal @" .. vim.fn.getcharstr() .. "<CR>"
+end, { silent = false, expr = true })
 
 -- Quick find and replace
 vnoremap(
@@ -173,5 +184,4 @@ xnoremap(
 nnoremap("gx", utils.open_link)
 
 -- few greatest remaps ever (courtesy of @theprimeagen)
-xnoremap("<Leader>p", [["_dP]])
 mapper({ "x", "n" })("<Leader>y", [["+y]])
