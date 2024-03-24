@@ -3,6 +3,7 @@ vim.filetype.add({
     cjsn = "jsonc",
     cjson = "jsonc",
     mdx = "markdown",
+    gitconfig = "gitconfig",
   },
   filename = {
     [".eslintrc.json"] = "jsonc",
