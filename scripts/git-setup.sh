@@ -126,7 +126,8 @@ git_plugins() {
         git config --global delta.light false
         git config --global delta.line-numbers true
         git config --global delta.navigate true
-        git config --global delta.features mellow-barbet # theme
+        git config --global delta.hyperlinks true
+        git config --global delta.tabs 4
     fi
 
     if command -v git-fuzzy &>/dev/null; then

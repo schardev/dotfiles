@@ -1,35 +1,61 @@
 [delta "mellow-barbet"]
-    # author: https://github.com/kvrohit
-    # To configure terminal colors see https://github.com/kvrohit/mellow.nvim#terminals
-    dark = true
-    syntax-theme = Catppuccin-mocha
-    line-numbers = true
-    file-style = brightwhite
-    file-decoration-style = none
-    file-added-label = [A]
-    file-copied-label = [==]
-    file-modified-label = [M]
-    file-removed-label = [D]
-    file-renamed-label = [->]
-    hunk-header-decoration-style = "#3e3e43" box ul
-    plus-style = brightgreen black
-    plus-emph-style = black green
-    minus-style = brightred black
-    minus-emph-style = black red
-    line-numbers-minus-style = brightred
-    line-numbers-plus-style = brightgreen
-    line-numbers-left-style = "#3e3e43"
-    line-numbers-right-style = "#3e3e43"
-    line-numbers-zero-style = "#57575f"
-    zero-style = syntax
-    whitespace-error-style = black bold
-    blame-code-style = syntax
-    blame-palette = "#161617" "#1b1b1d" "#2a2a2d" "#3e3e43"
-    merge-conflict-begin-symbol = ~
-    merge-conflict-end-symbol = ~
-    merge-conflict-ours-diff-header-style = yellow bold
-    merge-conflict-ours-diff-header-decoration-style = "#3e3e43" box
-    merge-conflict-theirs-diff-header-style = yellow bold
-    merge-conflict-theirs-diff-header-decoration-style = "#3e3e43" box
+  # author: https://github.com/kvrohit
+  # To configure terminal colors see https://github.com/kvrohit/mellow.nvim#terminals
+  dark = true
+  syntax-theme = catppuccin-mocha
+  line-numbers = true
+  file-style = brightwhite
+  file-decoration-style = none
+  file-added-label = [A]
+  file-copied-label = [==]
+  file-modified-label = [M]
+  file-removed-label = [D]
+  file-renamed-label = [->]
+  hunk-header-decoration-style = "#3e3e43" box ul
+  plus-style = brightgreen black
+  plus-emph-style = black green
+  minus-style = brightred black
+  minus-emph-style = black red
+  line-numbers-minus-style = brightred
+  line-numbers-plus-style = brightgreen
+  line-numbers-left-style = "#3e3e43"
+  line-numbers-right-style = "#3e3e43"
+  line-numbers-zero-style = "#57575f"
+  zero-style = syntax
+  whitespace-error-style = black bold
+  blame-code-style = syntax
+  blame-palette = "#161617" "#1b1b1d" "#2a2a2d" "#3e3e43"
+  merge-conflict-begin-symbol = ~
+  merge-conflict-end-symbol = ~
+  merge-conflict-ours-diff-header-style = yellow bold
+  merge-conflict-ours-diff-header-decoration-style = "#3e3e43" box
+  merge-conflict-theirs-diff-header-style = yellow bold
+  merge-conflict-theirs-diff-header-decoration-style = "#3e3e43" box
 
-# vim: ft=gitconfig
+[delta "catppuccin-mocha"]
+  blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
+  dark = true
+  file-added-label = [A]
+  file-copied-label = [==]
+  file-decoration-style = "box ul #cdd6f4"
+  file-modified-label = [M]
+  file-removed-label = [D]
+  file-renamed-label = [->]
+  file-style = "#cdd6f4"
+  hunk-header-style = "omit"
+  line-numbers-left-style = "#6c7086"
+  line-numbers-minus-style = "bold #f38ba8"
+  line-numbers-plus-style = "bold #a6e3a1"
+  line-numbers-right-style = "#6c7086"
+  line-numbers-zero-style = "#6c7086"
+  map-styles = \
+    bold purple => syntax "#494060", \
+    bold blue => syntax "#394361", \
+    bold cyan => syntax "#384d5e", \
+    bold yellow => syntax "#544f4e"
+  minus-emph-style = "#000 red"
+  minus-style = "syntax #35293b"
+  plus-emph-style = "#000 green"
+  plus-style = "syntax #2c333a"
+  # Should match the name of the bat theme
+  syntax-theme = "catppuccin-mocha"
