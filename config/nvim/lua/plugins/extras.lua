@@ -31,21 +31,6 @@ return {
     end,
   },
 
-  -- Treesitter powered search and replace
-  {
-    "cshuaimin/ssr.nvim",
-    keys = {
-      {
-        "<leader>tr",
-        function()
-          require("ssr").open()
-        end,
-        mode = { "n", "v" },
-        desc = "Search replace using treesitter",
-      },
-    },
-  },
-
   -- Session management
   {
     "folke/persistence.nvim",
