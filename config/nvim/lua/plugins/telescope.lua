@@ -10,35 +10,31 @@ return {
   },
   config = function()
     local nnoremap = require("core.utils").mapper_factory("n")
+    local vnoremap = require("core.utils").mapper_factory("v")
     local builtin = require("telescope.builtin")
 
     -- Mappings
     nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
-    nnoremap("<Leader>fr", builtin.live_grep, { desc = "Live Grep" })
+    nnoremap("<Leader>fV", function()
+      builtin.find_files({ hidden = true, no_ignore = true })
+    end, { desc = "Find Files (incl. hidden and ignored)" })
+    nnoremap("<Leader>fg", builtin.live_grep, { desc = "Live Grep" })
+    vnoremap(
+      "<Leader>fg",
+      '"zy<ESC>:Telescope live_grep default_text=<c-r>z<CR>',
+      { desc = "Live Grep visually selected text" }
+    )
+    nnoremap("<Leader>fr", builtin.resume, { desc = "Resume previous picker" })
     nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
     nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
     nnoremap("<Leader>fo", builtin.oldfiles, { desc = "Oldfiles" })
     nnoremap("<Leader>fb", builtin.buffers, { desc = "Buffers List" })
-
     nnoremap("<Leader>fd", function()
       builtin.find_files({ cwd = "$DOTS_DIR" })
     end, { desc = "Find Files in $DOTS_DIR" })
 
-    nnoremap(
-      "<Leader>fg",
-      builtin.current_buffer_fuzzy_find,
-      { desc = "Live fuzzy search inside current buffer" }
-    )
-
     -- Telescope base config
-    require("telescope").setup({
-      defaults = {
-        file_ignore_patterns = {
-          ".*/doc/.*.txt", -- ignores all doc files from pickers
-          ".*/COMMIT_EDITMSG", -- ignore git commit msgs
-        },
-      },
-    })
+    require("telescope").setup({})
 
     -- Load native fzf sorter
     require("telescope").load_extension("fzf")
