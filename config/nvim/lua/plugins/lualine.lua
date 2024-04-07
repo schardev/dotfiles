@@ -118,7 +118,7 @@ return {
               }
             end,
             on_click = function()
-              vim.cmd("UserLspAutoFormatToggle")
+              vim.cmd("UserAutoFormatToggle!")
             end,
           },
         },

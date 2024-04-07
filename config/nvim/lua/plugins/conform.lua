@@ -1,0 +1,102 @@
+---@type LazySpec
+return {
+  "stevearc/conform.nvim",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = { "mason.nvim" },
+  config = function()
+    local mapper = require("core.utils").mapper_factory
+    local conform = require("conform")
+    local ignore_filetypes = {}
+    vim.g.format_on_save = true
+
+    mapper({ "n", "v" })("<LocalLeader>F", function()
+      require("conform").format({
+        formatters = { "injected" },
+        timeout_ms = 3000,
+      })
+    end, { desc = "Format injected" })
+
+    mapper({ "n" })("<LocalLeader>f", function()
+      require("conform").format()
+    end, { desc = "Format" })
+
+    vim.api.nvim_create_autocmd({ "BufEnter" }, {
+      group = vim.api.nvim_create_augroup("UserConform", { clear = true }),
+      callback = function(args)
+        local available_formatters =
+          require("conform").list_formatters(args.buf)
+
+        if #available_formatters > 0 then
+          vim.b[args.buf].format_on_save = true
+        end
+      end,
+    })
+
+    vim.api.nvim_create_user_command("UserAutoFormatToggle", function(args)
+      local ref = vim.g
+      local scope = "globally"
+      if args.bang then
+        -- UserAutoFormatToggle! will disable formatting for current buffer
+        ref = vim.b
+        scope = "locally"
+      end
+
+      if not ref.format_on_save then
+        vim.notify("Enabled auto-formatting " .. scope)
+        ref.format_on_save = true
+      else
+        vim.notify("Disabled auto-formatting " .. scope)
+        ref.format_on_save = false
+      end
+    end, { desc = "Toggle auto-formatting", bang = true })
+
+    conform.setup({
+      formatters_by_ft = {
+        lua = { "stylua" },
+        sh = { "shfmt" },
+        -- run on files that don't have other formatters configured
+        ["_"] = { "trim_newlines", "trim_whitespace" },
+        -- a sub-list to run only the first available formatter
+        json = { { "prettierd", "prettier" } },
+        javascript = { { "prettierd", "prettier" } },
+        javascriptreact = { { "prettierd", "prettier" } },
+        typescript = { { "prettierd", "prettier" } },
+        typescriptreact = { { "prettierd", "prettier" } },
+        markdown = { { "prettierd", "prettier" } },
+      },
+      formatters = {
+        shfmt = {
+          prepend_args = {
+            "-ci", -- format case statements
+            "-i",
+            "4", -- indents will have width of 4 spaces
+          },
+        },
+        injected = {
+          options = {
+            ignore_errors = true,
+          },
+        },
+      },
+      format_on_save = function(bufnr)
+        -- Disable autoformat if user turned it off
+        if not vim.g.format_on_save or not vim.b[bufnr].format_on_save then
+          return
+        end
+
+        -- Disable autoformat on certain filetypes
+        if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
+          return
+        end
+
+        return {
+          -- These options will be passed to conform.format()
+          timeout_ms = 3000,
+          lsp_fallback = true,
+        }
+      end,
+      -- log_level = vim.log.levels.DEBUG,
+      notify_on_error = true,
+    })
+  end,
+}

@@ -51,7 +51,6 @@ return {
       local lsp_handlers = require("plugins.lsp.handlers")
       local lsp_diagnostics = require("plugins.lsp.diagnostics")
       local lsp_autocmds = require("plugins.lsp.autocmds")
-      local lsp_formatting = require("plugins.lsp.formatting")
       local lsp_mappings = require("plugins.lsp.mappings")
       local lsp_servers = require("plugins.lsp.packages").servers
 
@@ -87,7 +86,6 @@ return {
           --   nil
 
           lsp_autocmds.attach(args)
-          lsp_formatting.attach(args)
           lsp_mappings.attach(args)
         end,
       })

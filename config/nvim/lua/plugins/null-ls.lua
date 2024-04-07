@@ -1,6 +1,7 @@
 return {
   "jose-elias-alvarez/null-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
+  enabled = false,
   dependencies = { "mason.nvim" },
   config = function()
     local null_ls = require("null-ls")
@@ -8,17 +9,6 @@ return {
 
     local actions = null_ls.builtins.code_actions
     local diagnostics = null_ls.builtins.diagnostics
-    local formatting = null_ls.builtins.formatting
-
-    -- Filetypes to trim whitespace and newlines
-    local trim_filetypes = {
-      "dosini",
-      "text",
-      "toml",
-      "vim",
-      "zsh",
-      "scss", -- prettier doesn't trim trailing whitespaces for whatever reason
-    }
 
     -- Enable specific formatters only if the root has config file
     local eslint_condition = function()
@@ -29,16 +19,10 @@ return {
         ".eslintrc.cjs",
         ".eslintrc.yaml",
         ".eslintrc.yml",
-        ".eslintrc.json"
+        ".eslintrc.json",
+        "eslint.config.js"
         -- "package.json"
       )(vim.api.nvim_buf_get_name(0)) ~= nil
-    end
-
-    -- TODO: Remove once this gets merged - https://github.com/mantoni/eslint_d.js/issues/214
-    local eslint_flat_config = function()
-      return utils.root_pattern("eslint.config.js")(
-        vim.api.nvim_buf_get_name(0)
-      ) ~= nil
     end
 
     local sources = {
@@ -48,10 +32,6 @@ return {
 
       actions.eslint_d.with({
         condition = eslint_condition,
-      }),
-
-      actions.eslint.with({
-        condition = eslint_flat_config,
       }),
 
       actions.shellcheck,
@@ -75,34 +55,6 @@ return {
       diagnostics.eslint_d.with({
         method = null_ls.methods.DIAGNOSTICS_ON_SAVE, -- run eslint on save
         condition = eslint_condition,
-      }),
-
-      diagnostics.eslint.with({
-        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        condition = eslint_flat_config,
-      }),
-
-      ------------------------------
-      ---       FORMATTING       ---
-      ------------------------------
-
-      formatting.prettierd,
-      formatting.stylua,
-
-      formatting.trim_newlines.with({
-        filetypes = trim_filetypes,
-      }),
-
-      formatting.trim_whitespace.with({
-        filetypes = trim_filetypes,
-      }),
-
-      formatting.shfmt.with({
-        extra_args = {
-          "-ci", -- format case statements
-          "-i",
-          "4", -- indents will have width of 4 spaces
-        },
       }),
     }
 
