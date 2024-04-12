@@ -50,19 +50,25 @@ return {
       end
     end, { desc = "Toggle auto-formatting", bang = true })
 
+    -- a sub-list to run only the first available formatter
+    local prettier = { "prettierd", "prettier" }
+
     conform.setup({
       formatters_by_ft = {
+        css = { prettier },
+        html = { prettier },
+        javascript = { prettier },
+        javascriptreact = { prettier },
+        json = { prettier },
+        jsonc = { prettier },
         lua = { "stylua" },
+        markdown = { prettier },
         sh = { "shfmt" },
+        typescript = { prettier },
+        typescriptreact = { prettier },
+        yaml = { prettier },
         -- run on files that don't have other formatters configured
         ["_"] = { "trim_newlines", "trim_whitespace" },
-        -- a sub-list to run only the first available formatter
-        json = { { "prettierd", "prettier" } },
-        javascript = { { "prettierd", "prettier" } },
-        javascriptreact = { { "prettierd", "prettier" } },
-        typescript = { { "prettierd", "prettier" } },
-        typescriptreact = { { "prettierd", "prettier" } },
-        markdown = { { "prettierd", "prettier" } },
       },
       formatters = {
         shfmt = {
@@ -79,7 +85,7 @@ return {
         },
       },
       format_on_save = function(bufnr)
-        -- Disable autoformat if user turned it off
+        -- Disable autoformat if turned off
         if not vim.g.format_on_save or not vim.b[bufnr].format_on_save then
           return
         end
