@@ -25,6 +25,7 @@ export XDG_CONFIG_DIRS=/etc/xdg
 export CONFIG_DIR="$HOME/dotfiles/config"
 export DOTS_DIR="$HOME/dotfiles"
 export SHELDON_CONFIG_DIR=$XDG_CONFIG_HOME/zsh # https://github.com/rossmacarthur/sheldon
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/zsh/starship.toml"
 export EDITOR=nvim
 export VISUAL=nvim
 export PNPM_HOME="$XDG_DATA_HOME/pnpm"
