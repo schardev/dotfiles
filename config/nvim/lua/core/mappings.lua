@@ -80,6 +80,20 @@ nnoremap("<Leader>se", utils.save_and_exec, {
   desc = "Save and execute vim/lua files",
 })
 
+-- Diagnostics
+nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
+nnoremap("<Leader>td", function()
+  if vim.b.show_diagnostics then
+    vim.notify("[LSP] Disabled diagnostics.")
+    vim.diagnostic.disable(0)
+  else
+    vim.notify("[LSP] Enabled diagnostics.")
+    vim.diagnostic.enable(0)
+  end
+  vim.b.show_diagnostics = not vim.b.show_diagnostics
+end, { desc = "Toggle diagnostics" })
+
 -- Make <Esc> to actually escape from terminal mode
 tnoremap("<Esc>", "<C-\\><C-n>")
 

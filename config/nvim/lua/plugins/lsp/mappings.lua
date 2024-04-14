@@ -8,24 +8,6 @@ M.attach = function(args)
   local lsp_utils = require("plugins.lsp.utils")
   vim.b[bufnr].show_diagnostics = true
 
-  nnoremap(
-    "<LocalLeader>q",
-    vim.diagnostic.setloclist,
-    { desc = "Add diagnostics to the location list" }
-  )
-  nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-  nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
-  nnoremap("<LocalLeader>dd", function()
-    if vim.b.show_diagnostics then
-      vim.notify("[LSP] Disabled diagnostics.", vim.log.levels.INFO)
-      vim.diagnostic.disable(0)
-    else
-      vim.notify("[LSP] Enabled diagnostics.", vim.log.levels.INFO)
-      vim.diagnostic.enable(0)
-    end
-    vim.b.show_diagnostics = not vim.b.show_diagnostics
-  end, { desc = "Toggle diagnostics" })
-
   mapper({ "n", "v" })(
     "<LocalLeader>ca",
     vim.lsp.buf.code_action,
