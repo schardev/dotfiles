@@ -16,10 +16,10 @@ M.servers = {
   yamlls = NIL,
 }
 
-if env.NVIM_USER_USE_VTSLS then
-  M.servers.vtsls = NIL
-else
+if env.NVIM_USER_USE_TSSERVER then
   M.servers.tsserver = NIL
+else
+  M.servers.vtsls = NIL
 end
 
 M.formatters = {
