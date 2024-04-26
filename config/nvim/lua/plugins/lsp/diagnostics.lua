@@ -24,7 +24,7 @@ local diagnostics_signs = {
 ---@param diagnostic lsp.Diagnostic
 local diagnostics_prefix = function(diagnostic)
   local severity = diagnostics_signs[diagnostic.severity]
-  return severity.sign, severity.hl_groupl
+  return severity.sign, severity.hl_group
 end
 
 function M.setup()
