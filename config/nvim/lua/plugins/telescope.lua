@@ -18,13 +18,13 @@ return {
     nnoremap("<Leader>fV", function()
       builtin.find_files({ hidden = true, no_ignore = true })
     end, { desc = "Find Files (incl. hidden and ignored)" })
-    nnoremap("<Leader>fg", builtin.live_grep, { desc = "Live Grep" })
+    nnoremap("<Leader>fr", builtin.live_grep, { desc = "Live Grep" })
     vnoremap(
       "<Leader>fg",
       '"zy<ESC>:Telescope live_grep default_text=<c-r>z<CR>',
       { desc = "Live Grep visually selected text" }
     )
-    nnoremap("<Leader>fr", builtin.resume, { desc = "Resume previous picker" })
+    nnoremap("<Leader>fe", builtin.resume, { desc = "Resume previous picker" })
     nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
     nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
     nnoremap("<Leader>fo", builtin.oldfiles, { desc = "Oldfiles" })
