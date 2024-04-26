@@ -8,19 +8,12 @@
 
 ### Current Setup
 
-- **WM:** [bspwm](https://github.com/baskerville/bspwm)
+- **DE:** [GNOME](https://www.gnome.org/)
 - **OS:** [Arch Linux](https://archlinux.org)
 - **Terminal:** [Wezterm](https://github.com/wez/wezterm)
 - **Shell:** [zsh](https://wiki.archlinux.org/index.php/Zsh)
-- **Compositor:** [picom](https://github.com/ibhagwan/picom)
 - **Editor:** [neovim](https://github.com/neovim/neovim)
-- **Bar:** [Polybar](https://github.com/polybar/polybar)
-- **Browser:** [firefox](https://www.mozilla.org/en-US/firefox)
-- **File Manager:** [thunar](https://github.com/xfce-mirror/thunar)
-- **Application Launcher:** [rofi](https://github.com/davatorium/rofi)
 - **Color Scheme:** [catppuccin](https://github.com/catppuccin)
-
-See screenshots [here](https://imgur.com/a/uiUZcQc).
 
 ### Table of Contents
 
@@ -56,6 +49,7 @@ exec zsh
 - `clang`/`gcc` - For [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - `wget`/`curl` and `gzip`/`tar` - For fetching language servers
 - `nodejs` and `npm` - For installing language servers
+- `ripgrep` and/or `fd` - For telescope
 
 #### Installation
 
