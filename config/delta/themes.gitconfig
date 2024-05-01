@@ -25,3 +25,6 @@
   plus-style = "syntax #2c333a"
   # Should match the name of the bat theme
   syntax-theme = "catppuccin-mocha"
+
+[delta]
+  features = catppuccin-mocha

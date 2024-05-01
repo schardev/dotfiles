@@ -7,10 +7,12 @@
 #
 # git functions
 
+GPG_KEY=5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
+
 # Check if my GPG key can be used
 gpg_key_usable() {
     command -v gpg &>/dev/null || return 1
-    gpg --list-secret-keys --keyid-format LONG | grep -q 5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
+    gpg --list-secret-keys --keyid-format LONG | grep -q ${GPG_KEY}
 }
 
 # Main gpg setup
@@ -31,14 +33,14 @@ gpg_setup() {
 
         # enable signing commits
         git config --global commit.gpgsign true
-        git config --global user.signkey 5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
+        git config --global user.signkey ${GPG_KEY}
     fi
 }
 
 # Set git aliases
 git_aliases() { (
-    gpg_key_usable && GPG_SIGN="--gpg-sign"
-    # SIGNOFF="--signoff"
+    gpg_key_usable && GPG_SIGN=" --gpg-sign"
+    # SIGNOFF=" --signoff"
 
     git config --global alias.aa 'add --all'
     git config --global alias.ac "commit ${GPG_SIGN} --all ${SIGNOFF} --verbose"          # add and commit
@@ -47,7 +49,7 @@ git_aliases() { (
     git config --global alias.amc 'am --continue'
     # shellcheck disable=SC2016
     git config --global alias.aml '!bash -c "curl -sL ${1} | git am"' # am from patch url
-    git config --global alias.ams "am ${GPG_SIGN} ${SIGNOFF}"         # am signoff
+    git config --global alias.ams "am${GPG_SIGN}${SIGNOFF}"         # am signoff
     git config --global alias.ap 'apply -3 -v'
     # shellcheck disable=SC2016
     git config --global alias.apl '!bash -c "curl -sL ${1} | git apply -v"' # apply from patch url
@@ -63,10 +65,10 @@ git_aliases() { (
     git config --global alias.cf 'diff --name-only --diff-filter=U'                                          # conflicts
     git config --global alias.ch 'checkout'
     git config --global alias.cl 'clean -fxd'
-    git config --global alias.cp "cherry-pick ${GPG_SIGN} ${SIGNOFF}"
+    git config --global alias.cp "cherry-pick${GPG_SIGN}${SIGNOFF}"
     git config --global alias.cpa 'cherry-pick --abort'
     git config --global alias.cpc 'cherry-pick --continue'
-    git config --global alias.cpe "cherry-pick --edit ${SIGNOFF}"
+    git config --global alias.cpe "cherry-pick --edit${SIGNOFF}"
     git config --global alias.cpq 'cherry-pick --quit'
     git config --global alias.cps 'cherry-pick --skip'
     git config --global alias.dc 'describe --contains'
@@ -88,7 +90,7 @@ git_aliases() { (
     git config --global alias.psu 'push --set-upstream'
     # shellcheck disable=SC2016
     git config --global alias.ra '!f() { for i in $(git cf); do git rf $i; done }; f' # reset all conflicts
-    git config --global alias.rb "rebase ${GPG_SIGN}"
+    git config --global alias.rb "rebase${GPG_SIGN}"
     git config --global alias.rba 'rebase --abort'
     git config --global alias.rbc 'rebase --continue'
     git config --global alias.rbs 'rebase --skip'
@@ -103,7 +105,7 @@ git_aliases() { (
     git config --global alias.rmv 'remote -v'
     git config --global alias.rs 'reset --soft'
     git config --global alias.ru 'remote update'
-    git config --global alias.rv "revert ${GPG_SIGN} ${SIGNOFF}"
+    git config --global alias.rv "revert${GPG_SIGN}${SIGNOFF}"
     git config --global alias.s 'status'
     git config --global alias.sh 'show --first-parent'
     git config --global alias.shf 'show --first-parent --format=fuller'
@@ -128,6 +130,7 @@ git_plugins() {
         git config --global delta.navigate true
         git config --global delta.hyperlinks true
         git config --global delta.tabs 4
+        git config --global include.path "${XDG_CONFIG_HOME:-$HOME/.config}/delta/themes.gitconfig"
     fi
 
     if command -v git-fuzzy &>/dev/null; then
