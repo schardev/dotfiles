@@ -49,7 +49,7 @@ git_aliases() { (
     git config --global alias.amc 'am --continue'
     # shellcheck disable=SC2016
     git config --global alias.aml '!bash -c "curl -sL ${1} | git am"' # am from patch url
-    git config --global alias.ams "am${GPG_SIGN}${SIGNOFF}"         # am signoff
+    git config --global alias.ams "am${GPG_SIGN}${SIGNOFF}"           # am signoff
     git config --global alias.ap 'apply -3 -v'
     # shellcheck disable=SC2016
     git config --global alias.apl '!bash -c "curl -sL ${1} | git apply -v"' # apply from patch url
