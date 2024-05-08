@@ -11,6 +11,10 @@ return {
       {
         "HiPhish/rainbow-delimiters.nvim",
         config = function()
+          vim.api.nvim_create_user_command("RainbowDelimitersToggle", function()
+            require("rainbow-delimiters").toggle(0)
+          end, { desc = "Toggle Rainbow Delimiters" })
+
           vim.g.rainbow_delimiters = {
             -- log = {
             --   level = vim.log.levels.TRACE,
