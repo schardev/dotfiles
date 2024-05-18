@@ -17,6 +17,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.tab_bar_at_bottom = true
 config.tab_max_width = 20
 config.use_fancy_tab_bar = false
+config.adjust_window_size_when_changing_font_size = false
 
 -- Colorscheme
 local scheme = wezterm.color.get_builtin_schemes()["Catppuccin Mocha"]
