@@ -29,7 +29,6 @@ local lazy_config = {
       disabled_plugins = {
         "tohtml",
         "gzip",
-        "man",
         "matchit",
         "netrw",
         "netrwFileHandlers",
