@@ -27,7 +27,7 @@ M.attach = function(args)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, { buffer = bufnr, desc = "Print workspace folders" })
 
-  nnoremap("D", vim.lsp.buf.hover, { buffer = bufnr })
+  nnoremap("K", vim.lsp.buf.hover, { buffer = bufnr })
   nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
 
   nnoremap(

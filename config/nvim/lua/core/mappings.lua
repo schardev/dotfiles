@@ -40,8 +40,6 @@ nnoremap("<M-Left>", ":vertical resize +2<CR>")
 nnoremap("<M-Right>", ":vertical resize -2<CR>")
 
 -- Quick moving around while keeping the cursor fixed in middle
-nnoremap("J", "5jzz")
-nnoremap("K", "5kzz")
 nnoremap("<C-d>", "<C-d>zz")
 nnoremap("<C-u>", "<C-u>zz")
 nnoremap("n", "nzzzv")
