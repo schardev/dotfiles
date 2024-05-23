@@ -3,10 +3,13 @@ local mapper = require("core.utils").mapper_factory
 local nnoremap = mapper("n")
 
 M.attach = function(args)
-  local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if not client then
+    return
+  end
+
+  local bufnr = args.buf
   local lsp_utils = require("plugins.lsp.utils")
-  vim.b[bufnr].show_diagnostics = true
 
   mapper({ "n", "v" })(
     "<LocalLeader>ca",
@@ -29,6 +32,11 @@ M.attach = function(args)
 
   nnoremap("K", vim.lsp.buf.hover, { buffer = bufnr })
   nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
+  nnoremap(
+    "<LocalLeader>rn",
+    vim.lsp.buf.rename,
+    { buffer = bufnr, desc = "Rename symbol under cursor" }
+  )
 
   nnoremap(
     "gD",
@@ -51,19 +59,10 @@ M.attach = function(args)
     vim.lsp.buf.references,
     { buffer = bufnr, desc = "List all references" }
   )
-
-  if client.server_capabilities.hoverProvider then
-    nnoremap(
-      "gt",
-      vim.lsp.buf.type_definition,
-      { buffer = bufnr, desc = "Go to type definition" }
-    )
-  end
-
   nnoremap(
-    "<LocalLeader>rn",
-    vim.lsp.buf.rename,
-    { buffer = bufnr, desc = "Rename symbol under cursor" }
+    "gt",
+    vim.lsp.buf.type_definition,
+    { buffer = bufnr, desc = "Go to type definition" }
   )
 
   if client.name == "tsserver" or client.name == "vtsls" then

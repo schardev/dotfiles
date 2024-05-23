@@ -69,6 +69,7 @@ return {
         command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()",
       })
 
+      ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         -- One of "all", "maintained" (parsers with maintainers), or a list of languages
         ensure_installed = enabled_parsers,
@@ -196,15 +197,5 @@ return {
         },
       })
     end,
-  },
-
-  -- treesitter querying
-  -- adding it seperately here for lazy loading
-  {
-    "nvim-treesitter/playground",
-    cmd = {
-      "TSHighlightCapturesUnderCursor",
-      "TSPlaygroundToggle",
-    },
   },
 }

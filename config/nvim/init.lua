@@ -38,7 +38,6 @@ local lazy_config = {
         "tarPlugin",
         "tutor",
         "tutor_mode_plugin",
-        "vimball",
         "zip",
         "zipPlugin",
       },

@@ -3,7 +3,6 @@ local mapper = utils.mapper_factory
 local nnoremap = mapper("n")
 local tnoremap = mapper("t")
 local vnoremap = mapper("v")
-local xnoremap = mapper("x")
 
 -- No need to keep holding shift
 nnoremap(";", ":", { silent = false })
@@ -63,6 +62,12 @@ end, { desc = "Toggle wrap" })
 -- Don't put text in register on delete char
 mapper({ "n", "v" })("x", '"_x')
 
+-- Copy to system clipboard
+mapper({ "x", "n" })("<Leader>y", [["+y]])
+
+-- Replicate netrw functionality (gx/gf)
+nnoremap("gx", utils.open)
+
 -- Keep visual mode indenting
 vnoremap("<", "<gv")
 vnoremap(">", ">gv")
@@ -82,14 +87,11 @@ nnoremap("<Leader>se", utils.save_and_exec, {
 nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 nnoremap("<Leader>td", function()
-  if vim.b.show_diagnostics then
-    vim.notify("[LSP] Disabled diagnostics.")
-    vim.diagnostic.disable(0)
-  else
-    vim.notify("[LSP] Enabled diagnostics.")
-    vim.diagnostic.enable(0)
-  end
-  vim.b.show_diagnostics = not vim.b.show_diagnostics
+  local is_enabled = vim.diagnostic.is_enabled()
+  vim.diagnostic.enable(not is_enabled)
+  vim.notify(
+    "[LSP] " .. (is_enabled and "Disabled" or "Enabled") .. " diagnostics."
+  )
 end, { desc = "Toggle diagnostics" })
 
 -- Make <Esc> to actually escape from terminal mode
@@ -105,10 +107,10 @@ nnoremap("dd", function()
 end, { expr = true })
 
 -- Toggle highlights
-nnoremap("<Leader>sh", ":set hlsearch!<CR>", {
+nnoremap("<Leader>ts", ":set hlsearch!<CR>", {
   desc = "Toggle search highlighting",
 })
-nnoremap("<Leader>th", function()
+nnoremap("<Leader>tt", function()
   if vim.w.whitespace_highlight == true then
     vim.cmd("highlight clear Tabs")
     vim.cmd("highlight clear ExtraWhitespace")
@@ -125,14 +127,6 @@ end, {
 
 --- Few mappings I stole from @akinsho :)
 ---@see https://github.com/akinsho/dotfiles/blob/main/.config/nvim/
-
-xnoremap("@", function()
-  -- TODO: https://github.com/neovim/neovim/issues/18340
-  -- vim.ui.input({ prompt = "Macro Register: " }, function(reg)
-  -- vim.cmd([['<,'>normal @q]])
-  -- end)
-  return ":normal @" .. vim.fn.getcharstr() .. "<CR>"
-end, { silent = false, expr = true })
 
 -- Quick find and replace
 vnoremap(
@@ -193,9 +187,3 @@ nnoremap("cQ", [[:\<C-u>call v:lua.Setup_CR()<CR>#``qz]])
 --   [[":\<C-u>call v:lua.Setup_CR()<CR>gv" . substitute(g:mc, '/', '?', 'g') . "``qz"]],
 --   { expr = true }
 -- )
-
--- Replicate netrw functionality (gx/gf)
-nnoremap("gx", utils.open_link)
-
--- few greatest remaps ever (courtesy of @theprimeagen)
-mapper({ "x", "n" })("<Leader>y", [["+y]])

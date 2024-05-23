@@ -36,42 +36,37 @@ function M.navigate_pane_or_window(direction)
   if current_winnr ~= vim.fn.winnr(direction) then
     vim.cmd("wincmd " .. direction)
   else
-    vim.fn.system(
-      string.format(
-        "wezterm cli activate-pane-direction %s",
-        wezterm_direction[direction]
-      )
-    )
-  end
-end
-
---- Opens the given path with `xdg_open`
----@param path string
-function M.xdg_open(path)
-  if path then
-    vim.fn.jobstart({ "xdg-open", path }, { detach = true })
-    vim.notify(string.format("Opening %s", path))
-  else
-    vim.notify("path is null", vim.log.levels.ERROR)
+    vim.system({
+      "wezterm",
+      "cli",
+      "activate-pane-direction",
+      wezterm_direction[direction],
+    })
   end
 end
 
 --- Open the current file/word under cursor in vim if it exists else open it via xdg_open
-function M.open_link()
+function M.open()
   local file = vim.fn.expand("<cfile>")
-  if vim.fn.isdirectory(file) > 0 then
-    return vim.cmd("edit " .. file)
+  if file:match("https?://") then
+    return vim.ui.open(file)
   end
 
-  if file:match("https?://") then
-    return M.xdg_open(file)
+  if vim.fn.filereadable(vim.fn.expand(file)) > 0 then
+    return vim.cmd("edit " .. file)
   end
 
   -- consider anything that looks like string/string a github link
   local plugin_url_regex = "[%a%d%-%.%_]*%/[%a%d%-%.%_]*"
   local link = string.match(file, plugin_url_regex)
   if link then
-    return M.xdg_open(string.format("https://www.github.com/%s", link))
+    return vim.ui.open(string.format("https://www.github.com/%s", link))
+  end
+
+  -- fallback to system open
+  local _, err = vim.ui.open(file)
+  if err then
+    vim.notify(err, vim.log.levels.ERROR)
   end
 end
 

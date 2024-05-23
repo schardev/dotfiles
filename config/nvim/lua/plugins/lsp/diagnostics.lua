@@ -28,27 +28,22 @@ local diagnostics_prefix = function(diagnostic)
 end
 
 function M.setup()
-  for _, severity in pairs(diagnostics_signs) do
-    vim.fn.sign_define(severity.hl_group, {
-      text = severity.sign,
-      texthl = severity.hl_group,
-      numhl = severity.hl_group,
-    })
+  local signs = { text = {} }
+  for severity, config in pairs(diagnostics_signs) do
+    signs.text[severity] = config.sign
   end
 
   -- Global diagnostic config
   vim.diagnostic.config({
-    virtual_text = function()
-      -- Disable virtual text on smaller screens
-      return vim.fn.winwidth(0) > 100
-    end,
+    signs = signs,
+    virtual_text = { prefix = diagnostics_prefix },
     float = {
       max_width = 85,
       max_height = 30,
       border = "rounded",
       prefix = diagnostics_prefix,
       scope = "line",
-      source = "always",
+      source = true,
     },
     underline = {
       -- Do not underline text when severity is low (INFO or HINT).
