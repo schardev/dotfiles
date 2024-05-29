@@ -16,6 +16,7 @@ github = "romkatv/zsh-defer"
 # Additional completion definitions for Zsh
 [plugins.zsh-completions]
 github = 'zsh-users/zsh-completions'
+apply = ["defer-more"]
 
 # Fish shell like autosuggestions
 [plugins.zsh-autosuggestions]
@@ -26,6 +27,7 @@ apply = ["defer"]
 # ZSH port of Fish history search (up arrow)
 [plugins.zsh-history-substring-search]
 github = 'zsh-users/zsh-history-substring-search'
+apply = ["defer"]
 
 # Better (customisable) syntax highlighting for ZSH
 [plugins.fast-syntax-highlighting]
@@ -35,7 +37,7 @@ apply = ["defer"]
 # ZSH plugin that reminds you to use existing aliases
 [plugins.zsh-you-should-use]
 github = 'MichaelAquilina/zsh-you-should-use'
-apply = ["defer"]
+apply = ["defer-more"]
 
 # Extends vi mode
 [plugins.zsh-vi-mode]
