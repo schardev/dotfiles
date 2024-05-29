@@ -84,10 +84,10 @@ return {
     )
 
     require("luasnip.loaders.from_lua").lazy_load({
-      paths = env.NVIM_USER_CONFIG_DIR .. "/nvim/snippets/luasnippets",
+      paths = { env.NVIM_USER_CONFIG_DIR .. "/nvim/snippets/luasnippets" },
     })
     require("luasnip.loaders.from_snipmate").lazy_load({
-      paths = env.NVIM_USER_CONFIG_DIR .. "/nvim/snippets/snipmate",
+      paths = { env.NVIM_USER_CONFIG_DIR .. "/nvim/snippets/snipmate" },
     })
   end,
 }

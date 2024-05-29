@@ -121,8 +121,8 @@ return {
     -- Enable emmet-ls snippets inside jsx only
     ---@see https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
     local is_emmet_snippet = function(entry)
-      return cmp_kinds[entry:get_kind()] == "Snippet"
-        and entry.source:get_debug_name() == "nvim_lsp:emmet_ls"
+      return entry:get_kind() == cmp_kinds.Snippet
+        and entry.source:get_debug_name() == "nvim_lsp:emmet_language_server"
     end
 
     local emmet_in_jsx_only = function(entry, _)
