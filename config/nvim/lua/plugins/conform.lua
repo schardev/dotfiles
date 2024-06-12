@@ -16,7 +16,7 @@ return {
       })
     end, { desc = "Format injected" })
 
-    mapper({ "n" })("<LocalLeader>f", function()
+    mapper({ "n", "v" })("<LocalLeader>f", function()
       require("conform").format()
     end, { desc = "Format" })
 
@@ -55,6 +55,7 @@ return {
 
     conform.setup({
       formatters_by_ft = {
+        bash = { "shfmt" },
         css = { prettier },
         html = { prettier },
         javascript = { prettier },
@@ -63,6 +64,8 @@ return {
         jsonc = { prettier },
         lua = { "stylua" },
         markdown = { prettier },
+        sass = { prettier },
+        scss = { prettier },
         sh = { "shfmt" },
         typescript = { prettier },
         typescriptreact = { prettier },

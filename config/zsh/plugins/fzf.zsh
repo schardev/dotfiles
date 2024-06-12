@@ -14,8 +14,6 @@ export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --follow"
 export FZF_DEFAULT_OPTS="--bind 'alt-w:toggle-preview-wrap'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--height 100% --preview 'exa --tree {}'"
-# alias fh='(cd $HOME; fv)'
-# alias fd='(cd $DOTS_DIR; fv)'
 
 ## Few useful utilities
 

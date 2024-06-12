@@ -39,12 +39,6 @@ return {
           end, {})
         end,
       },
-
-      -- Neovim API completions
-      {
-        "folke/neodev.nvim",
-        opts = { library = { plugins = true } },
-      },
     },
     config = function()
       local lspconfig = require("lspconfig")
@@ -124,5 +118,11 @@ return {
     },
     enabled = not env.NVIM_USER_USE_TSSERVER,
     dependencies = { "nvim-lspconfig" },
+  },
+
+  -- Neovim API completions
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
   },
 }

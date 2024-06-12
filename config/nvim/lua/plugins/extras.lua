@@ -25,7 +25,7 @@ return {
   -- Blazingly fast movements
   {
     "ggandor/leap.nvim",
-    event = "VeryLazy",
+    keys = { "s", "S", "gs" },
     config = function()
       require("leap").set_default_keymaps()
     end,

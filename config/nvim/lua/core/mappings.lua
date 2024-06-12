@@ -110,7 +110,7 @@ end, { expr = true })
 nnoremap("<Leader>ts", ":set hlsearch!<CR>", {
   desc = "Toggle search highlighting",
 })
-nnoremap("<Leader>tt", function()
+nnoremap("<Leader>tw", function()
   if vim.w.whitespace_highlight == true then
     vim.cmd("highlight clear Tabs")
     vim.cmd("highlight clear ExtraWhitespace")

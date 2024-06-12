@@ -1,7 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local nnoremap = require("core.utils").mapper_factory("n")
 
-local my_local_group = vim.api.nvim_create_augroup("MyLocalGroup", {})
+local my_local_group = vim.api.nvim_create_augroup("UserConfig", {})
 
 autocmd("WinEnter", {
   group = my_local_group,
