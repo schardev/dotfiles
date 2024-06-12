@@ -52,13 +52,6 @@ if [[ -z $IS_TERMUX ]]; then
 
     # Repeat last command with sudo
     alias fuck='sudo $(fc -ln -1)'
-
-    # NOTE: Remove once this gets fixed - https://github.com/neovim/neovim/issues/21699
-    if (( $+commands[wezterm] )); then
-        alias nvim='TERM=wezterm nvim'
-        alias v='TERM=wezterm nvim'
-        alias vim='TERM=wezterm nvim'
-    fi
 else
     alias open='termux-open'
 fi
