@@ -101,7 +101,7 @@ return {
         return {
           -- These options will be passed to conform.format()
           timeout_ms = 3000,
-          lsp_fallback = true,
+          lsp_format = "fallback",
         }
       end,
       -- log_level = vim.log.levels.DEBUG,
