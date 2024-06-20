@@ -1,18 +1,7 @@
 return {
   {
-    "folke/tokyonight.nvim",
-    enabled = false,
-    config = function()
-      local g = vim.g
-      g.tokyonight_style = "night"
-      g.tokyonight_italic_keywords = false
-    end,
-  },
-
-  {
     "catppuccin/nvim",
     name = "catppuccin",
-    -- commit = "278bfeb",
     priority = 1000,
     opts = {
       no_italic = true,
@@ -29,8 +18,10 @@ return {
       },
 
       integrations = {
-        lsp_trouble = true,
+        fidget = true,
         leap = true,
+        lsp_trouble = true,
+        mason = true,
         which_key = true,
       },
     },
