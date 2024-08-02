@@ -29,10 +29,10 @@ M.lspkind = {
 }
 
 M.diagnostics = {
-  error = "",
+  error = "",
   warning = "",
-  info = "",
-  hint = "",
+  info = "",
+  hint = "",
 }
 
 M.devicons = {
