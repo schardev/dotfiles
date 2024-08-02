@@ -47,7 +47,7 @@ fi
 if [[ -z $IS_TERMUX ]]; then
     alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
     alias clean-cache='paccache -rvk2 && paccache -ruk0'
-    alias update-mirrorlist='sudo reflector --sort rate -f 50 -p https --download-timeout 5 -c India -c Singapore -c Sweden -c Bangladesh --save /etc/pacman.d/mirrorlist'
+    alias update-mirrorlist='sudo reflector --sort rate --latest 50 -p https --download-timeout 5 -c "India,Singapore,Sweden,Bangladesh, " --save /etc/pacman.d/mirrorlist'
     alias open='xdg-open'
 
     # Repeat last command with sudo
