@@ -10,10 +10,12 @@ fi
 source "${PREFIX:-/usr}"/share/fzf/key-bindings.zsh
 
 # Use fd as primary indexer globally
-export FZF_DEFAULT_COMMAND="fd --type f --strip-cwd-prefix --follow"
-export FZF_DEFAULT_OPTS="--bind 'alt-w:toggle-preview-wrap'"
+export FZF_DEFAULT_COMMAND="fd --type=file --strip-cwd-prefix --follow"
+export FZF_ALT_C_COMMAND="fd --type=directory --strip-cwd-prefix --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_OPTS="--height 100% --preview 'exa --tree {}'"
+
+export FZF_DEFAULT_OPTS="--bind 'alt-w:toggle-preview-wrap,ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'"
+export FZF_ALT_C_OPTS="--height 100% --preview 'eza --color=always --tree {}'"
 
 ## Few useful utilities
 
