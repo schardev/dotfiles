@@ -8,6 +8,7 @@ events.setup()
 local config = wezterm.config_builder()
 config.font = wezterm.font("JetBrainsMonoNL Nerd Font")
 config.font_size = 15
+config.warn_about_missing_glyphs = false
 
 -- Debug keycodes/names (open wezterm using another terminal)
 -- config.debug_key_events = true,
