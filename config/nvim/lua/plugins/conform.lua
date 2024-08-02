@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "stevearc/conform.nvim",
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = { "mason.nvim" },
   config = function()
     local mapper = require("core.utils").mapper_factory
@@ -50,26 +50,30 @@ return {
       end
     end, { desc = "Toggle auto-formatting", bang = true })
 
-    -- a sub-list to run only the first available formatter
-    local prettier = { "prettierd", "prettier" }
+    ---@type conform.FiletypeFormatter
+    local prettier = {
+      "prettierd",
+      "prettier",
+      stop_after_first = true,
+    }
 
     conform.setup({
       formatters_by_ft = {
         bash = { "shfmt" },
-        css = { prettier },
-        html = { prettier },
-        javascript = { prettier },
-        javascriptreact = { prettier },
-        json = { prettier },
-        jsonc = { prettier },
+        css = prettier,
+        html = prettier,
+        javascript = prettier,
+        javascriptreact = prettier,
+        json = prettier,
+        jsonc = prettier,
         lua = { "stylua" },
-        markdown = { prettier },
-        sass = { prettier },
-        scss = { prettier },
+        markdown = prettier,
+        sass = prettier,
+        scss = prettier,
         sh = { "shfmt" },
-        typescript = { prettier },
-        typescriptreact = { prettier },
-        yaml = { prettier },
+        typescript = prettier,
+        typescriptreact = prettier,
+        yaml = prettier,
         -- run on files that don't have other formatters configured
         ["_"] = { "trim_newlines", "trim_whitespace" },
       },

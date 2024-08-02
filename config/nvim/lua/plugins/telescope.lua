@@ -20,7 +20,7 @@ return {
     end, { desc = "Find Files (incl. hidden and ignored)" })
     nnoremap("<Leader>fr", builtin.live_grep, { desc = "Live Grep" })
     vnoremap(
-      "<Leader>fg",
+      "<Leader>fr",
       '"zy<ESC>:Telescope live_grep default_text=<c-r>z<CR>',
       { desc = "Live Grep visually selected text" }
     )

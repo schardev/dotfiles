@@ -128,7 +128,9 @@ return {
     local emmet_in_jsx_only = function(entry, _)
       if is_emmet_snippet(entry) then
         local node = vim.treesitter.get_node()
-        return node and node:type() == "jsx_element" or false
+        return node
+            and (node:type() == "jsx_element" or node:type() == "jsx_text")
+          or false
       end
       return true
     end
