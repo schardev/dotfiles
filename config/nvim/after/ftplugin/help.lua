@@ -1,5 +1,5 @@
-vim.wo.colorcolumn = ""
+vim.opt_local.colorcolumn = ""
 
 -- Wrap text by default and don't break words
-vim.wo.wrap = true
-vim.wo.linebreak = true
+vim.opt_local.wrap = true
+vim.opt_local.linebreak = true

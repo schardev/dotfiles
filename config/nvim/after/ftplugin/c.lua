@@ -10,4 +10,4 @@ vim.bo.shiftwidth = 8
 vim.bo.softtabstop = 8
 vim.bo.tabstop = 8
 
-vim.wo.spell = true
+vim.opt_local.spell = true

@@ -1,2 +1,2 @@
-vim.wo.foldmethod = "marker"
-vim.wo.spell = true
+vim.opt_local.foldmethod = "marker"
+vim.opt_local.spell = true

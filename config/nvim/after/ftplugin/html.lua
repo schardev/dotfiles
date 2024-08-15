@@ -1,3 +1,3 @@
-vim.wo.colorcolumn = ""
-vim.wo.spell = true
-vim.wo.wrap = true
+vim.opt_local.colorcolumn = ""
+vim.opt_local.spell = true
+vim.opt_local.wrap = true
