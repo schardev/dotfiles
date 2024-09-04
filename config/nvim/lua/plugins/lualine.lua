@@ -32,7 +32,7 @@ return {
       end,
 
       tabs = function()
-        return "[TABS]"
+        return "[T:" .. vim.bo.tabstop .. "]"
       end,
     }
 
