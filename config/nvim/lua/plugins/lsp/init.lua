@@ -101,7 +101,7 @@ return {
       "typescript",
       "typescriptreact",
     },
-    enabled = env.NVIM_USER_USE_TSSERVER,
+    enabled = env.NVIM_USER_USE_TS_LS,
     dependencies = { "nvim-lspconfig" },
     opts = {
       debug = false,
@@ -116,7 +116,7 @@ return {
       "typescript",
       "typescriptreact",
     },
-    enabled = not env.NVIM_USER_USE_TSSERVER,
+    enabled = not env.NVIM_USER_USE_TS_LS,
     dependencies = { "nvim-lspconfig" },
   },
 

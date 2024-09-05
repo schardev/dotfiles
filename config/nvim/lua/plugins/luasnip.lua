@@ -54,7 +54,7 @@ return {
 
             if not vim.tbl_isempty(selected_text) then
               return ls.sn(nil, {
-                ls.t(vim.tbl_flatten({ selected_text, "" })),
+                ls.t(vim.iter({ selected_text, "" }):flatten():totable()),
                 ls.i(1),
               })
             else

@@ -65,7 +65,7 @@ M.attach = function(args)
     { buffer = bufnr, desc = "Go to type definition" }
   )
 
-  if client.name == "tsserver" or client.name == "vtsls" then
+  if client.name == "ts_ls" or client.name == "vtsls" then
     local ts_mappings = lsp_utils.generate_ts_mappings(client.name)
 
     nnoremap(

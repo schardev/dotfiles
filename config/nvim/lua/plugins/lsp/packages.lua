@@ -16,8 +16,8 @@ M.servers = {
   yamlls = NIL,
 }
 
-if env.NVIM_USER_USE_TSSERVER then
-  M.servers.tsserver = NIL
+if env.NVIM_USER_USE_TS_LS then
+  M.servers.ts_ls = NIL
 else
   M.servers.vtsls = NIL
 end
