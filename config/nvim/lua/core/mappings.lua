@@ -44,6 +44,14 @@ nnoremap("<C-u>", "<C-u>zz")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
 
+-- Quickfix list
+nnoremap("]q", ":cnext<CR>", { desc = "Quickfix next" })
+nnoremap("[q", ":cprev<CR>", { desc = "Quickfix prev" })
+
+-- Location list
+nnoremap("]l", ":lnext<CR>", { desc = "Loclist next" })
+nnoremap("[l", ":lprev<CR>", { desc = "Loclist prev" })
+
 -- Remap for dealing with word wrap
 nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
