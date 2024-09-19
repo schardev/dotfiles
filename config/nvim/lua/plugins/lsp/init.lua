@@ -53,9 +53,12 @@ return {
       lsp_diagnostics.setup()
 
       -- Update capabilities
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      capabilities.textDocument.completion =
-        { completionItem = { snippetSupport = true } }
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend(
+        "force",
+        capabilities,
+        require("cmp_nvim_lsp").default_capabilities()
+      )
 
       -- Attach callbacks
       local autocmd = vim.api.nvim_create_autocmd
@@ -126,8 +129,10 @@ return {
     ft = "lua",
     opts = {
       library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
         "lazy.nvim",
       },
     },
   },
+  { "Bilal2453/luvit-meta", lazy = true },
 }

@@ -7,7 +7,12 @@ M.attach = function(args)
   local bufnr = args.buf
   local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-  if client.server_capabilities.documentHighlightProvider then
+  if
+    client
+    and client.supports_method(
+      vim.lsp.protocol.Methods.textDocument_documentHighlight
+    )
+  then
     autocmd({ "CursorHold", "CursorHoldI" }, {
       group = M.lsp_augroup_id,
       buffer = bufnr,

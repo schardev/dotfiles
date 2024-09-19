@@ -14,56 +14,66 @@ M.attach = function(args)
   mapper({ "n", "v" })(
     "<LocalLeader>ca",
     vim.lsp.buf.code_action,
-    { buffer = bufnr, desc = "Code action" }
+    { buffer = bufnr, desc = "LSf: Code action" }
   )
   nnoremap(
     "<LocalLeader>wa",
     vim.lsp.buf.add_workspace_folder,
-    { buffer = bufnr, desc = "Add workspace folder" }
+    { buffer = bufnr, desc = "LSP: Add workspace folder" }
   )
   nnoremap(
     "<LocalLeader>wr",
     vim.lsp.buf.remove_workspace_folder,
-    { buffer = bufnr, desc = "Remove workspace folder" }
+    { buffer = bufnr, desc = "LSP: Remove workspace folder" }
   )
   nnoremap("<LocalLeader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, { buffer = bufnr, desc = "Print workspace folders" })
+  end, { buffer = bufnr, desc = "LSP: Print workspace folders" })
 
   nnoremap("K", vim.lsp.buf.hover, { buffer = bufnr })
   nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
   nnoremap(
     "<LocalLeader>rn",
     vim.lsp.buf.rename,
-    { buffer = bufnr, desc = "Rename symbol under cursor" }
+    { buffer = bufnr, desc = "LSP: Rename symbol under cursor" }
   )
 
   nnoremap(
     "gD",
     vim.lsp.buf.declaration,
-    { buffer = bufnr, desc = "Go to declaration" }
+    { buffer = bufnr, desc = "LSP: Go to declaration" }
   )
   nnoremap(
     "gd",
     vim.lsp.buf.definition,
-    { buffer = bufnr, desc = "Go to definition" }
+    { buffer = bufnr, desc = "LSP: Go to definition" }
   )
   nnoremap(
     "gi",
     vim.lsp.buf.implementation,
-    { buffer = bufnr, desc = "Go to implementation" }
+    { buffer = bufnr, desc = "LSP: Go to implementation" }
   )
 
   nnoremap(
     "gr",
     vim.lsp.buf.references,
-    { buffer = bufnr, desc = "List all references" }
+    { buffer = bufnr, desc = "LSP: List all references" }
   )
   nnoremap(
     "gt",
     vim.lsp.buf.type_definition,
-    { buffer = bufnr, desc = "Go to type definition" }
+    { buffer = bufnr, desc = "LSP: Go to type definition" }
   )
+
+  if
+    client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint)
+  then
+    nnoremap("<leader>th", function()
+      vim.lsp.inlay_hint.enable(
+        not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+      )
+    end, { desc = "LSP: Toggle inlay hints" })
+  end
 
   if client.name == "ts_ls" or client.name == "vtsls" then
     local ts_mappings = lsp_utils.generate_ts_mappings(client.name)
@@ -71,27 +81,27 @@ M.attach = function(args)
     nnoremap(
       "<LocalLeader>oi",
       ts_mappings.organize_imports,
-      { buffer = bufnr, desc = "Organize Imports" }
+      { buffer = bufnr, desc = "LSP: Organize Imports" }
     )
     nnoremap(
       "<LocalLeader>rf",
       ts_mappings.rename_file,
-      { buffer = bufnr, desc = "Rename File" }
+      { buffer = bufnr, desc = "LSP: Rename File" }
     )
     nnoremap(
       "<LocalLeader>gd",
       ts_mappings.go_to_source_definition,
-      { buffer = bufnr, desc = "Go To Source Definition" }
+      { buffer = bufnr, desc = "LSP: Go To Source Definition" }
     )
     nnoremap(
       "<LocalLeader>mi",
       ts_mappings.add_missing_imports,
-      { buffer = bufnr, desc = "Add Missing Imports" }
+      { buffer = bufnr, desc = "LSP: Add Missing Imports" }
     )
     nnoremap(
       "<LocalLeader>ru",
       ts_mappings.remove_unused_imports,
-      { buffer = bufnr, desc = "Remove Unused" }
+      { buffer = bufnr, desc = "LSP: Remove Unused" }
     )
   end
 end
