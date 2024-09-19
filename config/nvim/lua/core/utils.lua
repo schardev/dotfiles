@@ -17,7 +17,7 @@ end
 
 --- Creates a keymap function with given mode
 ---@param mode string|table
----@return fun(lhs: string, rhs: string|function, opts: table|nil)
+---@return fun(lhs: string, rhs: string|function, opts?: vim.keymap.set.Opts)
 function M.mapper_factory(mode)
   local default_opts = { silent = true }
 
