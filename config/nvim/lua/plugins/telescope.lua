@@ -1,11 +1,16 @@
+---@type LazySpec
 return {
   "nvim-telescope/telescope.nvim",
   event = "BufEnter",
   dependencies = {
     "plenary.nvim",
+    { "nvim-telescope/telescope-ui-select.nvim" },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
+      cond = function()
+        return vim.fn.executable("make") == 1
+      end,
     },
   },
   config = function()
@@ -24,6 +29,14 @@ return {
       '"zy<ESC>:Telescope live_grep default_text=<c-r>z<CR>',
       { desc = "Live Grep visually selected text" }
     )
+    nnoremap("<Leader>/", function()
+      builtin.current_buffer_fuzzy_find(
+        require("telescope.themes").get_dropdown({
+          winblend = 10,
+          previewer = false,
+        })
+      )
+    end, { desc = "Fuzzy search current buffer" })
     nnoremap("<Leader>fe", builtin.resume, { desc = "Resume previous picker" })
     nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
     nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
@@ -34,9 +47,16 @@ return {
     end, { desc = "Find Files in $DOTS_DIR" })
 
     -- Telescope base config
-    require("telescope").setup({})
+    require("telescope").setup({
+      extensions = {
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown(),
+        },
+      },
+    })
 
-    -- Load native fzf sorter
-    require("telescope").load_extension("fzf")
+    -- Load extensions if installed
+    pcall(require("telescope").load_extension, "fzf")
+    pcall(require("telescope").load_extension, "ui-select")
   end,
 }
