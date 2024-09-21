@@ -48,10 +48,6 @@ return {
       local lsp_mappings = require("plugins.lsp.mappings")
       local lsp_servers = require("plugins.lsp.packages").servers
 
-      -- Setup handlers and diagnostics config
-      lsp_handlers.setup()
-      lsp_diagnostics.setup()
-
       -- Update capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend(
@@ -60,28 +56,14 @@ return {
         require("cmp_nvim_lsp").default_capabilities()
       )
 
+      -- Setup handlers and diagnostics config
+      lsp_handlers.setup()
+      lsp_diagnostics.setup()
+
       -- Attach callbacks
-      local autocmd = vim.api.nvim_create_autocmd
-      autocmd("LspAttach", {
-        group = lsp_autocmds.lsp_augroup_id,
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = lsp_autocmds.lsp_attach_augroup_id,
         callback = function(args)
-          -- Clear any autocmd declared by previous client
-          if
-            pcall(
-              vim.api.nvim_get_autocmds,
-              { group = lsp_autocmds.lsp_augroup_id, buffer = args.buf }
-            )
-          then
-            vim.api.nvim_clear_autocmds({
-              group = lsp_autocmds.lsp_augroup_id,
-              buffer = args.buf,
-            })
-          end
-
-          -- TODO: Temporarily disable semantic tokens
-          -- vim.lsp.get_client_by_id(args.data.client_id).server_capabilities.semanticTokensProvider =
-          --   nil
-
           lsp_autocmds.attach(args)
           lsp_mappings.attach(args)
         end,

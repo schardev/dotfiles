@@ -17,9 +17,9 @@ M.servers = {
 }
 
 if env.NVIM_USER_USE_TS_LS then
-  M.servers.ts_ls = NIL
+  M.servers.ts_ls = require("plugins.lsp.servers.tsserver")
 else
-  M.servers.vtsls = NIL
+  M.servers.vtsls = require("plugins.lsp.servers.tsserver")
 end
 
 M.formatters = {

@@ -69,8 +69,11 @@ M.attach = function(args)
     client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint)
   then
     nnoremap("<leader>th", function()
-      vim.lsp.inlay_hint.enable(
-        not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+      local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+      vim.lsp.inlay_hint.enable(not is_enabled)
+      require("fidget").notify(
+        (is_enabled and "Disabled" or "Enabled") .. " inlay hint",
+        vim.log.levels.INFO
       )
     end, { desc = "LSP: Toggle inlay hints" })
   end
