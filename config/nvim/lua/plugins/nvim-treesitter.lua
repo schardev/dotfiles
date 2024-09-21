@@ -25,10 +25,6 @@ return {
       },
     },
     config = function()
-      local configs_treesitter =
-        vim.api.nvim_create_augroup("ConfigsTreesitter", { clear = true })
-      local autocmd = vim.api.nvim_create_autocmd
-
       local enabled_parsers = {
         "bash",
         "css",
@@ -58,16 +54,6 @@ return {
       scss_parser.install_info.url =
         "https://github.com/schardev/tree-sitter-scss"
       scss_parser.install_info.revision = "master"
-
-      autocmd("FileType", {
-        group = configs_treesitter,
-        pattern = vim.tbl_extend(
-          "force",
-          enabled_parsers,
-          { "typescriptreact" }
-        ),
-        command = "setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()",
-      })
 
       ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({

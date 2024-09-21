@@ -8,7 +8,6 @@ set.breakindent = true                  -- Preserve indentation while wrapping
 set.cmdheight = 2                       -- Set command panel height
 set.colorcolumn = "80"                  -- Highlight 80th column
 set.cursorline = true                   -- Highlight current line number
-set.foldlevel = 99                      -- Fold after this level (hax to prevent folding by default)
 set.hlsearch = false                    -- Disable search highlighting
 set.ignorecase = true                   -- Ignore case for pattern matching by default
 set.laststatus = 3                      -- Enable global statusline

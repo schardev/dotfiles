@@ -3,6 +3,7 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
+    ---@type CatppuccinOptions
     opts = {
       no_italic = true,
 
@@ -13,6 +14,7 @@ return {
             ["@comment"] = { fg = colors.overlay1 },
             VertSplit = { fg = colors.overlay1 },
             WinSeparator = { fg = colors.overlay1 },
+            Folded = { bg = colors.surface0 },
           }
         end,
       },
