@@ -55,6 +55,7 @@ return {
         end,
       },
 
+      ---@diagnostic disable-next-line: missing-fields
       formatting = {
         format = function(entry, vim_item)
           local source_name = cmp_source_names[entry.source.name]
@@ -90,7 +91,11 @@ return {
         }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_next_item()
+            -- Need the `Select` behaviour due to below issue
+            -- https://github.com/typescript-language-server/typescript-language-server/issues/917#issuecomment-2379364927
+            cmp.select_next_item({
+              behavior = cmp.SelectBehavior.Select,
+            })
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
           else
@@ -99,7 +104,9 @@ return {
         end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_prev_item()
+            cmp.select_prev_item({
+              behavior = cmp.SelectBehavior.Select,
+            })
           elseif luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -119,7 +126,7 @@ return {
     cmp.event:on("confirm_done", autopairs.on_confirm_done())
 
     -- Enable emmet-ls snippets inside jsx only
-    ---@see https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
+    -- https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
     local is_emmet_snippet = function(entry)
       return entry:get_kind() == cmp_kinds.Snippet
         and entry.source:get_debug_name() == "nvim_lsp:emmet_language_server"
