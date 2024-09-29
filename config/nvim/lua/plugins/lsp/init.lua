@@ -77,22 +77,6 @@ return {
     end,
   },
 
-  -- Typescript helper commands
-  {
-    "jose-elias-alvarez/typescript.nvim",
-    ft = {
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-    },
-    enabled = env.NVIM_USER_USE_TS_LS,
-    dependencies = { "nvim-lspconfig" },
-    opts = {
-      debug = false,
-    },
-  },
-
   {
     "yioneko/nvim-vtsls",
     ft = {
