@@ -17,7 +17,7 @@ alias v='nvim'
 
 ## Use modern replacements for common GNU programs
 # {{{
-if (( $+commands[exa] )); then
+if (( $+commands[eza] )); then
     alias ls='eza'
     alias l='eza'
     alias la='eza -a'
