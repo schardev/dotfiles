@@ -15,7 +15,11 @@ start_ssh_agent() {
     ssh-add
 }
 
-# Start `ssh-agent` if not already
+# Start `ssh-agent` if not already (except on termux)
+if [[ -n "${IS_TERMUX}" ]]; then
+  return
+fi
+
 if [[ -f "${SSH_ENV}" ]]; then
     source "${SSH_ENV}" >/dev/null
     pgrep -g "${SSH_AGENT_PID}" >/dev/null || {
