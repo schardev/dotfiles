@@ -43,6 +43,7 @@ apply = ["defer-more"]
 [plugins.zsh-vi-mode]
 github = 'jeffreytse/zsh-vi-mode'
 
+# Git + FZF
 [plugins.git-fuzzy]
 github = "bigH/git-fuzzy"
 dir = "bin"

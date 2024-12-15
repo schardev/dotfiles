@@ -15,6 +15,8 @@ termux_install_packages() {
     local packages=(
         clang
         exa
+        fd
+        fzf
         gh
         gnupg
         jq
@@ -26,7 +28,10 @@ termux_install_packages() {
         sheldon
         shellcheck
         shfmt
+        starship
         stylua
+        termux-api
+        termux-tools
         zoxide
         zsh
     )
@@ -55,9 +60,9 @@ termux_setup_dotfiles() {
     echo "extra-keys = [['ESC','SHIFT','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]" >~/.termux/termux.properties
 
     # Make zsh follow $XDA_DOTS_DIR
-    echo "export ZDOTDIR=~/.config/zsh" >"${HOME}"/.zshenv
     [[ ! -d ~/.config ]] && mkdir "${HOME}"/.config
     ln -sf "$DOTS_DIR"/config/zsh "${HOME}"/.config/zsh
+    ln -sf "$DOTS_DIR"/config/zsh/.zshenv "${HOME}"/.zshenv
     ln -sf "$DOTS_DIR"/config/nvim "${HOME}"/.config/nvim
     mkdir "${HOME}"/.config/sheldon && ln -sf "$DOTS_DIR"/config/zsh/plugins.toml "${HOME}"/.config/sheldon
 }
