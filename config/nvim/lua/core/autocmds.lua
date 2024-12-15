@@ -1,5 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
-local nnoremap = require("core.utils").mapper_factory("n")
+local map = require("core.utils").map
 
 local my_local_group = vim.api.nvim_create_augroup("UserConfig", {})
 
@@ -48,7 +48,7 @@ autocmd("FileType", {
   callback = function(e)
     -- Map q to exit in non-filetype buffers
     vim.bo[e.buf].buflisted = false
-    nnoremap("q", ":q<CR>", { buffer = e.buf })
+    map("n", "q", ":q<CR>", { buffer = e.buf })
   end,
   desc = "Maps q to exit on non-filetypes",
 })

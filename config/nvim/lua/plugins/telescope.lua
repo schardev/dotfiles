@@ -14,37 +14,37 @@ return {
     },
   },
   config = function()
-    local nnoremap = require("core.utils").mapper_factory("n")
-    local vnoremap = require("core.utils").mapper_factory("v")
+    local map = require("core.utils").map
     local builtin = require("telescope.builtin")
 
     -- Mappings
-    nnoremap("<Leader>fv", builtin.find_files, { desc = "Find Files" })
-    nnoremap("<Leader>fV", function()
+    map("n", "<Leader>fv", builtin.find_files, "Find Files")
+    map("n", "<Leader>fV", function()
       builtin.find_files({ hidden = true, no_ignore = true })
-    end, { desc = "Find Files (incl. hidden and ignored)" })
-    nnoremap("<Leader>fr", builtin.live_grep, { desc = "Live Grep" })
-    vnoremap(
+    end, "Find Files (incl. hidden and ignored)")
+    map("n", "<Leader>fr", builtin.live_grep, "Live Grep")
+    map(
+      "v",
       "<Leader>fr",
       '"zy<ESC>:Telescope live_grep default_text=<c-r>z<CR>',
-      { desc = "Live Grep visually selected text" }
+      "Live Grep visually selected text"
     )
-    nnoremap("<Leader>/", function()
+    map("n", "<Leader>/", function()
       builtin.current_buffer_fuzzy_find(
         require("telescope.themes").get_dropdown({
           winblend = 10,
           previewer = false,
         })
       )
-    end, { desc = "Fuzzy search current buffer" })
-    nnoremap("<Leader>fe", builtin.resume, { desc = "Resume previous picker" })
-    nnoremap("<Leader>fh", builtin.help_tags, { desc = "Helptags" })
-    nnoremap("<Leader>ff", builtin.builtin, { desc = "Telescope Builtins" })
-    nnoremap("<Leader>fo", builtin.oldfiles, { desc = "Oldfiles" })
-    nnoremap("<Leader>fb", builtin.buffers, { desc = "Buffers List" })
-    nnoremap("<Leader>fd", function()
+    end, "Fuzzy search current buffer")
+    map("n", "<Leader>fe", builtin.resume, "Resume previous picker")
+    map("n", "<Leader>fh", builtin.help_tags, "Helptags")
+    map("n", "<Leader>ff", builtin.builtin, "Telescope Builtins")
+    map("n", "<Leader>fo", builtin.oldfiles, "Oldfiles")
+    map("n", "<Leader>fb", builtin.buffers, "Buffers List")
+    map("n", "<Leader>fd", function()
       builtin.find_files({ cwd = "$DOTS_DIR" })
-    end, { desc = "Find Files in $DOTS_DIR" })
+    end, "Find Files in $DOTS_DIR")
 
     -- Telescope base config
     require("telescope").setup({

@@ -4,21 +4,21 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   dependencies = { "mason.nvim" },
   config = function()
-    local mapper = require("core.utils").mapper_factory
+    local map = require("core.utils").map
     local conform = require("conform")
     local ignore_filetypes = {}
     vim.g.format_on_save = true
 
-    mapper({ "n", "v" })("<LocalLeader>F", function()
+    map({ "n", "v" }, "<LocalLeader>F", function()
       require("conform").format({
         formatters = { "injected" },
         timeout_ms = 3000,
       })
-    end, { desc = "Format injected" })
+    end, "Format injected")
 
-    mapper({ "n", "v" })("<LocalLeader>f", function()
+    map({ "n", "v" }, "<LocalLeader>f", function()
       require("conform").format()
-    end, { desc = "Format" })
+    end, "Format")
 
     vim.api.nvim_create_autocmd({ "BufEnter" }, {
       group = vim.api.nvim_create_augroup("UserConform", { clear = true }),

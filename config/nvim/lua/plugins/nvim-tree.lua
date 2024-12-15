@@ -5,14 +5,15 @@ return {
   dependencies = { "nvim-web-devicons" },
   config = function()
     -- Mappings
-    local nnoremap = require("core.utils").mapper_factory("n")
+    local map = require("core.utils").map
 
-    nnoremap("<F1>", ":NvimTreeToggle<CR>", {
-      desc = "Toggle NvimTree",
-    })
-    nnoremap("<Leader><F1>", ":NvimTreeFindFile<CR>", {
-      desc = "Open current file tree in NvimTree",
-    })
+    map("n", "<F1>", ":NvimTreeToggle<CR>", "Toggle NvimTree")
+    map(
+      "n",
+      "<Leader><F1>",
+      ":NvimTreeFindFile<CR>",
+      "Open current file tree in NvimTree"
+    )
 
     -- Main setup
     require("nvim-tree").setup({

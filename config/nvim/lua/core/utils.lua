@@ -1,30 +1,18 @@
 local M = {}
 
---- Save the current buffer and execute the file
-function M.save_and_exec()
-  if vim.bo.filetype == "vim" then
-    vim.cmd([[
-        silent! write
-        source %
-        ]])
-  elseif vim.bo.filetype == "lua" then
-    vim.cmd([[
-        silent! write
-        luafile %
-        ]])
+--- Creates a keymap
+---@param mode string|string[]
+---@param key string
+---@param cmd string|function
+---@param opts string|vim.keymap.set.Opts|nil
+function M.map(mode, key, cmd, opts)
+  local final_opts
+  if type(opts) == "string" then
+    final_opts = { desc = opts, silent = true }
+  else
+    final_opts = vim.tbl_extend("keep", opts or {}, { silent = true })
   end
-end
-
---- Creates a keymap function with given mode
----@param mode string|table
----@return fun(lhs: string, rhs: string|function, opts?: vim.keymap.set.Opts)
-function M.mapper_factory(mode)
-  local default_opts = { silent = true }
-
-  return function(lhs, rhs, opts)
-    local final_opts = vim.tbl_extend("force", default_opts, opts or {})
-    vim.keymap.set(mode, lhs, rhs, final_opts)
-  end
+  vim.keymap.set(mode, key, cmd, final_opts)
 end
 
 --- Navigate to the given direction if there exists a window in that direction

@@ -1,112 +1,109 @@
 local utils = require("core.utils")
-local mapper = utils.mapper_factory
-local nnoremap = mapper("n")
-local tnoremap = mapper("t")
-local vnoremap = mapper("v")
+local map = utils.map
 
 -- No need to keep holding shift
-nnoremap(";", ":", { silent = false })
-vnoremap(";", ":", { silent = false })
+map({ "n", "v" }, ";", ":", { silent = false })
+map("n", "<Leader>;", ";", "Next f/t match")
 
 -- Map H and L to start and end of the line respectively (makes more sence that way)
-nnoremap("H", "0")
-nnoremap("L", "$")
+map("n", "H", "0")
+map("n", "L", "$")
+
+-- Join lines without losing cursor position
+map("n", "J", "mjJ`j")
 
 -- Navigating between windows
-nnoremap("<C-Up>", function()
+map("n", "<C-Up>", function()
   utils.navigate_pane_or_window("k")
 end)
-nnoremap("<C-Down>", function()
+map("n", "<C-Down>", function()
   utils.navigate_pane_or_window("j")
 end)
-nnoremap("<C-Left>", function()
+map("n", "<C-Left>", function()
   utils.navigate_pane_or_window("h")
 end)
-nnoremap("<C-Right>", function()
+map("n", "<C-Right>", function()
   utils.navigate_pane_or_window("l")
 end)
 
 -- Moving windows
-nnoremap("<C-S-Up>", ":wincmd K<CR>")
-nnoremap("<C-S-Down>", ":wincmd J<CR>")
-nnoremap("<C-S-Left>", ":wincmd H<CR>")
-nnoremap("<C-S-Right>", ":wincmd L<CR>")
+map("n", "<C-S-Up>", ":wincmd K<CR>")
+map("n", "<C-S-Down>", ":wincmd J<CR>")
+map("n", "<C-S-Left>", ":wincmd H<CR>")
+map("n", "<C-S-Right>", ":wincmd L<CR>")
 
 -- Resizing windows
-nnoremap("<M-Up>", ":resize +2<CR>")
-nnoremap("<M-Down>", ":resize -2<CR>")
-nnoremap("<M-Left>", ":vertical resize +2<CR>")
-nnoremap("<M-Right>", ":vertical resize -2<CR>")
+map("n", "<M-Up>", ":resize +2<CR>")
+map("n", "<M-Down>", ":resize -2<CR>")
+map("n", "<M-Left>", ":vertical resize +2<CR>")
+map("n", "<M-Right>", ":vertical resize -2<CR>")
 
 -- Quick moving around while keeping the cursor fixed in middle
-nnoremap("<C-d>", "<C-d>zz")
-nnoremap("<C-u>", "<C-u>zz")
-nnoremap("n", "nzzzv")
-nnoremap("N", "Nzzzv")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
 
 -- Quickfix list
-nnoremap("]q", ":cnext<CR>", { desc = "Quickfix next" })
-nnoremap("[q", ":cprev<CR>", { desc = "Quickfix prev" })
+map("n", "]q", ":cnext<CR>", "Quickfix next")
+map("n", "[q", ":cprev<CR>", "Quickfix prev")
 
 -- Location list
-nnoremap("]l", ":lnext<CR>", { desc = "Loclist next" })
-nnoremap("[l", ":lprev<CR>", { desc = "Loclist prev" })
+map("n", "]l", ":lnext<CR>", "Loclist next")
+map("n", "[l", ":lprev<CR>", "Loclist prev")
 
 -- Remap for dealing with word wrap
-nnoremap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-nnoremap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Buffer management
-nnoremap("<C-L>", ":bnext<CR>")
-nnoremap("<C-H>", ":bprevious<CR>")
-nnoremap("<Leader>qw", ":bdelete<CR>")
+map("n", "<C-L>", ":bnext<CR>")
+map("n", "<C-H>", ":bprevious<CR>")
+map("n", "<Leader>qw", ":bdelete<CR>")
 
 -- Toggle wrap
-nnoremap("<Leader>w", function()
+map("n", "<Leader>w", function()
   vim.wo.wrap = not vim.wo.wrap
   vim.notify("Wrap " .. (vim.o.wrap and "on" or "off"), vim.log.levels.INFO)
 end, { desc = "Toggle wrap" })
 
 -- Don't put text in register on delete char
-mapper({ "n", "v" })("x", '"_x')
+map({ "n", "v" }, "x", '"_x')
 
 -- Copy to system clipboard
-mapper({ "x", "n" })("<Leader>y", [["+y]])
+map({ "x", "n" }, "<Leader>y", [["+y]], "Yank to system clipboard")
 
 -- Replicate netrw functionality (gx/gf)
-nnoremap("gx", utils.open)
+map("n", "gx", utils.open, "Open link or file")
 
 -- Keep visual mode indenting
-vnoremap("<", "<gv")
-vnoremap(">", ">gv")
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- Select all lines
-nnoremap("vga", "ggVG")
+map("n", "vga", "ggVG")
 
--- Quick edit/source config files
-nnoremap("<Leader>ev", ":edit $MYVIMRC<CR>", {
-  desc = "Edit $MYVIMRC",
-})
-nnoremap("<Leader>se", utils.save_and_exec, {
-  desc = "Save and execute vim/lua files",
-})
+-- Quick source/run files
+map("n", "<Leader><Leader>x", ":source %<CR>", "Source current file")
+map("n", "<Leader>x", ":.lua<CR>", "Run current line with lua")
+map("v", "<Leader>x", ":lua<CR>", "Run visual selection with lua")
 
 -- Diagnostics
-nnoremap("]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-nnoremap("[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
-nnoremap("<Leader>td", function()
+map("n", "]d", vim.diagnostic.goto_next, "Go to next diagnostic")
+map("n", "[d", vim.diagnostic.goto_prev, "Go to prev diagnostic")
+map("n", "<Leader>td", function()
   local is_enabled = vim.diagnostic.is_enabled()
   vim.diagnostic.enable(not is_enabled)
   vim.notify(
     "[LSP] " .. (is_enabled and "Disabled" or "Enabled") .. " diagnostics."
   )
-end, { desc = "Toggle diagnostics" })
+end, "Toggle diagnostics")
 
 -- Make <Esc> to actually escape from terminal mode
-tnoremap("<Esc>", "<C-\\><C-n>")
+map("t", "<Esc>", "<C-\\><C-n>")
 
 -- `dd` but don't yank if the line is empty
-nnoremap("dd", function()
+map("n", "dd", function()
   if vim.api.nvim_get_current_line():match("^%s*$") then
     return [["_dd]]
   else
@@ -115,10 +112,8 @@ nnoremap("dd", function()
 end, { expr = true })
 
 -- Toggle highlights
-nnoremap("<Leader>ts", ":set hlsearch!<CR>", {
-  desc = "Toggle search highlighting",
-})
-nnoremap("<Leader>tw", function()
+map("n", "<Leader>ts", ":set hlsearch!<CR>", "Toggle search highlighting")
+map("n", "<Leader>tw", function()
   if vim.w.whitespace_highlight == true then
     vim.cmd("highlight clear Tabs")
     vim.cmd("highlight clear ExtraWhitespace")
@@ -129,37 +124,39 @@ nnoremap("<Leader>tw", function()
     vim.notify("Enabled whitespace highlighting!")
   end
   vim.w.whitespace_highlight = not vim.w.whitespace_highlight
-end, {
-  desc = "Toggle whitespace highlighting",
-})
+end, "Toggle whitespace highlighting")
 
 --- Few mappings I stole from @akinsho :)
 ---@see https://github.com/akinsho/dotfiles/blob/main/.config/nvim/
 
 -- Quick find and replace
-vnoremap(
+map(
+  "v",
   "<Leader>rr",
   [[<esc>:'<,'>s//<left>]],
   { desc = "Within visually selected area", silent = false }
 )
-nnoremap(
+map(
+  "n",
   "<Leader>rr",
   [[:%s//<left>]],
   { desc = "Replace text", silent = false }
 )
-vnoremap(
+map(
+  "v",
   "<Leader>rw",
   [["zy:%s/<C-r><C-o>"/]],
   { desc = "Visually selected text", silent = false }
 )
-nnoremap(
+map(
+  "n",
   "<Leader>rw",
   [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
   { desc = "Replace word under cursor", silent = false }
 )
 
 -- Search visual selection
-vnoremap("//", [[y/<C-R>"<CR>]])
+map("v", "//", [[y/<C-R>"<CR>]])
 
 -- Multiple Cursor Replacement
 ---@see http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
@@ -168,7 +165,8 @@ vnoremap("//", [[y/<C-R>"<CR>]])
 -- 3. Once you are done with the macro, go back to normal mode.
 -- 4. Hit Enter to repeat the macro over search matches.
 function Setup_CR()
-  nnoremap(
+  map(
+    "n",
     "<Enter>",
     [[:nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z]],
     { buffer = true }
@@ -176,14 +174,14 @@ function Setup_CR()
 end
 vim.g.mc = [[y/\V<C-r>=escape(@", '/')<CR><CR>]]
 
-nnoremap("cn", "*``cgn")
-nnoremap("cN", "*``cgN")
+map("n", "cn", "*``cgn")
+map("n", "cN", "*``cgN")
 
 -- xnoremap("cn", [[g:mc . "``cgn"]], { expr = true })
 -- xnoremap("cN", [[g:mc . "``cgN"]], { expr = true })
 
-nnoremap("cq", [[:\<C-u>call v:lua.Setup_CR()<CR>*``qz]])
-nnoremap("cQ", [[:\<C-u>call v:lua.Setup_CR()<CR>#``qz]])
+map("n", "cq", [[:\<C-u>call v:lua.Setup_CR()<CR>*``qz]])
+map("n", "cQ", [[:\<C-u>call v:lua.Setup_CR()<CR>#``qz]])
 
 -- xnoremap(
 --   "cq",

@@ -4,11 +4,10 @@ return {
   config = function()
     local ls = require("luasnip")
     local ft_funs = require("luasnip.extras.filetype_functions")
-    local map = require("core.utils").mapper_factory({ "i", "s" })
+    local map = require("core.utils").map
     local utils = require("core.utils").string_utils
-    local env = require("core.env")
 
-    map("<M-Tab>", function()
+    map({ "i", "s" }, "<M-Tab>", function()
       if ls.choice_active() then
         ls.change_choice(1)
       end
@@ -84,10 +83,10 @@ return {
     )
 
     require("luasnip.loaders.from_lua").lazy_load({
-      paths = { env.NVIM_USER_CONFIG_DIR .. "/nvim/snippets/luasnippets" },
+      paths = { vim.fn.stdpath("config") .. "/snippets/luasnippets" },
     })
     require("luasnip.loaders.from_snipmate").lazy_load({
-      paths = { env.NVIM_USER_CONFIG_DIR .. "/nvim/snippets/snipmate" },
+      paths = { vim.fn.stdpath("config") .. "/snippets/snipmate" },
     })
   end,
 }

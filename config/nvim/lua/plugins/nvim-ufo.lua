@@ -11,10 +11,10 @@ return {
     vim.opt.fillchars:append([[fold: ,foldopen:,foldsep: ,foldclose:]])
 
     local ufo = require("ufo")
-    local nnoremap = require("core.utils").mapper_factory("n")
+    local map = require("core.utils").map
 
-    nnoremap("zR", ufo.openAllFolds, { desc = "Open all folds" })
-    nnoremap("zM", ufo.closeAllFolds, { desc = "Close all folds" })
+    map("n", "zR", ufo.openAllFolds, "Open all folds")
+    map("n", "zM", ufo.closeAllFolds, "Close all folds")
 
     ---@diagnostic disable-next-line: missing-fields
     require("ufo").setup({

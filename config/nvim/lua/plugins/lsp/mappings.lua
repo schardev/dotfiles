@@ -1,6 +1,5 @@
 local M = {}
-local mapper = require("core.utils").mapper_factory
-local nnoremap = mapper("n")
+local map = require("core.utils").map
 
 M.attach = function(args)
   local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -11,55 +10,64 @@ M.attach = function(args)
   local bufnr = args.buf
   local lsp_utils = require("plugins.lsp.utils")
 
-  mapper({ "n", "v" })(
+  map(
+    { "n", "v" },
     "<LocalLeader>ca",
     vim.lsp.buf.code_action,
     { buffer = bufnr, desc = "LSf: Code action" }
   )
-  nnoremap(
+  map(
+    "n",
     "<LocalLeader>wa",
     vim.lsp.buf.add_workspace_folder,
     { buffer = bufnr, desc = "LSP: Add workspace folder" }
   )
-  nnoremap(
+  map(
+    "n",
     "<LocalLeader>wr",
     vim.lsp.buf.remove_workspace_folder,
     { buffer = bufnr, desc = "LSP: Remove workspace folder" }
   )
-  nnoremap("<LocalLeader>wl", function()
+  map("n", "<LocalLeader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, { buffer = bufnr, desc = "LSP: Print workspace folders" })
 
-  nnoremap("K", vim.lsp.buf.hover, { buffer = bufnr })
-  nnoremap("<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
-  nnoremap(
+  map("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
+  map("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
+  map(
+    "n",
     "<LocalLeader>rn",
     vim.lsp.buf.rename,
     { buffer = bufnr, desc = "LSP: Rename symbol under cursor" }
   )
 
-  nnoremap(
+  map(
+    "n",
     "gD",
     vim.lsp.buf.declaration,
     { buffer = bufnr, desc = "LSP: Go to declaration" }
   )
-  nnoremap(
+  map(
+    "n",
     "gd",
     vim.lsp.buf.definition,
     { buffer = bufnr, desc = "LSP: Go to definition" }
   )
-  nnoremap(
+  map(
+    "n",
     "gi",
     vim.lsp.buf.implementation,
     { buffer = bufnr, desc = "LSP: Go to implementation" }
   )
 
-  nnoremap(
+  map(
+    "n",
     "gr",
     vim.lsp.buf.references,
     { buffer = bufnr, desc = "LSP: List all references" }
   )
-  nnoremap(
+  map(
+    "n",
     "gt",
     vim.lsp.buf.type_definition,
     { buffer = bufnr, desc = "LSP: Go to type definition" }
@@ -68,7 +76,7 @@ M.attach = function(args)
   if
     client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint)
   then
-    nnoremap("<leader>th", function()
+    map("n", "<leader>th", function()
       local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
       vim.lsp.inlay_hint.enable(not is_enabled)
       require("fidget").notify(
@@ -81,27 +89,32 @@ M.attach = function(args)
   if client.name == "ts_ls" or client.name == "vtsls" then
     local ts_mappings = lsp_utils.generate_ts_mappings(client.name)
 
-    nnoremap(
+    map(
+      "n",
       "<LocalLeader>oi",
       ts_mappings.organize_imports,
       { buffer = bufnr, desc = "LSP: Organize Imports" }
     )
-    nnoremap(
+    map(
+      "n",
       "<LocalLeader>rf",
       ts_mappings.rename_file,
       { buffer = bufnr, desc = "LSP: Rename File" }
     )
-    nnoremap(
+    map(
+      "n",
       "<LocalLeader>gd",
       ts_mappings.go_to_source_definition,
       { buffer = bufnr, desc = "LSP: Go To Source Definition" }
     )
-    nnoremap(
+    map(
+      "n",
       "<LocalLeader>mi",
       ts_mappings.add_missing_imports,
       { buffer = bufnr, desc = "LSP: Add Missing Imports" }
     )
-    nnoremap(
+    map(
+      "n",
       "<LocalLeader>ru",
       ts_mappings.remove_unused_imports,
       { buffer = bufnr, desc = "LSP: Remove Unused" }

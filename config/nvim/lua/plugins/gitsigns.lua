@@ -6,44 +6,43 @@ return {
     preview_config = { border = "rounded" },
     on_attach = function(bufnr)
       local gs = require("gitsigns")
-      local nnoremap = require("core.utils").mapper_factory("n")
-      local vnoremap = require("core.utils").mapper_factory("v")
+      local map = require("core.utils").map
 
       -- Mappings
-      nnoremap("]c", function()
+      map("n", "]c", function()
         if vim.wo.diff then
           return "]c"
         end
         vim.schedule(function()
-          gs.next_hunk()
+          gs.nav_hunk("next")
         end)
         return "<Ignore>"
       end, { desc = "Go to next hunk", expr = true, buffer = bufnr })
 
-      nnoremap("[c", function()
+      map("n", "[c", function()
         if vim.wo.diff then
           return "[c"
         end
         vim.schedule(function()
-          gs.prev_hunk()
+          gs.nav_hunk("prev")
         end)
         return "<Ignore>"
       end, { desc = "Go to prev hunk", expr = true, buffer = bufnr })
 
-      nnoremap("<leader>gs", gs.stage_hunk, { desc = "Stage hunk" })
-      vnoremap("<leader>gs", function()
+      map("n", "<leader>gs", gs.stage_hunk, "Stage hunk")
+      map("v", "<leader>gs", function()
         gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-      end, { desc = "Stage hunk" })
-      nnoremap("<leader>gS", gs.stage_buffer, { desc = "Stage buffer" })
-      nnoremap("<leader>gu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
-      nnoremap("<leader>gr", gs.reset_hunk, { desc = "Reset hunk" })
-      nnoremap("<leader>gR", gs.reset_buffer, { desc = "Reset buffer" })
-      nnoremap("<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
-      nnoremap("<leader>gd", gs.diffthis, { desc = "Diffthis" })
-      -- nnoremap("<leader>gD", function()
+      end, "Stage hunk")
+      map("n", "<leader>gS", gs.stage_buffer, "Stage buffer")
+      map("n", "<leader>gu", gs.undo_stage_hunk, "Undo stage hunk")
+      map("n", "<leader>gr", gs.reset_hunk, "Reset hunk")
+      map("n", "<leader>gR", gs.reset_buffer, "Reset buffer")
+      map("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
+      map("n", "<leader>gd", gs.diffthis, "Diffthis")
+      -- map('n',"<leader>gD", function()
       --     gs.diffthis("~")
       -- end, { desc = "Diffthis" })
-      nnoremap("<leader>gb", gs.blame_line, { desc = "Toggle line blame" })
+      map("n", "<leader>gb", gs.blame_line, "Toggle line blame")
     end,
   },
 }

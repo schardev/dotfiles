@@ -11,23 +11,23 @@ return {
   dependencies = { "nvim-treesitter" },
   config = function()
     local neogen = require("neogen")
-    local nnoremap = require("core.utils").mapper_factory("n")
+    local map = require("core.utils").map
 
     neogen.setup({
       snippet_engine = "luasnip",
     })
 
     -- Supported annotations are func, class, type, file
-    nnoremap("<Leader>ngf", function()
+    map("n", "<Leader>ngf", function()
       neogen.generate({ type = "func" })
-    end, { desc = "Annotate func" })
+    end, "Annotate func")
 
-    nnoremap("<Leader>ngc", function()
+    map("n", "<Leader>ngc", function()
       neogen.generate({ type = "class" })
-    end, { desc = "Annotate class" })
+    end, "Annotate class")
 
-    nnoremap("<Leader>ngt", function()
+    map("n", "<Leader>ngt", function()
       neogen.generate({ type = "type" })
-    end, { desc = "Annotate type" })
+    end, "Annotate type")
   end,
 }
