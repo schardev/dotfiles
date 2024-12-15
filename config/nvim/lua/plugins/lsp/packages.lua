@@ -14,6 +14,7 @@ M.servers = {
   lua_ls = require("plugins.lsp.servers.lua_ls"),
   tailwindcss = require("plugins.lsp.servers.tailwindcss"),
   yamlls = NIL,
+  taplo = NIL,
 }
 
 if env.NVIM_USER_USE_TS_LS then
