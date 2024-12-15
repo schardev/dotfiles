@@ -13,15 +13,6 @@ M.config = {
         propertyDeclarationTypes = { enabled = true },
         variableTypes = { enabled = true },
       },
-      preferences = {
-        -- Include the `type` keyword in auto-imports whenever possible.
-        -- Requires using TypeScript 5.3+ in the workspace.
-        preferTypeOnlyAutoImports = true,
-
-        -- Enable/disable introducing aliases for object shorthand properties
-        -- during renames
-        -- useAliasesForRenames = false,
-      },
     },
     vtsls = {
       experimental = {
