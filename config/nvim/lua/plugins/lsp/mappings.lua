@@ -83,7 +83,7 @@ M.attach = function(args)
         (is_enabled and "Disabled" or "Enabled") .. " inlay hint",
         vim.log.levels.INFO
       )
-    end, { desc = "LSP: Toggle inlay hints" })
+    end, "LSP: Toggle inlay hints")
   end
 
   if client.name == "ts_ls" or client.name == "vtsls" then

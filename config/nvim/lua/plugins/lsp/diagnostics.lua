@@ -36,7 +36,7 @@ function M.setup()
   -- Global diagnostic config
   vim.diagnostic.config({
     signs = signs,
-    virtual_text = { prefix = diagnostics_prefix },
+    virtual_text = { source = "if_many", prefix = diagnostics_prefix },
     float = {
       max_width = 85,
       max_height = 30,

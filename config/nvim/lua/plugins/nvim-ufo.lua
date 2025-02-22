@@ -16,7 +16,6 @@ return {
     map("n", "zR", ufo.openAllFolds, "Open all folds")
     map("n", "zM", ufo.closeAllFolds, "Close all folds")
 
-    ---@diagnostic disable-next-line: missing-fields
     require("ufo").setup({
       open_fold_hl_timeout = 150,
       provider_selector = function()
