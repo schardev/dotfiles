@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
 
   -- Icons provider
@@ -22,12 +23,22 @@ return {
     config = true,
   },
 
-  -- Blazingly fast movements
+  -- Rainbow brackets
   {
-    "ggandor/leap.nvim",
-    keys = { "s", "S", "gs" },
+    "HiPhish/rainbow-delimiters.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = { "nvim-treesitter" },
     config = function()
-      require("leap").set_default_keymaps()
+      vim.api.nvim_create_user_command("RainbowDelimitersToggle", function()
+        require("rainbow-delimiters").toggle(0)
+      end, { desc = "Toggle Rainbow Delimiters" })
+
+      vim.g.rainbow_delimiters = {
+        -- log = {
+        --   level = vim.log.levels.TRACE,
+        -- },
+        blacklist = { "html", "lua", "json" },
+      }
     end,
   },
 

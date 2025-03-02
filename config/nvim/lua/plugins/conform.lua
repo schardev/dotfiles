@@ -58,6 +58,7 @@ return {
     }
 
     conform.setup({
+      -- log_level = vim.log.levels.DEBUG,
       formatters_by_ft = {
         bash = { "shfmt" },
         css = prettier,
@@ -79,7 +80,7 @@ return {
       },
       formatters = {
         shfmt = {
-          prepend_args = {
+          append_args = {
             "-ci", -- format case statements
             "-i",
             "4", -- indents will have width of 4 spaces

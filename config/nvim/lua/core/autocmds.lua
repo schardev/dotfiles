@@ -7,6 +7,9 @@ autocmd("WinEnter", {
   group = my_local_group,
   pattern = "*",
   callback = function()
+    if vim.fn.win_gettype() == "popup" then
+      return
+    end
     vim.wo.cursorline = true
     vim.wo.colorcolumn = "80"
   end,

@@ -11,8 +11,6 @@ return {
       highlight_overrides = {
         mocha = function(colors)
           return {
-            ["@comment"] = { fg = colors.overlay1 },
-            VertSplit = { fg = colors.overlay1 },
             WinSeparator = { fg = colors.overlay1 },
             Folded = { bg = colors.surface0 },
           }
@@ -24,6 +22,8 @@ return {
         leap = true,
         lsp_trouble = true,
         mason = true,
+        neotest = true,
+        telescope = { enabled = true, style = "nvchad" },
         which_key = true,
       },
     },
