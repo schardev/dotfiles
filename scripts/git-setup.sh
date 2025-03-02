@@ -119,18 +119,15 @@ git_aliases() { (
 git_plugins() {
     # https://github.com/dandavison/delta
     if command -v delta &>/dev/null; then
-        git config --global core.pager delta
-        git config --global interactive.diffFilter "delta --color-only"
-        git config --global merge.conflictstyle diff3
-        git config --global diff.colorMoved default
-
         # delta config
+        git config --global core.pager delta
+        git config --global delta.hyperlinks true
         git config --global delta.light false
         git config --global delta.line-numbers true
         git config --global delta.navigate true
-        git config --global delta.hyperlinks true
         git config --global delta.tabs 4
         git config --global include.path "${XDG_CONFIG_HOME:-$HOME/.config}/delta/themes.gitconfig"
+        git config --global interactive.diffFilter "delta --color-only"
     fi
 
     if command -v git-fuzzy &>/dev/null; then
@@ -145,9 +142,19 @@ git_plugins() {
 git_setup() { (
     git config --global user.name "Saurabh Charde"
     git config --global user.email "saurabhchardereal@gmail.com"
+
+    # defaults
+    git config --global branch.sort -committerdate # sort branch by the most recent commit
+    git config --global column.ui auto             # display columns whenever possible
+    git config --global commit.verbose true        # show diff while writing commit message
     git config --global credential.helper 'cache --timeout=3600'
-    git config --global pull.rebase false
+    git config --global diff.algorithm histogram # better diff algorithm
+    git config --global diff.colorMoved plain    # highlight moved blocks
     git config --global init.defaultBranch main
+    git config --global merge.conflictstyle zdiff3
+    git config --global pull.rebase true
+    git config --global push.autoSetupRemote true # auto set upstream on push
+    git config --global push.followTags true      # sync tags with remote
 
     gpg_setup
     git_aliases
