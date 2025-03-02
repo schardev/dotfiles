@@ -6,8 +6,8 @@ map({ "n", "v" }, ";", ":", { silent = false })
 map("n", "<Leader>;", ";", "Next f/t match")
 
 -- Map H and L to start and end of the line respectively (makes more sence that way)
-map("n", "H", "0")
-map("n", "L", "$")
+-- map("n", "H", "0")
+-- map("n", "L", "$")
 
 -- Join lines without losing cursor position
 map("n", "J", "mjJ`j")
@@ -65,7 +65,7 @@ map("n", "<Leader>qw", ":bdelete<CR>")
 map("n", "<Leader>w", function()
   vim.wo.wrap = not vim.wo.wrap
   vim.notify("Wrap " .. (vim.o.wrap and "on" or "off"), vim.log.levels.INFO)
-end, { desc = "Toggle wrap" })
+end, "Toggle wrap")
 
 -- Don't put text in register on delete char
 map({ "n", "v" }, "x", '"_x')
@@ -156,7 +156,7 @@ map(
 )
 
 -- Search visual selection
-map("v", "//", [[y/<C-R>"<CR>]])
+-- map("v", "//", [[y/<C-R>"<CR>]])
 
 -- Multiple Cursor Replacement
 ---@see http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/

@@ -2,7 +2,9 @@ local M = {}
 
 M.config = {
   settings = {
-    useFlatConfig = true,
+    experimental = {
+      useFlatConfig = false,
+    },
   },
 }
 
