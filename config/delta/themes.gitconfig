@@ -1,26 +1,26 @@
+; https://github.com/catppuccin/delta/commit/e9e21cffd98787f1b59e6f6e42db599f9b8ab399
 [delta "catppuccin-mocha"]
   blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
-	commit-decoration-style = "#6c7086" bold box ul
 	dark = true
-	file-decoration-style = "#6c7086"
+	file-decoration-style = box ul "#6c7086"
 	file-style = "#cdd6f4"
 	hunk-header-decoration-style = "#6c7086" box ul
 	hunk-header-file-style = bold
 	hunk-header-line-number-style = bold "#a6adc8"
-	hunk-header-style = file line-number syntax
+	hunk-header-style = omit
 	line-numbers-left-style = "#6c7086"
 	line-numbers-minus-style = bold "#f38ba8"
 	line-numbers-plus-style = bold "#a6e3a1"
 	line-numbers-right-style = "#6c7086"
 	line-numbers-zero-style = "#6c7086"
-  minus-emph-style = "#000 red"
-  minus-style = "syntax #35293b"
-  plus-emph-style = "#000 green"
-  plus-style = "syntax #2c333a"
-	; minus-emph-style = bold syntax "#53394c"
-	; minus-style = syntax "#34293a"
-	; plus-emph-style = bold syntax "#404f4a"
-	; plus-style = syntax "#2c3239"
+  ; minus-emph-style = "#000 red"
+  ; minus-style = "syntax #35293b"
+  ; plus-emph-style = "#000 green"
+  ; plus-style = "syntax #2c333a"
+	minus-emph-style = bold syntax "#53394c"
+	minus-style = syntax "#34293a"
+	plus-emph-style = bold syntax "#404f4a"
+	plus-style = syntax "#2c3239"
 	map-styles = \
 		bold purple => syntax "#494060", \
 		bold blue => syntax "#384361", \
