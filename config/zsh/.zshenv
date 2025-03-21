@@ -39,6 +39,7 @@ path=(
     "${path[@]}"
     "$CONFIG_DIR"/bin(N-/)
     "$XDG_DATA_HOME"/npm-global/bin(N-/)
+    "$HOME"/.local/bin(N-/)
 )
 
 # remove duplicate entries from $PATH
