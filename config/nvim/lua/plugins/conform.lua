@@ -8,6 +8,7 @@ return {
     local conform = require("conform")
     local ignore_filetypes = {}
     vim.g.format_on_save = true
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
     map({ "n", "v" }, "<LocalLeader>F", function()
       require("conform").format({
