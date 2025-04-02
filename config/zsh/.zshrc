@@ -1,3 +1,12 @@
+# Initialize homebrew
+if [[ -n $IS_MAC ]]; then
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        echo "brew is not installed!" >&2
+    fi
+fi
+
 # Initialize starship prompt
 if (( $+commands[starship] )); then
     eval "$(starship init zsh)"

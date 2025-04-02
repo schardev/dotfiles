@@ -6,8 +6,8 @@ fi
 # NOTE: Everything below will be available globally, make sure you don't shadow
 # already existing builtins/commands
 
-# `${PREFIX}` will be set in termux env
-source "${PREFIX:-/usr}"/share/fzf/key-bindings.zsh
+# Setup keybindings
+source <(fzf --zsh)
 
 # Use fd as primary indexer globally
 export FZF_DEFAULT_COMMAND="fd --type=file --strip-cwd-prefix --follow"

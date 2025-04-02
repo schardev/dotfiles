@@ -5,11 +5,16 @@ export ZDOTDIR=$HOME/.config/zsh
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Shout out loud if running on termux
-if [[ $PREFIX =~ com.termux ]]; then
-    export IS_TERMUX=true
-else
-    # Non-termux env vars
+case "$OSTYPE" in
+    darwin*) export IS_MAC=true ;;
+    linux-android) export IS_TERMUX=true ;;
+    linux*) export IS_LINUX=true ;;
+    msys* | cygwin*) export IS_WINDOWS=true ;;
+    *) echo "unknown: $OSTYPE" ;;
+esac
+
+# Non-termux env vars
+if [[ -z $IS_TERMUX ]]; then
     export MANPAGER="nvim +Man!" # Use `neovim` as manpager for colored man pages
 fi
 
@@ -47,5 +52,5 @@ typeset -U PATH path
 
 # Load local overrides if present
 if [[ -f "$HOME/.env.local" ]]; then
-  source "$HOME/.env.local"
+    source "$HOME/.env.local"
 fi
