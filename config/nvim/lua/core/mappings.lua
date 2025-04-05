@@ -44,14 +44,6 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
--- Quickfix list
-map("n", "]q", ":cnext<CR>", "Quickfix next")
-map("n", "[q", ":cprev<CR>", "Quickfix prev")
-
--- Location list
-map("n", "]l", ":lnext<CR>", "Loclist next")
-map("n", "[l", ":lprev<CR>", "Loclist prev")
-
 -- Remap for dealing with word wrap
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
@@ -89,8 +81,6 @@ map("n", "<Leader>x", ":.lua<CR>", "Run current line with lua")
 map("v", "<Leader>x", ":lua<CR>", "Run visual selection with lua")
 
 -- Diagnostics
-map("n", "]d", vim.diagnostic.goto_next, "Go to next diagnostic")
-map("n", "[d", vim.diagnostic.goto_prev, "Go to prev diagnostic")
 map("n", "<Leader>td", function()
   local is_enabled = vim.diagnostic.is_enabled()
   vim.diagnostic.enable(not is_enabled)

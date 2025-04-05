@@ -42,7 +42,6 @@ return {
     },
     config = function()
       local lspconfig = require("lspconfig")
-      local lsp_handlers = require("plugins.lsp.handlers")
       local lsp_diagnostics = require("plugins.lsp.diagnostics")
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_mappings = require("plugins.lsp.mappings")
@@ -56,8 +55,7 @@ return {
         require("cmp_nvim_lsp").default_capabilities()
       )
 
-      -- Setup handlers and diagnostics config
-      lsp_handlers.setup()
+      -- Setup diagnostics config
       lsp_diagnostics.setup()
 
       -- Attach callbacks

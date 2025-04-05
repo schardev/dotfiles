@@ -66,6 +66,9 @@ opt.wildignore:append({
 -- Ignore case while completing file
 set.wildignorecase = true
 
+-- Add rounded borders to floating windows by default
+-- set.winborder = "rounded"
+
 -- Do not wrap code by default
 set.wrap = false
 

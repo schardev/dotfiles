@@ -11,12 +11,6 @@ M.attach = function(args)
   local lsp_utils = require("plugins.lsp.utils")
 
   map(
-    { "n", "v" },
-    "<LocalLeader>ca",
-    vim.lsp.buf.code_action,
-    { buffer = bufnr, desc = "LSf: Code action" }
-  )
-  map(
     "n",
     "<LocalLeader>wa",
     vim.lsp.buf.add_workspace_folder,
@@ -32,15 +26,6 @@ M.attach = function(args)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, { buffer = bufnr, desc = "LSP: Print workspace folders" })
 
-  map("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-  map("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr })
-  map(
-    "n",
-    "<LocalLeader>rn",
-    vim.lsp.buf.rename,
-    { buffer = bufnr, desc = "LSP: Rename symbol under cursor" }
-  )
-
   map(
     "n",
     "gD",
@@ -53,28 +38,16 @@ M.attach = function(args)
     vim.lsp.buf.definition,
     { buffer = bufnr, desc = "LSP: Go to definition" }
   )
-  map(
-    "n",
-    "gi",
-    vim.lsp.buf.implementation,
-    { buffer = bufnr, desc = "LSP: Go to implementation" }
-  )
 
   map(
     "n",
-    "gr",
-    vim.lsp.buf.references,
-    { buffer = bufnr, desc = "LSP: List all references" }
-  )
-  map(
-    "n",
-    "gt",
+    "grt",
     vim.lsp.buf.type_definition,
     { buffer = bufnr, desc = "LSP: Go to type definition" }
   )
 
   if
-    client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint)
+    client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint)
   then
     map("n", "<leader>th", function()
       local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })

@@ -26,17 +26,6 @@ autocmd("WinLeave", {
   desc = "Remove cursorline and colorcolumn from inactive window",
 })
 
-autocmd("TermOpen", {
-  group = my_local_group,
-  pattern = "*",
-  callback = function()
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-    vim.wo.signcolumn = "no"
-  end,
-  desc = "Disable line numbers in terminal window",
-})
-
 autocmd("FileType", {
   group = my_local_group,
   pattern = {
@@ -54,17 +43,6 @@ autocmd("FileType", {
     map("n", "q", ":q<CR>", { buffer = e.buf })
   end,
   desc = "Maps q to exit on non-filetypes",
-})
-
-autocmd("FileType", {
-  group = my_local_group,
-  pattern = { "lspinfo", "null-ls-info" },
-  callback = function()
-    -- Add border to `:LspInfo` and `:NullLsInfo` commands
-    -- https://github.com/neovim/nvim-lspconfig/issues/1717
-    vim.api.nvim_win_set_config(0, { border = "rounded" })
-  end,
-  desc = "Set borders to few floating windows",
 })
 
 autocmd("TextYankPost", {
