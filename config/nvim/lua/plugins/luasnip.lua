@@ -51,7 +51,7 @@ return {
           return ls.d(jump_index, function(_, snip)
             local selected_text = snip.env.LS_SELECT_RAW
 
-            if not vim.tbl_isempty(selected_text) then
+            if not vim.tbl_isempty({ selected_text }) then
               return ls.sn(nil, {
                 ls.t(vim.iter({ selected_text, "" }):flatten():totable()),
                 ls.i(1),
