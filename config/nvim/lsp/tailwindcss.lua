@@ -1,14 +1,4 @@
-local M = {}
-local lsp_util = require("lspconfig.util")
-
-M.config = {
-  root_dir = function(fname)
-    return lsp_util.root_pattern(
-      "tailwind.config.js",
-      "tailwind.config.cjs",
-      "tailwind.config.mjs"
-    )(fname)
-  end,
+vim.lsp.config("tailwindcss", {
   settings = {
     tailwindCSS = {
       experimental = {
@@ -24,6 +14,4 @@ M.config = {
       },
     },
   },
-}
-
-return M
+})

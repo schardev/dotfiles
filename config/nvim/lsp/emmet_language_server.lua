@@ -1,6 +1,4 @@
-local M = {}
-
-M.config = {
+vim.lsp.config("emmet_language_server", {
   filetypes = {
     "html",
     "javascriptreact",
@@ -28,6 +26,4 @@ M.config = {
       },
     },
   },
-}
-
-return M
+})

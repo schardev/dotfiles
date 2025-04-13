@@ -1,12 +1,8 @@
-local env = require("core.env")
-
+---@type LazySpec
 return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      -- schemas
-      "b0o/schemastore.nvim",
-
       -- LSP, Formatters, DAP installer
       {
         "williamboman/mason.nvim",
@@ -25,12 +21,13 @@ return {
           })
 
           local packages = require("plugins.lsp.packages")
+          local lsp_servers = packages.get_lsp_servers()
           local lspconfig_to_package =
             require("mason-lspconfig.mappings.server").lspconfig_to_package
           local packages_to_install =
             vim.tbl_extend("force", packages.formatters, {})
 
-          for lsp_name, _ in pairs(packages.servers) do
+          for lsp_name, _ in pairs(lsp_servers) do
             table.insert(packages_to_install, lspconfig_to_package[lsp_name])
           end
 
@@ -41,11 +38,10 @@ return {
       },
     },
     config = function()
-      local lspconfig = require("lspconfig")
       local lsp_diagnostics = require("plugins.lsp.diagnostics")
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_mappings = require("plugins.lsp.mappings")
-      local lsp_servers = require("plugins.lsp.packages").servers
+      local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
 
       -- Update capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -67,11 +63,7 @@ return {
         end,
       })
 
-      for lsp, opts in pairs(lsp_servers) do
-        lspconfig[lsp].setup(vim.tbl_deep_extend("force", opts.config or {}, {
-          capabilities = capabilities,
-        }))
-      end
+      vim.lsp.enable(lsp_servers)
     end,
   },
 
@@ -83,8 +75,11 @@ return {
       "typescript",
       "typescriptreact",
     },
-    enabled = not env.NVIM_USER_USE_TS_LS,
     dependencies = { "nvim-lspconfig" },
+    enabled = function()
+      local env = require("core.env")
+      return not env.NVIM_USER_USE_TS_LS
+    end,
   },
 
   -- Neovim API completions
@@ -98,5 +93,10 @@ return {
       },
     },
   },
+
+  -- libuv types
   { "Bilal2453/luvit-meta", lazy = true },
+
+  -- schemas
+  { "b0o/schemastore.nvim", lazy = true },
 }

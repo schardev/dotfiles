@@ -1,6 +1,4 @@
-local M = {}
-
-M.config = {
+vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       completion = {
@@ -11,6 +9,4 @@ M.config = {
       },
     },
   },
-}
-
-return M
+})

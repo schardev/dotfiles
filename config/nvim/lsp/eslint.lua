@@ -1,11 +1,7 @@
-local M = {}
-
-M.config = {
+vim.lsp.config("eslint", {
   settings = {
     experimental = {
       useFlatConfig = false,
     },
   },
-}
-
-return M
+})
