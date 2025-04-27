@@ -28,6 +28,7 @@ return {
     "HiPhish/rainbow-delimiters.nvim",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = { "nvim-treesitter" },
+    submodules = false,
     config = function()
       vim.api.nvim_create_user_command("RainbowDelimitersToggle", function()
         require("rainbow-delimiters").toggle(0)

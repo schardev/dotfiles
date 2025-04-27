@@ -2,7 +2,6 @@
 return {
   -- Blazingly fast movements
   "folke/flash.nvim",
-  event = "VeryLazy",
   keys = {
     {
       "s",

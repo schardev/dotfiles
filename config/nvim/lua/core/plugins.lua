@@ -27,8 +27,22 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
----@type LazyConfig
-local lazy_config = {
+-- Disable neovim providers
+local disabled_provider = {
+  "node",
+  "perl",
+  "python",
+  "python3",
+  "pythonx",
+  "ruby",
+}
+
+for _, d in pairs(disabled_provider) do
+  vim.g["loaded_" .. d .. "_provider"] = 0
+end
+
+require("lazy").setup("plugins", {
+  ui = { border = "rounded" },
   defaults = {
     --lazy = true
   },
@@ -37,6 +51,9 @@ local lazy_config = {
   },
   change_detection = {
     notify = false,
+  },
+  rocks = {
+    enabled = false,
   },
   performance = {
     rtp = {
@@ -57,20 +74,4 @@ local lazy_config = {
       },
     },
   },
-}
-
--- Disable neovim providers
-local disabled_provider = {
-  "node",
-  "perl",
-  "python",
-  "python3",
-  "pythonx",
-  "ruby",
-}
-
-for _, d in pairs(disabled_provider) do
-  vim.g["loaded_" .. d .. "_provider"] = 0
-end
-
-require("lazy").setup("plugins", lazy_config)
+})

@@ -1,10 +1,10 @@
 local autocmd = vim.api.nvim_create_autocmd
 local map = require("core.utils").map
 
-local my_local_group = vim.api.nvim_create_augroup("UserConfig", {})
+local user_core_augroup = vim.api.nvim_create_augroup("user.core", {})
 
 autocmd("WinEnter", {
-  group = my_local_group,
+  group = user_core_augroup,
   pattern = "*",
   callback = function()
     if vim.fn.win_gettype() == "popup" then
@@ -17,7 +17,7 @@ autocmd("WinEnter", {
 })
 
 autocmd("WinLeave", {
-  group = my_local_group,
+  group = user_core_augroup,
   pattern = "*",
   callback = function()
     vim.wo.cursorline = false
@@ -27,7 +27,7 @@ autocmd("WinLeave", {
 })
 
 autocmd("FileType", {
-  group = my_local_group,
+  group = user_core_augroup,
   pattern = {
     "checkhealth",
     "help",
@@ -46,7 +46,7 @@ autocmd("FileType", {
 })
 
 autocmd("TextYankPost", {
-  group = my_local_group,
+  group = user_core_augroup,
   pattern = "*",
   callback = function()
     vim.highlight.on_yank({ higroup = "IncSearch", timeout = 400 })

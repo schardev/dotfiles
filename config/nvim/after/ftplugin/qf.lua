@@ -44,3 +44,5 @@ vim.keymap.set("v", "d", function()
   end)
   vim.cmd([[call feedkeys("\<Esc>", 'n')]])
 end, { desc = "Delete item from quickfix list", buffer = true })
+
+vim.cmd.packadd("cfilter")

@@ -1,8 +1,11 @@
 local ts_ls_config = vim.lsp.config.ts_ls.settings
 
+-- https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
 vim.lsp.config("vtsls", {
   settings = vim.tbl_extend("force", ts_ls_config, {
     vtsls = {
+      -- Automatically use workspace version of TypeScript lib on startup
+      autoUseWorkspaceTsdk = true,
       experimental = {
         -- Truncate inlay hint
         -- https://github.com/neovim/neovim/issues/27240

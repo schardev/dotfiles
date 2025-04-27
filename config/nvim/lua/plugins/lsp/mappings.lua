@@ -1,5 +1,6 @@
 local M = {}
 local map = require("core.utils").map
+local methods = vim.lsp.protocol.Methods
 
 M.attach = function(args)
   local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -46,14 +47,20 @@ M.attach = function(args)
     { buffer = bufnr, desc = "LSP: Go to type definition" }
   )
 
-  if
-    client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint)
-  then
+  map(
+    "n",
+    "grr",
+    "<cmd>Telescope lsp_references<cr>",
+    { buffer = bufnr, desc = "LSP: Go to references" }
+  )
+
+  if client:supports_method(methods.textDocument_inlayHint) then
     map("n", "<leader>th", function()
       local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
       vim.lsp.inlay_hint.enable(not is_enabled)
-      require("fidget").notify(
-        (is_enabled and "Disabled" or "Enabled") .. " inlay hint",
+
+      vim.notify(
+        string.format("%s inlay hint", (is_enabled and "Disabled" or "Enabled")),
         vim.log.levels.INFO
       )
     end, "LSP: Toggle inlay hints")

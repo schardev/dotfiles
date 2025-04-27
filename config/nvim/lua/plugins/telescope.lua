@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "nvim-telescope/telescope.nvim",
-  event = "BufEnter",
+  event = { "VeryLazy" },
   dependencies = {
     "plenary.nvim",
     { "nvim-telescope/telescope-ui-select.nvim" },

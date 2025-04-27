@@ -22,7 +22,10 @@ return {
     end, "Format")
 
     vim.api.nvim_create_autocmd({ "BufEnter" }, {
-      group = vim.api.nvim_create_augroup("UserConform", { clear = true }),
+      group = vim.api.nvim_create_augroup(
+        "user.plugin.conform",
+        { clear = true }
+      ),
       callback = function(args)
         local available_formatters =
           require("conform").list_formatters(args.buf)
@@ -31,6 +34,7 @@ return {
           vim.b[args.buf].format_on_save = true
         end
       end,
+      desc = "Enable format on save",
     })
 
     vim.api.nvim_create_user_command("UserAutoFormatToggle", function(args)
@@ -43,12 +47,18 @@ return {
       end
 
       if not ref.format_on_save then
-        vim.notify("Enabled auto-formatting " .. scope)
         ref.format_on_save = true
       else
-        vim.notify("Disabled auto-formatting " .. scope)
         ref.format_on_save = false
       end
+
+      vim.notify(
+        string.format(
+          "%s auto-formatting %s",
+          ref.format_on_save and "Enabled" or "Disabled",
+          scope
+        )
+      )
     end, { desc = "Toggle auto-formatting", bang = true })
 
     ---@type conform.FiletypeFormatter

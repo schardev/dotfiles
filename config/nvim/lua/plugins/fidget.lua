@@ -1,6 +1,7 @@
+---@type LazySpec
 return {
   "j-hui/fidget.nvim",
-  event = "VeryLazy",
+  event = "BufReadPost",
   opts = {
     notification = {
       window = {
