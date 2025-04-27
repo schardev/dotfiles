@@ -102,6 +102,10 @@ function M.get_process_icon(tab)
       { Foreground = { Color = colors.mauve } },
       { Text = wezterm.nerdfonts.dev_github_badge },
     },
+    ["kubectl"] = {
+      { Foreground = { Color = colors.blue } },
+      { Text = wezterm.nerdfonts.md_kubernetes },
+    },
   }
   local process_name = M.basename(tab.active_pane.foreground_process_name)
   return wezterm.format(process_icons[process_name] or {
