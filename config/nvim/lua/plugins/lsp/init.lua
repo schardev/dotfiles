@@ -2,46 +2,11 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      -- LSP, Formatters, DAP installer
-      {
-        "williamboman/mason.nvim",
-        dependencies = { "williamboman/mason-lspconfig.nvim" },
-        build = ":MasonUpdate",
-        config = function()
-          require("mason").setup({
-            ui = {
-              border = "rounded",
-              icons = {
-                package_installed = "✓",
-                package_pending = "➜",
-                package_uninstalled = "✗",
-              },
-            },
-          })
-
-          local packages = require("plugins.lsp.packages")
-          local lsp_servers = packages.get_lsp_servers()
-          local lspconfig_to_package =
-            require("mason-lspconfig.mappings.server").lspconfig_to_package
-          local packages_to_install =
-            vim.tbl_extend("force", packages.formatters, {})
-
-          for lsp_name, _ in pairs(lsp_servers) do
-            table.insert(packages_to_install, lspconfig_to_package[lsp_name])
-          end
-
-          vim.api.nvim_create_user_command("MasonInstallAll", function()
-            vim.cmd("MasonInstall " .. table.concat(packages_to_install, " "))
-          end, {})
-        end,
-      },
-    },
+    dependencies = { "mason-org/mason.nvim" },
     config = function()
       local lsp_diagnostics = require("plugins.lsp.diagnostics")
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_mappings = require("plugins.lsp.mappings")
-      local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
 
       -- Update capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -62,11 +27,38 @@ return {
           lsp_mappings.attach(args)
         end,
       })
-
-      vim.lsp.enable(lsp_servers)
     end,
   },
 
+  -- LSP, Formatters, DAP installer
+  {
+    "mason-org/mason.nvim",
+    build = ":MasonUpdate",
+    ---@type MasonSettings
+    opts = {
+      ui = {
+        border = "rounded",
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    },
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    config = function()
+      local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
+      require("mason-lspconfig").setup({
+        automatic_enable = lsp_servers,
+        ensure_installed = lsp_servers,
+      })
+    end,
+  },
+
+  -- Typescript server utils
   {
     "yioneko/nvim-vtsls",
     ft = {
