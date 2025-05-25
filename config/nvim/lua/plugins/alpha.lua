@@ -67,8 +67,7 @@ return {
       ),
       dashboard.button(
         "<F1>",
-        string.format("%s  NvimTree", icons.devicons.folder),
-        ":NvimTreeToggle<CR>"
+        string.format("%s  NvimTree", icons.devicons.folder)
       ),
       dashboard.button(
         "pu",
