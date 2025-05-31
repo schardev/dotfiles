@@ -19,7 +19,7 @@ local default = {
 
   -- Clear scrollback
   {
-    key = "k",
+    key = "s",
     mods = "CTRL|SHIFT",
     action = act.ClearScrollback("ScrollbackOnly"),
   },

@@ -5,10 +5,6 @@ local map = utils.map
 map({ "n", "v" }, ";", ":", { silent = false })
 map("n", "<Leader>;", ";", "Next f/t match")
 
--- Map H and L to start and end of the line respectively (makes more sence that way)
--- map("n", "H", "0")
--- map("n", "L", "$")
-
 -- Join lines without losing cursor position
 map("n", "J", "mjJ`j")
 
@@ -25,18 +21,38 @@ end)
 map("n", "<C-Right>", function()
   utils.navigate_pane_or_window("l")
 end)
+map("n", "<C-k>", function()
+  utils.navigate_pane_or_window("k")
+end)
+map("n", "<C-j>", function()
+  utils.navigate_pane_or_window("j")
+end)
+map("n", "<C-h>", function()
+  utils.navigate_pane_or_window("h")
+end)
+map("n", "<C-l>", function()
+  utils.navigate_pane_or_window("l")
+end)
 
 -- Moving windows
 map("n", "<C-S-Up>", ":wincmd K<CR>")
 map("n", "<C-S-Down>", ":wincmd J<CR>")
 map("n", "<C-S-Left>", ":wincmd H<CR>")
 map("n", "<C-S-Right>", ":wincmd L<CR>")
+map("n", "<C-S-k>", ":wincmd K<CR>")
+map("n", "<C-S-j>", ":wincmd J<CR>")
+map("n", "<C-S-h>", ":wincmd H<CR>")
+map("n", "<C-S-l>", ":wincmd L<CR>")
 
 -- Resizing windows
 map("n", "<M-Up>", ":resize +2<CR>")
 map("n", "<M-Down>", ":resize -2<CR>")
 map("n", "<M-Left>", ":vertical resize +2<CR>")
 map("n", "<M-Right>", ":vertical resize -2<CR>")
+map("n", "<M-k>", ":resize +2<CR>")
+map("n", "<M-j>", ":resize -2<CR>")
+map("n", "<M-h>", ":vertical resize +2<CR>")
+map("n", "<M-l>", ":vertical resize -2<CR>")
 
 -- Quick moving around while keeping the cursor fixed in middle
 map("n", "<C-d>", "<C-d>zz")
@@ -49,8 +65,8 @@ map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Buffer management
-map("n", "<C-L>", ":bnext<CR>")
-map("n", "<C-H>", ":bprevious<CR>")
+map("n", "L", ":bnext<CR>")
+map("n", "H", ":bprevious<CR>")
 map("n", "<Leader>qw", ":bdelete<CR>")
 
 -- Toggle wrap
@@ -76,7 +92,7 @@ map("v", ">", ">gv")
 map("n", "vga", "ggVG")
 
 -- Quick source/run files
-map("n", "<Leader><Leader>x", ":source %<CR>", "Source current file")
+map("n", "<Leader>X", ":source %<CR>", "Source current file")
 map("n", "<Leader>x", ":.lua<CR>", "Run current line with lua")
 map("v", "<Leader>x", ":lua<CR>", "Run visual selection with lua")
 

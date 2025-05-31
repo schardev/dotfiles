@@ -19,7 +19,7 @@ return {
   },
   keys = {
     -- Mappings
-    { "<C-L>", "<Cmd>BufferLineCycleNext<CR>" },
-    { "<C-H>", "<Cmd>BufferLineCyclePrev<CR>" },
+    { "L", "<Cmd>BufferLineCycleNext<CR>" },
+    { "H", "<Cmd>BufferLineCyclePrev<CR>" },
   },
 }
