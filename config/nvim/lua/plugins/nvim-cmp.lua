@@ -15,6 +15,10 @@ return {
       "petertriho/cmp-git",
       config = true,
     },
+    {
+      "zbirenbaum/copilot-cmp",
+      config = true,
+    },
   },
   config = function()
     -- nvim-cmp setup
@@ -178,12 +182,10 @@ return {
     })
 
     cmp.setup.filetype("gitcommit", {
-      sources = {
+      sources = cmp.config.sources({
+        { name = "copilot" },
         { name = "git" },
-        { name = "buffer" },
-        { name = "path" },
-        { name = "spell" },
-      },
+      }, common_sources),
     })
   end,
 }

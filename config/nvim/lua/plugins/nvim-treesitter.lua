@@ -12,6 +12,7 @@ return {
         "bash",
         "css",
         "html",
+        "http",
         "javascript",
         "jsdoc",
         "json",

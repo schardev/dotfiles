@@ -74,6 +74,7 @@ return {
         bash = { "shfmt" },
         css = prettier,
         html = prettier,
+        http = { "kulala-fmt" },
         javascript = prettier,
         javascriptreact = prettier,
         json = prettier,
