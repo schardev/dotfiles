@@ -2,6 +2,7 @@ local M = {}
 local map = require("core.utils").map
 local methods = vim.lsp.protocol.Methods
 
+---@param args vim.api.keyset.create_autocmd.callback_args
 M.attach = function(args)
   local client = vim.lsp.get_client_by_id(args.data.client_id)
   if not client then
@@ -13,17 +14,17 @@ M.attach = function(args)
 
   map(
     "n",
-    "<LocalLeader>wa",
+    "<localleader>wa",
     vim.lsp.buf.add_workspace_folder,
     { buffer = bufnr, desc = "LSP: Add workspace folder" }
   )
   map(
     "n",
-    "<LocalLeader>wr",
+    "<localleader>wr",
     vim.lsp.buf.remove_workspace_folder,
     { buffer = bufnr, desc = "LSP: Remove workspace folder" }
   )
-  map("n", "<LocalLeader>wl", function()
+  map("n", "<localleader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, { buffer = bufnr, desc = "LSP: Print workspace folders" })
 
@@ -55,7 +56,7 @@ M.attach = function(args)
   )
 
   if client:supports_method(methods.textDocument_inlayHint) then
-    map("n", "<leader>th", function()
+    map("n", "<leader>ti", function()
       local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
       vim.lsp.inlay_hint.enable(not is_enabled)
 
@@ -71,31 +72,31 @@ M.attach = function(args)
 
     map(
       "n",
-      "<LocalLeader>oi",
+      "<localleader>oi",
       ts_mappings.organize_imports,
       { buffer = bufnr, desc = "LSP: Organize Imports" }
     )
     map(
       "n",
-      "<LocalLeader>rf",
+      "<localleader>rf",
       ts_mappings.rename_file,
       { buffer = bufnr, desc = "LSP: Rename File" }
     )
     map(
       "n",
-      "<LocalLeader>gd",
+      "<localleader>gd",
       ts_mappings.go_to_source_definition,
       { buffer = bufnr, desc = "LSP: Go To Source Definition" }
     )
     map(
       "n",
-      "<LocalLeader>mi",
+      "<localleader>mi",
       ts_mappings.add_missing_imports,
       { buffer = bufnr, desc = "LSP: Add Missing Imports" }
     )
     map(
       "n",
-      "<LocalLeader>ru",
+      "<localleader>ru",
       ts_mappings.remove_unused_imports,
       { buffer = bufnr, desc = "LSP: Remove Unused" }
     )

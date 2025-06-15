@@ -3,7 +3,7 @@ local map = utils.map
 
 -- No need to keep holding shift
 map({ "n", "v" }, ";", ":", { silent = false })
-map("n", "<Leader>;", ";", "Next f/t match")
+map("n", "<leader>;", ";", "Next f/t match")
 
 -- Join lines without losing cursor position
 map("n", "J", "mjJ`j")
@@ -61,25 +61,19 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- Remap for dealing with word wrap
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Buffer management
-map("n", "L", ":bnext<CR>")
-map("n", "H", ":bprevious<CR>")
-map("n", "<Leader>qw", ":bdelete<CR>")
-
--- Toggle wrap
-map("n", "<Leader>w", function()
-  vim.wo.wrap = not vim.wo.wrap
-  vim.notify("Wrap " .. (vim.o.wrap and "on" or "off"), vim.log.levels.INFO)
-end, "Toggle wrap")
+map("n", "L", "<cmd>bnext<cr>")
+map("n", "H", "<cmd>bprevious<cr>")
+map("n", "<leader>qw", "<cmd>bdelete<cr>")
 
 -- Don't put text in register on delete char
 map({ "n", "v" }, "x", '"_x')
 
 -- Copy to system clipboard
-map({ "x", "n" }, "<Leader>y", [["+y]], "Yank to system clipboard")
+map({ "x", "n" }, "<leader>y", [["+y]], "Yank to system clipboard")
 
 -- Replicate netrw functionality (gx/gf)
 map("n", "gx", utils.open, "Open link or file")
@@ -92,18 +86,27 @@ map("v", ">", ">gv")
 map("n", "vga", "ggVG")
 
 -- Quick source/run files
-map("n", "<Leader>X", ":source %<CR>", "Source current file")
-map("n", "<Leader>x", ":.lua<CR>", "Run current line with lua")
-map("v", "<Leader>x", ":lua<CR>", "Run visual selection with lua")
+map("n", "<leader>X", ":source %<CR>", "Source current file")
+map("n", "<leader>x", ":.lua<CR>", "Run current line with lua")
+map("v", "<leader>x", ":lua<CR>", "Run visual selection with lua")
 
 -- Diagnostics
-map("n", "<Leader>td", function()
-  local is_enabled = vim.diagnostic.is_enabled()
-  vim.diagnostic.enable(not is_enabled)
-  vim.notify(
-    "[LSP] " .. (is_enabled and "Disabled" or "Enabled") .. " diagnostics."
-  )
-end, "Toggle diagnostics")
+---@param next boolean
+---@param severity? vim.diagnostic.Severity
+local diagnostic_goto = function(next, severity)
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    vim.diagnostic.jump({
+      count = next and vim.v.count1 or -vim.v.count1,
+      severity = severity,
+    })
+  end
+end
+
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- Make <Esc> to actually escape from terminal mode
 map("t", "<Esc>", "<C-\\><C-n>")
@@ -117,9 +120,46 @@ map("n", "dd", function()
   end
 end, { expr = true })
 
+-- Location list
+map("n", "<leader>tl", function()
+  local success, err = pcall(
+    vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose
+      or vim.cmd.lopen
+  )
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end, { desc = "Toggle Location List" })
+
+-- Quickfix list
+map("n", "<leader>tq", function()
+  local success, err = pcall(
+    vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose
+      or vim.cmd.copen
+  )
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
+end, { desc = "Toggle Quickfix List" })
+
+-- Toggle wrap
+map("n", "<leader>tw", function()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.notify("Wrap " .. (vim.o.wrap and "on" or "off"), vim.log.levels.INFO)
+end, "Toggle wrap")
+
+-- Toggle diagnostic
+map("n", "<leader>td", function()
+  local is_enabled = vim.diagnostic.is_enabled()
+  vim.diagnostic.enable(not is_enabled)
+  vim.notify(
+    "[LSP] " .. (is_enabled and "Disabled" or "Enabled") .. " diagnostics."
+  )
+end, "Toggle diagnostics")
+
 -- Toggle highlights
-map("n", "<Leader>ts", ":set hlsearch!<CR>", "Toggle search highlighting")
-map("n", "<Leader>tw", function()
+map("n", "<leader>ts", ":set hlsearch!<CR>", "Toggle search highlighting")
+map("n", "<leader>th", function()
   if vim.w.whitespace_highlight == true then
     vim.cmd("highlight clear Tabs")
     vim.cmd("highlight clear ExtraWhitespace")
@@ -138,25 +178,25 @@ end, "Toggle whitespace highlighting")
 -- Quick find and replace
 map(
   "v",
-  "<Leader>rr",
+  "<leader>rr",
   [[<esc>:'<,'>s//<left>]],
   { desc = "Within visually selected area", silent = false }
 )
 map(
   "n",
-  "<Leader>rr",
+  "<leader>rr",
   [[:%s//<left>]],
   { desc = "Replace text", silent = false }
 )
 map(
   "v",
-  "<Leader>rw",
+  "<leader>rw",
   [["zy:%s/<C-r><C-o>"/]],
   { desc = "Visually selected text", silent = false }
 )
 map(
   "n",
-  "<Leader>rw",
+  "<leader>rw",
   [[:%s/\<<C-r>=expand("<cword>")<CR>\>/]],
   { desc = "Replace word under cursor", silent = false }
 )

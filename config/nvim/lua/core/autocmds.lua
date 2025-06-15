@@ -30,6 +30,7 @@ autocmd("FileType", {
   group = user_core_augroup,
   pattern = {
     "checkhealth",
+    "gitsigns-blame",
     "help",
     "lspinfo",
     "qf",
@@ -40,7 +41,10 @@ autocmd("FileType", {
   callback = function(e)
     -- Map q to exit in non-filetype buffers
     vim.bo[e.buf].buflisted = false
-    map("n", "q", ":q<CR>", { buffer = e.buf })
+    map("n", "q", function()
+      vim.cmd("close")
+      pcall(vim.api.nvim_buf_delete, e.buf, { force = true })
+    end, { buffer = e.buf })
   end,
   desc = "Maps q to exit on non-filetypes",
 })
