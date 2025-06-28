@@ -95,3 +95,6 @@ set.expandtab = true -- Expand <Tab> to spaces
 set.shiftwidth = 2 -- Indents (`>>`, `<<`, etc) inserts this much width
 set.softtabstop = 2 -- Sets the number of columns for a <Tab>
 set.tabstop = 2 -- The width of <Tab>
+
+-- Special chars
+opt.fillchars:append({ diff = " " })

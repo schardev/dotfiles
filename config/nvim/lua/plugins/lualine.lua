@@ -110,11 +110,12 @@ return {
           {
             components.format_status,
             color = function()
+              local format_on_save = vim.g.format_on_save
+                and vim.b.format_on_save
+
               return {
-                bg = not vim.b.format_on_save
-                  and get_color("NeogitDiffDelete", "bg"),
-                fg = not vim.b.format_on_save
-                  and get_color("NeogitDiffDelete", "fg"),
+                bg = not format_on_save and get_color("NeogitDiffDelete", "bg"),
+                fg = not format_on_save and get_color("NeogitDiffDelete", "fg"),
               }
             end,
             on_click = function()

@@ -69,6 +69,9 @@ map("n", "L", "<cmd>bnext<cr>")
 map("n", "H", "<cmd>bprevious<cr>")
 map("n", "<leader>qw", "<cmd>bdelete<cr>")
 
+-- Tab management
+map("n", "<leader>qt", "<cmd>tabclose<cr>")
+
 -- Don't put text in register on delete char
 map({ "n", "v" }, "x", '"_x')
 

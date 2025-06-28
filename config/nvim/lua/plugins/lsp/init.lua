@@ -7,6 +7,7 @@ return {
       local lsp_diagnostics = require("plugins.lsp.diagnostics")
       local lsp_autocmds = require("plugins.lsp.autocmds")
       local lsp_mappings = require("plugins.lsp.mappings")
+      local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
 
       -- Update capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -27,6 +28,13 @@ return {
           lsp_mappings.attach(args)
         end,
       })
+
+      -- enable servers
+      vim.schedule(function()
+        for _, server in pairs(lsp_servers) do
+          vim.lsp.enable(server)
+        end
+      end)
     end,
   },
 
@@ -52,7 +60,7 @@ return {
     config = function()
       local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
       require("mason-lspconfig").setup({
-        automatic_enable = lsp_servers,
+        automatic_enable = false,
         ensure_installed = lsp_servers,
       })
     end,

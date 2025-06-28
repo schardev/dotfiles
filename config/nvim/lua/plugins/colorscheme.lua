@@ -1,4 +1,5 @@
 return {
+  ---@module "catppuccin"
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -18,6 +19,7 @@ return {
       },
 
       integrations = {
+        diffview = true,
         fidget = true,
         leap = true,
         lsp_trouble = true,

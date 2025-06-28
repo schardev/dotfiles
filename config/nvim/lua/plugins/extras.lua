@@ -10,12 +10,6 @@ return {
   -- Undo tree
   { "mbbill/undotree", cmd = "UndotreeToggle" },
 
-  -- Git plugin
-  {
-    "tpope/vim-fugitive",
-    cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull", "G" },
-  },
-
   -- Surrounding stuff efficiently
   {
     "kylechui/nvim-surround",
