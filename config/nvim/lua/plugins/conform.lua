@@ -46,11 +46,7 @@ return {
         scope = "locally"
       end
 
-      if not ref.format_on_save then
-        ref.format_on_save = true
-      else
-        ref.format_on_save = false
-      end
+      ref.format_on_save = not ref.format_on_save
 
       vim.notify(
         string.format(

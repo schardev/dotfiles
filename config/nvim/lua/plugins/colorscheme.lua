@@ -25,6 +25,7 @@ return {
         lsp_trouble = true,
         mason = true,
         neotest = true,
+        octo = true,
         telescope = { enabled = true, style = "nvchad" },
         which_key = true,
       },

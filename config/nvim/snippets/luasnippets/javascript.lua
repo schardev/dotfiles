@@ -1,6 +1,20 @@
 ---@diagnostic disable: undefined-global
 local utils = require("core.utils").string_utils
 
+local import_name_node = function(args, prefix, suffix)
+  local specifier = args[1][1]
+  local import = utils.to_pascal_case(utils.basename(specifier))
+  local nodes = {}
+  if prefix then
+    table.insert(nodes, t(prefix))
+  end
+  table.insert(nodes, i(1, import))
+  if suffix then
+    table.insert(nodes, t(suffix))
+  end
+  return sn(nil, nodes)
+end
+
 return {
   -- c-style for loop
   s(
@@ -29,13 +43,13 @@ return {
     { trig = "import", name = "Import Name" },
     fmt('import {} from "{}";', {
       c(2, {
+        d(nil, import_name_node, { 1 }),
         d(nil, function(args)
-          local specifier = args[1][1]
-          local import = utils.to_pascal_case(utils.basename(specifier))
-          return sn(nil, { i(1, import) })
+          return import_name_node(args, "{ ", " }")
         end, { 1 }),
-        sn(nil, { t("{ "), i(1, "named import"), t(" }") }),
-        sn(nil, { t("* as "), i(1, "namespace import") }),
+        d(nil, function(args)
+          return import_name_node(args, "* as ")
+        end, { 1 }),
       }),
       i(1, "specifier"),
     })

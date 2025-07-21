@@ -32,7 +32,7 @@ github = 'zsh-users/zsh-history-substring-search'
 # Better (customisable) syntax highlighting for ZSH
 [plugins.fast-syntax-highlighting]
 github = 'zdharma-continuum/fast-syntax-highlighting'
-apply = ["defer"]
+# apply = ["defer"] # defering causes issues with `forward-word`
 
 # ZSH plugin that reminds you to use existing aliases
 [plugins.zsh-you-should-use]

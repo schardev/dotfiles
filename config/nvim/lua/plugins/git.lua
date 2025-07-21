@@ -1,8 +1,29 @@
 ---@type LazySpec
 return {
   {
-    "tpope/vim-fugitive",
-    cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull", "G" },
+    "NeogitOrg/neogit",
+    cmd = "Neogit",
+    keys = { { "<leader>gn", "<cmd>Neogit<cr>", desc = "Open Neogit" } },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
+
+  ---@module "octo"
+  {
+    "pwntester/octo.nvim",
+    cmd = "Octo",
+    keys = { { "<leader>go", "<cmd>Octo<cr>", desc = "Open Octo" } },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    ---@type OctoConfig
+    ---@diagnostic disable-next-line: missing-fields
+    opts = { enable_builtin = true },
   },
 
   ---@module "diffview"

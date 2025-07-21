@@ -2,8 +2,8 @@
 export ZDOTDIR=$HOME/.config/zsh
 
 # Set lang
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
+export LC_ALL=en_IN.UTF-8
+export LANG=en_IN.UTF-8
 
 case "$OSTYPE" in
     darwin*) export IS_MAC=true ;;
