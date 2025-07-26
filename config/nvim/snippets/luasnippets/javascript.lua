@@ -3,7 +3,7 @@ local utils = require("core.utils").string_utils
 
 local import_name_node = function(args, prefix, suffix)
   local specifier = args[1][1]
-  local import = utils.to_pascal_case(utils.basename(specifier))
+  local import = utils.to_pascal_case(vim.fs.basename(specifier))
   local nodes = {}
   if prefix then
     table.insert(nodes, t(prefix))

@@ -1,6 +1,8 @@
 local icons = require("core.icons")
+---@type LazySpec
 return {
   "goolord/alpha-nvim",
+  enabled = false,
   event = "VimEnter",
   config = function()
     local alpha = require("alpha")

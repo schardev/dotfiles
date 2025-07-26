@@ -17,7 +17,7 @@ return {
       -- TODO: disabled until this gets fixed https://github.com/L3MON4D3/LuaSnip/issues/503
       -- update_events = { "TextChanged", "TextChangedI" },
       delete_check_events = { "TextChanged", "TextChangedI" },
-      store_selection_keys = "s",
+      cut_selection_keys = "s",
       ext_opts = {
         [require("luasnip.util.types").choiceNode] = {
           active = {

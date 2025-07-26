@@ -67,7 +67,7 @@ map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 -- Buffer management
 map("n", "L", "<cmd>bnext<cr>")
 map("n", "H", "<cmd>bprevious<cr>")
-map("n", "<leader>qw", "<cmd>bdelete<cr>")
+map("n", "<leader>bd", "<cmd>bdelete<cr>")
 
 -- Tab management
 map("n", "<leader>qt", "<cmd>tabclose<cr>")

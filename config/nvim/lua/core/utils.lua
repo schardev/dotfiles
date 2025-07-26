@@ -101,15 +101,10 @@ local function to_pascal_case(str)
   return str:gsub("%W*(%w+)", capitalize)
 end
 
-local function basename(str)
-  return str:gsub("(.*)/(.*)", "%2")
-end
-
 M.string_utils = {
   capitalize = capitalize,
   to_camel_case = to_camel_case,
   to_pascal_case = to_pascal_case,
-  basename = basename,
 }
 
 return M
