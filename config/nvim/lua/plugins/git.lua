@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  ---@module "neogit"
   {
     "NeogitOrg/neogit",
     cmd = "Neogit",
@@ -8,6 +9,10 @@ return {
       "nvim-lua/plenary.nvim",
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
+    },
+    ---@type NeogitConfig
+    opts = {
+      disable_context_highlighting = true,
     },
   },
 

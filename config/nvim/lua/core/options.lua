@@ -40,8 +40,9 @@ set.showmode = false
 set.scrolloff = 5
 set.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
--- Splits windows to the right by default
+-- Splits windows to the right and bottom by default
 set.splitright = true
+set.splitbelow = true
 
 -- Don't highlight stuff that's longer than 200 columns
 set.synmaxcol = 200

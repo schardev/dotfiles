@@ -16,7 +16,7 @@ return {
     ui = {
       split_direction = "horizontal",
       scratchpad_default_contents = {
-        "GET https://httpbin.org/get HTTP/1.1",
+        "GET http://localhost:3000/ HTTP/1.1",
         "Accept: application/json",
         "Content-Type: application/json",
       },

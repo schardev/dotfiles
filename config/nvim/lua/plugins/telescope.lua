@@ -46,7 +46,7 @@ return {
       builtin.find_files({ cwd = "$DOTS_DIR" })
     end, "Find Files in $DOTS_DIR")
     map("n", "<Leader>fR", function()
-      builtin.find_files({ cwd = "~/dev/http-requests", default_text = "http " })
+      builtin.find_files({ cwd = "~/dev/http-requests", default_text = "http$" })
     end, "Find request files in ~/dev/http-requests")
 
     -- Telescope base config

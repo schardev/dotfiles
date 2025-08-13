@@ -45,12 +45,13 @@ local function on_exit(out)
 
   if out.code == 0 then
     vim.notify("TypeScript compilation successful!")
+    vim.fn.setqflist({}, "r") -- clear qf
   else
-    vim.notify("TypeScript compilation failed!")
+    vim.notify("TypeScript compilation failed!", vim.log.levels.ERROR)
     local quickfix_entries = get_qf_from_errors(out.stdout)
     if #quickfix_entries > 0 then
       vim.schedule(function()
-        vim.fn.setqflist(quickfix_entries)
+        vim.fn.setqflist(quickfix_entries, "r")
         -- vim.cmd("copen") -- Open the quickfix list
       end)
     end
@@ -64,11 +65,14 @@ local function compile()
     vim.print("TS compilation already in process at " .. tsc_process_cwd)
   else
     tsc_process_cwd = current_directory
-    vim.system(
-      { pkg_manager, "tsc", "--noEmit" },
-      { text = true },
-      vim.schedule_wrap(on_exit)
-    )
+    local cmd = { pkg_manager, "tsc", "--noEmit", "--pretty", "false" }
+
+    -- use `tsgo` if exists
+    if vim.fn.executable("tsgo") == 1 then
+      cmd = { "tsgo", "--noEmit", "--pretty", "false" }
+    end
+
+    vim.system(cmd, { text = true }, vim.schedule_wrap(on_exit))
   end
 end
 

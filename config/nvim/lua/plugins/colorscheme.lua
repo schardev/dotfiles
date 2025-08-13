@@ -1,12 +1,15 @@
+---@type LazySpec
 return {
   ---@module "catppuccin"
   {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
+    commit = "6d0d9ae",
     ---@type CatppuccinOptions
     opts = {
       no_italic = true,
+      float = { solid = true, transparent = false },
 
       -- use lighter color for comments so that I can actually *see* them
       highlight_overrides = {
