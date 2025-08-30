@@ -30,6 +30,7 @@ return {
     local cmp_kind_icons = require("core.icons").lspkind
 
     local cmp_source_names = {
+      copilot = "[Copilot]",
       buffer = "[Buffer]",
       nvim_lsp = "[LSP]",
       luasnip = "[LuaSnip]",
@@ -39,6 +40,7 @@ return {
     }
 
     local common_sources = {
+      { name = "copilot" },
       { name = "buffer", max_item_count = 10 },
       { name = "calc" },
       { name = "path" },
@@ -183,7 +185,6 @@ return {
 
     cmp.setup.filetype("gitcommit", {
       sources = cmp.config.sources({
-        { name = "copilot" },
         { name = "git" },
       }, common_sources),
     })

@@ -3,11 +3,11 @@ return {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
-    ft = { "gitcommit" },
+    event = "InsertEnter",
     opts = {
       suggestion = { enabled = false },
       panel = { enabled = false },
-      filetypes = { gitcommit = true },
+      filetypes = { gitcommit = true, ["*"] = false },
     },
   },
 
@@ -43,7 +43,7 @@ return {
         chat = {
           roles = {
             ---The header name for the LLM's messages
-            ---@type string|fun(adapter: CodeCompanion.Adapter): string
+            ---@type string|fun(adapter: CodeCompanion.HTTPAdapter|CodeCompanion.ACPAdapter): string
             llm = function(adapter)
               return ("%s (%s)"):format(
                 adapter.formatted_name,
