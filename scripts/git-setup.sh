@@ -3,9 +3,12 @@
 # SPDX-License-Identifier: MIT
 #
 # Copyright (C) 2017-2020 Nathan Chancellor
-# Copyright (C) 2020-2021 Saurabh Charde <saurabhchardereal@gmail.com>
+# Copyright (C) 2020-2025 Saurabh Charde <saurabhchardereal@gmail.com>
 #
 # git functions
+
+DOTS_DIR="$(dirname "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")")"
+source "$DOTS_DIR"/scripts/utils.sh
 
 GPG_KEY=5B8A4DC9B94B1C64599A961F5CACE763EF81E4D1
 
@@ -17,30 +20,38 @@ gpg_key_usable() {
 
 # Main gpg setup
 gpg_setup() {
-    if ! gpg_key_usable; then
-        # clone keys repo and import (if not already)
-        if ! [ -d "${HOME}/.keys" ]; then
-            trap 'rm -rf ${HOME}/.keys' EXIT
-            git clone https://github.com/schardev/keys "${HOME}"/.keys
-            gpg --import "${HOME}"/.keys/{private,public}-key.gpg
-        fi
+    gpg_key_usable && return
 
-        # shellcheck disable=SC2016
-        [[ -n $BASH ]] && printf 'export GPG_TTY=$(tty)\n' >>"${HOME}"/.bashrc
+    pr_info "Setting up GPG"
 
-        # cache gpg credential
-        printf 'default-cache-ttl 604800\nmax-cache-ttl 2419200\n' >"${HOME}"/.gnupg/gpg-agent.conf
-
-        # enable signing commits
-        git config --global commit.gpgsign true
-        git config --global user.signkey ${GPG_KEY}
+    # clone keys repo and import (if not already)
+    if ! [[ -d "${HOME}/.keys" ]]; then
+        trap 'rm -rf ${HOME}/.keys' EXIT
+        gh repo clone schardev/keys "${HOME}"/.keys
+        gpg --import "${HOME}"/.keys/{private,public}-key.gpg
     fi
+
+    # shellcheck disable=SC2016
+    [[ -n $BASH ]] && printf 'export GPG_TTY=$(tty)\n' >>"${HOME}"/.bashrc
+
+    # cache gpg credential
+    printf 'default-cache-ttl 604800\nmax-cache-ttl 2419200\n' >"${HOME}"/.gnupg/gpg-agent.conf
+
+    # enable signing commits
+    git config --global commit.gpgsign true
+    git config --global user.signkey ${GPG_KEY}
+
+    pr_succ "GPG setup complete"
 }
 
 # Set git aliases
 git_aliases() { (
     gpg_key_usable && GPG_SIGN=" --gpg-sign"
     # SIGNOFF=" --signoff"
+
+    pr_info "Setting up git aliases"
+    pr_info "GPG signing: $([[ -n $GPG_SIGN ]] && echo 'enabled' || echo 'disabled')"
+    pr_info "Sign-off: $([[ -n $SIGNOFF ]] && echo 'enabled' || echo 'disabled')"
 
     git config --global alias.aa 'add --all'
     git config --global alias.ac "commit ${GPG_SIGN} --all ${SIGNOFF} --verbose"          # add and commit
@@ -117,6 +128,8 @@ git_aliases() { (
 ); }
 
 git_plugins() {
+    pr_info "Setting up git plugins"
+
     # https://github.com/dandavison/delta
     if command -v delta &>/dev/null; then
         # delta config
@@ -128,6 +141,8 @@ git_plugins() {
         git config --global delta.tabs 4
         git config --global include.path "${XDG_CONFIG_HOME:-$HOME/.config}/delta/themes.gitconfig"
         git config --global interactive.diffFilter "delta --color-only"
+    else
+        pr_err "delta not installed, skipping delta setup"
     fi
 
     if command -v git-fuzzy &>/dev/null; then
@@ -135,11 +150,32 @@ git_plugins() {
         git config --global alias.fd 'fuzzy diff'
         git config --global alias.fs 'fuzzy status'
         git config --global alias.fl 'fuzzy log'
+    else
+        pr_err "git-fuzzy not installed, skipping git-fuzzy setup"
     fi
 }
 
-# Initial git config setup
+gh_setup() {
+    if ! command -v gh &>/dev/null; then
+        pr_err "gh (GitHub CLI) not installed, skipping gh setup"
+        return
+    fi
+
+    pr_info "Setting up gh (GitHub CLI)"
+    gh config set editor "${EDITOR:-nvim}"
+    gh config set git_protocol ssh # protocol to use when cloning and pushing repos
+
+    if ! gh auth status &>/dev/null; then
+        pr_info "Authenticating GitHub CLI..."
+        gh auth login
+    fi
+    pr_succ "gh (Github CLI) setup complete"
+}
+
+# main setup
 git_setup() { (
+    header "Setting up git and gh (GitHub CLI)"
+
     git config --global user.name "Saurabh Charde"
     git config --global user.email "saurabhchardereal@gmail.com"
 
@@ -156,7 +192,10 @@ git_setup() { (
     git config --global push.autoSetupRemote true # auto set upstream on push
     git config --global push.followTags true      # sync tags with remote
 
+    gh_setup
     gpg_setup
     git_aliases
     git_plugins
+
+    pr_succ "git and gh (GitHub CLI) setup complete"
 ); }
