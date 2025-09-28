@@ -5,18 +5,19 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    commit = "6d0d9ae",
+    -- commit = "6d0d9ae",
     ---@type CatppuccinOptions
     opts = {
       no_italic = true,
       float = { solid = true, transparent = false },
 
-      -- use lighter color for comments so that I can actually *see* them
       highlight_overrides = {
         mocha = function(colors)
           return {
             WinSeparator = { fg = colors.overlay1 },
             Folded = { bg = colors.surface0 },
+            ["@variable.member"] = { fg = colors.lavender },
+            ["@property"] = { fg = colors.lavender },
           }
         end,
       },

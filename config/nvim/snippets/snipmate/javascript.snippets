@@ -43,13 +43,13 @@ snippet new "Constructor"
 
 snippet switch "Switch Statement"
 	switch (${1:key}) {
-		case ${2:value}:
+		case ${2:value}: {
 			$3
 			break;
-
-		default:
-			$0
-			break;
+    }
+		default: {
+			$4
+    }
 	}
 
 snippet while "While Statement"
