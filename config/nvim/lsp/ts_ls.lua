@@ -1,4 +1,5 @@
-vim.lsp.config("ts_ls", {
+---@type vim.lsp.Config
+return {
   -- https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
   settings = {
     typescript = {
@@ -13,4 +14,4 @@ vim.lsp.config("ts_ls", {
       },
     },
   },
-})
+}

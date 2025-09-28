@@ -1,4 +1,5 @@
-vim.lsp.config("tailwindcss", {
+---@type vim.lsp.Config
+return {
   root_dir = function(bufnr, on_dir)
     local util = require("lspconfig.util")
     local root_files = {
@@ -34,4 +35,4 @@ vim.lsp.config("tailwindcss", {
       },
     },
   },
-})
+}

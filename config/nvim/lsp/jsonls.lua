@@ -1,4 +1,5 @@
-vim.lsp.config("jsonls", {
+---@type vim.lsp.Config
+return {
   -- https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server#settings
   settings = {
     json = {
@@ -6,4 +7,4 @@ vim.lsp.config("jsonls", {
       schemas = require("schemastore").json.schemas(),
     },
   },
-})
+}

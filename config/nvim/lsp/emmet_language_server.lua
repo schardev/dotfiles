@@ -1,4 +1,5 @@
-vim.lsp.config("emmet_language_server", {
+---@type vim.lsp.Config
+return {
   filetypes = {
     "html",
     "javascriptreact",
@@ -26,4 +27,4 @@ vim.lsp.config("emmet_language_server", {
       },
     },
   },
-})
+}
