@@ -107,4 +107,17 @@ M.string_utils = {
   to_pascal_case = to_pascal_case,
 }
 
+--- Gets the current node package manager
+function M.get_package_manager()
+  local package_root = vim.fs.root(0, "package.json")
+
+  if vim.uv.fs_stat(vim.fs.joinpath(package_root, "package-lock.json")) then
+    return "npm"
+  elseif vim.uv.fs_stat(vim.fs.joinpath(package_root, "yarn.lock")) then
+    return "yarn"
+  else
+    return "pnpm"
+  end
+end
+
 return M

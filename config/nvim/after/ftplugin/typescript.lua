@@ -1,87 +1,18 @@
 -- Source javascript ftplugin
 vim.cmd("runtime! ftplugin/javascript.lua")
 
----@type string|nil
-local tsc_process_cwd = nil
+-- set compiler
+local pkg_manager = require("core.utils").get_package_manager()
+local tsc_cmd = "tsc"
 
---- Gets the current node package manager
-local function get_package_manager()
-  local git_root = vim.fs.root(0, ".git")
-
-  if vim.uv.fs_stat(vim.fs.joinpath(git_root, "package-lock.json")) then
-    return "npm"
-  elseif vim.uv.fs_stat(vim.fs.joinpath(git_root, "yarn.lock")) then
-    return "yarn"
-  else
-    return "pnpm"
-  end
+-- use `tsgo` as makeprg if exists
+if vim.fn.executable("tsgo") == 1 then
+  tsc_cmd = "tsgo"
 end
 
----@param output string
-local function get_qf_from_errors(output)
-  local quickfix_entries = {}
-  local lines = vim.split(output, "\n", { trimempty = true })
-
-  for _, line in ipairs(lines) do
-    local filename, lnum, col, msg =
-      string.match(line, "(.+)%((%d+),(%d+)%):%s*error%s*(.*)")
-    if filename then
-      table.insert(quickfix_entries, {
-        filename = filename,
-        lnum = tonumber(lnum),
-        col = tonumber(col),
-        text = msg,
-        type = "E",
-      })
-    end
-  end
-
-  return quickfix_entries
-end
-
----@param out vim.SystemCompleted
-local function on_exit(out)
-  tsc_process_cwd = nil
-
-  if out.code == 0 then
-    vim.notify("TypeScript compilation successful!")
-    vim.fn.setqflist({}, "r") -- clear qf
-  else
-    vim.notify("TypeScript compilation failed!", vim.log.levels.ERROR)
-    local quickfix_entries = get_qf_from_errors(out.stdout)
-    if #quickfix_entries > 0 then
-      vim.schedule(function()
-        vim.fn.setqflist(quickfix_entries, "r")
-        -- vim.cmd("copen") -- Open the quickfix list
-      end)
-    end
-  end
-end
-
-local function compile()
-  local pkg_manager = get_package_manager()
-  local current_directory = vim.fn.getcwd()
-  if tsc_process_cwd == current_directory then
-    vim.print("TS compilation already in process at " .. tsc_process_cwd)
-  else
-    tsc_process_cwd = current_directory
-    local cmd = { pkg_manager, "tsc", "--noEmit", "--pretty", "false" }
-
-    -- use `tsgo` if exists
-    if vim.fn.executable("tsgo") == 1 then
-      cmd = { "tsgo", "--noEmit", "--pretty", "false" }
-    end
-
-    vim.system(cmd, { text = true }, vim.schedule_wrap(on_exit))
-  end
-end
-
-vim.keymap.set(
-  "n",
-  "<F5>",
-  compile,
-  { buffer = true, desc = "Compile using TS" }
-)
+-- `:help compiler-tsc`
+vim.b.tsc_makeprg = table.concat({ pkg_manager, tsc_cmd, "--noEmit" }, " ")
+vim.cmd.compiler("tsc")
 
 -- Surround
 local installed, surround = pcall(require, "nvim-surround")

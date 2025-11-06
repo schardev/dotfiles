@@ -22,7 +22,7 @@ return {
       end,
 
       tabs = function()
-        return not vim.bo.expandtab
+        return true
       end,
     }
 
@@ -32,7 +32,8 @@ return {
       end,
 
       tabs = function()
-        return "[T:" .. vim.bo.tabstop .. "]"
+        local is_space = vim.bo.expandtab
+        return (is_space and "[S:" or "[T:") .. vim.bo.tabstop .. "]"
       end,
     }
 

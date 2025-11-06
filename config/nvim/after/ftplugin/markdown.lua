@@ -1,3 +1,5 @@
+vim.opt_local.iskeyword:append({ "'" })
+
 local installed, surround = pcall(require, "nvim-surround")
 
 if installed then

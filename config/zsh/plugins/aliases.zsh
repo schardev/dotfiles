@@ -49,6 +49,7 @@ if [[ -z $IS_TERMUX ]]; then
     alias clean-cache='paccache -rvk2 && paccache -ruk0'
     alias update-mirrorlist='sudo reflector --sort rate --latest 50 -p https --download-timeout 5 -c "India,Singapore,Sweden,Bangladesh, " --save /etc/pacman.d/mirrorlist'
     alias open='xdg-open'
+    alias trash='gio trash'
 
     # Repeat last command with sudo
     alias fuck='sudo $(fc -ln -1)'

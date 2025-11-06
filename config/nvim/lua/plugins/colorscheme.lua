@@ -16,8 +16,7 @@ return {
           return {
             WinSeparator = { fg = colors.overlay1 },
             Folded = { bg = colors.surface0 },
-            ["@variable.member"] = { fg = colors.lavender },
-            ["@property"] = { fg = colors.lavender },
+            -- FloatBorder = { fg = colors.overlay1 },
           }
         end,
       },
@@ -33,7 +32,7 @@ return {
         nvim_surround = false,
         octo = true,
         snacks = { enabled = true },
-        telescope = { enabled = true, style = "nvchad" },
+        telescope = { enabled = true },
         which_key = true,
       },
     },

@@ -175,6 +175,9 @@ map("n", "<leader>th", function()
   vim.w.whitespace_highlight = not vim.w.whitespace_highlight
 end, "Toggle whitespace highlighting")
 
+-- Async make
+map("n", "<F5>", require("core.async_make").make, "Async :make")
+
 --- Few mappings I stole from @akinsho :)
 ---@see https://github.com/akinsho/dotfiles/blob/main/.config/nvim/
 

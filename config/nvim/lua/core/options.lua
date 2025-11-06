@@ -38,6 +38,7 @@ set.showmode = false
 
 -- Scroll offset
 set.scrolloff = 5
+set.spelllang = "en_us"
 set.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 -- Splits windows to the right and bottom by default
