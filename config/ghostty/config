@@ -1,0 +1,9 @@
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+
+theme = Catppuccin Mocha
+font-family = JetBrainsMonoNL Nerd Font
+font-size = 13.5
+window-padding-x = 8
+cursor-style = bar
+mouse-hide-while-typing = true
