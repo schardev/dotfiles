@@ -9,14 +9,6 @@ return {
       local lsp_mappings = require("plugins.lsp.mappings")
       local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
 
-      -- Update capabilities
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend(
-        "force",
-        capabilities,
-        require("cmp_nvim_lsp").default_capabilities()
-      )
-
       -- Setup diagnostics config
       lsp_diagnostics.setup()
 
@@ -39,6 +31,7 @@ return {
   },
 
   -- LSP, Formatters, DAP installer
+  ---@module 'mason.nvim'
   {
     "mason-org/mason.nvim",
     build = ":MasonUpdate",
