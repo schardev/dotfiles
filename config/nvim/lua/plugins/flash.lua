@@ -5,20 +5,20 @@ return {
   keys = {
     {
       "s",
-      mode = { "n", "o" },
+      mode = { "n" },
       function()
         require("flash").jump()
       end,
       desc = "Flash",
     },
-    -- {
-    --   "S",
-    --   mode = { "n", "x", "o" },
-    --   function()
-    --     require("flash").treesitter()
-    --   end,
-    --   desc = "Flash Treesitter",
-    -- },
+    {
+      "S",
+      mode = { "n", "o" },
+      function()
+        require("flash").treesitter()
+      end,
+      desc = "Flash Treesitter",
+    },
     {
       "R",
       mode = { "o", "x" },
