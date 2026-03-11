@@ -52,7 +52,7 @@ if [[ -z $IS_TERMUX ]]; then
     alias trash='gio trash'
 
     # Repeat last command with sudo
-    alias fuck='sudo $(fc -ln -1)'
+    alias pls='sudo $(fc -ln -1)' # please
 else
     alias open='termux-open'
 fi
