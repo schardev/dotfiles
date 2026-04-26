@@ -61,11 +61,10 @@ return {
       })
 
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = vim.tbl_extend(
-          "keep",
-          enabled_parsers,
-          { "typescriptreact", "jsonc" }
-        ),
+        pattern = vim.list_extend(vim.deepcopy(enabled_parsers), {
+          "typescriptreact",
+          "jsonc",
+        }),
         callback = function()
           vim.treesitter.start()
           vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
