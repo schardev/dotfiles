@@ -1,9 +1,11 @@
+---@type LazySpec
 return {
   -- indent/scope highlighting
+  ---@module 'indent_blankline'
   "lukas-reineke/indent-blankline.nvim",
-  dependencies = { "nvim-treesitter" },
   event = { "BufReadPost", "BufNewFile" },
   main = "ibl",
+  ---@type ibl.config
   opts = {
     -- char list for different indentation level
     indent = {

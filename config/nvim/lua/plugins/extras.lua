@@ -10,13 +10,6 @@ return {
   -- Undo tree
   { "mbbill/undotree", cmd = "UndotreeToggle" },
 
-  -- Surrounding stuff efficiently
-  {
-    "kylechui/nvim-surround",
-    event = { "BufReadPost", "BufNewFile" },
-    config = true,
-  },
-
   -- Rainbow brackets
   {
     "HiPhish/rainbow-delimiters.nvim",

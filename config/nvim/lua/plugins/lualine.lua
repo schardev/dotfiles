@@ -54,7 +54,11 @@ return {
 
             -- Table of diagnostic sources, available sources are:
             --   'nvim_lsp', 'nvim_diagnostic', 'coc', 'ale', 'vim_lsp'.
-            sources = { "nvim_lsp" },
+            sources = {
+              "nvim_diagnostic",
+              "nvim_lsp",
+              -- "nvim_workspace_diagnostic",
+            },
 
             -- Displays diagnostics for the defined severity types
             sections = { "error", "warn", "info", "hint" },

@@ -106,10 +106,10 @@ local diagnostic_goto = function(next, severity)
   end
 end
 
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), "Next Error")
+map("n", "[e", diagnostic_goto(false, "ERROR"), "Prev Error")
+map("n", "]w", diagnostic_goto(true, "WARN"), "Next Warning")
+map("n", "[w", diagnostic_goto(false, "WARN"), "Prev Warning")
 
 -- Make <Esc> to actually escape from terminal mode
 map("t", "<Esc>", "<C-\\><C-n>")

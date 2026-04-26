@@ -20,6 +20,7 @@ return {
       )
     )
   end,
+  ---@type lspconfig.settings.tailwindcss
   settings = {
     tailwindCSS = {
       experimental = {

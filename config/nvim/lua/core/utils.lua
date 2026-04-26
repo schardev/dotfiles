@@ -35,35 +35,32 @@ end
 
 --- Open the current file/word under cursor in vim if it exists else open it via xdg_open
 function M.open()
-  local file = vim.fn.expand("<cfile>")
-  if file:match("https?://") then
-    return vim.ui.open(file)
-  end
+  local urls = {} ---@type string[]
+  urls = vim.list_extend(urls, require("vim.ui")._get_urls())
 
-  if vim.fn.filereadable(vim.fn.expand(file)) > 0 then
-    return vim.cmd("edit " .. file)
-  end
-
-  -- consider anything that looks like string/string a github link
-  local plugin_url_regex = "[%a%d%-%.%_]*%/[%a%d%-%.%_]*"
-  local link = string.match(file, plugin_url_regex)
-  if link then
-    return vim.ui.open(string.format("https://www.github.com/%s", link))
-  end
-
-  -- fallback to system open
-  local _, err = vim.ui.open(file)
-  if err then
-    vim.notify(err, vim.log.levels.ERROR)
+  for _, value in ipairs(urls) do
+    -- consider anything that looks like string/string a github link
+    local plugin_url_regex = "^[%a%d][%a%d%-]*/[%w][%w%-%._]*$"
+    local link = string.match(value, plugin_url_regex)
+    if link then
+      vim.ui.open(string.format("https://www.github.com/%s", link))
+    elseif vim.fn.filereadable(vim.fn.expand(value)) > 0 then
+      vim.cmd("edit " .. value)
+    else
+      local _, err = vim.ui.open(value)
+      if err then
+        vim.notify(err, vim.log.levels.ERROR)
+      end
+    end
   end
 end
 
 --- Get language from the current cursor position
 function M.get_lang_from_cursor_pos()
-  local has_parser, parser = pcall(vim.treesitter.get_parser)
+  local parser = vim.treesitter.get_parser()
 
   -- If no parser is found then just return the current filetype instead of failing
-  if not has_parser then
+  if not parser then
     return vim.bo.filetype
   end
 

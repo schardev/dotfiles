@@ -5,7 +5,8 @@ local process_cwd = nil
 
 function M.make()
   local makeprg = vim.bo.makeprg
-  if not makeprg then
+  if not makeprg or makeprg == "" then
+    vim.notify("No `makeprg` configured!", vim.log.levels.ERROR)
     return
   end
 

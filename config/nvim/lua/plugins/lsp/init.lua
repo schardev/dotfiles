@@ -31,7 +31,7 @@ return {
   },
 
   -- LSP, Formatters, DAP installer
-  ---@module 'mason.nvim'
+  ---@module 'mason'
   {
     "mason-org/mason.nvim",
     build = ":MasonUpdate",
@@ -76,12 +76,15 @@ return {
   },
 
   -- Neovim API completions
+  ---@module "lazydev"
   {
     "folke/lazydev.nvim",
     ft = "lua",
     opts = {
+      ---@type lazydev.Library.spec[]
       library = {
         { path = "luvit-meta/library", words = { "vim%.uv" } },
+        { path = "nvim-lspconfig", words = { "lspconfig" } },
         "lazy.nvim",
       },
     },

@@ -43,13 +43,6 @@ M.attach = function(args)
 
   map(
     "n",
-    "grt",
-    vim.lsp.buf.type_definition,
-    { buffer = bufnr, desc = "LSP: Go to type definition" }
-  )
-
-  map(
-    "n",
     "grr",
     "<cmd>Telescope lsp_references<cr>",
     { buffer = bufnr, desc = "LSP: Go to references" }
@@ -65,6 +58,18 @@ M.attach = function(args)
         vim.log.levels.INFO
       )
     end, "LSP: Toggle inlay hints")
+  end
+
+  if client:supports_method(methods.textDocument_codeLens) then
+    map("n", "<leader>te", function()
+      local is_enabled = vim.lsp.codelens.is_enabled({ bufnr = bufnr })
+      vim.lsp.codelens.enable(not is_enabled)
+
+      vim.notify(
+        string.format("%s codelens", (is_enabled and "Disabled" or "Enabled")),
+        vim.log.levels.INFO
+      )
+    end, "LSP: Toggle codelens")
   end
 
   if client.name == "ts_ls" or client.name == "vtsls" then

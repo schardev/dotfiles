@@ -12,7 +12,7 @@ local is_jsx_node = function()
 end
 
 local source_priority = {
-  snippets = 4,
+  snippets = 3,
   lsp = 3,
   path = 2,
   buffer = 1,
@@ -29,16 +29,22 @@ return {
     "Kaiser-Yang/blink-cmp-git",
     "ribru17/blink-cmp-spell",
     "alexandre-abrioux/blink-cmp-npm.nvim",
+    "fang2hou/blink-copilot",
   },
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    keymap = { preset = "default", ["<CR>"] = { "accept", "fallback" } },
+    cmdline = { enabled = false },
+    keymap = {
+      preset = "default",
+      ["<C-Space>"] = { "show", "hide", "fallback" },
+      ["<CR>"] = { "accept", "fallback" },
+    },
     completion = {
       list = {
         selection = {
-          preselect = true,
+          preselect = false,
           auto_insert = function()
             -- https://github.com/typescript-language-server/typescript-language-server/issues/917#issuecomment-2379364927
             return not vim.tbl_contains(
@@ -73,10 +79,11 @@ return {
       },
     },
     snippets = { preset = "luasnip" },
-    signature = { enabled = true, trigger = { enabled = false } },
+    -- signature = { enabled = true, trigger = { enabled = false } },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
       sorts = {
+        -- Sort based on source priority
         -- https://github.com/saghen/blink.cmp/issues/1098#issuecomment-2679295335
         function(a, b)
           local a_priority = source_priority[a.source_id]
@@ -91,12 +98,12 @@ return {
       },
     },
     sources = {
-      default = { "snippets", "lsp", "spell", "buffer", "path" },
+      default = { "copilot", "snippets", "lsp", "spell", "buffer", "path" },
       per_filetype = {
         lua = { inherit_defaults = true, "lazydev" },
         gitcommit = { "git", "spell", "buffer", "path" },
         octo = { "git", "spell", "buffer", "path" },
-        json = { "npm", "path" },
+        json = { "lsp", "npm", "path" },
         markdown = { "buffer", "spell", "path" },
       },
       providers = {
@@ -131,6 +138,7 @@ return {
             return ctx.trigger.initial_kind ~= "trigger_character"
           end,
         },
+        buffer = { min_keyword_length = 1, max_items = 10 },
         spell = {
           name = "Spell",
           module = "blink-cmp-spell",
@@ -139,8 +147,8 @@ return {
             -- Only enable source in `@spell` captures, and disable it in
             -- `@nospell` captures.
             enable_in_context = function()
-              local has_parser = pcall(vim.treesitter.get_parser)
-              if not has_parser then
+              local parser = vim.treesitter.get_parser()
+              if not parser then
                 return true
               end
 
@@ -183,9 +191,13 @@ return {
           module = "lazydev.integrations.blink",
           score_offset = 100,
         },
+        copilot = {
+          name = "copilot",
+          module = "blink-copilot",
+          score_offset = 100,
+          async = true,
+        },
       },
     },
   },
-
-  opts_extend = { "sources.default" },
 }

@@ -35,7 +35,15 @@ function M.setup()
 
   -- Global diagnostic config
   vim.diagnostic.config({
-    jump = { float = true },
+    jump = {
+      on_jump = function(_, bufnr)
+        vim.diagnostic.open_float({
+          bufnr = bufnr,
+          scope = "cursor",
+          focus = false,
+        })
+      end,
+    },
     signs = signs,
     virtual_text = { source = "if_many", prefix = diagnostics_prefix },
     float = {
