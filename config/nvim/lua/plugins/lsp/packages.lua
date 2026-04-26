@@ -19,10 +19,10 @@ M.get_lsp_servers = function()
     "taplo",
   }
 
-  if env.NVIM_USER_USE_TS_GO_LS then
-    table.insert(servers, "tsgo")
-  else
+  if env.NVIM_USER_USE_TSSERVER then
     table.insert(servers, "vtsls")
+  else
+    table.insert(servers, "tsgo")
   end
 
   return servers

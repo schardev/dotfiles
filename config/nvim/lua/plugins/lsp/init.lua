@@ -70,8 +70,7 @@ return {
     },
     dependencies = { "nvim-lspconfig" },
     enabled = function()
-      local env = require("core.env")
-      return not env.NVIM_USER_USE_TS_GO_LS
+      return require("core.env").NVIM_USER_USE_TSSERVER
     end,
   },
 
