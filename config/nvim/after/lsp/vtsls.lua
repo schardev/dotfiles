@@ -1,4 +1,4 @@
-local tsgo_config = vim.lsp.config.tsgo.settings
+local tsc_config = vim.lsp.config.tsc.settings
 
 ---@type lspconfig.settings.vtsls
 local vtsls_config = {
@@ -22,7 +22,7 @@ local vtsls_config = {
 -- https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
 ---@type vim.lsp.Config
 return {
-  settings = vim.tbl_extend("force", tsgo_config, {
+  settings = vim.tbl_extend("force", tsc_config, {
     vtsls = vtsls_config,
   }),
 }

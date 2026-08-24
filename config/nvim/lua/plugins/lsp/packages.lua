@@ -22,7 +22,7 @@ M.get_lsp_servers = function()
   if env.NVIM_USER_USE_TSSERVER then
     table.insert(servers, "vtsls")
   else
-    table.insert(servers, "tsgo")
+    table.insert(servers, "tsc")
   end
 
   return servers
