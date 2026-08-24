@@ -38,13 +38,13 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export GPG_TTY=$TTY
 
 # PATH
-# (N-/): do not register if the directory does not exists (credit @akinsho)
+# (N/): do not register if the directory does not exists
 path=(
-    "$PNPM_HOME" # Prepending pnpm bin directory to pick up specific node versions from there
+    "$PNPM_HOME"/bin # Prepending pnpm bin directory to pick up specific node versions from there
     "${path[@]}"
-    "$CONFIG_DIR"/bin(N-/)
-    "$XDG_DATA_HOME"/npm-global/bin(N-/)
-    "$HOME"/.local/bin(N-/)
+    "$CONFIG_DIR"/bin(N/)
+    "$XDG_DATA_HOME"/npm-global/bin(N/)
+    "$HOME"/.local/bin(N/)
 )
 
 # remove duplicate entries from $PATH
