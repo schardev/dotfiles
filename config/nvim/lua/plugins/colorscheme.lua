@@ -21,19 +21,9 @@ return {
         end,
       },
 
+      auto_integrations = true,
       integrations = {
-        diffview = true,
-        fidget = true,
-        grug_far = true,
-        leap = true,
-        lsp_trouble = true,
-        mason = true,
-        neotest = true,
         nvim_surround = false,
-        octo = true,
-        snacks = { enabled = true },
-        telescope = { enabled = true },
-        which_key = true,
       },
     },
     config = function(_, opts)

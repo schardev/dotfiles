@@ -51,10 +51,12 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason-org/mason.nvim" },
     config = function()
-      local lsp_servers = require("plugins.lsp.packages").get_lsp_servers()
+      local mason_packages =
+        require("plugins.lsp.packages").get_mason_packages()
+
       require("mason-lspconfig").setup({
         automatic_enable = false,
-        ensure_installed = lsp_servers,
+        ensure_installed = mason_packages,
       })
     end,
   },

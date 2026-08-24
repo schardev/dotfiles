@@ -8,7 +8,7 @@ return {
     { "<leader>tn", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
     {
       "<leader>nf",
-      "<cmd>NvimTreeFindFileToggle<cr>",
+      "<cmd>NvimTreeFindFile<cr>",
       desc = "Open current file tree in NvimTree",
     },
   },

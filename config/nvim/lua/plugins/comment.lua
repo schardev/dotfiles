@@ -1,5 +1,8 @@
+---@type LazySpec
 return {
-  "numToStr/Comment.nvim",
+  -- "numToStr/Comment.nvim",
+  "neovim-plugins/comment.nvim",
+  enabled = true,
   keys = {
     "gcc",
     "gbc",

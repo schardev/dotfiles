@@ -28,9 +28,15 @@ M.get_lsp_servers = function()
   return servers
 end
 
-M.formatters = {
-  -- "eslint_d",
-  "prettierd",
-}
+M.get_mason_packages = function()
+  local lsp_servers = M.get_lsp_servers()
+  return vim.tbl_filter(function(server)
+    if server == "tsc" then
+      return false
+    end
+
+    return true
+  end, lsp_servers)
+end
 
 return M

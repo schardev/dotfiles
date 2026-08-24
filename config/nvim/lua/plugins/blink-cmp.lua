@@ -38,6 +38,7 @@ return {
     cmdline = { enabled = false },
     keymap = {
       preset = "default",
+      ["<C-n>"] = { "select_next", "show" },
       ["<C-Space>"] = { "show", "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
     },
@@ -64,11 +65,19 @@ return {
           components = {
             source = {
               width = { max = 30 },
-              text = function(ctx)
-                local source = ctx.source_name
-                return source ~= "" and string.format("(%s)", source) or nil
-              end,
               highlight = "BlinkCmpSource",
+              text = function(ctx)
+                local verbose = vim.go.verbose == 1
+                local source_name = ctx.source_name
+                local client_name = ctx.item.client_name
+                return source_name ~= ""
+                    and string.format(
+                      verbose and "(%s:%s)" or "(%s)",
+                      source_name,
+                      verbose and client_name or nil
+                    )
+                  or nil
+              end,
             },
           },
         },
@@ -85,6 +94,9 @@ return {
       sorts = {
         -- Sort based on source priority
         -- https://github.com/saghen/blink.cmp/issues/1098#issuecomment-2679295335
+        -- TODO:
+        -- * try `imp` in tsx files to see sorting issue
+        -- * try emmet snippet
         function(a, b)
           local a_priority = source_priority[a.source_id]
           local b_priority = source_priority[b.source_id]
@@ -101,10 +113,10 @@ return {
       default = { "copilot", "snippets", "lsp", "spell", "buffer", "path" },
       per_filetype = {
         lua = { inherit_defaults = true, "lazydev" },
-        gitcommit = { "git", "spell", "buffer", "path" },
+        gitcommit = { "lsp", "git", "spell", "buffer", "path" },
         octo = { "git", "spell", "buffer", "path" },
         json = { "lsp", "npm", "path" },
-        markdown = { "buffer", "spell", "path" },
+        markdown = { "buffer", "spell", "snippets", "path" },
       },
       providers = {
         lsp = {
