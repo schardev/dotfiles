@@ -9,6 +9,7 @@ end
 local is_jsx_node = function()
   local node = vim.treesitter.get_node()
   return node and (node:type() == "jsx_element" or node:type() == "jsx_text")
+    or false
 end
 
 local source_priority = {
@@ -18,6 +19,16 @@ local source_priority = {
   buffer = 1,
   spell = 0,
 }
+
+---@param item blink.cmp.CompletionItem
+---@param is_inside_jsx boolean
+local function item_priority(item, is_inside_jsx)
+  -- To rank emmet snippets always higher than any completion item inside JSX nodes
+  if is_inside_jsx and is_emmet_snippet(item) then
+    return source_priority.snippets + 1
+  end
+  return source_priority[item.source_id]
+end
 
 ---@type LazySpec
 return {
@@ -91,23 +102,25 @@ return {
     -- signature = { enabled = true, trigger = { enabled = false } },
     fuzzy = {
       implementation = "prefer_rust_with_warning",
-      sorts = {
-        -- Sort based on source priority
-        -- https://github.com/saghen/blink.cmp/issues/1098#issuecomment-2679295335
-        -- TODO:
-        -- * try `imp` in tsx files to see sorting issue
-        -- * try emmet snippet
-        function(a, b)
-          local a_priority = source_priority[a.source_id]
-          local b_priority = source_priority[b.source_id]
-          if a_priority and b_priority and a_priority ~= b_priority then
-            return a_priority > b_priority
-          end
-        end,
-        -- defaults
-        "score",
-        "sort_text",
-      },
+      ---@diagnostic disable-next-line: assign-type-mismatch -- blink type issue
+      sorts = function()
+        local is_inside_jsx = is_jsx_node()
+
+        return {
+          -- Sort based on source priority
+          -- https://github.com/saghen/blink.cmp/issues/1098#issuecomment-2679295335
+          function(a, b)
+            local a_priority = item_priority(a, is_inside_jsx)
+            local b_priority = item_priority(b, is_inside_jsx)
+            if a_priority and b_priority and a_priority ~= b_priority then
+              return a_priority > b_priority
+            end
+          end,
+          -- defaults
+          "score",
+          "sort_text",
+        }
+      end,
     },
     sources = {
       default = { "copilot", "snippets", "lsp", "spell", "buffer", "path" },
