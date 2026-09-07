@@ -11,7 +11,7 @@ function M.make()
   end
 
   local lines = { "" }
-  local cmd = vim.fn.expandcmd(vim.bo.makeprg)
+  local cmd = vim.fn.expandcmd(makeprg)
   local errorformat = vim.bo.errorformat
 
   ---@param err string|nil
@@ -43,7 +43,11 @@ function M.make()
 
   if process_cwd == current_directory then
     vim.notify(
-      "Compilation already in process at " .. process_cwd,
+      string.format(
+        "Compilation already in process at %s with makeprg `%s`",
+        process_cwd,
+        makeprg
+      ),
       vim.log.levels.WARN
     )
   else
