@@ -18,14 +18,14 @@ M.attach = function(args)
   if client:supports_method(methods.textDocument_documentHighlight) then
     autocmd({ "CursorHold", "CursorHoldI" }, {
       group = highlight_augroup_id,
-      buffer = bufnr,
+      buf = bufnr,
       callback = vim.lsp.buf.document_highlight,
       desc = "Highlights symbol under cursor",
     })
 
     autocmd("CursorMoved", {
       group = highlight_augroup_id,
-      buffer = bufnr,
+      buf = bufnr,
       callback = vim.lsp.buf.clear_references,
       desc = "Clears symbol highlighting under cursor",
     })
@@ -36,7 +36,7 @@ M.attach = function(args)
         vim.lsp.buf.clear_references()
         vim.api.nvim_clear_autocmds({
           group = highlight_augroup_id,
-          buffer = e.buf,
+          buf = e.buf,
         })
       end,
     })

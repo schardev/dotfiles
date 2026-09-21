@@ -7,7 +7,7 @@ return {
     keys = { { "<leader>gn", "<cmd>Neogit<cr>", desc = "Open Neogit" } },
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "sindrets/diffview.nvim",
+      "dlyongemallo/diffview-plus.nvim",
       "nvim-telescope/telescope.nvim",
     },
     ---@type NeogitConfig
@@ -33,7 +33,7 @@ return {
 
   ---@module "diffview"
   {
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview-plus.nvim",
     keys = {
       { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
       {
@@ -42,8 +42,7 @@ return {
         desc = "Open file history",
       },
     },
-    ---@type DiffviewConfig
-    ---@diagnostic disable-next-line: missing-fields
+    ---@type DiffviewConfig.user
     opts = {
       view = {
         default = {

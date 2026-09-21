@@ -2,50 +2,54 @@ local M = {}
 local map = require("core.utils").map
 local methods = vim.lsp.protocol.Methods
 
----@param args vim.api.keyset.create_autocmd.callback_args
-M.attach = function(args)
-  local client = vim.lsp.get_client_by_id(args.data.client_id)
+---@param e vim.api.keyset.create_autocmd.callback_args
+M.attach = function(e)
+  local client = vim.lsp.get_client_by_id(e.data.client_id)
   if not client then
     return
   end
 
-  local bufnr = args.buf
+  local bufnr = e.buf
   local lsp_utils = require("plugins.lsp.utils")
+
+  map("n", "K", function()
+    vim.lsp.buf.hover({ border = "rounded" })
+  end, { buf = bufnr, desc = "LSP: Hover" })
 
   map(
     "n",
     "<localleader>wa",
     vim.lsp.buf.add_workspace_folder,
-    { buffer = bufnr, desc = "LSP: Add workspace folder" }
+    { buf = bufnr, desc = "LSP: Add workspace folder" }
   )
   map(
     "n",
     "<localleader>wr",
     vim.lsp.buf.remove_workspace_folder,
-    { buffer = bufnr, desc = "LSP: Remove workspace folder" }
+    { buf = bufnr, desc = "LSP: Remove workspace folder" }
   )
   map("n", "<localleader>wl", function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, { buffer = bufnr, desc = "LSP: Print workspace folders" })
+  end, { buf = bufnr, desc = "LSP: Print workspace folders" })
 
   map(
     "n",
     "gD",
     vim.lsp.buf.declaration,
-    { buffer = bufnr, desc = "LSP: Go to declaration" }
+    { buf = bufnr, desc = "LSP: Go to declaration" }
   )
   map(
     "n",
     "gd",
     vim.lsp.buf.definition,
-    { buffer = bufnr, desc = "LSP: Go to definition" }
+    { buf = bufnr, desc = "LSP: Go to definition" }
   )
 
   map(
     "n",
     "grr",
     "<cmd>Telescope lsp_references<cr>",
-    { buffer = bufnr, desc = "LSP: Go to references" }
+    { buf = bufnr, desc = "LSP: Go to references" }
   )
 
   if client:supports_method(methods.textDocument_inlayHint) then
@@ -79,31 +83,31 @@ M.attach = function(args)
       "n",
       "<localleader>oi",
       ts_mappings.organize_imports,
-      { buffer = bufnr, desc = "LSP: Organize Imports" }
+      { buf = bufnr, desc = "LSP: Organize Imports" }
     )
     map(
       "n",
       "<localleader>rf",
       ts_mappings.rename_file,
-      { buffer = bufnr, desc = "LSP: Rename File" }
+      { buf = bufnr, desc = "LSP: Rename File" }
     )
     map(
       "n",
       "<localleader>gd",
       ts_mappings.go_to_source_definition,
-      { buffer = bufnr, desc = "LSP: Go To Source Definition" }
+      { buf = bufnr, desc = "LSP: Go To Source Definition" }
     )
     map(
       "n",
       "<localleader>mi",
       ts_mappings.add_missing_imports,
-      { buffer = bufnr, desc = "LSP: Add Missing Imports" }
+      { buf = bufnr, desc = "LSP: Add Missing Imports" }
     )
     map(
       "n",
       "<localleader>ru",
       ts_mappings.remove_unused_imports,
-      { buffer = bufnr, desc = "LSP: Remove Unused" }
+      { buf = bufnr, desc = "LSP: Remove Unused" }
     )
   end
 end

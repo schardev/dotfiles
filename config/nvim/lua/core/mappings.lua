@@ -221,7 +221,7 @@ function Setup_CR()
     "n",
     "<Enter>",
     [[:nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z]],
-    { buffer = true }
+    { buf = 0 }
   )
 end
 vim.g.mc = [[y/\V<C-r>=escape(@", '/')<CR><CR>]]

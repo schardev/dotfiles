@@ -26,7 +26,7 @@ set.smartcase = true
 set.laststatus = 3
 
 -- Don't redrawn while executing macros
-set.lazyredraw = true
+-- set.lazyredraw = true
 
 -- Show relative line numbers
 set.number = true

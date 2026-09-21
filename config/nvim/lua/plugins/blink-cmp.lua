@@ -23,7 +23,7 @@ local source_priority = {
 ---@param item blink.cmp.CompletionItem
 ---@param is_inside_jsx boolean
 local function item_priority(item, is_inside_jsx)
-  -- To rank emmet snippets always higher than any completion item inside JSX nodes
+  -- Rank emmet snippets always higher than any completion item inside JSX nodes
   if is_inside_jsx and is_emmet_snippet(item) then
     return source_priority.snippets + 1
   end
