@@ -131,7 +131,6 @@ return {
               query = "@parameter.inner",
               desc = "Swap next paramater",
             },
-            -- defined in after/queries/ecma/textobjects.scm
             ["]t"] = {
               query = "@user.ternary.inner",
               desc = "Swap next ternary",
@@ -150,6 +149,10 @@ return {
         },
         move = {
           goto_next_start = {
+            ["]r"] = {
+              query = "@user.jsx_component.outer",
+              desc = "Next JSX component",
+            },
             ["]f"] = {
               query = "@function.outer",
               desc = "Next function start",
@@ -160,6 +163,10 @@ return {
             },
           },
           goto_previous_start = {
+            ["[r"] = {
+              query = "@user.jsx_component.outer",
+              desc = "Previous JSX component",
+            },
             ["[f"] = {
               query = "@function.outer",
               desc = "Previous function start",
