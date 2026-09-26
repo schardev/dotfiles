@@ -21,7 +21,13 @@ return {
         end,
       })
 
-      -- enable servers
+      -- LSP user commands
+      vim.api.nvim_create_user_command("LspLog", function()
+        local log_path = vim.lsp.log.get_filename()
+        vim.cmd("edit " .. log_path)
+      end, { desc = "LSP: Show LSP log" })
+
+      -- Enable servers
       vim.schedule(function()
         for _, server in pairs(lsp_servers) do
           vim.lsp.enable(server)
